@@ -1,2 +1,2 @@
 
-Copyright (C) 2023 Thomas Goillot
+Copyright (C) 2023 Cooked Master
