@@ -1,0 +1,26 @@
+// 
+// _card.scss
+// 
+
+.card {
+    margin-bottom: $grid-gutter-width;
+    box-shadow: $box-shadow;
+}
+
+.card-animate {
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        transform: translateY(-.3rem);
+    }
+}
+
+.card-title {
+    font-size: 15px;
+    position: relative;
+}
+
+.card-subtitle {
+    color: $gray-600;
+    font-size: 13px;
+}

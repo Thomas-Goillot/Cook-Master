@@ -1,0 +1,14 @@
+// 
+// _background.scss
+// 
+
+// Soft Background
+@mixin bg-variant-soft($bg) {
+  background-color: rgba($bg, 0.18) !important;
+}
+
+@each $color, $value in $theme-colors {
+  .bg-soft-#{$color} {
+      @include bg-variant-soft($value);
+  }
+}
