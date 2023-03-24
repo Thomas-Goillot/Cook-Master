@@ -1,6 +1,15 @@
 <?php 
-$page = 'Home';
+
+use App\Views\View;
+
+
 include_once('config/const.php');
-include_once('View/template/base.php');
+
+$view = new View('dashboard', 'Dashboard');
+
+$view->generate();
+
+
+
 
 ?>
