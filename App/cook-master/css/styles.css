@@ -7956,7 +7956,7 @@ textarea.form-control-lg {
 
 .text-black-50 {
   --bs-text-opacity: 1;
-  color: rgba(0, 0, 0, 0.5) !important;
+  color: rgba(0, 0, 0) !important;
 }
 
 .text-white-50 {
@@ -11701,6 +11701,7 @@ body {
 button.btn.btn-primary.btn-account {
     background-color: transparent;
     border: none;
+    color: black;
 }
 
 .modal-backdrop.fade.show {
@@ -11784,8 +11785,12 @@ button.btn-account {
 }
 
 
-button#submitButton:hover {
+button.btn.btn-primary:hover {
   background-color: #FF7373;
+}
+
+a:hover{
+  color: #FF7373;
 }
 
 a.btn.btn-primary:hover {
@@ -11794,4 +11799,22 @@ a.btn.btn-primary:hover {
 
 .card.py-4.h-100 {
   border-bottom: solid 5px #9E1B21;
+}
+
+
+
+button.close {
+  background-color: transparent;
+  border: none;
+}
+
+.modal-body.reserv {
+  text-align: left;
+}
+label.labelpower {
+  margin: 10px;
+}
+
+.modal-footer.reserv {
+  justify-content: center!important;
 }

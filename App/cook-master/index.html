@@ -27,7 +27,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Réserver</a></li>
+                        <li class="nav-item"><a class="nav-link" href="event.html">Évenement</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -171,7 +171,106 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Cook Master</h1>
-                        <a class="btn btn-primary" href="#about">Réserve</a>
+
+
+
+
+
+
+                        <button class="btn btn-primary" data-bs-target="#myModal_reservation" data-bs-toggle="modal">
+                          Réserver
+                        </button>
+
+
+
+                        <div class="container">
+                          <!-- Le Modal -->
+                            <div class="modal fade" id="myModal_reservation">
+                        
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <!-- Modal En-tête -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Réserver</h4>
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>  
+                        <!-- Modal corps -->
+                                    <div class="modal-body reserv">
+                                        <!-- <?php 
+                                            if(isset($_GET['messageAjoutReservation']) && !empty($_GET['messageAjoutReservation'])){ -->
+                        
+                                            <!-- <script>
+                                                    $(document).ready(function(){
+                                                    $("#myModal_reservation").modal("show");
+                                                    });
+                                                    </script> -->
+                                
+                                                <!-- echo '<div class="alert alert-danger themessage1 messagebeau" role="alert">' . htmlspecialchars($_GET['messageAjoutReservation']) . '</div>'; -->
+                                            <!-- } -->
+                                            <!-- if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+                                                echo '<div>Merci de vous connecter afin d\'effectuer une réserveration.</div>';
+                                            }else{ -->
+                                                <!-- echo ' -->
+                                                <div class="signup-form">
+                                        <form action="verif_reservation.php" method="POST">
+                                            <div class="form-group col-md-12">
+                                            <label class="labelpower" >Choisissez une date</label>
+                                            <input type="date" class="form-control defou1" name="date" placeholder="Date" required>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                        <label class="labelpower" >Choisissez un horaire</label>
+                                        <select class="form-control  defou1" name="time">
+                                        <option>12:00 - 12:15</option>
+                                        <option>12:30 - 12:45</option>
+                                        <option>12:45 - 13:00</option>
+                                        <option>13:15 - 13:30</option>
+                                        <option>13:45 - 14:00</option>
+                                        <option>19:00 - 19:15</option>
+                                        <option>19:30 - 19:45</option>
+                                        <option>20:00 - 20:15</option>
+                                        <option>20:30 - 20:45</option>
+                                        <option>21:00 - 21:15</option>
+                                        </select>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                            <label class="labelpower" >Nombre d'invités</label>
+                                            <input type="number" class="form-control defou1" min="1" name="guests" placeholder="Nombre d\'invités" required>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                            <label class="labelpower" >Rajouter un commentaire</label>
+                                                <textarea class="form-control defou1" name="comment" placeholder="Commentaire (dîner romantique, déjeuner d'affaires ...) 200 caractères maximum" rows="3"></textarea>
+                                            </div>       
+                                            <!-- <div class="form-group col-md-12">
+                                            <button type="submit" name="reserv-submit" class="btn btn-dark btn-lg btn-block resev-button">Réserver</button>
+                                            </div> -->
+                                        </form>
+                                    </div>
+                                            
+
+                        
+                                
+                        
+                                        <!-- Modal bas-de-page -->
+                                        <div class="modal-footer reserv">
+                                          <button type="submit" name="reserv-submit" class="btn btn-dark btn-lg btn-block resev-button">Réserver</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        </div>
+                        
+
+
+
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
