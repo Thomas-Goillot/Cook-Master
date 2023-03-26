@@ -4,7 +4,7 @@
 
         <div class="navbar-brand-box">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo-dark.png" />
+                <img src="../assets/images/logo-dark.png" />
             </a>
         </div>
 

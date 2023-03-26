@@ -1,15 +1,11 @@
-<?php 
+<?php
 
-use App\Views\View;
+require_once('config/const.php');
 
+require_once(ROOT.'app/Model.php');
+require_once(ROOT.'app/Controller.php');
+require_once(ROOT.'app/Router.php');
 
-include_once('config/const.php');
+$params = explode('/', $_GET['p']);
 
-$view = new View('dashboard', 'Dashboard');
-
-$view->generate();
-
-
-
-
-?>
+new Router($params);
