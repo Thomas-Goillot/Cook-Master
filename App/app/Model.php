@@ -1,4 +1,10 @@
 <?php
+
+namespace App;
+
+use PDO;
+use PDOException;
+
 abstract class Model{
     /**
      * Host name

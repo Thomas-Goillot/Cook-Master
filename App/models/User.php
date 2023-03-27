@@ -1,4 +1,10 @@
 <?php
+
+namespace Models;
+
+use PDO;
+use App\Model;
+
 class User extends Model
 {
     /**

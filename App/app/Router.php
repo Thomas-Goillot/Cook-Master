@@ -1,13 +1,20 @@
 <?php 
 
+namespace App;
+
+use Controllers\Main;
+
 class Router {
     public function __construct($params){
+
+        $params = explode('/', $params);
+
         if ($params[0] != "") {
             $controller = ucfirst($params[0]);
 
             $action = isset($params[1]) ? $params[1] : 'index';
 
-            require_once(ROOT . 'controllers/' . $controller . '.php');
+            $controller = "Controllers\\".$controller;
 
             $controller = new $controller();
 
@@ -20,7 +27,6 @@ class Router {
                 echo "La page recherchée n'existe pas";
             }
         } else {
-            require_once(ROOT . 'controllers/Main.php');
 
             $controller = new Main();
 

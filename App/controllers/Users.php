@@ -1,4 +1,7 @@
 <?php
+namespace Controllers;
+
+use App\Controller;
 
 class Users extends Controller{
 
@@ -11,7 +14,7 @@ class Users extends Controller{
 
         $this->loadModel('User');
 
-        $profil = $this->User->getAll();
+        $profil = $this->_model->getAll();
 
         $page_name = "Profil";
 

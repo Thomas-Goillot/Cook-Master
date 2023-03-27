@@ -1,11 +1,9 @@
 <?php
 
 require_once('config/const.php');
+require('vendor/autoload.php');
 
-require_once(ROOT.'app/Model.php');
-require_once(ROOT.'app/Controller.php');
-require_once(ROOT.'app/Router.php');
+use App\Router;
 
-$params = explode('/', $_GET['p']);
+new Router($_GET['p']);
 
-new Router($params);
