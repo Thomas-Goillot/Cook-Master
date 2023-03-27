@@ -1,18 +1,26 @@
 {
-    "name": "thoma/web",
-    "description": "Cooked Master's Web App",
-    "authors": [
-        {
-            "name": "Thomas",
-            "email": "222teegee@gmail.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Controllers\\": "../WEB/Controllers/",
-            "Models\\": "../WEB/Models/"
-        }
+  "name": "thoma/web",
+  "description": "Cooked Master's Web App",
+  "authors": [
+    {
+      "name": "Thomas G.",
+      "email": "thomadgllt@gmail.com"
+    },
+    {
+      "name": "Jiullian F.",
+      "email": "jiullian77470@gmail.com"
+    },
+    {
+      "name": "Théo B.",
+      "email": "theo.berquer05@gmail.com"
     }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Controllers\\": "../WEB/Controllers/",
+      "Models\\": "../WEB/Models/"
+    }
+  }
 }
