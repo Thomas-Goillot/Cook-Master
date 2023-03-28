@@ -7,7 +7,7 @@ use App\Controller;
 class Main extends Controller{
 
     public function index(){
-        echo "test";
+        $this->render('main/index', ['title' => 'Accueil']);
     }
 
 }

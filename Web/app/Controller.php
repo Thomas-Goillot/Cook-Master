@@ -37,30 +37,6 @@ abstract class Controller{
         require_once(ROOT.'views/layout/default.php');
     }
 
-
-    /**
-     * Render a view 
-     * @param string $fichier
-     * @param array $data
-     * @return void
-     */
-    public function render_other(string $fichier, array $data = []):void{
-        extract($data);
-
-        ob_start();
-
-        $path = ROOT . 'views/' . $fichier . '.php';
-
-        if (file_exists($path)) {
-            require_once($path);
-        } else {
-            echo "Le fichier $path n'existe pas";
-        }
-        $content = ob_get_clean();
-
-        require_once(ROOT.'views/layout/other.php');
-    }
-
     /**
      * Load a model
      *
