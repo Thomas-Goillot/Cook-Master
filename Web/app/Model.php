@@ -3,32 +3,34 @@
 namespace App;
 
 use PDO;
+use App\Utils;
 use PDOException;
 
-abstract class Model{
+abstract class Model extends Utils{
+    
     /**
      * Host name
      * @var string
      */
-    private string $host = "localhost";
+    private string $host = 'sportplus.ddns.net';
 
     /**
      * Database name
      * @var string
      */
-    private string $db_name = "cookmaster_dev";
+    private string $db_name = "cookedmaster_dev";
 
     /**
      * Username to database
      * @var string
      */
-    private string $username = "root";
+    private string $username = "cookedmaster_dev";
 
     /**
      * Password to database
      * @var string
      */
-    private string $password = "root";
+    private string $password = "lk994jQZaAIDsggS";
 
     /**
      * Connexion to database
@@ -44,6 +46,7 @@ abstract class Model{
      */
     public string $table;
 
+
     /**
      * Connexion to database
      *
@@ -51,6 +54,9 @@ abstract class Model{
      */
     public function getConnection(){
         $this->_connexion = null;
+
+        $this->getEnv();
+        $this->setEnv();        
 
         try{
             $this->_connexion = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
@@ -71,4 +77,13 @@ abstract class Model{
         $query->execute();
         return $query->fetchAll();    
     }
+
+    private function setEnv()
+    {
+        $this->host = $this->env['DB_HOST'];
+        $this->db_name = $this->env['DB_NAME'];
+        $this->username = $this->env['DB_NAME'];
+        $this->password = $this->env['DB_PASS'];
+    }
+
 }

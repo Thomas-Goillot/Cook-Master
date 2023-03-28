@@ -2,7 +2,9 @@
 
 namespace App;
 
-abstract class Controller{
+use App\Utils;
+
+abstract class Controller extends Utils{
 
     /**
      * Will contain the model
