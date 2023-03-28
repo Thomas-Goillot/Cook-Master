@@ -1,4 +1,5 @@
 <?php
+
 namespace Controllers;
 
 use App\Controller;
@@ -34,7 +35,6 @@ class Users extends Controller{
 
         $this->render('users/login', compact('page_name'));
     }
-    
 
     /**
      * Display the user register page

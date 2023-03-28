@@ -12,25 +12,25 @@ abstract class Model extends Utils{
      * Host name
      * @var string
      */
-    private string $host = 'sportplus.ddns.net';
+    private string $host;
 
     /**
      * Database name
      * @var string
      */
-    private string $db_name = "cookedmaster_dev";
+    private string $db_name;
 
     /**
      * Username to database
      * @var string
      */
-    private string $username = "cookedmaster_dev";
+    private string $username;
 
     /**
      * Password to database
      * @var string
      */
-    private string $password = "lk994jQZaAIDsggS";
+    private string $password;
 
     /**
      * Connexion to database
