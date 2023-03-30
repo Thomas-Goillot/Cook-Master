@@ -3,7 +3,7 @@
 
 <head>
 
-    <?php include_once('head.php');?>
+    <?= $head ?>
 
 </head>
 
@@ -11,21 +11,27 @@
 
     <div id="layout-wrapper">
 
-        <?php include_once('sidebar.php'); ?>
+        <?= $sidebar ?>
 
-        <?php include_once('header.php'); ?>
+        <?= $header ?>
 
         <div class="main-content">
 
-            <?= $content ?>
+            <div class="page-content">
+                <div class="container-fluid">
 
-            <?php include_once('footer.php')?>
+                    <?= $content ?>
+
+                </div>
+            </div>
+
+            <?= $footer ?>
 
         </div>
 
     </div>
 
-    <?php include_once('script.php') ?>
+    <?= $script ?>
 
 </body>
 

@@ -1,6 +1,6 @@
 <?php
 // Path to the root of the project
-define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
+define('ROOT', str_replace('index.php', '', $_SERVER['DOCUMENT_ROOT']));
 
 // Application name
 define('APPNAME', 'Cooked Master');

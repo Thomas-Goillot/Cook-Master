@@ -3,7 +3,7 @@
     <div data-simplebar class="h-100">
 
         <div class="navbar-brand-box">
-            <a href="index.html" class="logo">
+            <a href="<?= ROOT?>" class="logo">
                 <img src="../assets/images/logo-dark.png" />
             </a>
         </div>

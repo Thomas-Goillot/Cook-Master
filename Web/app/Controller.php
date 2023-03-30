@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Utils;
+use Exception;
 
 abstract class Controller extends Utils{
 
@@ -22,21 +23,33 @@ abstract class Controller extends Utils{
      * @return void
      */
     public function render(string $fichier, array $data = []): void{
-        extract($data);
+        $head = $this->generateFile('views/layout/head.php', $data);
+        $sidebar = $this->generateFile('views/layout/sidebar.php', $data);
+        $header = $this->generateFile('views/layout/header.php', $data);
+        $content = $this->generateFile('views/' . $fichier . '.php', $data);
+        $footer = $this->generateFile('views/layout/footer.php', $data);
+        $script = $this->generateFile('views/layout/script.php', $data);
+        $view = $this->generateFile('views/layout/default.php', array('head' => $head, 'sidebar' => $sidebar, 'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
+        echo $view;
+    }
 
-        ob_start();
-
-        $path = ROOT . 'views/' . $fichier . '.php';
-
-        if(file_exists($path)){
-            require_once($path);
-        }else{
-            echo "Le fichier $path n'existe pas";
+    /**
+     * Generate a file
+     *
+     * @param string $file
+     * @param array $data
+     * @return string
+     */
+    private function generateFile(string $file, array $data): string
+    {
+        if (file_exists($file)) {
+            extract($data);
+            ob_start();
+            require $file;
+            return ob_get_clean();
+        } else {
+            throw new Exception('Fichier ' . $file . ' introuvable');
         }
-
-        $content = ob_get_clean();
-
-        require_once(ROOT.'views/layout/default.php');
     }
 
     /**
