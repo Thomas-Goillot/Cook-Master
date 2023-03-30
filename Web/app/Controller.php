@@ -22,14 +22,48 @@ abstract class Controller extends Utils{
      * @param array $data
      * @return void
      */
-    public function render(string $fichier, array $data = []): void{
-        $head = $this->generateFile('views/layout/head.php', $data);
-        $sidebar = $this->generateFile('views/layout/sidebar.php', $data);
-        $header = $this->generateFile('views/layout/header.php', $data);
+    public function render(string $fichier, array $data = [], string $type): void{
+
+        if($type == DASHBOARD){
+            $this->renderDashboard($fichier, $data);
+        }else{
+            $this->renderOthers($fichier, $data);
+        }
+        
+    }    
+
+    /**
+     * Render a view for dashboard
+     *
+     * @param string $fichier
+     * @param array $data
+     * @return void
+     */
+    private function renderDashboard(string $fichier, array $data = []): void{
+
+        $head = $this->generateFile('views/layout/dashboard/head.php', $data);
+        $sidebar = $this->generateFile('views/layout/dashboard/sidebar.php', $data);
+        $header = $this->generateFile('views/layout/dashboard/header.php', $data);
         $content = $this->generateFile('views/' . $fichier . '.php', $data);
-        $footer = $this->generateFile('views/layout/footer.php', $data);
-        $script = $this->generateFile('views/layout/script.php', $data);
-        $view = $this->generateFile('views/layout/default.php', array('head' => $head, 'sidebar' => $sidebar, 'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
+        $footer = $this->generateFile('views/layout/dashboard/footer.php', $data);
+        $script = $this->generateFile('views/layout/dashboard/script.php', $data);
+        $view = $this->generateFile('views/layout/dashboard/default.php', array('head' => $head, 'sidebar' => $sidebar, 'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
+        echo $view;
+    }
+
+    /**
+     * Render a view for others
+     *
+     * @param string $fichier
+     * @param array $data
+     * @return void
+     */
+    private function renderOthers(string $fichier, array $data = []): void{
+
+        $head = $this->generateFile('views/layout/others/head.php', $data);
+        $content = $this->generateFile('views/' . $fichier . '.php', $data);
+        $script = $this->generateFile('views/layout/others/script.php', $data);
+        $view = $this->generateFile('views/layout/others/default.php', array('head' => $head, 'content' => $content, 'script' => $script));
         echo $view;
     }
 

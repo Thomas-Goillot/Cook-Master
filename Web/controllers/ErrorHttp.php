@@ -11,7 +11,7 @@ class ErrorHttp extends Controller{
         
         $page_name = "Error $error_code";
 
-        $this->render('error/error', compact('page_name', 'error_code'));
+        $this->render('error/error', compact('page_name', 'error_code'), OTHERS);
     }
 
 }

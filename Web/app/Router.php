@@ -12,8 +12,6 @@ class Router
 
         $params = explode('/', $params);
 
-        var_dump($params);
-
         if ($params[0] != "") {
 
 
