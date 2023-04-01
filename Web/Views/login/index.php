@@ -8,17 +8,22 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center mb-4 mt-3">
-                                        <a href="index.html">
-                                            <span><img src="../assets/images/logo-dark.png" alt="" height="26"></span>
+                                        <a href="home">
+                                            <span><img src="<?= $path_prefix ?><?= LOGO_SVG ?>" alt="" height="150"></span>
                                         </a>
                                     </div>
-                                    <form action="checklogin" method="POST" class="p-2">
+                                    <?php
+                                    if (isset($error) && !empty($error)) {
+                                        echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
+                                    }
+                                    ?>
+                                    <form action="login" method="POST" class="p-2">
                                         <div class="form-group">
                                             <label for="email">Email address</label>
                                             <input class="form-control" type="email" id="email" name="email" required="" placeholder="john@deo.com">
                                         </div>
                                         <div class="form-group">
-                                            <a href="forgotpassword" class="text-muted float-right">Forgot your password?</a>
+                                            <a href="resetting/password" class="text-muted float-right">Forgot your password?</a>
                                             <label for="password">Password</label>
                                             <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password">
                                         </div>

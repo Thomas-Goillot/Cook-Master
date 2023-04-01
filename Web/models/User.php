@@ -4,6 +4,7 @@ namespace Models;
 
 use PDO;
 use App\Model;
+use PDOException;
 
 class User extends Model
 {
@@ -20,11 +21,11 @@ class User extends Model
     /**
      * Get user info by id
      * @param int $id
-     * @return array
+     * @return array|bool
      */
-    public function getInfo(int $id): array
+    public function getInfo(int $id)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date FROM " . $this->table . " WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -40,21 +41,26 @@ class User extends Model
      * @param string $email
      * @return bool
      */
-    public function checkUserExist(string $email): bool
+    public function checkUserExist(string $email):bool
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE email = :email";
+        try{
+            $query = "SELECT id_users FROM " . $this->table . " WHERE email = :email";
 
-        $stmt = $this->_connexion->prepare($query);
+            $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":email", $email);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        if ($stmt->rowCount() == 0) {
+            if ($stmt->rowCount() == 0) {
+                return false;
+            }
+
+            return true;
+        }
+        catch (PDOException $e){
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -63,21 +69,56 @@ class User extends Model
      * @param string $password
      * @return array|bool
      */
-    public function checklogin(string $email, string $password):array{
-        $query = "SELECT * FROM " . $this->table . " WHERE email = :email AND password = :password";
+    public function checklogin(string $email, string $password){
+        try {
+            $query = "SELECT id_users FROM " . $this->table . " WHERE email = :email AND password = :password";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":password", $password);
+
+            $stmt->execute();
+
+            if ($stmt->rowCount() == 0) {
+                return array();
+            }
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return array("error" => "Une erreur est survenue lors de la connexion", "message" => $e->getMessage());
+        }
+    }
+
+    /**
+     * Register user
+     * @param string $name
+     * @param string $surname
+     * @param string $email
+     * @param string $phone
+     * @param string $password
+     */
+
+    public function register(string $name, string $surname, string $email, string $phone, string $password){
+
+        try {
+
+        $query = "INSERT INTO " . $this->table . " (name, surname, email, phone, password) VALUES (:name, :surname, :email, :phone, :password)";
 
         $stmt = $this->_connexion->prepare($query);
 
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":surname", $surname);
         $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":password", $password);
 
-        $stmt->execute();
+        return $stmt->execute();
 
-        if($stmt->rowCount() == 0){
-            return array();
-        }      
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
 
 }

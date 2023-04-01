@@ -8,8 +8,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center mb-4 mt-3">
-                                        <a href="index.html">
-                                            <span><img src="../assets/images/logo-dark.png" alt="" height="26"></span>
+                                        <a href="home">
+                                            <span><img src="<?= $path_prefix ?><?= LOGO_SVG ?>" alt="" height="150"></span>
                                         </a>
                                     </div>
                                     <?php
@@ -37,12 +37,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input class="form-control" type="password" required="" id="password" placeholder="Enter your password" autocomplete="new-password">
+                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password" autocomplete="new-password">
                                         </div>
                                         <div class="form-group mb-4 pb-3">
                                             <div class="custom-control custom-checkbox checkbox-primary">
-                                                <input type="checkbox" class="custom-control-input" id="checkbox-signin">
-                                                <label class="custom-control-label" for="checkbox-signin">I accept <a href="#">Terms and Conditions</a></label>
+                                                <input type="checkbox" class="custom-control-input" id="terms" name="terms">
+                                                <label class="custom-control-label" for="terms">I accept <a href="#">Terms and Conditions</a></label>
                                             </div>
                                         </div>
                                         <div class="mb-3 text-center">

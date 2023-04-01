@@ -49,7 +49,8 @@ class Router
 
         } else {
             $controller = new Home();
-            $controller->acceuil();
+            
+            $controller->index();
         }
     }
 }

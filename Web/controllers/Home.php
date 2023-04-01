@@ -6,10 +6,16 @@ use App\Controller;
 
 class Home extends Controller{
 
-    public function acceuil(){
+    /**
+     * Default path to the view
+     * @var string
+     */
+    private string $default_path = "home/index";
+
+    public function index(){
         $page_name = "Accueil";
 
-        $this->render('home/acceuil', compact('page_name'), OTHERS);
+        $this->render($this->default_path, compact('page_name'), OTHERS);
     }
 
 }

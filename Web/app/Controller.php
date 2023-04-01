@@ -18,16 +18,25 @@ abstract class Controller extends Utils{
     /**
      * Render a view
      *
-     * @param string $fichier
+     * @param string $file
      * @param array $data
+     * @param string $type
      * @return void
      */
-    public function render(string $fichier, array $data = [], string $type): void{
+    public function render(string $file, array $data = [], string $type): void{
+
+        $temp = explode('/', $file);
+
+        
+        $data['path_prefix'] = '';
+        if(end($temp) != 'index'){
+            $data['path_prefix'] = '../';
+        }
 
         if($type == DASHBOARD){
-            $this->renderDashboard($fichier, $data);
+            $this->renderDashboard($file, $data);
         }else{
-            $this->renderOthers($fichier, $data);
+            $this->renderOthers($file, $data);
         }
         
     }    
@@ -35,33 +44,42 @@ abstract class Controller extends Utils{
     /**
      * Render a view for dashboard
      *
-     * @param string $fichier
+     * @param string $file
      * @param array $data
      * @return void
      */
-    private function renderDashboard(string $fichier, array $data = []): void{
+    private function renderDashboard(string $file, array $data = []): void{
 
+        $this->loadModel('User');
+
+        $data['user'] = $this->_model->getInfo($_SESSION['user']['id_users']);
+        
         $head = $this->generateFile('views/layout/dashboard/head.php', $data);
+        $sidebarAdmin = "";
+        if ($data['user']['id_access'] == ACCESS_ADMIN) {
+            $sidebarAdmin = $this->generateFile('views/layout/dashboard/sidebarAdmin.php', $data);
+        }
+        $data = array_merge($data, array('sidebarAdmin' => $sidebarAdmin));
         $sidebar = $this->generateFile('views/layout/dashboard/sidebar.php', $data);
         $header = $this->generateFile('views/layout/dashboard/header.php', $data);
-        $content = $this->generateFile('views/' . $fichier . '.php', $data);
+        $content = $this->generateFile('views/' . $file . '.php', $data);
         $footer = $this->generateFile('views/layout/dashboard/footer.php', $data);
         $script = $this->generateFile('views/layout/dashboard/script.php', $data);
-        $view = $this->generateFile('views/layout/dashboard/default.php', array('head' => $head, 'sidebar' => $sidebar, 'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
+        $view = $this->generateFile('views/layout/dashboard/default.php', array('head' => $head, 'sidebar' => $sidebar,'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
         echo $view;
     }
 
     /**
      * Render a view for others
      *
-     * @param string $fichier
+     * @param string $file
      * @param array $data
      * @return void
      */
-    private function renderOthers(string $fichier, array $data = []): void{
+    private function renderOthers(string $file, array $data = []): void{
 
         $head = $this->generateFile('views/layout/others/head.php', $data);
-        $content = $this->generateFile('views/' . $fichier . '.php', $data);
+        $content = $this->generateFile('views/' . $file . '.php', $data);
         $script = $this->generateFile('views/layout/others/script.php', $data);
         $view = $this->generateFile('views/layout/others/default.php', array('head' => $head, 'content' => $content, 'script' => $script));
         echo $view;
@@ -82,7 +100,7 @@ abstract class Controller extends Utils{
             require $file;
             return ob_get_clean();
         } else {
-            throw new Exception('Fichier ' . $file . ' introuvable');
+            throw new Exception('file ' . $file . ' introuvable');
         }
     }
 
@@ -96,5 +114,10 @@ abstract class Controller extends Utils{
         
         $model = "Models\\" . $model;
         $this->_model = new $model;
+    }
+
+    public function redirect(string $path): void{
+        header('Location: ' . $path);
+        exit();
     }
 }

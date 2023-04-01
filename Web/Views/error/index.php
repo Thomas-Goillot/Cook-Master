@@ -8,14 +8,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center mb-4 mt-3">
-                                        <a href="index.html">
-                                            <span><img src="../assets/images/logo-dark.png" alt="" height="26"></span>
+                                        <a href="home">
+                                            <span><img src="<?= $path_prefix ?><?= LOGO_SVG ?>" alt="" height="150"></span>
                                         </a>
                                     </div>
                                     <div class="mt-4 pt-3 text-center">
                                         <div class="row justify-content-center">
                                             <div class="col-6 my-4">
-                                                <img src="../assets/images/404-error.svg" title="invite.svg">
+                                                <img src="<?= $path_prefix ?>assets/images/404-error.svg" title="invite.svg">
                                             </div>
                                         </div>
                                         <h3 class="expired-title mb-4 mt-3">Page Not Found</h3>
@@ -23,19 +23,15 @@
                                     </div>
 
                                     <div class="mb-3 mt-4 text-center">
-                                        <a href="index.html" class="btn btn-primary btn-block">Back to Home</a>
+                                        <a href="home" class="btn btn-primary btn-block">Back to Home</a>
                                     </div>
                                 </div>
-                                <!-- end card-body -->
                             </div>
-                            <!-- end card -->
 
                         </div>
-                        <!-- end col -->
                     </div>
-                    <!-- end row -->
-                </div> <!-- end .w-100 -->
-            </div> <!-- end .d-flex -->
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Utils
+abstract class Utils
 {
 
     /**
@@ -31,14 +31,43 @@ class Utils
 
         for ($i = 0; $i < PASSWORD_COST; $i++) {
             $password = hash('sha256', $password . PASSWORD_SALT);
-            password_hash($password, PASSWORD_DEFAULT);
         }
 
         return $password;
     }
 
 
-}
+    /**
+     * Check if the user is logged in
+     * @return bool
+     */
 
+    public function isLogged(): bool
+    {
+        session_start();
+        if (isset($_SESSION['user'])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * convert date to french format
+     * @param string $date
+     * @return string
+     */
+    public function convertDateFrench(string $date): string
+    {
+        // $date = "2021-01-01 00:00:00";
+        $date = explode(" ", $date);
+        $date = explode("-", $date[0]);
+        $date = $date[2] . "/" . $date[1] . "/" . $date[0];
+
+        return $date;
+    }
+
+
+
+}
 
 ?>

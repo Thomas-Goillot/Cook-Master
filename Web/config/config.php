@@ -22,5 +22,15 @@ define('OTHERS', 'others');
 define('PASSWORD_SALT', 'cookmaster');
 define('PASSWORD_COST', 12);
 
+// Logo
+define('LOGO_SVG', 'assets/images/logo.svg');
+define('LOGO_PNG', 'assets/images/logo.png');
+
+//CONST FOR LENGHT OF columns in database
+include_once("users.php");
+
+//CONST FOR TYPE OF ACCESS
+include_once("access.php");
+
 
 ?>

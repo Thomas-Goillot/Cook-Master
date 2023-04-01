@@ -8,14 +8,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="text-center mb-4 mt-3">
-                                        <a href="index.html">
-                                            <span><img src="../assets/images/logo-dark.png" alt="" height="26"></span>
+                                        <a href="home">
+                                            <span><img src="<?= $path_prefix ?><?= LOGO_SVG ?>" alt="" height="150"></span>
                                         </a>
                                     </div>
                                     <div class="text-center">
                                         <p class="text-muted w-75 mx-auto"> Enter your email address and we'll send you an email with instructions to reset your password. </p>
                                     </div>
-                                    <form action="mt-3" class="p-2">
+                                    <form action="" method="POST" class="p-2">
                                         <div class="form-group">
                                             <label for="emailaddress">Email address</label>
                                             <input class="form-control" type="email" id="emailaddress" required="" placeholder="john@deo.com">
@@ -29,14 +29,14 @@
 
                             <div class="row mt-4">
                                 <div class="col-sm-12 text-center">
-                                    <p class="text-white-50 mb-0">Already have an account? <a href="login" class="text-white-50 ml-1"><b>Sign In</b></a></p>
+                                    <p class="text-white-50 mb-0">Already have an account? <a href="../login" class="text-white-50 ml-1"><b>Sign In</b></a></p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
-    </div> 
+    </div>
 </div>

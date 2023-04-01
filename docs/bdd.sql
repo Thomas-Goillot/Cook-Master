@@ -6,6 +6,9 @@ CREATE TABLE
         UNIQUE(name)
     );
 
+INSERT INTO access(name) VALUES('USER');
+INSERT INTO access(name) VALUES('ADMIN');
+
 CREATE TABLE
     rewards(
         id_rewards INT AUTO_INCREMENT,
@@ -111,9 +114,10 @@ CREATE TABLE
         is_banned BOOLEAN NOT NULL DEFAULT FALSE,
         sponsor_counter INT,
         id_access INT NOT NULL,
+		creation_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY(id_users),
         UNIQUE(email),
-        FOREIGN KEY(id_access) REFERENCES access(id_access)
+        FOREIGN KEY(id_access) REFERENCES access(id_access) DEFAULT 1
     );
 
 CREATE TABLE
