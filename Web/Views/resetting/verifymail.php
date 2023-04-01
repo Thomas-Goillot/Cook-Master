@@ -18,15 +18,15 @@
                                     }
                                     ?>
                                     <div class="text-center">
-                                        <p class="text-muted w-75 mx-auto"> Enter your email address and we'll send you an email with instructions to reset your password. </p>
+                                        <p class="text-muted w-75 mx-auto"> Nous venons de vous envoyez un mail de validation ! Merci de renseigner le code de validation ci-dessous. </p>
                                     </div>
                                     <form action="" method="POST" class="p-2">
                                         <div class="form-group">
-                                            <label for="emailaddress">Email address</label>
-                                            <input class="form-control" type="email" id="emailaddress" required="" placeholder="john@deo.com">
+                                            <label for="code_validation">Code de validation</label>
+                                            <input class="form-control" type="number" id="code_validation" name="code_validation" required="" placeholder="xxxx xxxx">
                                         </div>
                                         <div class="mb-3 text-center">
-                                            <button class="btn btn-primary btn-block" type="submit"> Reset Password </button>
+                                            <button class="btn btn-primary btn-block" type="submit"> Valider mon email </button>
                                         </div>
                                     </form>
                                 </div>

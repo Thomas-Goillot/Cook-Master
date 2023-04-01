@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Mail;
+
 abstract class Utils
 {
 
@@ -36,6 +38,16 @@ abstract class Utils
         return $password;
     }
 
+    /**
+     * Encode data in base64
+     * @param string $data
+     * @return string
+     */
+    public function encode(string $data): string
+    {
+        return base64_encode($data);
+    }
+
 
     /**
      * Check if the user is logged in
@@ -66,8 +78,36 @@ abstract class Utils
         return $date;
     }
 
+    /**
+     * Generate a random string of length $length
+     * @param int $length
+     * @return string
+     */
+    public function generateRandomString(int $length = 10): string{
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+
+    /**
+     * Generate a random int of length $length
+     * @param int $length
+     * @return string
+     */
+    public function generateRandomNumber(int $length = 10): string{
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
 
 }
-
-?>

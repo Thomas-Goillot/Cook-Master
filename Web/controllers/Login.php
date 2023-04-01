@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use App\Mail;
 use App\Controller;
 
 class login extends Controller{
@@ -40,8 +41,8 @@ class login extends Controller{
         }
 
         //check that the password is valid
-        if (strlen($password) < 3) {
-            $error = "Le mot de passe doit contenir au moins 3 caractères";
+        if (strlen($password) < MIN_PASSWORD) {
+            $error = "Le mot de passe doit contenir au moins ". MIN_PASSWORD ." caractères";
             $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
             return;
         }
@@ -61,6 +62,19 @@ class login extends Controller{
 
         session_start();
         $_SESSION['user'] = $user;
+
+        if($this->_model->checkMailVerified($user['id_users']) == false){
+            $mail = new Mail();
+            $number = $this->generateRandomNumber(8);
+            $this->_model->setValidationCode($user['id_users'], $number);
+
+
+            $mail->send($this->_model->getMailById($user['id_users']), "Vérification de votre adresse mail", "Bonjour, Voici votre code de vérification : " . $number."");
+            $this->redirect('resetting/verifymail');
+            return;
+        }
+
+
         $this->redirect('users/profil');
 
     }

@@ -23,6 +23,8 @@ define('MAX_PASSWORD', 35);
 
 define('MIN_PASSWORD', 8);
 
+define('MAIL_VERIFIED', 1); // if 1 then the user has verified his email
+
 
 
 

@@ -16,7 +16,7 @@ class Users extends Controller{
 
     public function __construct()
     {
-        if ($this->isLogged() === false) {
+        if ($this->isLogged() === false ) {
             $this->redirect('../home');
             exit();
         }
@@ -37,30 +37,5 @@ class Users extends Controller{
 
         $this->render($this->default_path, compact('user', 'page_name'), DASHBOARD);
     }
-
-
-
-   
-
-/*     public function sendmail()
-    {
-
-        $mail = new \App\Mail();
-
-        $body = file_get_contents('mails/resetpw.php');
-
-        //add image to mail
-        $image_path = LOGO_SVG;
-        $image_cid = 'logo';
-        $this->mail->addEmbeddedImage($image_path, $image_cid);
-
-
-        $mail->send('thomadgllt@gmail.com', 'test', $body);
-
-    } */
-
     
-
-
-
 }

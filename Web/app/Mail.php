@@ -1,14 +1,17 @@
-<?php 
+<?php
 
 namespace App;
 
+use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class Mail { 
+class Mail
+{
 
     private $mail;
 
-    public function __construct() {
+    public function __construct()
+    {
 
         include_once('config/mail.php');
 
@@ -30,24 +33,34 @@ class Mail {
 
         $this->mail->SMTPDebug = MAIL_DEBUG;
 
-        $this->mail->setFrom(MAIL_USERNAME, MAIL_FROMNAME);      
-        
+        $this->mail->setFrom(MAIL_USERNAME, MAIL_FROMNAME);
     }
 
-    public function send($to, $subject, $body) {
+    /**
+     * Send email
+     *
+     * @param string $to
+     * @param string $subject
+     * @param string $body
+     * @return void
+     */
+    public function send(string $to, string $subject, string $body): void
+    {
 
-        $this->mail->addAddress($to);
+        try {
 
-        $this->mail->isHTML(true);
+            $this->mail->addAddress($to);
 
-        $this->mail->Subject = $subject;
+            $this->mail->isHTML(true);
 
-        $this->mail->Body = $body;
+            $this->mail->Subject = $subject;
 
-        $this->mail->send();
+            $this->mail->Body = $body;
 
+            $this->mail->send();
+            
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
-
-
 }
-

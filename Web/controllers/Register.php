@@ -98,8 +98,6 @@ class Register extends Controller{
 
         $register = $this->_model->register($name, $surname, $email, $phone, $password);
 
-        var_dump($register);
-
         if (!$register) {
             $error = "Une erreur est survenue lors de l'inscription";
             $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
