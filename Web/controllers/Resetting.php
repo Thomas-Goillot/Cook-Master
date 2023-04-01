@@ -53,7 +53,7 @@ class Resetting extends Controller{
         if(isset($_POST) && !empty($_POST)){
             $code = htmlspecialchars($_POST['code_validation']);
 
-            if(!isset($code) || empty($code) && strlen($code) != 8 && $this->_model->checkCode($_SESSION['user']['id_users'], $code)){
+            if(!$this->_model->checkCode($_SESSION['user']['id_users'], $code)){
                 $error = "Le code de validation est incorrect <a href='../resetting/sendverifymail'>Recevoir un nouveau code</a>";
                 $this->render("resetting/verifymail", compact('page_name','error'), OTHERS);
                 return;
@@ -81,7 +81,7 @@ class Resetting extends Controller{
 
         $mail->send($this->_model->getMailById($_SESSION['user']['id_users']), "Vérification de votre adresse mail", "Bonjour, Voici votre code de vérification : " . $number . "");
 
-        $this->render("resetting/verifymail", compact('page_name'), OTHERS);
+        $this->redirect('../resetting/verifymail');
     }
 
 
