@@ -51,7 +51,7 @@ abstract class Controller extends Utils{
     private function renderDashboard(string $file, array $data = []): void{
 
         $this->loadModel('User');
-
+        
         $data['user'] = $this->_model->getInfo($_SESSION['user']['id_users']);
         
         $head = $this->generateFile('views/layout/dashboard/head.php', $data);

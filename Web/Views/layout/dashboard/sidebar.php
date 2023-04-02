@@ -29,7 +29,7 @@
                 <li class="menu-title">Utilisateur</li>
 
                 <li>
-                    <a href="users/profil" class="waves-effect active"><i class='bx bx-user'></i><span>Profil</span></a>
+                    <a href="users/profil" class="waves-effect"><i class='bx bx-user'></i><span>Profil</span></a>
                 </li>
 
                 <li>

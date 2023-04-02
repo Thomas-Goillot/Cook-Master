@@ -1,6 +1,6 @@
 <li class="menu-title">Administrateur</li>
 
-<li><a href="admin/" class="waves-effect"><i class="bx bx-group"></i><span>Utilisateurs</span></a></li>
+<li><a href="../admin/users" class="waves-effect"><i class="bx bx-group"></i><span>Utilisateurs</span></a></li>
 
 <li><a href="admin/event" class=" waves-effect"><i class="bx bx-calendar"></i><span>Evènements</span></a></li>
 

@@ -8,6 +8,12 @@
 <!-- App favicon -->
 <link rel="shortcut icon" href="<?= $path_prefix ?>assets/images/favicon.ico">
 
+<!-- Plugins css -->
+<link href="<?= $path_prefix ?>plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<?= $path_prefix ?>plugins/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<?= $path_prefix ?>plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
+<link href="<?= $path_prefix ?>plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
+
 <!-- App css -->
 <link href="<?= $path_prefix ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
