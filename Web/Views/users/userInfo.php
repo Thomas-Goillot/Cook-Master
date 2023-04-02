@@ -6,7 +6,7 @@
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#" class="dropdown-item">Modifier vos informations </a></li>
+                    <li><a href="#" class="dropdown-item">Modifier mes informations </a></li>
                     <li><a href="#" class="dropdown-item">Changer d'abonnement</a></li>
                     <li class="dropdown-divider"></li>
                     <li><a href="#" class="dropdown-item">Télécharger en PDF</a></li>
@@ -21,6 +21,8 @@
                 <br>
                 Email : <?= $data['user']['email'] ?>
                 <br>
+                Mail validé : <?= $this->isVerified($data['user']['mail_verified']) ?>
+                <br>
                 Téléphone : <?= $data['user']['phone'] ?>
                 <br>
                 Adresse : <?= $data['user']['address'] ?>
@@ -30,6 +32,9 @@
                 Code Postal : <?= $data['user']['zip_code'] ?>
                 <br>
                 Pays : <?= $data['user']['country'] ?>
+                <br>
+                Abonnement : <?= $data['user']['subscription'] ?>
+
             </p>
 
             <p class="card-text">

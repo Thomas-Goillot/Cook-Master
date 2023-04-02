@@ -19,33 +19,33 @@
                 </li>
 
                 <li>
-                    <a href="/shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique</span></a>
+                    <a href="../shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique</span></a>
                 </li>
 
                 <li>
-                    <a href="/event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
+                    <a href="../event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
                 <li class="menu-title">Utilisateur</li>
 
                 <li>
-                    <a href="users/profil" class="waves-effect"><i class='bx bx-user'></i><span>Profil</span></a>
+                    <a href="../users/profil" class="waves-effect"><i class='bx bx-user'></i><span>Profil</span></a>
                 </li>
 
                 <li>
-                    <a href="users/command" class="waves-effect"><i class='bx bx-cart'></i><span>Commandes</span></a>
+                    <a href="../users/command" class="waves-effect"><i class='bx bx-cart'></i><span>Commandes</span></a>
                 </li>
 
                 <li>
-                    <a href="users/rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
+                    <a href="../users/rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
                 </li>
 
                 <li>
-                    <a href="users/event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
+                    <a href="../users/event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
                 <li>
-                    <a href="users/chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
+                    <a href="../users/chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
                 </li>
 
 

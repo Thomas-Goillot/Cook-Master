@@ -34,6 +34,8 @@ class Mail
         $this->mail->SMTPDebug = MAIL_DEBUG;
 
         $this->mail->setFrom(MAIL_USERNAME, MAIL_FROMNAME);
+
+        $this->mail->CharSet = MAIL_CHARSET;
     }
 
     /**
@@ -44,7 +46,7 @@ class Mail
      * @param string $body
      * @return void
      */
-    public function send(string $to, string $subject, string $body): void
+    public function send(string $to, string $subject, string $body, array $images): void
     {
 
         try {
@@ -57,6 +59,10 @@ class Mail
 
             $this->mail->Body = $body;
 
+            foreach ($images as $path => $name) {
+                $this->mail->addEmbeddedImage($path, $name);
+            }
+        
             $this->mail->send();
             
         } catch (Exception $e) {

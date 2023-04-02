@@ -109,5 +109,18 @@ abstract class Utils
         return $randomString;
     }
 
+    /**
+     * Account is verified by email
+     * @param int $value
+     * @return bool
+     */
+
+    public function isVerified(int $value): string{
+        if($value == 1){
+            return "<span class='text-success'>Validé</span>";
+        }
+        return "<span class='text-danger'>Non Validé</span>";
+    }
+
 
 }

@@ -24,4 +24,6 @@ DEFINE('MAIL_SMTPAUTH', true);
 // SMTP Debug
 DEFINE('MAIL_DEBUG', 0);
 
+// Charset
+DEFINE('MAIL_CHARSET', 'UTF-8');
 ?>

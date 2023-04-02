@@ -68,8 +68,23 @@ class login extends Controller{
             $number = $this->generateRandomNumber(8);
             $this->_model->setValidationCode($user['id_users'], $number);
 
+            $body = file_get_contents('mails/mailvalidation.php');
 
-            $mail->send($this->_model->getMailById($user['id_users']), "Vérification de votre adresse mail", "Bonjour, Voici votre code de vérification : " . $number."");
+            $body = str_replace('___validationCode___', $number, $body);
+
+
+            $images = [
+                'assets/images/logo.png' => 'logo',
+                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+                'assets/images/mails/facebook2x.png' => 'facebook',
+                'assets/images/mails/instagram2x.png' => 'instagram',
+                'assets/images/mails/twitter2x.png' => 'twitter',
+                'assets/images/mails/linkedin2x.png' => 'linkedin',
+            ];
+
+            $mail->send($this->_model->getMailById($user['id_users']), 'Votre code de validation Cook Master', $body, $images);
+
+
             $this->redirect('resetting/verifymail');
             return;
         }

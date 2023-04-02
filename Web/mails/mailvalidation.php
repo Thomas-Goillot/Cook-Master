@@ -133,7 +133,7 @@
 													<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" width="100%">
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img alt="Cook Master Logo" src="cid:logo" style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;" /></a></div>
+																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img src="cid:logo" style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;" /></a></div>
 															</td>
 														</tr>
 													</table>
@@ -156,7 +156,7 @@
 													<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" width="100%">
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img alt="Image of lock & key." class="big" src="cid:passwordreset" style="display: block; height: auto; border: 0; width: 640px; max-width: 100%;" title="Image of lock & key." width="640" /></a></div>
+																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="cid:passwordreset" style="display: block; height: auto; border: 0; width: 640px; max-width: 100%;" title="Image of lock & key." width="640" /></a></div>
 															</td>
 														</tr>
 													</table>
@@ -178,7 +178,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class="" style="font-size: 12px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #555555; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 16px; text-align: center;"><span style="font-size:30px;color:#2b303a;"><strong>Mot de Passe oublié ?</strong></span></p>
+																		<p style="margin: 0; font-size: 16px; text-align: center;"><span style="font-size:30px;color:#2b303a;"><strong>Votre code de validation</strong></span></p>
 																	</div>
 																</div>
 															</td>
@@ -189,7 +189,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#808389;font-size:15px;">Nous avons reçu votre demande de réinitialisation de mot de passe. Veuillez cliquer sur le lien ci-dessous pour procéder à la réinitialisation de votre mot de passe. Si vous n'avez pas effectué cette demande, veuillez ignorer cet e-mail.</span></p>
+																		<p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#808389;font-size:15px;">Merci de valider votre adresse e-mail en cliquant sur le lien suivant et en entrant le code de validation : <a href="">Le lien de validation</a><br> Votre code de validation est : <strong> ___validationCode___ </strong> .</span></p>
 																	</div>
 																</div>
 															</td>
@@ -198,7 +198,7 @@
 													<table border="0" cellpadding="0" cellspacing="0" class="button_block block-5" role="presentation" width="100%">
 														<tr>
 															<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:15px;text-align:center;">
-																<div align="center" class="alignment"><!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="www.example.com" style="height:62px;width:210px;v-text-anchor:middle;" arcsize="57%" stroke="false" fillcolor="#f7a50c"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="www.example.com" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f7a50c;border-radius:35px;width:auto;border-top:0px solid transparent;font-weight:undefined;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:15px;padding-bottom:15px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;text-align:center;word-break:keep-all;" target="_blank"><span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="margin: 0; word-break: break-word; line-height: 32px;"><strong>Réinitialiser maintenant</strong></span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
+																<div align="center" class="alignment"><!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="www.example.com" style="height:62px;width:210px;v-text-anchor:middle;" arcsize="57%" stroke="false" fillcolor="#f7a50c"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="___validationCode___" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f7a50c;border-radius:35px;width:auto;border-top:0px solid transparent;font-weight:undefined;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:15px;padding-bottom:15px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;text-align:center;word-break:keep-all;" target="_blank"><span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="margin: 0; word-break: break-word; line-height: 32px;"><strong>Valider maintenant</strong></span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
 															</td>
 														</tr>
 													</table>

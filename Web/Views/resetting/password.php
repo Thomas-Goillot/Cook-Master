@@ -45,3 +45,26 @@
         </div>
     </div>
 </div>
+
+
+<!-- 
+
+code to send mail with images
+    
+
+use App\Mail;
+
+$mail = new Mail();
+
+$body = file_get_contents('mails/resetpw.php');
+
+$images = [
+    'assets/images/logo.png' => 'logo',
+    'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+    'assets/images/mails/facebook2x.png' => 'facebook',
+    'assets/images/mails/instagram2x.png' => 'instagram',
+    'assets/images/mails/twitter2x.png' => 'twitter',
+    'assets/images/mails/linkedin2x.png' => 'linkedin',
+];
+
+$mail->send('thomadgllt@gmail.com', 'Test', $body, $images); -->

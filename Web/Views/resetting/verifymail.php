@@ -23,7 +23,7 @@
                                     <form action="" method="POST" class="p-2">
                                         <div class="form-group">
                                             <label for="code_validation">Code de validation</label>
-                                            <input class="form-control" type="number" id="code_validation" name="code_validation" required="" placeholder="xxxx xxxx">
+                                            <input class="form-control" type="number" id="code_validation" name="code_validation" required="" placeholder="xxxxxxxx">
                                         </div>
                                         <div class="mb-3 text-center">
                                             <button class="btn btn-primary btn-block" type="submit"> Valider mon email </button>
