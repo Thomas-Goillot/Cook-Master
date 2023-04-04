@@ -13,21 +13,19 @@ class Subscription extends Model
      */
     public function __construct()
     {
-        $this->table = "subscriptions";
+        $this->table = "subscription";
 
         $this->getConnection();
     }
 
-    public function getSubscriptions(): array
+    /**
+     * Get all subscription
+     *
+     * @return array
+     */
+    public function getAllSubscription(): array
     {
-        $query = "SELECT s.*, sp.*, r.*, st.*, d.*, a.*, so.*
-                FROM subscription s
-                JOIN subscription_option so ON s.id_subscription_option = so.id_subscription_option
-                JOIN rewards r ON s.id_rewards = r.id_rewards
-                JOIN shipping_type st ON r.id_shipping_type = st.id_shipping_type
-                JOIN providers p ON r.id_providers = p.id_providers
-                JOIN relay_point d ON p.id_relay_point = d.id_relay_point
-                JOIN access a ON s.id_access = a.id_access";
+        $query = "SELECT * FROM ".$this->table."";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -35,4 +33,133 @@ class Subscription extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Get all subscription
+     *
+     * @return array
+     */
+    public function getAllSubscriptionNumberOfSubscribe(): array
+    {
+        $query = "SELECT s.*, 
+        COUNT(st.id_users) AS subscription_total,
+        COUNT(CASE WHEN st.date_of_buy >= DATE_SUB(NOW(), INTERVAL 1 MONTH) THEN st.id_users END) AS subscription_this_month
+        FROM subscription s
+        LEFT JOIN subscribe_to st ON s.id_subscription = st.id_subscription
+        GROUP BY s.id_subscription
+
+        ";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all subscription Option
+     *
+     * @return array
+     */
+    public function getAllSubscriptionOption(): array
+    {
+        $this->table = "subscription_option";
+        $query = "SELECT * FROM ".$this->table."";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all subscription Rewards
+     * @return array
+     */
+    public function getAllSubscriptionRewards(): array
+    {
+        $this->table = "rewards";
+        $query = "SELECT * FROM ".$this->table."";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all subscription Shipping Type
+     * @return array
+     */
+    public function getAllSubscriptionShippingType(): array
+    {
+        $this->table = "shipping_type";
+        $query = "SELECT * FROM ".$this->table."";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all subscription info
+     * @return array
+     */
+    public function getAllSubscriptionInfo(): array
+    {
+        $query = "SELECT sub.*, 
+       rew.name as rewards_name, rew.description as rewards_description, rew.amount as rewards_amount,rew.currency as rewards_currency, rew.nb_new_subscribers as rewards_nb_new_subscribers,
+       rnb.amount as renewal_bonus_amount, rnb.currency as renewal_bonus_currency, rnb.payment_periodicity as renewal_bonus_payment_periodicity
+        FROM subscription sub
+        LEFT JOIN sponsors spo ON sub.id_subscription = spo.id_subscription
+        LEFT JOIN rewards rew ON spo.id_rewards = rew.id_rewards
+        LEFT JOIN renewal_bonus rnb ON sub.id_renewal_bonus = rnb.id_renewal_bonus 
+        ORDER BY sub.id_subscription;";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+        $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($response as $key => $value) {
+            $response[$key]['rewards'] = [
+                'name' => $value['rewards_name'],
+                'description' => $value['rewards_description'],
+                'amount' => $value['rewards_amount'],
+                'currency' => $value['rewards_currency'],
+                'nb_new_subscribers' => $value['rewards_nb_new_subscribers']
+            ];
+
+            $response[$key]['renewal_bonus'] = [
+                'amount' => $value['renewal_bonus_amount'],
+                'currency' => $value['renewal_bonus_currency'],
+                'payment_periodicity' => $value['renewal_bonus_payment_periodicity']
+            ];
+            
+            //request to get all subscription option for this subscription into give_access_to table
+            $query = "SELECT * FROM subscription_option WHERE id_subscription_option IN (SELECT id_subscription_option FROM give_access_to WHERE id_subscription = :id_subscription)";
+            $stmt = $this->_connexion->prepare($query);
+            $stmt->bindParam(':id_subscription', $value['id_subscription']);
+            $stmt->execute();
+            $response[$key]['subscription_option'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            //request to get all shipping type for this subscription into shipping_type table
+            $query = "SELECT * FROM shipping_type WHERE id_shipping_type IN (SELECT id_shipping_type FROM deliver_to WHERE id_subscription = :id_subscription)";
+            $stmt = $this->_connexion->prepare($query);
+            $stmt->bindParam(':id_subscription', $value['id_subscription']);
+            $stmt->execute();
+            $response[$key]['shipping_type'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+
+
+        return $response;
+    }
+
+
 }

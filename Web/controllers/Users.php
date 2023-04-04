@@ -31,11 +31,12 @@ class Users extends Controller{
 
         $this->loadModel('User');
 
-        $user = $this->_model->getInfo($_SESSION['user']['id_users']);
+        $user = $this->_model->getUserInfo($_SESSION['user']['id_users']);
 
+        $subscription = $this->_model->getUserSubscriptionName($_SESSION['user']['id_users']);
         $page_name = "Profil";
 
-        $this->render($this->default_path, compact('user', 'page_name'), DASHBOARD);
+        $this->render($this->default_path, compact('user', 'subscription', 'page_name'), DASHBOARD);
     }
     
 }

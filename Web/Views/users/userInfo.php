@@ -33,7 +33,7 @@
                 <br>
                 Pays : <?= $data['user']['country'] ?>
                 <br>
-                Abonnement : <?= $data['user']['subscription'] ?>
+                Abonnement : <strong><?= $data['subscription'] ?></strong>
 
             </p>
 

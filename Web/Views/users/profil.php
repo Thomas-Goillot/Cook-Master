@@ -9,7 +9,5 @@ include_once('Views/layout/dashboard/path.php');
 
     <?php include_once('Views/users/userEvent.php'); ?>
 
-
-
 </div>
 <!-- end row-->

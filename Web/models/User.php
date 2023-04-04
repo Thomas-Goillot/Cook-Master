@@ -39,7 +39,7 @@ class User extends Model
      * @param int $id
      * @return array|bool
      */
-    public function getInfo(int $id)
+    public function getUserInfo(int $id)
     {
         $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified FROM " . $this->table . " WHERE id_users = :id";
 
@@ -267,6 +267,25 @@ class User extends Model
 
         } catch (PDOException $e) {
             return false;
+        }
+    }
+
+    public function getUserSubscriptionName(int $id):string{
+        try {
+            $query = "SELECT name FROM subscription WHERE id_subscription = (SELECT id_subscription FROM subscribe_to WHERE id_users = :id)";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result['name'];
+
+        } catch (PDOException $e) {
+            return "No subscription";
         }
     }
 

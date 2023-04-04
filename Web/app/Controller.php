@@ -13,8 +13,7 @@ abstract class Controller extends Utils{
      * @var object
      */
     public object $_model;
-
-
+    
     /**
      * Render a view
      *
@@ -52,7 +51,7 @@ abstract class Controller extends Utils{
 
         $this->loadModel('User');
         
-        $data['user'] = $this->_model->getInfo($_SESSION['user']['id_users']);
+        $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
         
         $head = $this->generateFile('views/layout/dashboard/head.php', $data);
         $sidebarAdmin = "";
@@ -116,6 +115,12 @@ abstract class Controller extends Utils{
         $this->_model = new $model;
     }
 
+    /**
+     * Redirect to a path
+     *
+     * @param string $path
+     * @return void
+     */
     public function redirect(string $path): void{
         header('Location: ' . $path);
         exit();

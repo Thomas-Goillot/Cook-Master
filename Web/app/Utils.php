@@ -4,7 +4,7 @@ namespace App;
 
 use App\Mail;
 
-abstract class Utils
+abstract class Utils extends Security
 {
 
     /**
@@ -48,20 +48,6 @@ abstract class Utils
         return base64_encode($data);
     }
 
-
-    /**
-     * Check if the user is logged in
-     * @return bool
-     */
-
-    public function isLogged(): bool
-    {
-        session_start();
-        if (isset($_SESSION['user'])) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * convert date to french format
