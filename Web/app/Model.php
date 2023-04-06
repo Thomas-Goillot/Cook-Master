@@ -78,7 +78,11 @@ abstract class Model extends Utils{
         return $query->fetchAll();    
     }
 
-    private function setEnv()
+    /**
+     * Set env variables
+     * @return void
+     */
+    private function setEnv():void
     {
         $this->host = $this->env['DB_HOST'];
         $this->db_name = $this->env['DB_NAME'];

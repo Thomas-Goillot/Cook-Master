@@ -3,6 +3,7 @@
         <div class="row mt-sm-5 mt-3 mb-3">
 
             <?php
+
             foreach ($subscriptionAllInfo as $subscription) {
                 echo "
             <div class=\"col-md-4\">
@@ -12,13 +13,22 @@
                         <h5 class=\"font-weight-bold mt-4 text-uppercase\">".$subscription['name']. "</h5>
 
                         <ul class=\"card-pricing-features\">
-                            ";
+                            ";                      
 
+                    
                         foreach ($subscription['subscription_option'] as $feature) {
-                            $feature['name'] = str_replace('_', ' ', $feature['name']);
-                            echo "<li>
+
+                            if($feature['selected']){
+                                echo "<li>
                                 <i class=\"text-success fas fa-check\"></i> " . ucfirst(strtolower($feature['name'])) . "
                                 </li>";
+                            }
+                            else{
+                                echo "<li>
+                                <i class=\"text-danger fas fa-times\"></i> " . ucfirst(strtolower($feature['name'])) . "
+                                </li>";
+                            }
+
                         }
 
                         echo "

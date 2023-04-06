@@ -65,10 +65,9 @@ class Admin extends Controller
         $shippingTypes = $this->_model->getAllSubscriptionShippingType();
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfo();
 
-
         $page_name = "Abonnements";
 
-        $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'subscriptionOptionId', 'page_name'), DASHBOARD);
+        $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'subscriptionOptionId', 'subscriptionOptionInIt', 'page_name'), DASHBOARD);
     }
 
 }

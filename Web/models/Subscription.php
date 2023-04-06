@@ -142,11 +142,27 @@ class Subscription extends Model
             ];
             
             //request to get all subscription option for this subscription into give_access_to table
-            $query = "SELECT * FROM subscription_option WHERE id_subscription_option IN (SELECT id_subscription_option FROM give_access_to WHERE id_subscription = :id_subscription)";
+            $query = "SELECT * FROM subscription_option";
             $stmt = $this->_connexion->prepare($query);
             $stmt->bindParam(':id_subscription', $value['id_subscription']);
             $stmt->execute();
-            $response[$key]['subscription_option'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $allSubscriptionOption = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $query = "SELECT * FROM give_access_to WHERE id_subscription = :id_subscription";
+            $stmt = $this->_connexion->prepare($query);
+            $stmt->bindParam(':id_subscription', $value['id_subscription']);
+            $stmt->execute();
+            $subscriptionOption = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($allSubscriptionOption as $key2 => $value2) {
+                $response[$key]['subscription_option'][$key2] = $value2;
+                $response[$key]['subscription_option'][$key2]['selected'] = false;
+                foreach($subscriptionOption as $key3 => $value3) {
+                    if($value2['id_subscription_option'] == $value3['id_subscription_option']) {
+                        $response[$key]['subscription_option'][$key2]['selected'] = true;
+                    }
+                }
+            }
 
             //request to get all shipping type for this subscription into shipping_type table
             $query = "SELECT * FROM shipping_type WHERE id_shipping_type IN (SELECT id_shipping_type FROM deliver_to WHERE id_subscription = :id_subscription)";

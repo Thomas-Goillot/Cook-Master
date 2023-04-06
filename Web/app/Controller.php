@@ -37,7 +37,6 @@ abstract class Controller extends Utils{
         }else{
             $this->renderOthers($file, $data);
         }
-        
     }    
 
     /**
