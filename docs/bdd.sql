@@ -15,7 +15,7 @@ CREATE TABLE
         name VARCHAR(50) NOT NULL,
         description VARCHAR(255),
         amount DOUBLE NOT NULL,
-        curency VARCHAR(1) NOT NULL,
+        currency VARCHAR(1) NOT NULL,
         nb_new_subscribers INT NOT NULL,
         PRIMARY KEY(id_rewards)
     );
