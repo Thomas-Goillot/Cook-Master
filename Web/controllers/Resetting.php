@@ -22,7 +22,7 @@ class Resetting extends Controller{
     public function password(): void
     {
 
-        $page_name = "Forgot Password";
+        $page_name = array("Forgot Password" => $this->default_path);
 
         $this->render($this->default_path, compact('page_name'), OTHERS);
     }
@@ -48,7 +48,7 @@ class Resetting extends Controller{
             return;
         }
 
-        $page_name = "Email Validation";
+        $page_name = array("Email Validation" => "");
         
         if(isset($_POST) && !empty($_POST)){
             $code = htmlspecialchars($_POST['code_validation']);
@@ -72,14 +72,26 @@ class Resetting extends Controller{
     {
         session_start();
 
-        $page_name = "Email Validation";
+        $page_name = array("Email Validation" => "");
         $mail = new Mail();
         $number = $this->generateRandomNumber(8);
 
         $this->loadModel('User');
-        $this->_model->setMailVerified($_SESSION['user']['id_users'], $number);
+/*         $this->_model->setMailVerified($_SESSION['user']['id_users'], $number);
 
-        $mail->send($this->_model->getMailById($_SESSION['user']['id_users']), "Vérification de votre adresse mail", "Bonjour, Voici votre code de vérification : " . $number . "");
+        $body = file_get_contents('mails/resetpw.php');
+        $body = str_replace('___validationCode___', $number, $body);
+
+        $images = [
+            'assets/images/logo.png' => 'logo',
+            'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+            'assets/images/mails/facebook2x.png' => 'facebook',
+            'assets/images/mails/instagram2x.png' => 'instagram',
+            'assets/images/mails/twitter2x.png' => 'twitter',
+            'assets/images/mails/linkedin2x.png' => 'linkedin',
+        ];
+
+        $mail->send($this->_model->getMailById($user['id_users']), 'Votre code de validation Cook Master', $body, $images); */
 
         $this->redirect('../resetting/verifymail');
     }

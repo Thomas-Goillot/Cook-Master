@@ -22,14 +22,18 @@ abstract class Controller extends Utils{
      * @param string $type
      * @return void
      */
-    public function render(string $file, array $data = [], string $type): void{
+    public function render(string $file, array $data = [], string $type, string $path = ""): void{
 
         $temp = explode('/', $file);
-
+        
         
         $data['path_prefix'] = '';
         if(end($temp) != 'index'){
             $data['path_prefix'] = '../';
+        }
+
+        if($path != ""){
+            $data['path_prefix'] = $path;
         }
 
         if($type == DASHBOARD){

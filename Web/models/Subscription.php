@@ -164,7 +164,6 @@ class Subscription extends Model
                 }
             }
 
-            //request to get all shipping type for this subscription into shipping_type table
             $query = "SELECT * FROM shipping_type WHERE id_shipping_type IN (SELECT id_shipping_type FROM deliver_to WHERE id_subscription = :id_subscription)";
             $stmt = $this->_connexion->prepare($query);
             $stmt->bindParam(':id_subscription', $value['id_subscription']);

@@ -18,6 +18,16 @@
 <script src="<?= $path_prefix ?>plugins/datatables/dataTables.select.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/datatables/pdfmake.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/datatables/vfs_fonts.js"></script>
+<script src="<?= $path_prefix ?>plugins/autonumeric/autoNumeric-min.js"></script>
+<script src="<?= $path_prefix ?>plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/moment/moment.js"></script>
+<script src="<?= $path_prefix ?>plugins/daterangepicker/daterangepicker.js"></script>
+<script src="<?= $path_prefix ?>plugins/select2/select2.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/switchery/switchery.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
 <!-- third party js ends -->
 
 <!-- Morris Js-->
@@ -31,7 +41,7 @@
 <script>
     $(document).ready(function() {
 
-        // Key Datatable
+        // Users Datatable
         $('#datatable-users').DataTable({
             keys: true,
             "language": {
@@ -45,5 +55,35 @@
             }
         });
 
+        // Subscription Datatable
+        $('#datatable-subscription').DataTable({
+            keys: true,
+            "language": {
+                "paginate": {
+                    "previous": "<i class='mdi mdi-chevron-left'>",
+                    "next": "<i class='mdi mdi-chevron-right'>"
+                }
+            },
+            "drawCallback": function() {
+                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
+            }
+        });
+
+    });
+
+    // Switchery
+    $('[data-toggle="switchery"]').each(function(idx, obj) {
+        new Switchery($(this)[0], $(this).data());
+    });
+
+
+    // Select2
+    $('[data-toggle="select2"]').select2();
+
+    // Touchspin
+    var defaultOptions = {};
+    $('[data-toggle="touchspin"]').each(function(idx, obj) {
+        var objOptions = $.extend({}, defaultOptions, $(obj).data());
+        $(obj).TouchSpin(objOptions);
     });
 </script>

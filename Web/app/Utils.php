@@ -108,5 +108,32 @@ abstract class Utils extends Security
         return "<span class='text-danger'>Non Validé</span>";
     }
 
+    /**
+     * Check if something is active or not
+     * @param int $value
+     * @return bool
+     */
+
+    public function isActive(int $value): string
+    {
+        if ($value == 1) {
+            return "<span class='text-success'>Actif</span>";
+        }
+        return "<span class='text-danger'>innactif</span>";
+    }
+
+    /**
+     * Get the page name
+     * @param array $page_name
+     * @return string
+     */
+    public function getPageName(array $page_name): string
+    {
+        $page_name = array_keys($page_name);
+        $page_name = end($page_name);
+        return $page_name;
+    }
+
+
 
 }

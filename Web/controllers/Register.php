@@ -19,7 +19,7 @@ class Register extends Controller{
      */
     public function index(string $error = ""): void
     {
-        $page_name = "Register";
+        $page_name = array("Register" => $this->default_path);
         $error = "";
 
         if (!isset($_POST) || empty($_POST)) {

@@ -21,7 +21,7 @@ class login extends Controller{
     public function index(): void
     {
 
-        $page_name = "Login";
+        $page_name = array("Login" => $this->default_path);
         $error = "";
 
         if(!isset($_POST) || empty($_POST)){

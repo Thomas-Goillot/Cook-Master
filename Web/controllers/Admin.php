@@ -44,7 +44,7 @@ class Admin extends Controller
 
         $users = $this->_model->getAll();
 
-        $page_name = "Utilisateurs";
+        $page_name = array("Admin" => "","Utilisateurs" => "admin/users");
 
         $this->render($this->default_path, compact('users', 'page_name'), DASHBOARD);
     }
@@ -65,20 +65,9 @@ class Admin extends Controller
         $shippingTypes = $this->_model->getAllSubscriptionShippingType();
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfo();
 
-        $page_name = "Abonnements";
+        $page_name = array("Admin" => $this->default_path,"Abonnements" => "admin/subscription");
 
-        $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'subscriptionOptionId', 'subscriptionOptionInIt', 'page_name'), DASHBOARD);
+        $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'page_name'), DASHBOARD);
     }
 
 }
-/* 
-    echo "<li>
-    <i class=\"text-danger fas fa-times\"></i> 
-    " . ucfirst(strtolower($feature['name'])) . "
-    </li>";
-
-    echo "<li>
-    <i class=\"text-success fas fa-check\"></i> " . ucfirst(strtolower($subscription['subscription_option'][$i]['name'])) . "
-    </li>
-
-*/

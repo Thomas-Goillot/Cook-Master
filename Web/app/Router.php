@@ -14,10 +14,11 @@ class Router
 
         if ($params[0] != "") {
 
-
             $controller = ucfirst($params[0]);
 
             $action = isset($params[1]) ? $params[1] : 'index';
+
+            $_GET['params'] = array_slice($params, 2);
 
             $controller = "Controllers\\" . $controller;
 
@@ -28,7 +29,6 @@ class Router
                 $controller->error();
 
                 return;
-
             }
 
             if (!method_exists($controller, $action)) {
@@ -43,8 +43,6 @@ class Router
             http_response_code(200);
 
             $controller = new $controller();
-            unset($params[0]);
-            unset($params[1]);
             call_user_func_array([$controller, $action], $params);
 
         } else {
