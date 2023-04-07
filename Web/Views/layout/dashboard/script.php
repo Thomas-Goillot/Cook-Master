@@ -81,7 +81,15 @@
     $('[data-toggle="select2"]').select2();
 
     // Touchspin
-    var defaultOptions = {};
+    var defaultOptions = {
+        min: 0,
+        max: 1000,
+        step: 0.1,
+        decimals: 2,
+        boostat: 5,
+        maxboostedstep: 10,
+        postfix: '%'
+    };
     $('[data-toggle="touchspin"]').each(function(idx, obj) {
         var objOptions = $.extend({}, defaultOptions, $(obj).data());
         $(obj).TouchSpin(objOptions);
