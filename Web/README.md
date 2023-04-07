@@ -7,5 +7,6 @@ Introduction au MVC en PHP
 1. Cloner le projet	
 2. Installer les dépendances avec composer
 ```bash
+composer install
 composer dump-autoload
 ```

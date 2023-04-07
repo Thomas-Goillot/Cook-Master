@@ -119,7 +119,7 @@ class User extends Model
 
         try {
 
-        $query = "INSERT INTO " . $this->table . " (name, surname, email, phone, password) VALUES (:name, :surname, :email, :phone, :password)";
+        $query = "INSERT INTO " . $this->table . " (name, surname, email, phone, password) VALUES (:name, :surname, :email, :phone, :password); INSERT INTO subscribe_to (id_users,id_subscription) VALUES (LAST_INSERT_ID(),1)";
 
         $stmt = $this->_connexion->prepare($query);
 
