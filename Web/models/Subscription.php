@@ -144,7 +144,6 @@ class Subscription extends Model
             //request to get all subscription option for this subscription into give_access_to table
             $query = "SELECT * FROM subscription_option";
             $stmt = $this->_connexion->prepare($query);
-            $stmt->bindParam(':id_subscription', $value['id_subscription']);
             $stmt->execute();
             $allSubscriptionOption = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

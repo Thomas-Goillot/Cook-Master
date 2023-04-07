@@ -1,5 +1,5 @@
 <meta charset="utf-8" />
-<title><?= APPNAME ?> - <?= $page_name ?></title>
+<title><?= APPNAME ?> - <?= $this->getPageName($page_name) ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta content="WebApp for <?= APPNAME ?>" name="description" />
 <meta content="<?= DEVELOPER ?>" name="author" />

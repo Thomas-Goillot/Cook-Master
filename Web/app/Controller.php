@@ -22,7 +22,7 @@ abstract class Controller extends Utils{
      * @param string $type
      * @return void
      */
-    public function render(string $file, array $data = [], string $type, string $path = ""): void{
+    public function render(string $file, ?array $data, string $type, string $path = ""): void{
 
         $temp = explode('/', $file);
         
