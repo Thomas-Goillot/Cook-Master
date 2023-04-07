@@ -11795,3 +11795,7 @@ a.btn.btn-primary:hover {
 .card.py-4.h-100 {
   border-bottom: solid 5px #9E1B21;
 }
+
+button.btn.btn-primary.btn-account {
+  color: black;
+}
