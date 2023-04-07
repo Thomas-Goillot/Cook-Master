@@ -51,14 +51,11 @@ class Subscription extends Controller
 
         $this->loadModel('Subscription');
 
-        
+        $subscription = $this->_model->getAllSubscriptionInfoById($id_subscription);
 
+        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de ".$subscription['name']."" => "subscription/edit/$id_subscription");
 
-
-
-        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modifier un abonnement" => "subscription/edit/$id_subscription");
-
-        $this->render('subscription/edit', compact('page_name'), DASHBOARD, '../../');
+        $this->render('subscription/edit', compact('subscription','page_name'), DASHBOARD, '../../');
 
     }
 

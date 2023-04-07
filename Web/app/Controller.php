@@ -38,8 +38,12 @@ abstract class Controller extends Utils{
 
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
-        }else{
+        }else if($type == OTHERS){
             $this->renderOthers($file, $data);
+        }
+        else{
+            $path_prefix = "../";
+            echo $this->generateFile('views/' . $file . '.php', $data);
         }
     }    
 

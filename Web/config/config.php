@@ -17,6 +17,7 @@ define('LOGFILE', 'logs/log.txt');
 // Dashboard or Other pages
 define('DASHBOARD', 'dashboard');
 define('OTHERS', 'others');
+define('NO_LAYOUT', 'no_layout');
 
 // Password 
 define('PASSWORD_SALT', 'cookmaster');

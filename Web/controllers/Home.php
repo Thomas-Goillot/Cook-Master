@@ -15,7 +15,7 @@ class Home extends Controller{
     public function index(){
         $page_name = array("Accueil" => $this->default_path);
 
-        $this->render($this->default_path, compact('page_name'), OTHERS);
+        $this->render($this->default_path, compact('page_name'), NO_LAYOUT);
     }
 
 }

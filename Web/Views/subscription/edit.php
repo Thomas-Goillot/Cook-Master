@@ -1,7 +1,5 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
-?>
-
+include_once('Views/layout/dashboard/path.php');?>
 
 
 <div class="row">
@@ -11,7 +9,7 @@ include_once('Views/layout/dashboard/path.php');
                 <div class="dropdown float-right position-relative align-items-center">
                     Actif <input type="checkbox" name="SubscriptionActive" id="SubscriptionActive" checked data-toggle="switchery" data-color="#2e7ce4" data-size="small" />
                 </div>
-                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement</h4>
+                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement <?= $subscription['name']?></h4>
 
                 <div class="form-group">
                     <label>Nom</label>
@@ -22,7 +20,7 @@ include_once('Views/layout/dashboard/path.php');
                     <label>Options</label>
 
                     <select class="form-control select2-multiple" name="SubscriptionOptions" id="SubscriptionOptions" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <optgroup label="Tah les options">
                             <option value="1">Option 1</option>
                             <option value="2">Option 2</option>
                         </optgroup>
