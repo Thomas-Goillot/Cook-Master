@@ -245,7 +245,7 @@ a {
   margin-right: 5px;
 }
 a:hover {
-  color: #50817e;
+  color: #9E1B21;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -7954,9 +7954,8 @@ textarea.form-control-lg {
   color: #6c757d !important;
 }
 
-.text-black-50 {
-  --bs-text-opacity: 1;
-  color: rgba(0, 0, 0, 0.5) !important;
+div.mailto:hover{
+  color:#9e1b21
 }
 
 .text-white-50 {
@@ -11516,8 +11515,13 @@ body {
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: white;
   }
+
+  .white{
+    color: white!important;
+  }
+
   #mainNav .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
   }
@@ -11582,7 +11586,7 @@ body {
   line-height: 2.5rem;
   -webkit-background-clip: text;
           background-clip: text;
-  color: #887f7f
+  color: white;
 }
 .masthead h2, .masthead .h2 {
   max-width: 20rem;
@@ -11611,11 +11615,7 @@ body {
 }
 
 .about-section {
-  padding-top: 10rem;
   background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.9) 75%, rgba(0, 0, 0, 0.8) 100%);
-}
-.about-section p {
-  margin-bottom: 5rem;
 }
 
 .projects-section {
@@ -11699,6 +11699,10 @@ body {
 }
 .contact-section .social a:active {
   color: #fff;
+}
+
+a.mailto:hover{
+  color:#9E1B21;
 }
 
 button.btn.btn-primary.btn-account {

@@ -17,7 +17,7 @@
 
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top white" id="mainNav">
         <div class="container px-4 px-lg-5">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -26,10 +26,10 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Réserver</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login"><i class="bi bi-person"></i></a></li>
+                    <li class="nav-item"><a class="nav-link white" href="#about">A propos</a></li>
+                    <li class="nav-item"><a class="nav-link white" href="#projects">Réserver</a></li>
+                    <li class="nav-item"><a class="nav-link white" href="#signup">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link white" href="login"><i class="bi bi-person"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -74,27 +74,15 @@
     <!-- Projects-->
     <section class="projects-section bg-light" id="projects">
         <div class="container px-4 px-lg-5">
-            <!-- Featured Project Row-->
-            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="<?= $path_prefix ?>assets/images/home/img1.png" alt="..." /></div>
-                <div class="col-xl-4 col-lg-5">
-                    <div class="text-center text-lg-left">
-                        <h4>A propos</h4>
-                        <br>
-                        <p class="text-white-50 mb-0">Cook Master est une chaîne d’espaces événementiels à Paris.</p>
-                    </div>
-                </div>
-            </div>
             <!-- Project One Row-->
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img2.png" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img1.png" alt="..." /></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">Spécialisée dans la cuisine et la gastronomie, la société se distingue par son accueil chaleureux et ses prestations riches et variées.</p>
-                                <hr class="d-none d-lg-block mb-0 ms-0" />
+                                <p class="mb-0 text-white-50">Spécialisée dans la cuisine et la gastronomie, CookMaster se distingue par son accueil chaleureux et ses prestations riches et variées.</p>
                             </div>
                         </div>
                     </div>
@@ -108,8 +96,7 @@
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
                                 <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">telles que des ateliers de cuisine avec des professionnels, des cours à domicile, des leçons en ligne, des dégustations de produits bio, la location d'espaces équipés, des formations professionnelles, la livraison de repas à domicile.</p>
-                                <hr class="d-none d-lg-block mb-0 me-0" />
+                                <p class="mb-0 text-white-50">Nous proposons des ateliers de cuisine, des cours à domicile, des leçons en ligne, la location d'espaces équipés, des formations professionnelles et bien plus encore.</p>
                             </div>
 
                         </div>
@@ -121,14 +108,13 @@
 
 
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img3.png" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img2.png" alt="..." /></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">Ainsi qu'une messagerie en temps réel avec des chefs pour une assistance personnalisée lors de la préparation des repas à domicile.</p>
-                                <hr class="d-none d-lg-block mb-0 ms-0" />
+                                <p class="mb-0 text-white-50">Besoin de conseils ? Une messagerie avec des chefs est disponible pour une assistance totalement personnalisée.</p>
                             </div>
                         </div>
                     </div>
@@ -182,7 +168,7 @@
                             <i class="fas fa-map-marked-alt text-primary-black mb-2"></i>
                             <h4 class="text-uppercase m-0">Addresse</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50">ESGI</div>
+                            <div class="small text-black">172 rue Faubourg St-Nicolas, Paris</div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +178,7 @@
                             <i class="fas fa-envelope text-primary-black mb-2"></i>
                             <h4 class="text-uppercase m-0">Email</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50"><a href="#!">cook-master@gmail.com</a></div>
+                            <div class="small text-black"><a href="#!">cook-master@gmail.com</a></div>
                         </div>
                     </div>
                 </div>
@@ -202,7 +188,7 @@
                             <i class="fas fa-mobile-alt text-primary-black mb-2"></i>
                             <h4 class="text-uppercase m-0">Téléphone</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50">06 01 02 03 04</div>
+                            <div class="small text-black">06 01 02 03 04</div>
                         </div>
                     </div>
                 </div>
