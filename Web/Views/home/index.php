@@ -26,10 +26,10 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link white" href="#about">A propos</a></li>
-                    <li class="nav-item"><a class="nav-link white" href="#projects">Réserver</a></li>
-                    <li class="nav-item"><a class="nav-link white" href="#signup">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link white" href="login"><i class="bi bi-person"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Réserver</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                    <li><a class="nav-link" href="login"><i class="bi bi-person"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -166,7 +166,7 @@
                     <div class="card py-4 h-100">
                         <div class="card-body text-center">
                             <i class="fas fa-map-marked-alt text-primary-black mb-2"></i>
-                            <h4 class="text-uppercase m-0">Addresse</h4>
+                            <h4 class="text-uppercase m-0">Adresse</h4>
                             <hr class="my-4 mx-auto" />
                             <div class="small text-black">172 rue Faubourg St-Nicolas, Paris</div>
                         </div>
