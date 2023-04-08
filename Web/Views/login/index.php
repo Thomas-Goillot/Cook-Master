@@ -43,7 +43,7 @@
 
                             <div class="row mt-4">
                                 <div class="col-sm-12 text-center">
-                                    <p class="text-white-50 mb-0">Create an account? <a href="register" class="text-white-50 ml-1"><b>Sign Up</b></a></p>
+                                    <p class="text-white-50 mb-0">Create an account? <a href="register" class="text-white-50 ml-1"><b>Sign Up</b></a> or<a href="../Web" class="text-white-50 ml-1"><b>Exit</b></a></p>
                                 </div>
                             </div>
 

@@ -12,7 +12,7 @@ $(function () {
             element: 'morris-donut-example',
             resize: true,
             backgroundColor: 'transparent',
-            colors: ['#574bd6', '#6d61ea', '#877de8', '#9b94da', '#c5bff5'],
+            colors: ['#574bd6', '#9e1b21', '#877de8', '#9b94da', '#c5bff5'],
             data: [
                 {
                     label: "Team A",
@@ -42,7 +42,7 @@ $(function () {
         Morris.Line({
             element: 'morris-line-example',
             gridLineColor: '#eef0f2',
-            lineColors: ['#f15050', '#6d61ea', "#e9ecef"],
+            lineColors: ['#f15050', '#9e1b21', "#e9ecef"],
             data: [
                 {
                     y: '2006',

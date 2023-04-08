@@ -15,7 +15,7 @@
                 <li class="menu-title"><?= APPNAME ?></li>
 
                 <li>
-                    <a href="/" class="waves-effect"><i class='bx bx-home-smile'></i><span>Accueil</span></a>
+                    <a href="<?= $path_prefix ?>" class="waves-effect"><i class='bx bx-home-smile'></i><span>Accueil</span></a>
                 </li>
 
                 <li>

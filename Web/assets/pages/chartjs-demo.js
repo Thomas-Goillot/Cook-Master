@@ -16,13 +16,13 @@
           datasets: [{
             data: [21, 16, 48, 31],
             backgroundColor: [
-              '#6d61ea', 
+              '#9e1b21', 
               '#877de8', 
               '#9b94da',   
               '#c5bff5'       
             ],
             borderColor: [
-              '#6d61ea', 
+              '#9e1b21', 
               '#877de8', 
               '#9b94da',   
               '#c5bff5'
@@ -209,7 +209,7 @@
           datasets: [{
               label: 'Apple',
               data: [65, 59, 80, 81, 56, 89, 40, 32, 65, 59, 80, 81],
-              backgroundColor: '#6d61ea'
+              backgroundColor: '#9e1b21'
             },
             {
               label: 'Samsung',

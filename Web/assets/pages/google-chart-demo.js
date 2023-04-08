@@ -130,7 +130,7 @@ $(function () {
       vAxis: {
         title: 'City'
       },
-      colors: ['#6d61ea', '#c5bff5']
+      colors: ['#9e1b21', '#c5bff5']
     };
 
     var chart = new google.visualization.BarChart(document.getElementById('bar-chart'));
@@ -252,7 +252,7 @@ $(function () {
         width: '70%',
         height: 300
       },
-      colors: ['#574bd6', '#6d61ea', '#877de8', '#9b94da', '#c5bff5', "#132843"],
+      colors: ['#574bd6', '#9e1b21', '#877de8', '#9b94da', '#c5bff5', "#132843"],
       series: {5: {type: 'line'}}
     };
 
@@ -285,7 +285,7 @@ $(function () {
       backgroundColor: {
         fill: "transparent"
       },
-      colors: ['#574bd6', '#6d61ea', '#877de8', '#9b94da', '#c5bff5']
+      colors: ['#574bd6', '#9e1b21', '#877de8', '#9b94da', '#c5bff5']
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -317,7 +317,7 @@ $(function () {
       backgroundColor: {
         fill: "transparent"
       },
-      colors: ['#574bd6', '#6d61ea', '#877de8', '#9b94da', '#c5bff5']
+      colors: ['#574bd6', '#9e1b21', '#877de8', '#9b94da', '#c5bff5']
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart-3d-chart'));
@@ -347,7 +347,7 @@ $(function () {
       backgroundColor: {
         fill: "transparent"
       },
-      colors: ['#6d61ea', '#877de8', '#9b94da', '#574bd6','#c5bff5']
+      colors: ['#9e1b21', '#877de8', '#9b94da', '#574bd6','#c5bff5']
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));

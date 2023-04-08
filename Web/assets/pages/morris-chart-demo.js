@@ -58,7 +58,7 @@ $(function() {
   if ($('#morris-area-example').length) {
     Morris.Area({
       element: 'morris-area-example',
-      lineColors: ['#9b94da', '#6d61ea'],
+      lineColors: ['#9b94da', '#9e1b21'],
       data: [{
           y: '2013',
           a: 80,
@@ -197,7 +197,7 @@ $(function() {
         ymin: -1.0,
         ymax: 1.0,
         hideHover: true,
-        lineColors: ['#c5bff5', '#6d61ea'],
+        lineColors: ['#c5bff5', '#9e1b21'],
         resize: true
     });
     function update() {

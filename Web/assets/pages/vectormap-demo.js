@@ -17,7 +17,7 @@
         hoverColor : false,
         regionStyle : {
           initial : {
-            fill : '#6d61ea'
+            fill : '#9e1b21'
           }
         },
          markerStyle: {
@@ -122,7 +122,7 @@
       $('#usa-map').vectorMap({map: 'us_aea_en',backgroundColor: 'transparent',
         regionStyle: {
           initial: {
-            fill: '#6d61ea'
+            fill: '#9e1b21'
           }
       }});
     }
@@ -131,7 +131,7 @@
       $('#uk-map').vectorMap({map: 'uk_mill_en',backgroundColor: 'transparent',
         regionStyle: {
           initial: {
-            fill: '#6d61ea'
+            fill: '#9e1b21'
           }
       }});
     }
@@ -140,7 +140,7 @@
       $('#chicago-map').vectorMap({map: 'us-il-chicago_mill_en',backgroundColor: 'transparent',
         regionStyle: {
           initial: {
-            fill: '#6d61ea'
+            fill: '#9e1b21'
           }
       }});
     }
