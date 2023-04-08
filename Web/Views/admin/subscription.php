@@ -39,7 +39,17 @@ include_once('Views/layout/dashboard/path.php');
     </div>
 </div>
 
-<?php
-include_once('Views/subscription/pricing.php');
 
-?>
+<div class="row justify-content-center">
+    <div class="col-xl-10">
+        <div class="row mt-sm-5 mt-3 mb-3">
+
+
+            <?php
+            include_once('Views/subscription/pricing.php');
+
+            ?>
+
+        </div>
+    </div>
+</div>

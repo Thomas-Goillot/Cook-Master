@@ -51,12 +51,46 @@ class Subscription extends Controller
 
         $this->loadModel('Subscription');
 
-        $subscription = $this->_model->getAllSubscriptionInfoById($id_subscription);
+        $subscriptionAllInfo = $this->_model->getAllSubscriptionInfoById($id_subscription);
 
-        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de ".$subscription['name']."" => "subscription/edit/$id_subscription");
+        if($subscriptionAllInfo[0]['is_active'] == 1) {
+            $subscriptionAllInfo[0]['is_active'] = 'checked';
+        } else {
+            $subscriptionAllInfo[0]['is_active'] = '';
+        }
+        
 
-        $this->render('subscription/edit', compact('subscription','page_name'), DASHBOARD, '../../');
+        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de ". $subscriptionAllInfo[0]['name']."" => "subscription/edit/$id_subscription");
 
+        $this->render('subscription/edit', compact('subscriptionAllInfo','page_name'), DASHBOARD, '../../');
+
+    }
+
+    /**
+     * Update a subscription
+     * @return void
+     */
+    public function update(): void
+    {
+        /* 
+        array(6) { ["SubscriptionName"]=> string(6) "Master" ["SubscriptionOptions"]=> array(5) { [0]=> string(1) "2" [1]=> string(1) "3" [2]=> string(1) "4" [3]=> string(1) "5" [4]=> string(1) "6" } ["SubscriptionShippingType"]=> array(2) { [0]=> string(1) "1" [1]=> string(1) "2" } ["SubscriptionAccessToLessons"]=> string(2) "-1" ["SubscriptionPriceMonthly"]=> string(5) "19.00" ["SubscriptionPriceYearly"]=> string(6) "220.00" } */
+
+        if(!isset($_POST)){
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        var_dump($_POST);
     }
 
 }

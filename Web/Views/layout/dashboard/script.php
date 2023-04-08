@@ -89,7 +89,6 @@
         decimals: 2,
         boostat: 5,
         maxboostedstep: 10,
-        postfix: '%'
     };
     $('[data-toggle="touchspin"]').each(function(idx, obj) {
         var objOptions = $.extend({}, defaultOptions, $(obj).data());

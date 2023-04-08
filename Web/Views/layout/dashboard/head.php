@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="<?= $path_prefix ?>assets/images/favicon.ico">
+<link rel="shortcut icon" href="<?= $path_prefix ?>assets/images/logo.svg">
 
 <!-- Plugins css -->
 <link href="<?= $path_prefix ?>plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
