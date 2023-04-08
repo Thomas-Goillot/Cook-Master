@@ -27,6 +27,7 @@
 <script src="<?= $path_prefix ?>plugins/switchery/switchery.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/dropify/dropify.min.js"></script>
 
 <!-- third party js ends -->
 
@@ -94,4 +95,26 @@
         var objOptions = $.extend({}, defaultOptions, $(obj).data());
         $(obj).TouchSpin(objOptions);
     });
+
+
+
+
+
+//upload style
+
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Déposer un fichier ou cliquer ici',
+            'replace': 'Déposer un fichier ou cliquer ici pour le remplacer',
+            'remove': 'Enlever',
+            'error': 'Ooops, quelque chose s\'est mal produit',
+        },
+        error: {
+            'fileSize': 'La taille du fichier est trop volumineux (1M max).'
+        }
+    });
+
+
+
+
 </script>

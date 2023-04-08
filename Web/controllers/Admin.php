@@ -25,13 +25,13 @@ class Admin extends Controller
 
         $id_access = $this->_model->getAll();
 
-        $id_access = (int) $id_access[0]['id_access'];
+        $id_access = (int)$id_access[0]['id_access'];
 
         if ($this->isAdmin($id_access) === false) {
             $this->redirect('../home');
             exit();
         }
-        
+
     }
 
     /**
@@ -44,7 +44,7 @@ class Admin extends Controller
 
         $users = $this->_model->getAll();
 
-        $page_name = array("Admin" => "","Utilisateurs" => "admin/users");
+        $page_name = array("Admin" => "", "Utilisateurs" => "admin/users");
 
         $this->render($this->default_path, compact('users', 'page_name'), DASHBOARD);
     }
@@ -56,7 +56,7 @@ class Admin extends Controller
      */
     public function subscription(): void
     {
-            
+
         $this->loadModel('Subscription');
 
         $subscriptionsNumber = $this->_model->getAllSubscriptionNumberOfSubscribe();
@@ -65,9 +65,63 @@ class Admin extends Controller
         $shippingTypes = $this->_model->getAllSubscriptionShippingType();
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfo();
 
-        $page_name = array("Admin" => $this->default_path,"Abonnements" => "admin/subscription");
+        $page_name = array("Admin" => $this->default_path, "Abonnements" => "admin/subscription");
 
         $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'page_name'), DASHBOARD);
     }
 
+
+    public function products(): void
+    {
+        $this->loadModel("Products");
+
+        $allProduct = $this->_model->getAllProducts();
+
+
+        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
+
+        $this->render('admin/products', compact('allProduct', 'page_name'), DASHBOARD);
+    }
+
+    public function addProduct(): void
+    {
+
+var_dump($_POST);
+
+        if (!isset($_POST['submit'])) {
+            if(!isset($_POST['dispnobilitySale'])){
+                $dispnobilitySale = 0;
+            }else{
+                $dispnobilitySale = 1;
+            }
+            if(!isset ($_POST['dispnobilityRental'])){
+                $dispnobilityRental = 0;
+            }else{
+                $dispnobilityRental = 1;
+            }
+            if(!isset ($_POST['dispnobilityEvent'])){
+                $dispnobilityEvent = 0;
+            }else{
+                $dispnobilityEvent = 1;
+            }
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $image = $_POST['image'];
+            $dispnobilityStock = (int)$_POST['dispnobilityStock'];
+
+            $id_users = $_SESSION['user']['id_users'];
+
+            $this->loadModel("Products");
+
+//            $this->_model->addProduct($name,$description,$image,$dispnobilitySale,$dispnobilityRental,$dispnobilityEvent,$dispnobilityStock,$id_users);
+
+        }
+        var_dump($_POST);
+//        $this->redirect('admin/products');
+
+    }
+
 }
+
+
