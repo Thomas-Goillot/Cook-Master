@@ -233,15 +233,32 @@ class Subscription extends Model
                 }
             }
 
-            $query = "SELECT * FROM shipping_type WHERE id_shipping_type IN (SELECT id_shipping_type FROM deliver_to WHERE id_subscription = :id_subscription)";
+
+            $query = "SELECT * FROM shipping_type WHERE id_shipping_type";
+            $stmt = $this->_connexion->prepare($query);
+            $stmt->execute();
+
+            $shippingType = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $query = "SELECT id_shipping_type FROM deliver_to WHERE id_subscription = :id_subscription";
             $stmt = $this->_connexion->prepare($query);
             $stmt->bindParam(':id_subscription', $value['id_subscription']);
             $stmt->execute();
-            $response[$key]['shipping_type'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $deliverTo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($shippingType as $key2 => $value2) {
+                $response[$key]['shipping_type'][$key2] = $value2;
+                $response[$key]['shipping_type'][$key2]['selected'] = false;
+                foreach ($deliverTo as $key3 => $value3) {
+                    if ($value2['id_shipping_type'] == $value3['id_shipping_type']) {
+                        $response[$key]['shipping_type'][$key2]['selected'] = true;
+                    }
+                }
+            }
         }
 
 
-        return $response[0];
+        return $response;
     }
 
 

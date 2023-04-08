@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="<?= $path_prefix ?>assets/images/favicon.ico">
+<link rel="shortcut icon" href="<?= $path_prefix ?>assets/images/logo.svg">
 
 <!-- Plugins css -->
 <link href="<?= $path_prefix ?>plugins/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
@@ -20,7 +20,7 @@
 <link href="<?= $path_prefix ?>plugins/switchery/switchery.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-
+<link href="<?= $path_prefix ?>plugins/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
 
 <!-- App css -->
 <link href="<?= $path_prefix ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

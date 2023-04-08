@@ -3,72 +3,108 @@ include_once('Views/layout/dashboard/path.php');
 ?>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-8">
         <div class="card card-animate">
             <div class="card-body">
                 <div class="dropdown float-right position-relative align-items-center">
-                    Actif <input type="checkbox" name="SubscriptionActive" id="SubscriptionActive" checked data-toggle="switchery" data-color="#2e7ce4" data-size="small" />
+                    Actif <input type="checkbox" name="SubscriptionActive" id="SubscriptionActive" <?= $subscriptionAllInfo[0]['is_active'] ?> data-toggle="switchery" data-color="#df3554" data-size="small" />
                 </div>
-                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement <?= $subscription['name'] ?></h4>
+                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement <?= $subscriptionAllInfo[0]['name'] ?></h4>
+                <form action="<?= $path_prefix ?>subscription/update" method="POST">
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" maxlength="40" name="SubscriptionName" id="SubscriptionName" class="form-control" id="thresholdconfig" placeholder="<?= $subscriptionAllInfo[0]['name'] ?>" value="<?= $subscriptionAllInfo[0]['name'] ?>" />
+                    </div>
 
-                <div class="form-group">
-                    <label>Nom</label>
-                    <input type="text" maxlength="40" name="SubscriptionName" id="SubscriptionName" class="form-control" id="thresholdconfig" placeholder="<?= $subscription['name'] ?>" />
-                </div>
+                    <div class="form-group">
+                        <label>Options</label>
 
-                <div class="form-group">
-                    <label>Options</label>
+                        <select class="form-control select2-multiple" name="SubscriptionOptions[]" id="SubscriptionOptions" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
+                            <optgroup label="Subscriptions options">
+                                <?php
+                                foreach ($subscriptionAllInfo[0]['subscription_option'] as $feature) {
 
-                    <select class="form-control select2-multiple" name="SubscriptionOptions" id="SubscriptionOptions" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
-                        <optgroup label="Subscriptions options">
-                            <?php
-                            foreach ($subscription['subscription_option'] as $feature) {
-
-                                if ($feature['selected']) {
-                                    echo '<option selected value="' . $feature['id_subscription_optio'] . '">' . $feature['name'] . '</option>';
-                                } else {
-                                    echo '<option value="' . $feature['id_subscription_optio'] . '">' . $feature['name'] . '</option>';
+                                    if ($feature['selected']) {
+                                        echo '<option selected value="' . $feature['id_subscription_option'] . '">' . $feature['name'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $feature['id_subscription_option'] . '">' . $feature['name'] . '</option>';
+                                    }
                                 }
-                            }
-                            ?>
-                        </optgroup>
-                    </select>
+                                ?>
+                            </optgroup>
+                        </select>
 
-                </div>
-
-                <div class="form-group">
-                    <label>Nombre d'access au leçon par mois <span class="text-muted">(-1 = illimité)</span></label>
-                    <input data-toggle="touchspin" data-step="1" data-decimals="0" data-min="-1" type="text" value="<?= $subscription['access_to_lessons'] ?>">
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 form-group">
-                        <label>Prix / mois</label>
-                        <input data-toggle="touchspin" name="SubscriptionPriceMonthly" id="SubscriptionPriceMonthly" value="<?= $subscription['price_monthly'] ?>" type="text" data-step="0.1" data-bts-postfix="/ mois">
                     </div>
 
-                    <div class="col-lg-6 col-sm-12 form-group">
-                        <label>Prix / an</label>
-                        <input data-toggle="touchspin" name="SubscriptionPriceYearly" id="SubscriptionPriceYearly" value="<?= $subscription['price_yearly'] ?>" type="text" data-step="0.1" data-decimals="2" data-bts-postfix="/ an">
-                    </div>
-                </div>
+                    <div class="form-group">
+                        <label>Shipping Type</label>
 
+                        <select class="form-control select2-multiple" name="SubscriptionShippingType[]" id="SubscriptionShippingType" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
+                            <optgroup label="Shipping Type">
+                                <?php
+                                foreach ($subscriptionAllInfo[0]['shipping_type'] as $shippingType) {
+
+                                    if ($shippingType['selected']) {
+                                        echo '<option selected value="' . $shippingType['id_shipping_type'] . '">' . $shippingType['name'] . '</option>';
+                                    } else {
+                                        echo '<option value="' . $shippingType['id_shipping_type'] . '">' . $shippingType['name'] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </optgroup>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre d'access au leçon par mois <span class="text-muted">(-1 = illimité)</span></label>
+                        <input data-toggle="touchspin" name="SubscriptionAccessToLessons" id="SubscriptionAccessToLessons" data-step="1" data-decimals="0" data-min="-1" type="text" value="<?= $subscriptionAllInfo[0]['access_to_lessons'] ?>">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 form-group">
+                            <label>Prix / mois</label>
+                            <input data-toggle="touchspin" name="SubscriptionPriceMonthly" id="SubscriptionPriceMonthly" value="<?= $subscriptionAllInfo[0]['price_monthly'] ?>" type="text" data-step="0.5" data-bts-postfix="/ mois" onchange="updatePriceMonthly()">
+                        </div>
+
+                        <div class=" col-lg-6 col-sm-12 form-group">
+                            <label>Prix / an</label>
+                            <input data-toggle="touchspin" name="SubscriptionPriceYearly" id="SubscriptionPriceYearly" value="<?= $subscriptionAllInfo[0]['price_yearly'] ?>" type="text" data-step="0.5" data-decimals="2" data-bts-postfix="/ an" onchange="updatePriceYearly()">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button type="submit" class="btn btn-primary btn-block w-25">Modifier</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <div class="card card-animate">
-            <div class="card-body">
-                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Information sur Abonnement</h4>
+    <?php
+    include_once('Views/subscription/pricing.php');
+    ?>
 
-                <div>
+    <script>
+        const subscriptionName = document.getElementById('SubscriptionName');
+        const subscriptionName_pricing = document.getElementById('subscriptionName_pricing');
+        const SubscriptionPriceMonthly = document.getElementById('SubscriptionPriceMonthly');
+        const subscriptionPriceMonthly_pricing = document.getElementById('subscriptionPriceMonthly_pricing');
+        const SubscriptionPriceYearly = document.getElementById('SubscriptionPriceYearly');
+        const subscriptionPriceYearly_pricing = document.getElementById('subscriptionPriceYearly_pricing');
 
 
-                </div>
+        subscriptionName.addEventListener('input', function() {
+            subscriptionName_pricing.innerHTML = subscriptionName.value;
+        });
 
-            </div>
-        </div>
-    </div>
+        function updatePriceMonthly() {
+            subscriptionPriceMonthly_pricing.innerHTML = SubscriptionPriceMonthly.value + '€ /mois';
+        }
+
+        function updatePriceYearly() {
+            subscriptionPriceYearly_pricing.innerHTML = SubscriptionPriceYearly.value + '€ /an';
+        }
+    </script>
 
 </div>
