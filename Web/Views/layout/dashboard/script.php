@@ -103,7 +103,7 @@
 
     $('.dropify').dropify({
         messages: {
-            'default': 'Déposer un fichier ou cliquer ici',
+            'default': 'Déposer un fichier',
             'replace': 'Déposer un fichier ou cliquer ici pour le remplacer',
             'remove': 'Enlever',
             'error': 'Ooops, quelque chose s\'est mal produit',
