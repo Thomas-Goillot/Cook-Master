@@ -55,7 +55,6 @@ include_once('Views/layout/dashboard/path.php');
 
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
