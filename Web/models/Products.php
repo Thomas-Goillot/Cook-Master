@@ -1,4 +1,5 @@
 <?php
+
 namespace Models;
 
 use PDO;
@@ -19,7 +20,7 @@ class Products extends Model
 
     public function getAllProducts(): array
     {
-        $query = "SELECT * FROM ".$this->table."";
+        $query = "SELECT * FROM " . $this->table . "";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -29,19 +30,19 @@ class Products extends Model
     }
 
 
-    public function addProduct(string $name,string $description,string $image,int $dispnobilitySale,int $dispnobilityRental,int $dispnobilityEvent,int $dispnobilityStock,int $id_users): void
+    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent, int $dispnobilityStock, int $id_users): void
     {
-        $query ="INSERT INTO ".$this->table."(name,description,image,allow_rental,allow_event,allow_purchase,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:dispnobilityStock,:id_users)";
+        $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:dispnobilityStock,:id_users)";
 
         $data = array(
-            ":name"=>$name,
-            ":description"=>$description,
-            ":image"=>$image,
-            ":dispnobilityRental"=>$dispnobilityRental,
-            ":dispnobilityEvent"=>$dispnobilityEvent,
-            ":dispnobilitySale"=>$dispnobilitySale,
-            ":dispnobilityStock"=>$dispnobilityStock,
-            ":id_users"=>$id_users
+            ":name" => $name,
+            ":description" => $description,
+            ":image" => $image,
+            ":dispnobilityRental" => $dispnobilityRental,
+            ":dispnobilityEvent" => $dispnobilityEvent,
+            ":dispnobilitySale" => $dispnobilitySale,
+            ":dispnobilityStock" => $dispnobilityStock,
+            ":id_users" => $id_users
         );
 
         $stmt = $this->_connexion->prepare($query);
@@ -49,4 +50,3 @@ class Products extends Model
         $stmt->execute($data);
     }
 }
-

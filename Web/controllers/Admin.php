@@ -31,7 +31,6 @@ class Admin extends Controller
             $this->redirect('../home');
             exit();
         }
-
     }
 
     /**
@@ -86,42 +85,43 @@ class Admin extends Controller
     public function addProduct(): void
     {
 
-var_dump($_POST);
-
+        var_dump($_POST);
         if (!isset($_POST['submit'])) {
-            if(!isset($_POST['dispnobilitySale'])){
+            if (isset($_POST['dispnobilitySale'])) {
                 $dispnobilitySale = 0;
-            }else{
+            } else {
                 $dispnobilitySale = 1;
             }
-            if(!isset ($_POST['dispnobilityRental'])){
+            if (isset($_POST['dispnobilityRental'])) {
                 $dispnobilityRental = 0;
-            }else{
+            } else {
                 $dispnobilityRental = 1;
             }
-            if(!isset ($_POST['dispnobilityEvent'])){
+            if (isset($_POST['dispnobilityEvent'])) {
                 $dispnobilityEvent = 0;
-            }else{
+            } else {
                 $dispnobilityEvent = 1;
             }
-
+            // if ($_POST['name'] > strlen(100)) {
+            //     $this->redirect('../admin/products');
+            // }
+            // if ($_POST['image'] > strlen(50)) {
+            //     $this->redirect('../admin/products');
+            // }
+            // if ($_POST['dispnobilityStock'] < 1) {
+            //     $this->redirect('../admin/products');
+            // }
             $name = $_POST['name'];
             $description = $_POST['description'];
             $image = $_POST['image'];
             $dispnobilityStock = (int)$_POST['dispnobilityStock'];
-
             $id_users = $_SESSION['user']['id_users'];
 
             $this->loadModel("Products");
 
-//            $this->_model->addProduct($name,$description,$image,$dispnobilitySale,$dispnobilityRental,$dispnobilityEvent,$dispnobilityStock,$id_users);
-
+            $this->_model->addProduct($name, $description, $image, $dispnobilitySale, $dispnobilityRental, $dispnobilityEvent, $dispnobilityStock, $id_users);
         }
-        var_dump($_POST);
-//        $this->redirect('admin/products');
 
+        $this->redirect('../admin/products');
     }
-
 }
-
-
