@@ -13,9 +13,18 @@ class Recipes extends Controller{
     private string $default_path = "recipes/index";
 
     public function index(){
+
+        $this->loadModel('Recipes');
+
         $page_name = array("Recipes" => $this->default_path);
 
-        $this->render($this->default_path, compact('page_name'), NO_LAYOUT);
+        $getAllRecipesDishes = $this->_model->getAllRecipesDishes();
+
+        $getAllRecipesStarters = $this->_model->getAllRecipesStarters();
+
+        $getAllRecipesDesserts = $this->_model->getAllRecipesDesserts();
+
+        $this->render($this->default_path, compact('page_name', 'getAllRecipesDishes', 'getAllRecipesStarters', 'getAllRecipesDesserts'), NO_LAYOUT);
     }
 
 }
