@@ -44,7 +44,7 @@ class Admin extends Controller
 
         $page_name = array("Admin" => "", "Utilisateurs" => "admin/users");
 
-        $this->render($this->default_path, compact('users', 'errors', 'page_name'), DASHBOARD);
+        $this->render($this->default_path, compact('users', 'page_name'), DASHBOARD);
     }
 
     /**
