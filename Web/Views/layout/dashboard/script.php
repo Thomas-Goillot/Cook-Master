@@ -28,6 +28,8 @@
 <script src="<?= $path_prefix ?>plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/dropify/dropify.min.js"></script>
+<script src="<?= $path_prefix ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+
 
 <!-- third party js ends -->
 
@@ -44,7 +46,9 @@
 
         // Users Datatable
         $('#datatable').DataTable({
-            keys: true,
+            select: {
+                style: 'multi'
+            },
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",
@@ -80,12 +84,7 @@
         $(obj).TouchSpin(objOptions);
     });
 
-
-
-
-
-//upload style
-
+    //upload style
     $('.dropify').dropify({
         messages: {
             'default': 'Déposer un fichier',
@@ -97,8 +96,10 @@
             'fileSize': 'La taille du fichier est trop volumineux (1M max).'
         }
     });
-
-
-
-
 </script>
+
+<?php 
+if(isset($errors) && $errors != ""){
+    echo $errors;
+}
+?>

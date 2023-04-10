@@ -619,11 +619,11 @@ progress {
 
 .img-thumbnail.noschefs {
   padding: 0.25rem;
-  background-color: #fff;
+  background-color: #f8f8f8;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  height: 290px!important;
-  width: 290px!important;
+  max-width: 100%;
+  height: auto;
 }
 
 section.contact-section.bg-white.noschefs1 {
