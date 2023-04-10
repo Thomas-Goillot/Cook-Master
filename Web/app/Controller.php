@@ -24,6 +24,14 @@ abstract class Controller extends Utils{
      */
     public function render(string $file, ?array $data, string $type, string $path = ""): void{
 
+        //handle error
+        $getError = $this->getError();
+        $errors = "";
+        if (isset($getError)) {
+            $errors = $this->alert($getError['title'], $getError['error'], $getError['type']);
+        }
+        $data = array_merge($data, array('errors' => $errors));
+        
         $temp = explode('/', $file);
         
         
@@ -132,4 +140,26 @@ abstract class Controller extends Utils{
         header('Location: ' . $path);
         exit();
     }
+
+
+    /**
+     * Get error from session
+     * @return string|null
+     */
+    public function getError(): ?array{
+        if(isset($_SESSION['error'])){
+            $error = $_SESSION['error'];
+            unset($_SESSION['error']);
+            return $error;
+        }
+        return null;
+    }
+
+    /**
+     * Set error in session
+     */
+    public function setError(string $title, string $error, string $type = WARNING_ALERT): void{
+        $_SESSION['error'] = array('title' => $title, 'error' => $error, 'type' => $type);
+    }
+
 }

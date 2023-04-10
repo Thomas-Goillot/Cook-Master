@@ -16,7 +16,8 @@
     }
   ],
   "require": {
-    "phpmailer/phpmailer": "^6.8"
+    "phpmailer/phpmailer": "^6.8",
+    "stripe/stripe-php": "^10.12"
   },
   "autoload": {
     "psr-4": {

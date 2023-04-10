@@ -32,8 +32,5 @@ define('MIN_RENEWAL_BONUS_AMOUNT', 0);
 
 define('RENEWAL_BONUS_CURENCY', array('€', '%'));
 
-define('test', 'test')
-
-
 
 ?>

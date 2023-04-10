@@ -60,6 +60,13 @@ class login extends Controller{
             return;
         }
 
+        //check if the user is banned
+        if ($this->_model->checkIsBanUserByMail($email)) {
+            $error = "Vous avez été banni";
+            $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
+            return;
+        }
+
         session_start();
         $_SESSION['user'] = $user;
 
@@ -93,5 +100,4 @@ class login extends Controller{
         $this->redirect('users/profil');
 
     }
-
 }

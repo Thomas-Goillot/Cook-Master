@@ -134,6 +134,40 @@ abstract class Utils extends Security
         return $page_name;
     }
 
+    /** 
+     * Calcul si faut mettre un s ou pas
+     * @param int $number
+     * @return string
+     */
+    public function plural(int $number): string
+    {
+        if ($number > 1) {
+            return "s";
+        }
+        return "";
+    }
+
+    /**
+     * Display an alerts
+     * @param string $title
+     * @param string $message
+     * @param string $type
+     * @return string
+     */
+    public function alert(string $title, string $message = "", string $type = ERROR_ALERT): string
+    {
+        return "<script>
+        Swal.fire(
+        {
+            position: 'top-end',
+            title: '$title',
+            text: '$message',
+            type: '$type',
+            timer: 2000,
+            confirmButtonClass: 'btn btn-confirm mt-2'
+        })</script>";
+    }
+
 
 
 }

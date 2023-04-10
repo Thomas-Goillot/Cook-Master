@@ -25,6 +25,11 @@ define('MIN_PASSWORD', 8);
 
 define('MAIL_VERIFIED', 1); // if 1 then the user has verified his email
 
+define('USER_IS_BANNED', 1); // if 1 then the user is banned
+
+define('USER_IS_NOT_BANNED', 0); // if 0 then the user is not banned
+
+
 
 
 
