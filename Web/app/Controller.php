@@ -24,6 +24,14 @@ abstract class Controller extends Utils{
      */
     public function render(string $file, ?array $data, string $type, string $path = ""): void{
 
+        //handle error
+        $getError = $this->getError();
+        $errors = "";
+        if (isset($getError)) {
+            $errors = $this->alert($getError['title'], $getError['error'], $getError['type']);
+        }
+        $data = array_merge($data, array('errors' => $errors));
+        
         $temp = explode('/', $file);
         
         

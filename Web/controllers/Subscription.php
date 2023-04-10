@@ -48,6 +48,8 @@ class Subscription extends Controller
 
         $id_subscription = (int) $params[0];
 
+        $this->default_path = "../subscription/edit/$id_subscription";
+
         $this->loadModel('Subscription');
 
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfoById($id_subscription);
@@ -60,7 +62,6 @@ class Subscription extends Controller
 
         $numberOfSubscriptionAllInfo = count($subscriptionAllInfo);
 
-
         $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de " . $subscriptionAllInfo[0]['name'] . "" => "subscription/edit/$id_subscription");
 
         $this->render('subscription/edit', compact('subscriptionAllInfo', 'numberOfSubscriptionAllInfo', 'page_name'), DASHBOARD, '../../');
@@ -72,19 +73,22 @@ class Subscription extends Controller
      */
     public function update(): void
     {
-        $defaultFallback = 'subscription/edit';
+
+        $subscriptionId = htmlspecialchars($_POST['SubscriptionId']);
+        $defaultFallback = "../subscription/edit/$subscriptionId";
 
         if (!isset($_POST)) {
+            $this->setError('Erreur', "Une erreur est survenue lors de la modification de l\'abonnement", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
 
         if (!isset($_POST['SubscriptionName']) || !isset($_POST['SubscriptionAccessToLessons']) || !isset($_POST['SubscriptionPriceMonthly']) || !isset($_POST['SubscriptionPriceYearly']) || !isset($_POST['SubscriptionId'])) {
+            $this->setError('Erreur', "Tout les champs n\'ont pas été remplis", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
 
-        $subscriptionId = htmlspecialchars($_POST['SubscriptionId']);
         $subscriptionName = htmlspecialchars($_POST['SubscriptionName']);
         $subscriptionAccessToLessons = htmlspecialchars($_POST['SubscriptionAccessToLessons']);
         $subscriptionPriceMonthly = htmlspecialchars($_POST['SubscriptionPriceMonthly']);
@@ -97,21 +101,25 @@ class Subscription extends Controller
         }
 
         if (strlen($subscriptionName) > MAX_SUBSCRIPTION_NAME) {
+            $this->setError('Erreur', "Le nom de l\'abonnement est trop long", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
 
         if ($subscriptionAccessToLessons < MIN_ACCESS_TO_LESSONS) {
+            $this->setError('Erreur', "Le nombre de leçons est trop petit", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
 
         if ($subscriptionPriceMonthly < MIN_SUBSCRIPTION_PRICE) {
+            $this->setError('Erreur', "Le prix mensuel est trop petit", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
 
         if ($subscriptionPriceYearly < MIN_SUBSCRIPTION_PRICE) {
+            $this->setError('Erreur', "Le prix annuel est trop petit", ERROR_ALERT);
             $this->redirect($defaultFallback);
             exit();
         }
@@ -125,6 +133,7 @@ class Subscription extends Controller
             exit();
         }
 
+        $this->setError('Succès', "L\'abonnement a bien été modifié", SUCCESS_ALERT);
         $this->redirect('../admin/subscription');
     }
 

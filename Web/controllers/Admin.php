@@ -42,12 +42,6 @@ class Admin extends Controller
     {
         $users = $this->_model->getAll();
 
-        $getError = $this->getError();
-        $errors = "";
-        if(isset($getError)){
-            $errors = $this->alert($getError['title'], $getError['error'], $getError['type']);
-        }
-
         $page_name = array("Admin" => "", "Utilisateurs" => "admin/users");
 
         $this->render($this->default_path, compact('users', 'errors', 'page_name'), DASHBOARD);
