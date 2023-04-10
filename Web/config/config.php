@@ -27,11 +27,14 @@ define('PASSWORD_COST', 12);
 define('LOGO_SVG', 'assets/images/logo.svg');
 define('LOGO_PNG', 'assets/images/logo.png');
 
-//CONST FOR LENGHT OF columns in database
+//CONST FOR LENGHT OF columns in table users
 include_once("users.php");
 
 //CONST FOR TYPE OF ACCESS
 include_once("access.php");
+
+//CONST CONST FOR LENGHT OF columns in table subscriptions
+include_once("subscription.php");
 
 
 ?>

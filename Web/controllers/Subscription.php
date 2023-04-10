@@ -31,11 +31,10 @@ class Subscription extends Controller
             $this->redirect('../home');
             exit();
         }
-        
     }
 
     /**
-     * Edit a subscription
+     * Display Edit subscription page
      * @return void
      */
     public function edit(): void
@@ -47,23 +46,24 @@ class Subscription extends Controller
             exit();
         }
 
-        $id_subscription = (int) $params[0];        
+        $id_subscription = (int) $params[0];
 
         $this->loadModel('Subscription');
 
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfoById($id_subscription);
 
-        if($subscriptionAllInfo[0]['is_active'] == 1) {
-            $subscriptionAllInfo[0]['is_active'] = 'checked';
+        if ($subscriptionAllInfo[0]['is_active'] == 1) {
+            $subscriptionAllInfo[0]['is_active_checked'] = 'checked';
         } else {
-            $subscriptionAllInfo[0]['is_active'] = '';
+            $subscriptionAllInfo[0]['is_active_checked'] = '';
         }
-        
 
-        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de ". $subscriptionAllInfo[0]['name']."" => "subscription/edit/$id_subscription");
+        $numberOfSubscriptionAllInfo = count($subscriptionAllInfo);
 
-        $this->render('subscription/edit', compact('subscriptionAllInfo','page_name'), DASHBOARD, '../../');
 
+        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Modification de " . $subscriptionAllInfo[0]['name'] . "" => "subscription/edit/$id_subscription");
+
+        $this->render('subscription/edit', compact('subscriptionAllInfo', 'numberOfSubscriptionAllInfo', 'page_name'), DASHBOARD, '../../');
     }
 
     /**
@@ -72,25 +72,138 @@ class Subscription extends Controller
      */
     public function update(): void
     {
-        /* 
-        array(6) { ["SubscriptionName"]=> string(6) "Master" ["SubscriptionOptions"]=> array(5) { [0]=> string(1) "2" [1]=> string(1) "3" [2]=> string(1) "4" [3]=> string(1) "5" [4]=> string(1) "6" } ["SubscriptionShippingType"]=> array(2) { [0]=> string(1) "1" [1]=> string(1) "2" } ["SubscriptionAccessToLessons"]=> string(2) "-1" ["SubscriptionPriceMonthly"]=> string(5) "19.00" ["SubscriptionPriceYearly"]=> string(6) "220.00" } */
+        $defaultFallback = 'subscription/edit';
 
-        if(!isset($_POST)){
-            
+        if (!isset($_POST)) {
+            $this->redirect($defaultFallback);
+            exit();
         }
 
+        if (!isset($_POST['SubscriptionName']) || !isset($_POST['SubscriptionAccessToLessons']) || !isset($_POST['SubscriptionPriceMonthly']) || !isset($_POST['SubscriptionPriceYearly']) || !isset($_POST['SubscriptionId'])) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
+        $subscriptionId = htmlspecialchars($_POST['SubscriptionId']);
+        $subscriptionName = htmlspecialchars($_POST['SubscriptionName']);
+        $subscriptionAccessToLessons = htmlspecialchars($_POST['SubscriptionAccessToLessons']);
+        $subscriptionPriceMonthly = htmlspecialchars($_POST['SubscriptionPriceMonthly']);
+        $subscriptionPriceYearly = htmlspecialchars($_POST['SubscriptionPriceYearly']);
 
+        if (!isset($_POST['SubscriptionActive'])) {
+            $subscriptionActive = 0;
+        } else {
+            $subscriptionActive = 1;
+        }
 
+        if (strlen($subscriptionName) > MAX_SUBSCRIPTION_NAME) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
+        if ($subscriptionAccessToLessons < MIN_ACCESS_TO_LESSONS) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
+        if ($subscriptionPriceMonthly < MIN_SUBSCRIPTION_PRICE) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
+        if ($subscriptionPriceYearly < MIN_SUBSCRIPTION_PRICE) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
+        $this->loadModel('Subscription');
 
+        $respons = $this->_model->updateSubscription($subscriptionId, $subscriptionName, $subscriptionAccessToLessons, $subscriptionPriceMonthly, $subscriptionPriceYearly, $subscriptionActive);
 
+        if ($respons === false) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
 
-
-        var_dump($_POST);
+        $this->redirect('../admin/subscription');
     }
 
+    /**
+     * Display Create subscription page
+     * @return void
+     */
+    public function create(): void
+    {
+        $this->loadModel('Subscription');
+
+        $allSubscriptionOption = $this->_model->getAllSubscriptionOption();
+        $allSubscriptionRenewalBonus = $this->_model->getAllSubscriptionRenewalBonus();
+        $allSubscriptionShippingType = $this->_model->getAllSubscriptionShippingType();
+        $allSubscriptionRewards = $this->_model->getAllSubscriptionRewards();
+
+        $page_name = array("Admin" => "", "Abonnements" => "admin/subscription", "Création d'un abonnement" => "subscription/create");
+
+        $this->render('subscription/create', compact('allSubscriptionOption', 'allSubscriptionRenewalBonus', 'allSubscriptionShippingType', 'allSubscriptionRewards', 'page_name'), DASHBOARD, '../');
+    }
+
+    /**
+     * Create a subscription
+     * @return void
+     */
+    public function store(): void
+    {
+        $defaultFallback = 'subscription/create';
+
+        if (!isset($_POST)) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        if(!isset($_POST['SubscriptionName']) || !isset($_POST['SubscriptionAccessToLessons']) || !isset($_POST['SubscriptionPriceMonthly']) || !isset($_POST['SubscriptionPriceYearly']) || !isset($_POST['SubscriptionIcon']) || !isset($_POST['SubscriptionShippingType']) || !isset($_POST['SubscriptionRenewalBonus']) || !isset($_POST['SubscriptionOptions']) || !isset($_POST['SubscriptionRewards'])) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        $subscriptionName = htmlspecialchars($_POST['SubscriptionName']);
+        $subscriptionAccessToLessons = htmlspecialchars($_POST['SubscriptionAccessToLessons']);
+        $subscriptionPriceMonthly = htmlspecialchars($_POST['SubscriptionPriceMonthly']);
+        $subscriptionPriceYearly = htmlspecialchars($_POST['SubscriptionPriceYearly']);
+        $subscriptionIcon = htmlspecialchars($_POST['SubscriptionIcon']);
+        $subscriptionShippingType = $_POST['SubscriptionShippingType'];
+        $subscriptionRenewalBonus = $_POST['SubscriptionRenewalBonus'];
+        $subscriptionOption = $_POST['SubscriptionOptions'];
+        $subscriptionRewards = $_POST['SubscriptionRewards'];
+        $subscriptionActive = 1;
+
+        if (strlen($subscriptionName) > MAX_SUBSCRIPTION_NAME) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        if ($subscriptionAccessToLessons < MIN_ACCESS_TO_LESSONS) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        if ($subscriptionPriceMonthly < MIN_SUBSCRIPTION_PRICE) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        if ($subscriptionPriceYearly < MIN_SUBSCRIPTION_PRICE) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        $this->loadModel('Subscription');
+
+        $respons = $this->_model->createSubscription($subscriptionName, $subscriptionAccessToLessons, $subscriptionPriceMonthly, $subscriptionPriceYearly, $subscriptionRenewalBonus, $subscriptionActive, $subscriptionOption, $subscriptionShippingType, $subscriptionRewards, $subscriptionIcon);
+
+        if ($respons === false) {
+            $this->redirect($defaultFallback);
+            exit();
+        }
+
+        $this->redirect('../admin/subscription');
+    }
 }

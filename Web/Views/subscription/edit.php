@@ -6,54 +6,18 @@ include_once('Views/layout/dashboard/path.php');
     <div class="col-lg-8">
         <div class="card card-animate">
             <div class="card-body">
-                <div class="dropdown float-right position-relative align-items-center">
-                    Actif <input type="checkbox" name="SubscriptionActive" id="SubscriptionActive" <?= $subscriptionAllInfo[0]['is_active'] ?> data-toggle="switchery" data-color="#df3554" data-size="small" />
-                </div>
-                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement <?= $subscriptionAllInfo[0]['name'] ?></h4>
                 <form action="<?= $path_prefix ?>subscription/update" method="POST">
+                    <input type="hidden" name="SubscriptionId" id="SubscriptionId" value="<?= $subscriptionAllInfo[0]['id_subscription'] ?>" />
+
+                    <div class="dropdown float-right position-relative align-items-center">
+                        Actif <input type="checkbox" name="SubscriptionActive" id="SubscriptionActive" <?= $subscriptionAllInfo[0]['is_active_checked'] ?> data-toggle="switchery" data-color="#df3554" data-size="small" />
+                    </div>
+
+                    <h4 class="card-title d-inline-block mb-3"><i class="fas fa-list-ul"></i> Modifier l'Abonnement <?= $subscriptionAllInfo[0]['name'] ?></h4>
+
                     <div class="form-group">
                         <label>Nom</label>
                         <input type="text" maxlength="40" name="SubscriptionName" id="SubscriptionName" class="form-control" id="thresholdconfig" placeholder="<?= $subscriptionAllInfo[0]['name'] ?>" value="<?= $subscriptionAllInfo[0]['name'] ?>" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Options</label>
-
-                        <select class="form-control select2-multiple" name="SubscriptionOptions[]" id="SubscriptionOptions" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
-                            <optgroup label="Subscriptions options">
-                                <?php
-                                foreach ($subscriptionAllInfo[0]['subscription_option'] as $feature) {
-
-                                    if ($feature['selected']) {
-                                        echo '<option selected value="' . $feature['id_subscription_option'] . '">' . $feature['name'] . '</option>';
-                                    } else {
-                                        echo '<option value="' . $feature['id_subscription_option'] . '">' . $feature['name'] . '</option>';
-                                    }
-                                }
-                                ?>
-                            </optgroup>
-                        </select>
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>Shipping Type</label>
-
-                        <select class="form-control select2-multiple" name="SubscriptionShippingType[]" id="SubscriptionShippingType" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
-                            <optgroup label="Shipping Type">
-                                <?php
-                                foreach ($subscriptionAllInfo[0]['shipping_type'] as $shippingType) {
-
-                                    if ($shippingType['selected']) {
-                                        echo '<option selected value="' . $shippingType['id_shipping_type'] . '">' . $shippingType['name'] . '</option>';
-                                    } else {
-                                        echo '<option value="' . $shippingType['id_shipping_type'] . '">' . $shippingType['name'] . '</option>';
-                                    }
-                                }
-                                ?>
-                            </optgroup>
-                        </select>
-
                     </div>
 
                     <div class="form-group">

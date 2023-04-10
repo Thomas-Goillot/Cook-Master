@@ -43,7 +43,7 @@
     $(document).ready(function() {
 
         // Users Datatable
-        $('#datatable-users').DataTable({
+        $('#datatable').DataTable({
             keys: true,
             "language": {
                 "paginate": {
@@ -55,21 +55,6 @@
                 $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
             }
         });
-
-        // Subscription Datatable
-        $('#datatable-subscription').DataTable({
-            keys: true,
-            "language": {
-                "paginate": {
-                    "previous": "<i class='mdi mdi-chevron-left'>",
-                    "next": "<i class='mdi mdi-chevron-right'>"
-                }
-            },
-            "drawCallback": function() {
-                $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-            }
-        });
-
     });
 
     // Switchery

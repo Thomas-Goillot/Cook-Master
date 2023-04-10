@@ -18,6 +18,10 @@ class Products extends Model
         $this->getConnection();
     }
 
+    /**
+     * Get all products
+     * @return array
+     */
     public function getAllProducts(): array
     {
         $query = "SELECT * FROM " . $this->table . "";
@@ -30,6 +34,18 @@ class Products extends Model
     }
 
 
+    /**
+     * Add a product
+     * @param string $name
+     * @param string $description
+     * @param string $image
+     * @param int $dispnobilitySale
+     * @param int $dispnobilityRental
+     * @param int $dispnobilityEvent
+     * @param int $dispnobilityStock
+     * @param int $id_users
+     * @return void
+     */
     public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent, int $dispnobilityStock, int $id_users): void
     {
         $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:dispnobilityStock,:id_users)";

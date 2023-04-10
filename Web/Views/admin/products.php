@@ -51,56 +51,48 @@ include_once('Views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Listes de tout les produits</h4>
 
-                    <table id="datatable-users" class="table dt-responsive nowrap">
+                    <table id="datatable" class="table dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th>Trier par nom</th>
-                                <th>Trier par date d'ajout</th>
-                                <th>
-                                    Action :
-                                </th>
+                                <th>Nom</th>
+                                <th>Desription</th>
+                                <th>Stock</th>
+                                <th>Date de création</th>
+                                <th>Disponibilité:</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
+                            <?php
+                                foreach ($allProduct as $allProduct) {
+                                    echo "<tr>
+                                            <td>" . $allProduct['name'] . "</td>
+                                            <td>" . $allProduct['description'] . "</td>
+                                            <td>" . $allProduct['stock'] . "</td>
+                                            <td>" . $allProduct['creation_date'] . "</td>
+                                            <td>";
+                                        if ($allProduct['allow_rental'] == 0) {
+                                            echo '<span class="mx-5">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                        } else {
+                                            echo '<span class="mx-5">Location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        }
+                                        if ($allProduct['allow_purchase'] == 0) {
+                                            echo '<span class="mx-5">Vente : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                        } else {
+                                            echo '<span class="mx-5">Vente : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        }
+                                        if ($allProduct['allow_event'] == 0) {
+                                            echo '<span class="mx-5">Évenement : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                        } else {
+                                            echo '<span class="mx-5">Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        }
+                                    echo "</td></tr>";
+
+                                }
+
+                                ?>
 
 
 
-
-                                    <div class="col-lg-12">
-                                        <div class="card card-animate">
-                                            <?php
-                                            foreach ($allProduct as $allProduct) {
-                                                echo '<div class="d-flex justify-content-between card-header">';
-                                                echo '<h3>' . $allProduct['name'] . '</h3>';
-                                                echo '<p> Nombre disponible :' . $allProduct['stock'] . ' </p>';
-                                                echo '</div>';
-                                                echo '<p>' .  $allProduct['description'] . '</p>';
-                                                echo '<div class="card-body">';
-                                                echo '<p><img src=' . $allProduct['image'] . ' width="150px"></p>';
-                                                echo '<div class="d-flex justify-content-between">';
-                                                if ($allProduct['allow_rental'] == 0) {
-                                                    echo '<p>Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
-                                                } else {
-                                                    echo '<p>Disponibilité à la location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                                                }
-                                                if ($allProduct['allow_purchase'] == 0) {
-                                                    echo '<p>Disponibilité à la vente : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></p>';
-                                                } else {
-                                                    echo '<p>Disponibilité à la vente : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                                                }
-                                                if ($allProduct['allow_event'] == 0) {
-                                                    echo '<p>Évenement : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></p>';
-                                                } else {
-                                                    echo '<p>Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                                                }
-                                                echo '</div>';
-                                                echo '</div>';
-                                            }
-                                            ?>
-                                        </div>
-                                    </div>
 
 
 
@@ -116,3 +108,4 @@ include_once('Views/layout/dashboard/path.php');
         </div>
     </div>
 </div>
+

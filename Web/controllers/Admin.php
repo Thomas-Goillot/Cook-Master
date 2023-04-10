@@ -64,12 +64,17 @@ class Admin extends Controller
         $shippingTypes = $this->_model->getAllSubscriptionShippingType();
         $subscriptionAllInfo = $this->_model->getAllSubscriptionInfo();
 
+        $numberOfSubscriptionAllInfo = count($subscriptionAllInfo);
+
         $page_name = array("Admin" => $this->default_path, "Abonnements" => "admin/subscription");
 
-        $this->render('admin/subscription', compact('subscriptionsNumber', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'page_name'), DASHBOARD);
+        $this->render('admin/subscription', compact('subscriptionsNumber', 'numberOfSubscriptionAllInfo', 'subscriptionOption', 'rewards', 'subscriptionAllInfo', 'shippingTypes', 'page_name'), DASHBOARD);
     }
 
-
+    /**
+     * Display the Product page
+     * @return void
+     */
     public function products(): void
     {
         $this->loadModel("Products");
@@ -82,6 +87,10 @@ class Admin extends Controller
         $this->render('admin/products', compact('allProduct', 'page_name'), DASHBOARD);
     }
 
+    /**
+     * Check before add a product in the database
+     * @return void
+     */
     public function addProduct(): void
     {
 
@@ -102,10 +111,10 @@ class Admin extends Controller
             } else {
                 $dispnobilityEvent = 1;
             }
-            // if ($_POST['name'] > strlen(100)) {
+            // if (strlen($_POST['name']) > 100)) {
             //     $this->redirect('../admin/products');
             // }
-            // if ($_POST['image'] > strlen(50)) {
+            // if (strlen($_POST['image']) > 50) {
             //     $this->redirect('../admin/products');
             // }
             // if ($_POST['dispnobilityStock'] < 1) {
