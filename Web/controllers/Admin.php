@@ -126,14 +126,15 @@ class Admin extends Controller
 
         $acceptable = ['image/jpeg, image/png'];
     
-        // if(!in_array($_FILES['image']['type'], $acceptable)){
-        //     $this->redirect('../admin/products');
-        // }
+        if(!in_array($_FILES['image']['type'], $acceptable)){
+            $this->setError('Type de fichier non autorisée',"Ce type de fichier n\'est pas autorisé",'ERROR_ALERT');
+            $this->redirect('../admin/products');
+        }
     
-        // $maxSize = 5 * 1024 * 1024; //5 Mo
-        // if($_FILES['image']['size'] > $maxSize){
-        //     $this->redirect('../admin/products');
-        // }
+        $maxSize = 5 * 1024 * 1024; //5 Mo
+        if($_FILES['image']['size'] > $maxSize){
+            $this->redirect('../admin/products');
+        }
     
         //Si le dossier uploads n'existe pas, le créer
         $path = 'assets/images/productShop';
@@ -169,6 +170,11 @@ class Admin extends Controller
 
         // $this->redirect('../admin/products');
     }
+
+
+        
+
+
 
     /**
      * update is ban user
