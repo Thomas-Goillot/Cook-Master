@@ -11,7 +11,7 @@
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <link href="<?= $path_prefix ?>assets/css/home/styles.css" rel="stylesheet" />
+    <link href="<?= $path_prefix ?>assets/css/chefs/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 </head>
 
@@ -26,104 +26,51 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>home">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>recipes">Recettes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>chefs">Nos Chefs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#noschefs">Nos Chefs</a></li>
                     <li><a class="nav-link" href="login"><i class="bi bi-person"></i></a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- Masthead-->
-    <header class="masthead">
-
+    <header class="masthead" id="noschefs">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">Cook Master</h1>
+                    <h1 class="mx-auto my-0 text-uppercase">Nos chefs</h1>
                 </div>
             </div>
         </div>
     </header>
-    <!-- About-->
-    <section class="about-section text-center" id="about">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src='<?= $path_prefix ?>assets/images/home/jap.png'>
-                </div>
-                <div class="col-lg-6">
-                    <img class="img-fluid" src='<?= $path_prefix ?>assets/images/home/tower.png'>
-                </div>
-            </div>
 
+    <!-- Nos Chefs-->
 
-            <div class="text1">
-                <h1>Une cuisine d’excellence</h1>
-                <p class="text-white-50">
-                    Une cuisine reconnue à travers le monde et appréciée de tous.
-                    Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
-                    une des recettes emblématiques que nous proposons.
-                </p>
-            </div>
-
-
-        </div>
-        </div>
-    </section>
-    <!-- Projects-->
-    <section class="projects-section bg-light" id="about">
+    <section class="contact-section bg-white noschefs1">
         <div class="container px-4 px-lg-5">
-            <!-- Project One Row-->
-            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img1.png" alt="..." /></div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">Spécialisée dans la cuisine et la gastronomie, CookMaster se distingue par son accueil chaleureux et ses prestations riches et variées.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row gx-4 gx-lg-5">
+                <?php
+                    foreach($getChefImage as $info){
+                        echo    '<div class="col-md-4 mb-3 mb-md-0">
+                                    <div class="card py-4 h-100">
+                                        <div class="card-body text-center">
+                                            <img src="' . $path_prefix  . 'assets/images/chefs/' . $info['image'] . '" class="img-thumbnail noschefs">
+                                            <hr class="my-4 mx-auto" />
+                                            <h4 class="text-uppercase m-0 name-red">' . $info['name'] . ' ' . $info['surname'] . '</h4>
+                                            <div class="small text-black chef2">' . $info['description'] . '</div>
+                                        </div>
+                                    </div>
+                                </div>';
+                    }
+                ?>
             </div>
-            <!-- Project Two Row-->
-            <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home//image4.png" alt="..." /></div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">Nous proposons des ateliers de cuisine, des cours à domicile, des leçons en ligne, la location d'espaces équipés, des formations professionnelles et bien plus encore.</p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img2.png" alt="..." /></div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 project">
-                        <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-left">
-                                <!-- <h4 class="text-white"></h4> -->
-                                <p class="mb-0 text-white-50">Besoin de conseils ? Une messagerie avec des chefs est disponible pour une assistance totalement personnalisée.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
     </section>
-    <!-- Signup-->
-    <section class="signup-section" id="signup">
+
+   <!-- Signup-->
+   <section class="signup-section" id="signup">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
