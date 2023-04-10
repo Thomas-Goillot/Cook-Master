@@ -91,9 +91,8 @@ class Admin extends Controller
      */
     public function addProduct(): void
     {
-
-        var_dump($_POST);
         if (!isset($_POST['submit'])) {
+
             if (isset($_POST['dispnobilitySale'])) {
                 $dispnobilitySale = 0;
             } else {
@@ -109,27 +108,66 @@ class Admin extends Controller
             } else {
                 $dispnobilityEvent = 1;
             }
-            // if (strlen($_POST['name']) > 100)) {
-            //     $this->redirect('../admin/products');
-            // }
+            if (strlen($_POST['name']) > 100) {
+                $this->redirect('../admin/products');
+            }
             // if (strlen($_POST['image']) > 50) {
             //     $this->redirect('../admin/products');
             // }
-            // if ($_POST['dispnobilityStock'] < 1) {
-            //     $this->redirect('../admin/products');
-            // }
+            if (strlen($_POST['description']) > 50) {
+                $this->redirect('../admin/products');
+            }
+            if ($_POST['dispnobilityStock'] < 1) {
+                $this->redirect('../admin/products');
+            }
+
+
+            
+
+        $acceptable = ['image/jpeg, image/png'];
+    
+        // if(!in_array($_FILES['image']['type'], $acceptable)){
+        //     $this->redirect('../admin/products');
+        // }
+    
+        // $maxSize = 5 * 1024 * 1024; //5 Mo
+        // if($_FILES['image']['size'] > $maxSize){
+        //     $this->redirect('../admin/products');
+        // }
+    
+        //Si le dossier uploads n'existe pas, le créer
+        $path = 'assets/images/productShop';
+        if(!file_exists('assets/images/productShop/')){
+            mkdir('assets/images/productShop/');
+        }
+
+        $filename = $_FILES['image']['name'];
+    
+        $array = explode('.', $filename);
+        //rename file
+        $extension = end($array);
+    
+        $filename = 'image-' . time() . '.' . $extension;
+    
+        $destination = $path . '/' . $filename;
+    
+        // var_dump($_FILES);
+        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+    
+
             $name = $_POST['name'];
             $description = $_POST['description'];
-            $image = $_POST['image'];
+            $image = $filename;
             $dispnobilityStock = (int)$_POST['dispnobilityStock'];
             $id_users = $_SESSION['user']['id_users'];
+
 
             $this->loadModel("Products");
 
             $this->_model->addProduct($name, $description, $image, $dispnobilitySale, $dispnobilityRental, $dispnobilityEvent, $dispnobilityStock, $id_users);
         }
 
-        $this->redirect('../admin/products');
+        // $this->redirect('../admin/products');
     }
 
     /**
