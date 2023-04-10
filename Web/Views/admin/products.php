@@ -5,7 +5,7 @@ include_once('Views/layout/dashboard/path.php');
     <div class="col-lg-4">
         <div class="card card-animate">
             <div class="card-body">
-                <form action="<?= $path_prefix ?>admin/addProduct" method="POST">
+                <form action="<?= $path_prefix ?>admin/addProduct" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label">Nom</label>
                             <input class="form-control" type="text" name="name" required="" placeholder="Nom du produit">
