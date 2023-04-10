@@ -65,4 +65,37 @@ class Products extends Model
 
         $stmt->execute($data);
     }
+
+    public function withdrawStock(){
+
+        $query = "UPDATE `equipment` SET `stock`=:dispnobilityStock";
+
+
+
+        // $dispnobilityStock = 
+
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

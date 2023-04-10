@@ -11,7 +11,7 @@ include_once('Views/layout/dashboard/path.php');
             foreach ($allProduct as $allProduct) {
                 echo '<div class="d-flex justify-content-between card-header">';
                 echo '<h3>' . $allProduct['name'] . '</h3>';
-                echo '<p> Nombre disponible :' . $allProduct['stock'] . ' </p>';
+                echo '<p> Nombre disponible :' . $allProduct['stock'] . '</p>';
                 echo '</div>';
                 echo '<p>' .  $allProduct['description'] . '</p>';
                 echo '<div class="card-body">';
@@ -32,6 +32,9 @@ include_once('Views/layout/dashboard/path.php');
                 } else {
                     echo '<p>Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
                 }
+                echo ' <button class="btn btn-primary btn-block" type="submit">Ajouter le produit au panier</button>';
+                echo ' <input type="number" name="dispnobilityStock" class="form-control">';
+                echo ' <button class="btn btn-primary btn-block" type="submit">Louer</button>';
                 echo '</div>';
                 echo '</div>';
             }

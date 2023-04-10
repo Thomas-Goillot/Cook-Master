@@ -33,6 +33,8 @@ class Shop extends Controller
         $this->render('shop/index', compact('page_name','allProduct'), DASHBOARD);
     }
 
+
+    
    
    
 }
