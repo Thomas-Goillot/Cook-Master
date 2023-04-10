@@ -54,21 +54,21 @@ class User extends Model
 
     /**
      * Check if user exist
-     * @param string $email
+     * @param int $id
      * @return bool
      */
-    public function checkUserExist(string $email):bool
+    public function checkUserExist(int $id):bool
     {
         try{
-            $query = "SELECT id_users FROM " . $this->table . " WHERE email = :email";
+            $query = "SELECT COUNT(id_users) FROM " . $this->table . " WHERE id_users = :id";
 
             $stmt = $this->_connexion->prepare($query);
 
-            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":id", $id);
 
             $stmt->execute();
 
-            if ($stmt->rowCount() == 0) {
+            if($stmt->fetchColumn() == 0){
                 return false;
             }
 
@@ -286,6 +286,82 @@ class User extends Model
 
         } catch (PDOException $e) {
             return "No subscription";
+        }
+    }
+
+    /**
+     * Check if user is ban by id
+     * @param int $id
+     * @return bool
+     */
+    public function checkIsBanUserById(int $id):bool{
+        try {
+            $query = "SELECT COUNT(is_banned) FROM " . $this->table . " WHERE id_users = :id AND is_banned = ". USER_IS_BANNED ."";
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($res['COUNT(is_banned)'] == 0){
+                return false;
+            }
+
+            return true;
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Check if user is ban
+     * @param string $email
+     * @return bool
+     */
+    public function checkIsBanUserByMail(string $email): bool
+    {
+        try {
+            $query = "SELECT COUNT(is_banned) FROM " . $this->table . " WHERE email = :email AND is_banned = " . USER_IS_BANNED . "";
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":email", $email);
+
+            $stmt->execute();
+
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($res['COUNT(is_banned)'] == 0) {
+                return false;
+            }
+
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Update is ban user
+     * @param int $id
+     * @param int $banned
+     * @return bool
+     */
+    public function updateIsBanUser(int $id, int $banned):bool{
+        try {
+            $query = "UPDATE " . $this->table . " SET is_banned = :banned WHERE id_users = :id";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":banned", $banned);
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            return false;
         }
     }
 

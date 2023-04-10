@@ -40,12 +40,17 @@ class Admin extends Controller
      */
     public function users(): void
     {
-
         $users = $this->_model->getAll();
+
+        $getError = $this->getError();
+        $errors = "";
+        if(isset($getError)){
+            $errors = $this->alert($getError['title'], $getError['error'], $getError['type']);
+        }
 
         $page_name = array("Admin" => "", "Utilisateurs" => "admin/users");
 
-        $this->render($this->default_path, compact('users', 'page_name'), DASHBOARD);
+        $this->render($this->default_path, compact('users', 'errors', 'page_name'), DASHBOARD);
     }
 
     /**
@@ -80,7 +85,6 @@ class Admin extends Controller
         $this->loadModel("Products");
 
         $allProduct = $this->_model->getAllProducts();
-
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
 
@@ -132,5 +136,45 @@ class Admin extends Controller
         }
 
         $this->redirect('../admin/products');
+    }
+
+    /**
+     * update is ban user
+     * @return void
+     */
+    public function updateIsBanUser(): void
+    {
+        $id_admin = (int) $_SESSION['user']['id_users'];
+        $id = (int) $_GET['params'][0];
+
+        if($id_admin === $id){
+            $this->setError('Erreur', 'Vous ne pouvez pas vous bannir vous même', ERROR_ALERT);
+            $this->redirect('../../admin/users');
+            exit();
+        }
+
+        $this->loadModel('User');
+
+        $user = $this->_model->checkUserExist($id);
+
+        if ($user === false) {
+            $this->setError('Erreur', "Cet utilisateur n\'existe pas", ERROR_ALERT);
+            $this->redirect('../../admin/users');
+            exit();
+        }
+
+        $is_banned = $this->_model->checkIsBanUserById($id);
+
+        if($is_banned){
+            $this->_model->updateIsBanUser($id, USER_IS_NOT_BANNED);
+            $this->setError('Succès', "L\'utilisateur a été débanni", SUCCESS_ALERT);
+
+        }
+        else{
+            $this->_model->updateIsBanUser($id, USER_IS_BANNED);
+            $this->setError('Succès', "L\'utilisateur a été banni", SUCCESS_ALERT);
+        }
+
+        $this->redirect('../../admin/users');
     }
 }

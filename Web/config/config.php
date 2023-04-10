@@ -36,5 +36,8 @@ include_once("access.php");
 //CONST CONST FOR LENGHT OF columns in table subscriptions
 include_once("subscription.php");
 
+//ALERT MESSAGES
+include_once("alert.php");
+
 
 ?>

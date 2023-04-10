@@ -6,7 +6,7 @@
 
 <li><a href="<?= $path_prefix ?>admin/subscription" class=" waves-effect"><i class="mdi mdi-trophy-award"></i><span>Abonnement</span></a></li>
 
-<li><a href="<?= $path_prefix ?>admin/subscription" class=" waves-effect"><i class="bx bx-server"></i><span>Monitoring</span></a></li>
+<li><a href="<?= $path_prefix ?>admin/monitoring" class=" waves-effect"><i class="bx bx-server"></i><span>Monitoring</span></a></li>
 
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cart"></i><span>Gestion Boutique</span></a>
