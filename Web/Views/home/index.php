@@ -37,7 +37,6 @@
     </nav>
     <!-- Masthead-->
     <header class="masthead">
-
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-center">
@@ -47,31 +46,18 @@
         </div>
     </header>
     <!-- About-->
-    <section class="about-section text-center" id="about">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src='<?= $path_prefix ?>assets/images/home/jap.png'>
+<div class="fondjaparis" id="about">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="text-center text-white">
+                    <h1>Une cuisine d’excellence</h1>
+                    <p class="text-white-50">
+                        Une cuisine reconnue à travers le monde et appréciée de tous.
+                        Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
+                        une des recettes emblématiques que nous proposons.
+                    </p>
                 </div>
-                <div class="col-lg-6">
-                    <img class="img-fluid" src='<?= $path_prefix ?>assets/images/home/tower.png'>
-                </div>
-            </div>
-
-
-            <div class="text1">
-                <h1>Une cuisine d’excellence</h1>
-                <p class="text-white-50">
-                    Une cuisine reconnue à travers le monde et appréciée de tous.
-                    Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
-                    une des recettes emblématiques que nous proposons.
-                </p>
-            </div>
-
-
         </div>
-        </div>
-    </section>
+</div>
     <!-- Projects-->
     <section class="projects-section bg-light" id="about">
         <div class="container px-4 px-lg-5">

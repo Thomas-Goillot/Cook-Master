@@ -56,7 +56,7 @@
                         echo    '<div class="col-md-4 mb-3 mb-md-0">
                                     <div class="card py-4 h-100">
                                         <div class="card-body text-center">
-                                            <img src="' . $path_prefix  . 'assets/images/chefs/' . $info['image'] . '" class="img-thumbnail">
+                                            <img src="' . $path_prefix  . 'assets/images/chefs/' . $info['image'] . '" class="img-thumbnail noschefs">
                                             <hr class="my-4 mx-auto" />
                                             <h4 class="text-uppercase m-0 name-red">' . $info['name'] . ' ' . $info['surname'] . '</h4>
                                             <div class="small text-black chef2">' . $info['description'] . '</div>
