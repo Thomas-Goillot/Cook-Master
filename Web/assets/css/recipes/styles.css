@@ -600,6 +600,19 @@ progress {
   font-size: 0.875em;
   color: #6c757d;
 }
+
+.tuconnépas1{
+  padding: 5%;
+}
+
+.bottom{
+  margin-bottom: 8%!important;
+}
+
+.tuconnépas:hover{
+  color:black;
+}
+
 .blockquote-footer::before {
   content: "— ";
 }
@@ -612,6 +625,11 @@ progress {
   color:#9E1B21;
 }
 
+.nosurlignage{
+  text-decoration: none!important;
+  color:white;
+}
+
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -619,6 +637,15 @@ progress {
 
 .hop{
     margin-top: 4rem!important;
+}
+
+.radius{
+  border-radius: 10px;
+}
+
+section.aucentre {
+  width: 50%;
+  margin: 0 auto;
 }
 
 .img-thumbnail.noschefs {

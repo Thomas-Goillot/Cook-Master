@@ -46,98 +46,164 @@
         </div>
     </header>
 
-        <!-- Entrées -->
-
-        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
         <div class="d-flex justify-content-center">
-            <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">Entrées</h1>
+            <div class="text-center tuconnépas">
+                <section class="aucentre"><h2>CookMaster</h2></section>
+                <p class="tuconnépas tuconnépas1">est fier de vous présentez quelques unes de nos recettes emblématiques. Afin d'accéder à la bibliothèque complète ainsi qu'à nos nombreux services nous vous conseillons de vous inscrire au plus vite.</p>
             </div>
         </div>
     </div>
 
-    <section class="contact-section bg-white noschefs1">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5">
-                <?php
-                    foreach($getAllRecipesStarters as $info){
-                        echo    '<div class="col-md-4 mb-3 mb-md-0">
-                                    <div class="card py-4 h-100">
-                                        <img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="img-thumbnail noschefs">
-                                            <div class="card-body text-center"> 
-                                                <hr class="my-4 mx-auto" />
-                                                <h4 class="text-uppercase m-0 name-red">' . $info['name'] . '</h4>
-                                                <div class="small text-black chef2">' . $info['description'] . '</div>
-                                            </div>
-                                    </div>
-                                </div>';
-                    }
-                ?>
+        <!-- Entrées -->
+
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
+        <div class="d-flex justify-content-center">
+            <div class="text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Entrées</h1>
+                <hr class="my-4 mx-auto" />
             </div>
         </div>
-    </section>
+    </div>
+    
+<section class="aucentre">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
 
-    <!-- Plats -->
+
+    <?php
+        $caroussel = 0;
+            foreach($getAllRecipesStarters as $info){
+                if($caroussel == 0){
+                    echo    '<div class="carousel-item active">';
+                }else{
+                    echo    '<div class="carousel-item">';
+                }
+                echo    '<img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="d-block w-100 radius">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><a href=# class="nosurlignage">'. $info['name'] .'</a></h5>
+                            </div>
+                        </div>';
+                $caroussel++;
+            }
+        ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+</section>
+
+<!-- Plats -->
 
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Plats</h1>
+                <hr class="my-4 mx-auto" />
             </div>
         </div>
     </div>
 
-    <section class="contact-section bg-white noschefs1">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5">
-                <?php
-                    foreach($getAllRecipesDishes as $info){
-                        echo    '<div class="col-md-4 mb-3 mb-md-0">
-                                    <div class="card py-4 h-100">
-                                        <img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="img-thumbnail noschefs">
-                                            <div class="card-body text-center"> 
-                                                <hr class="my-4 mx-auto" />
-                                                <h4 class="text-uppercase m-0 name-red">' . $info['name'] . '</h4>
-                                                <div class="small text-black chef2">' . $info['description'] . '</div>
-                                            </div>
-                                    </div>
-                                </div>';
-                    }
-                ?>
-            </div>
-        </div>
-    </section>
+
+    
+<section class="aucentre">
+    <div id="carouselExampleCaptions1" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+
+
+    <?php
+        $caroussel = 0;
+            foreach($getAllRecipesDishes as $info){
+                if($caroussel == 0){
+                    echo    '<div class="carousel-item active">';
+                }else{
+                    echo    '<div class="carousel-item">';
+                }
+                echo    '<img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="d-block w-100 radius">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><a href=# class="nosurlignage">'. $info['name'] .'</a></h5>
+                            </div>
+                        </div>';
+                $caroussel++;
+            }
+        ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions1" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+</section>
 
     <!-- Desserts -->
-
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
+<div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center hop name-red">
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Desserts</h1>
+                <hr class="my-4 mx-auto" />
             </div>
         </div>
     </div>
 
-    <section class="contact-section bg-white noschefs1">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5">
-                <?php
-                    foreach($getAllRecipesDesserts as $info){
-                        echo    '<div class="col-md-4 mb-3 mb-md-0">
-                                    <div class="card py-4 h-100">
-                                        <img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="img-thumbnail noschefs">
-                                            <div class="card-body text-center"> 
-                                                <hr class="my-4 mx-auto" />
-                                                <h4 class="text-uppercase m-0 name-red">' . $info['name'] . '</h4>
-                                                <div class="small text-black chef2">' . $info['description'] . '</div>
-                                            </div>
-                                    </div>
-                                </div>';
-                    }
-                ?>
-            </div>
-        </div>
-    </section>
+
+    
+<section class="aucentre bottom">
+    <div id="carouselExampleCaptions2" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+
+
+    <?php
+        $caroussel = 0;
+            foreach($getAllRecipesDesserts as $info){
+                if($caroussel == 0){
+                    echo    '<div class="carousel-item active">';
+                }else{
+                    echo    '<div class="carousel-item">';
+                }
+                echo    '<img src="' . $path_prefix  . 'assets/images/recipes/' . $info['image'] . '" class="d-block w-100 radius">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><a href=# class="nosurlignage">'. $info['name'] .'</a></h5>
+                            </div>
+                        </div>';
+                $caroussel++;
+            }
+        ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions2" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+</section>
 
    <!-- Signup-->
    <section class="signup-section" id="signup">
