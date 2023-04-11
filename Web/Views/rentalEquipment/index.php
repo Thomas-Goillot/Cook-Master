@@ -3,47 +3,41 @@ include_once('Views/layout/dashboard/path.php');
 ?>
 
 
-
-
-<div class="col-lg-12">
-        <div class="card card-animate">
+<div class="row">
             <?php
             
             foreach ($allProduct as $allProduct) {
                 if($allProduct['allow_rental'] == 0){
-                echo '<div class="d-flex justify-content-between card-header">';
+                 echo ' <div class="col-lg-4">';
+                 echo ' <div class="card card-animate">';
+
+                echo '<div class="card-header">';
                 echo '<h3>' . $allProduct['name'] . '</h3>';
                 echo '<p> Nombre disponible :' . $allProduct['stock'] . '</p>';
                 echo '</div>';
-                echo '<p>' .  $allProduct['description'] . '</p>';
-                echo '<div class="card-body">';
-                echo '<p><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="500px"></p>';
-                echo '<div class="d-flex justify-content-between">';
-               
-                
-                if ($allProduct['allow_event'] == 0) {
-                    echo '<p>Évenement : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></p>';
-                } else {
-                    echo '<p>Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                }
-                
-                if ($allProduct['allow_rental'] == 0) {
-                    echo '<p>Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
-                    echo ' <form action=" ' .$path_prefix.'Shop" method="POST" enctype="multipart/form-data">';
-                    echo ' <input type="number" name="upStock" class="form-control">';
-                    echo ' <button class="btn btn-primary btn-block" type="submit">Louer</button>';
-                    echo '</form>';
-                } else {
-                    echo '<p>Disponibilité à la location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                }
-                if ($allProduct['allow_purchase'] == 0) {
-                    echo '<p>Disponibilité à la vente : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></p>';
-                    echo ' <button class="btn btn-primary btn-block" type="submit">Ajouter le produit au panier</button>';
-                } else {
-                    echo '<p>Disponibilité à la vente : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></p>';
-                }
-                
-               
+
+
+
+                echo '<p class="h5">' .  $allProduct['description'] . '</p>';
+
+
+                echo '<div class="card-body d-flex flex-column">';
+                echo '<div class="d-flex flex-column align-items-baseline">';
+
+
+                echo '<p><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="450px"></p>';
+
+
+
+                echo '<p class="h3">Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
+                echo ' <form action=" ' .$path_prefix.'Shop" method="POST" enctype="multipart/form-data">';
+                echo ' <input type="number" name="upStock" class="form-control">';
+                echo ' <button class="btn btn-primary btn-block" type="submit">Louer</button>';
+                echo '</form>';
+
+
+                echo '</div>';
+                echo '</div>';
                 echo '</div>';
                 echo '</div>';
                 
@@ -52,4 +46,3 @@ include_once('Views/layout/dashboard/path.php');
         
             ?>
         </div>
-    </div> 

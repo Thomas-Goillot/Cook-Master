@@ -121,8 +121,8 @@ class Admin extends Controller
             //     $this->setError('Nom de l\'image trop long',"Le nom de l\'image ne peut pas excéder 50 caractères.",ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
-            if (strlen($_POST['description']) > 50) {
-                $this->setError('Description trop longue',"La description ne peut pas excéder 50 caractères.",ERROR_ALERT);
+            if (strlen($_POST['description']) > 500) {
+                $this->setError('Description trop longue',"La description ne peut pas excéder 500 caractères.",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
             if (strlen($_POST['dispnobilityStock']) < 1) {
