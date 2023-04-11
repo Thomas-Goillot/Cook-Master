@@ -180,6 +180,9 @@ class Admin extends Controller
     }
 
 
+        
+
+
 
     /**
      * update is ban user
@@ -220,4 +223,64 @@ class Admin extends Controller
 
         $this->redirect('../../admin/users');
     }
+
+    /**
+     * Display Event page
+     * @return void
+     */
+    public function events(): void
+    {
+        $this->loadModel('EventsTemplate');
+        $eventsTemplate = $this->_model->getAllEventTemplate();
+
+        $this->loadModel('Events');
+        $events = $this->_model->getAllEvents();
+
+        foreach ($events as $key => $event) {
+            $event['date_start'] = explode(" ", $event['date_start'])[0];
+            $event['date_end'] = explode(" ", $event['date_end'])[0];
+
+            $event['date_start'] = explode("-", $event['date_start']);
+            $event['date_end'] = explode("-", $event['date_end']);
+            //0 = year, 1 = month, 2 = day
+
+            $events[$key]['date_start'] = array();
+            $events[$key]['date_end'] = array();
+            $events[$key]['date_start']['day'] = $event['date_start'][2];
+            $events[$key]['date_start']['month'] = $event['date_start'][1]-1;
+            $events[$key]['date_start']['year'] = $event['date_start'][0];
+
+            $events[$key]['date_end']['day'] = $event['date_end'][2];
+            $events[$key]['date_end']['month'] = $event['date_end'][1]-1;
+            $events[$key]['date_end']['year'] = $event['date_end'][0];
+
+        }
+
+
+
+
+
+        $page_name = array("Admin" => $this->default_path, "Listes des Évènements" => "admin/events");
+
+        $this->render('admin/events', compact('eventsTemplate','events', 'page_name'), DASHBOARD);
+    }
+
+
+    /**
+     * Display the eventsTemplate page
+     * @return void
+     */
+    public function eventsTemplate(): void
+    {
+
+        $this->loadModel('EventsTemplate');
+
+        $eventsTemplate = $this->_model->getAllEventTemplate();
+
+        $page_name = array("Admin" => $this->default_path, "Évènements" => "admin/events", "Modèles d'évènements" => "admin/eventsTemplate");
+
+        $this->render('admin/eventsTemplate', compact('eventsTemplate', 'page_name'), DASHBOARD);
+    }
+
+
 }

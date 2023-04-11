@@ -2,7 +2,13 @@
 
 <li><a href="<?= $path_prefix ?>admin/users" class="waves-effect"><i class="bx bx-group"></i><span>Utilisateurs</span></a></li>
 
-<li><a href="<?= $path_prefix ?>admin/event" class=" waves-effect"><i class="bx bx-calendar"></i><span>Evènements</span></a></li>
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cart"></i><span>Evènements</span></a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="<?= $path_prefix ?>admin/eventsTemplate"><i class="bx bxs-file-plus"></i>Template</a></li>
+        <li><a href="<?= $path_prefix ?>admin/events"><i class="bx bx-calendar"></i>Création d'evènements</a></li>
+    </ul>
+</li>
 
 <li><a href="<?= $path_prefix ?>admin/subscription" class=" waves-effect"><i class="mdi mdi-trophy-award"></i><span>Abonnement</span></a></li>
 

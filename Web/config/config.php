@@ -39,5 +39,8 @@ include_once("subscription.php");
 //ALERT MESSAGES
 include_once("alert.php");
 
+//CONST FOR LENGHT OF columns in table event_template
+include_once("eventTemplate.php");
+
 
 ?>

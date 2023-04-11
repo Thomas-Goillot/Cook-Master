@@ -29,6 +29,10 @@
 <script src="<?= $path_prefix ?>plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/dropify/dropify.min.js"></script>
 <script src="<?= $path_prefix ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src='<?= $path_prefix ?>plugins/fullcalendar/js/fullcalendar.min.js'></script>
+
+<!-- PAGES JS -->
+<script src="<?= $path_prefix ?>assets/pages/events.js"></script>
 
 
 <!-- third party js ends -->
@@ -66,7 +70,6 @@
         new Switchery($(this)[0], $(this).data());
     });
 
-
     // Select2
     $('[data-toggle="select2"]').select2();
 
@@ -84,6 +87,23 @@
         $(obj).TouchSpin(objOptions);
     });
 
+
+    // Date Range Picker
+    var defaultOptions = {
+        "cancelClass": "btn-light",
+        "applyButtonClasses": "btn-success"
+    };
+    // date pickers
+    $('[data-toggle="daterangepicker"]').each(function(idx, obj) {
+        var objOptions = $.extend({}, defaultOptions, $(obj).data(), {
+            "locale": {
+                "format": "DD/MM/YYYY"
+            }
+        });
+        $(obj).daterangepicker(objOptions);
+    });
+
+
     //upload style
     $('.dropify').dropify({
         messages: {
@@ -98,8 +118,8 @@
     });
 </script>
 
-<?php 
-if(isset($errors) && $errors != ""){
+<?php
+if (isset($errors) && $errors != "") {
     echo $errors;
 }
 ?>

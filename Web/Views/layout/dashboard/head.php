@@ -14,6 +14,7 @@
 <link href="<?= $path_prefix ?>plugins/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/datatables/select.bootstrap4.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" />
+<link href="<?= $path_prefix ?>plugins/fullcalendar/css/fullcalendar.min.css" rel="stylesheet" />
 
 <link href="<?= $path_prefix ?>plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />

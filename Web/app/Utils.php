@@ -163,9 +163,18 @@ abstract class Utils extends Security
             title: '$title',
             text: '$message',
             type: '$type',
-            timer: 2000,
+            timer: 4000,
             confirmButtonClass: 'btn btn-confirm mt-2'
         })</script>";
+    }
+
+    /**
+     * Get user id from session
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $_SESSION['user']['id_users'];
     }
 
 
