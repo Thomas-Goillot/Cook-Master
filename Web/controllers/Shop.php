@@ -22,19 +22,36 @@ class Shop extends Controller
      */
     public function index(): void
     {
-        $this->loadModel("products");
+        $this->loadModel("Products");
+
 
         $allProduct = $this->_model->getAllProducts();
-
+            
+        
         $page_name = array("Boutique" => "shop");
 
-
+        
 
         $this->render('shop/index', compact('page_name','allProduct'), DASHBOARD);
     }
 
 
-    
+    // public function updateStock(): void
+    // {
+        
+
+    //         $newStock = (int)$_POST['dispnobilityStock'] - $_POST['upStock'];
+
+    //         $idEquipment = 52;
+
+
+    //         $this->loadModel("Products");
+
+    //         $this->_model->updateStock($newStock,$idEquipment);
+        
+
+    //     // $this->redirect('../admin/products');
+    // }
    
    
 }

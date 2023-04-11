@@ -10,7 +10,7 @@ include_once('Views/layout/dashboard/path.php');
             <?php
             
             foreach ($allProduct as $allProduct) {
-                if($allProduct['allow_purchase'] == 0){
+                if($allProduct['allow_rental'] == 0){
                 echo '<div class="d-flex justify-content-between card-header">';
                 echo '<h3>' . $allProduct['name'] . '</h3>';
                 echo '<p> Nombre disponible :' . $allProduct['stock'] . '</p>';

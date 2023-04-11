@@ -78,6 +78,7 @@ class Admin extends Controller
     {
         $this->loadModel("Products");
 
+        
         $allProduct = $this->_model->getAllProducts();
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
@@ -93,6 +94,10 @@ class Admin extends Controller
     {
         if (!isset($_POST['submit'])) {
 
+            // if( isset($_POST['name']) || isset($_POST['description']) || isset($_POST['image']) ) {
+            //     $this->setError('Champs non valide',"Veuillez remplir tout les champs.",ERROR_ALERT);
+            //     $this->redirect('../admin/products');
+            // }
             if (isset($_POST['dispnobilitySale'])) {
                 $dispnobilitySale = 0;
             } else {
@@ -109,15 +114,19 @@ class Admin extends Controller
                 $dispnobilityEvent = 1;
             }
             if (strlen($_POST['name']) > 100) {
+                $this->setError('Nom du produit trop long',"Le nom du produit ne peut pas excéder 50 caractères.",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
             // if (strlen($_POST['image']) > 50) {
+            //     $this->setError('Nom de l\'image trop long',"Le nom de l\'image ne peut pas excéder 50 caractères.",ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
             if (strlen($_POST['description']) > 50) {
+                $this->setError('Description trop longue',"La description ne peut pas excéder 50 caractères.",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if ($_POST['dispnobilityStock'] < 1) {
+            if (strlen($_POST['dispnobilityStock']) < 1) {
+                $this->setError('Quantité invalide',"La quantité du stock ne peux pas débuter à '0' ",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
 
@@ -126,13 +135,14 @@ class Admin extends Controller
 
         $acceptable = ['image/jpeg, image/png'];
     
-        if(!in_array($_FILES['image']['type'], $acceptable)){
-            $this->setError('Type de fichier non autorisée',"Ce type de fichier n\'est pas autorisé",'ERROR_ALERT');
-            $this->redirect('../admin/products');
-        }
+        // if(!in_array($_FILES['image']['type'], $acceptable)){
+        //     $this->setError('Type de fichier non autorisée',"Les type de fichier autorisé sont :  .png et .jpeg",ERROR_ALERT);
+        //     $this->redirect('../admin/products');
+        // }
     
         $maxSize = 5 * 1024 * 1024; //5 Mo
         if($_FILES['image']['size'] > $maxSize){
+            $this->setError('Fichier trop lourd',"la taille du fichier ne doit pas dépasser 5 Mo",ERROR_ALERT);
             $this->redirect('../admin/products');
         }
     
@@ -145,14 +155,12 @@ class Admin extends Controller
         $filename = $_FILES['image']['name'];
     
         $array = explode('.', $filename);
-        //rename file
         $extension = end($array);
     
         $filename = 'image-' . time() . '.' . $extension;
     
         $destination = $path . '/' . $filename;
     
-        // var_dump($_FILES);
         move_uploaded_file($_FILES['image']['tmp_name'], $destination);
     
 
@@ -168,11 +176,8 @@ class Admin extends Controller
             $this->_model->addProduct($name, $description, $image, $dispnobilitySale, $dispnobilityRental, $dispnobilityEvent, $dispnobilityStock, $id_users);
         }
 
-        // $this->redirect('../admin/products');
+        $this->redirect('../admin/products');
     }
-
-
-        
 
 
 

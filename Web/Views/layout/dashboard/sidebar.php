@@ -23,6 +23,10 @@
                 </li>
 
                 <li>
+                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Louer</span></a>
+                </li>
+
+                <li>
                     <a href="<?= $path_prefix ?>event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
