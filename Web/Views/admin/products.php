@@ -51,7 +51,7 @@ include_once('Views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Listes de tout les produits</h4>
 
-                    <table id="datatable" class="table dt-responsive nowrap">
+                    <table id="datatable" class="table dt-responsive">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -90,17 +90,6 @@ include_once('Views/layout/dashboard/path.php');
                                 }
 
                                 ?>
-
-
-
-
-
-
-
-
-
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
