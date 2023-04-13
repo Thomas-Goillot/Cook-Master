@@ -18,16 +18,20 @@ include_once('Views/layout/dashboard/path.php');
                         <label>Image</label>
                         <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg" required="">
                     </div>
-                    <div class="d-flex justify-content-between">
+                    
                         <div class="form-group d-flex flex-column align-items-center">
                             <label>Disponibilité à la vente</label>
                             <input type="checkbox" data-toggle="switchery" name="dispnobilitySale" data-color="#df3554" />
+                            <label>Prix de la vente</label>
+                            <input type="text" data-toggle="touchspin" name="price_purchase" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
                         </div>
                         <div class="form-group d-flex flex-column align-items-center">
                             <label>Disponibilité à la location</label>
                             <input type="checkbox" data-toggle="switchery" name="dispnobilityRental" data-color="#df3554" />
+                            <label>Prix de la location</label>
+                            <input type="text" data-toggle="touchspin" name="price_rental" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
                         </div>
-                    </div>
+                    
                     <div class="form-group d-flex flex-column align-items-center">
                         <label>Disponibilité à l'evenementiel</label>
                         <input type="checkbox" data-toggle="switchery" name="dispnobilityEvent" data-color="#df3554" />
@@ -51,13 +55,15 @@ include_once('Views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Listes de tout les produits</h4>
 
-                    <table id="datatable" class="table dt-responsive">
+                    <table id="datatables" class="table dt-responsive">
                         <thead>
                             <tr>
                                 <th>Nom</th>
-                                <th>Desription</th>
-                                <th>Stock</th>
                                 <th>Date de création</th>
+                                <th>Desription</th>
+                                <th>Prix location</th>
+                                <th>Prix à l'achat</th>
+                                <th>Stock</th>
                                 <th>Disponibilité:</th>
                             </tr>
                         </thead>
@@ -66,12 +72,17 @@ include_once('Views/layout/dashboard/path.php');
                                 foreach ($allProduct as $allProduct) {
                                     echo "<tr>
                                             <td>" . $allProduct['name'] . "</td>
-                                            <td>" . $allProduct['description'] . "</td>
-                                            <td>" . $allProduct['stock'] . "</td>
                                             <td>" . $allProduct['creation_date'] . "</td>
+                                            <td><button type='button' class='btn btn-lg btn-danger' data-bs-toggle='popover' data-bs-title='azertyui' data-bs-content='zdzdzd'>Description</button></td>
+                                            <td>" . $allProduct['price_rental'] . " €</td>
+                                            <td>" . $allProduct['price_purchase'] . " €</td>
+                                            <td>" . $allProduct['stock'] . "</td>
+
+                                            
                                             <td>";
                                         if ($allProduct['allow_rental'] == 0) {
                                             echo '<span class="mx-5">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            
                                         } else {
                                             echo '<span class="mx-5">Location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
@@ -85,7 +96,9 @@ include_once('Views/layout/dashboard/path.php');
                                         } else {
                                             echo '<span class="mx-5">Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
-                                    echo "</td></tr>";
+                                    echo "
+                                    </td>
+                                    </tr>";
 
                                 }
 

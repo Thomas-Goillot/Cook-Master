@@ -113,9 +113,18 @@
             'error': 'Ooops, quelque chose s\'est mal produit',
         },
         error: {
-            'fileSize': 'La taille du fichier est trop volumineux (1M max).'
+            'fileSize': 'La taille du fichier est trop volumineux (5M max).'
         }
     });
+
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+    
+})  
+
+
 </script>
 
 <?php
@@ -123,3 +132,6 @@ if (isset($errors) && $errors != "") {
     echo $errors;
 }
 ?>
+
+
+

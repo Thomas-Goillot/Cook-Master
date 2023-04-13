@@ -41,7 +41,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
+                    <a href="<?= $path_prefix ?>rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
                 </li>
 
                 <li>
