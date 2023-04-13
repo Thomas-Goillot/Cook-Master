@@ -41,7 +41,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
+                    <a href="<?= $path_prefix ?>rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
                 </li>
 
                 <li>
@@ -49,7 +49,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
+                    <a href="<?= $path_prefix ?>chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
                 </li>
 
 

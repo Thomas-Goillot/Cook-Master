@@ -30,10 +30,8 @@ include_once('Views/layout/dashboard/path.php');
 
 
                 echo '<p class="h3">Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
-                echo ' <form action=" ' .$path_prefix.'Shop" method="POST" enctype="multipart/form-data">';
-                echo ' <input type="number" name="upStock" class="form-control">';
                 echo ' <button class="btn btn-primary btn-block" type="submit">Louer</button>';
-                echo '</form>';
+
 
 
                 echo '</div>';

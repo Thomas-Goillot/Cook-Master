@@ -46,9 +46,9 @@ class Products extends Model
      * @param int $id_users
      * @return void
      */
-    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent, int $dispnobilityStock, int $id_users): void
+    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent, int $dispnobilityStock,string $price_purchase, string $price_rental,int $id_users): void
     {
-        $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:dispnobilityStock,:id_users)";
+        $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,price_purchase,price_rental,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:price_purchase,:price_rental,:dispnobilityStock,:id_users)";
 
         $data = array(
             ":name" => $name,
@@ -56,6 +56,8 @@ class Products extends Model
             ":image" => $image,
             ":dispnobilityRental" => $dispnobilityRental,
             ":dispnobilityEvent" => $dispnobilityEvent,
+            ":price_purchase" => $price_purchase,
+            ":price_rental" => $price_rental,
             ":dispnobilitySale" => $dispnobilitySale,
             ":dispnobilityStock" => $dispnobilityStock,
             ":id_users" => $id_users
@@ -65,6 +67,10 @@ class Products extends Model
 
         $stmt->execute($data);
     }
+
+
+
+    
 
 
 }
