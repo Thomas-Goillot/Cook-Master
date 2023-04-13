@@ -35,23 +35,5 @@ class Shop extends Controller
         $this->render('shop/index', compact('page_name','allProduct'), DASHBOARD);
     }
 
-
-    // public function updateStock(): void
-    // {
-        
-
-    //         $newStock = (int)$_POST['dispnobilityStock'] - $_POST['upStock'];
-
-    //         $idEquipment = 52;
-
-
-    //         $this->loadModel("Products");
-
-    //         $this->_model->updateStock($newStock,$idEquipment);
-        
-
-    //     // $this->redirect('../admin/products');
-    // }
-   
-   
+      
 }
