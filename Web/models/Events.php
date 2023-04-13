@@ -34,6 +34,25 @@ class Events extends Model
     }
 
     /**
+     * Get event info by id
+     * @param int $id
+     * @return array
+     */
+    public function getEventById(int $id): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
      * Add a new event
      * @param string $name
      * @param string $description
@@ -57,6 +76,31 @@ class Events extends Model
         return $stmt->execute();
     }
 
+    /**
+     * Update an event
+     * @param int $id
+     * @param string $name
+     * @param string $description
+     * @param float $price
+     * @param int $id_users
+     * @return bool
+     */
+    public function updateEvent(int $id, string $name, string $description, float $price, int $id_users, $date_start, $date_end): bool
+    {
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, price = :price, id_users = :id_users, date_start = :date_start, date_end = :date_end WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":price", $price);
+        $stmt->bindParam(":id_users", $id_users);
+        $stmt->bindParam(":date_start", $date_start);
+        $stmt->bindParam(":date_end", $date_end);
+
+        return $stmt->execute();
+    }
 
 
 

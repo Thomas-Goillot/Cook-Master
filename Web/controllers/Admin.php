@@ -256,15 +256,10 @@ class Admin extends Controller
 
         }
 
-
-
-
-
         $page_name = array("Admin" => $this->default_path, "Listes des Évènements" => "admin/events");
 
         $this->render('admin/events', compact('eventsTemplate','events', 'page_name'), DASHBOARD);
     }
-
 
     /**
      * Display the eventsTemplate page
@@ -280,6 +275,39 @@ class Admin extends Controller
         $page_name = array("Admin" => $this->default_path, "Évènements" => "admin/events", "Modèles d'évènements" => "admin/eventsTemplate");
 
         $this->render('admin/eventsTemplate', compact('eventsTemplate', 'page_name'), DASHBOARD);
+    }
+
+    /**
+     * Edit event page
+     * @return void
+     */
+    public function editEvent(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_event = (int) $params[0];
+
+        $this->loadModel('Events');
+
+        $eventInfo = $this->_model->getEventById($id_event);
+
+        $eventInfo['date_start'] = explode(" ", $eventInfo['date_start'])[0];
+        $eventInfo['date_end'] = explode(" ", $eventInfo['date_end'])[0];
+        
+        $eventInfo['date_start'] = explode("-", $eventInfo['date_start']);
+        $eventInfo['date_end'] = explode("-", $eventInfo['date_end']);
+        $eventInfo['date_start'] = $eventInfo['date_start'][2] . "/" . $eventInfo['date_start'][1] . "/" . $eventInfo['date_start'][0];
+        $eventInfo['date_end'] = $eventInfo['date_end'][2] . "/" . $eventInfo['date_end'][1] . "/" . $eventInfo['date_end'][0];
+
+
+        $page_name = array("Admin" => $this->default_path, "Évènements" => "admin/events", "Modification de ".$eventInfo['name'] => "admin/events");
+
+        $this->render('admin/editEvent', compact('eventInfo', 'page_name'), DASHBOARD, "../../");
     }
 
 

@@ -13,7 +13,7 @@
             echo "title: '" . $event['name'] . "',\n";
             echo "start: new Date(" . $event['date_start']['year'] . "," . $event['date_start']['month'] . "," . $event['date_start']['day'] . "),\n";
             echo "end: new Date(" . $event['date_end']['year'] . "," . $event['date_end']['month'] . "," . $event['date_end']['day'] . "),\n";
-            //echo "url: '../events/edit/" . $event['id_event'] . "'\n";
+            echo "url: '../admin/editEvent/" . $event['id_event'] . "'\n";
             echo "},\n";
         }
         ?>
