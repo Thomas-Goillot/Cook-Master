@@ -311,4 +311,15 @@ class Admin extends Controller
     }
 
 
+    /** Default path to the view
+     * 
+     */
+    public function recipesAdmin(): void
+    {
+        $page_name = array("Admin" => $this->default_path, "Recettes" => "admin/recipesAdmin");
+
+        $this->render('admin/recipesAdmin', compact('page_name'), DASHBOARD);
+    }
+
+
 }

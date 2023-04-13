@@ -2,6 +2,8 @@
 
 <li><a href="<?= $path_prefix ?>admin/users" class="waves-effect"><i class="bx bx-group"></i><span>Utilisateurs</span></a></li>
 
+<li><a href="<?= $path_prefix ?>admin/recipesAdmin" class=" waves-effect"><i class="bx bx-restaurant"></i><span>Recettes</span></a></li>
+
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cart"></i><span>Evènements</span></a>
     <ul class="sub-menu" aria-expanded="false">
