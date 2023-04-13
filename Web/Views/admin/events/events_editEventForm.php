@@ -24,6 +24,11 @@
             </div>
 
             <div class="form-group">
+                <label>Nombre de place</label>
+                <input data-toggle="touchspin" name="EventPlace" id="EventPlace" type="text" data-step="1" data-decimals="0" data-min="-1" value="<?= $eventInfo['place'] ?>">
+            </div>
+
+            <div class="form-group">
                 <label>Date de l'événement</label>
                 <input type="text" class="form-control date" id="EventDate" name="EventDate" data-toggle="daterangepicker" data-time-picker="true" value="<?= $eventInfo['date_start'] . " - " . $eventInfo['date_end'] ?>">
             </div>
@@ -31,11 +36,14 @@
 
 
             <div class="d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn btn-primary btn-block w-25">Modifier</button>
-            </div>
-
-
+                <button type="submit" class="btn btn-secondary btn-bloc">Modifier</button>
         </form>
+        <form action="<?= $path_prefix ?>events/deleteEvent" method="POST">
+            <input type="hidden" name="EventId" value="<?= $eventInfo['id_event'] ?>" />
 
+            <button type="submit" class="btn btn-primary btn-block mx-3">Supprimer</button>
+        </form>
     </div>
+
+</div>
 </div>

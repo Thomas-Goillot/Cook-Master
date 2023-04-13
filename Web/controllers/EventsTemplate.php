@@ -43,10 +43,11 @@ class EventsTemplate extends Controller
 
         $defaultFallBack = "../admin/eventsTemplate";
 
-        if (isset($_POST['EventTemplateName']) && isset($_POST['EventTemplateDescription']) && isset($_POST['EventTemplateEntryPrice'])) {
+        if (isset($_POST['EventTemplateName']) && isset($_POST['EventTemplateDescription']) && isset($_POST['EventTemplateEntryPrice']) && isset($_POST['EventTemplatePlace'])) {
             $EventTemplateName = htmlspecialchars($_POST['EventTemplateName']);
             $EventTemplateDescription = htmlspecialchars($_POST['EventTemplateDescription']);
             $EventTemplateEntryPrice = htmlspecialchars($_POST['EventTemplateEntryPrice']);
+            $EventTemplatePlace = htmlspecialchars($_POST['EventTemplatePlace']);
             
             if (empty($EventTemplateName)) {
                 $this->setError("Echéc de l\'ajout","Le nom du modèle d\'évènement ne doit pas être vide", ERROR_ALERT);
@@ -77,10 +78,16 @@ class EventsTemplate extends Controller
                 $this->redirect($defaultFallBack);
                 exit();
             }
+
+            if($EventTemplatePlace < MIN_PLACE_EVENT){
+                $this->setError("Echéc de l\'ajout","Le nombre de place du modèle d\'évènement ne doit pas être inférieur à " . MIN_PLACE_EVENT, ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+                exit();
+            }
             
             $this->loadModel('EventsTemplate');
 
-            $res = $this->_model->addEventTemplate($_POST['EventTemplateName'], $_POST['EventTemplateDescription'], $_POST['EventTemplateEntryPrice'], $this->getUserId());
+            $res = $this->_model->addEventTemplate($EventTemplateName, $EventTemplateDescription, $EventTemplateEntryPrice, $EventTemplatePlace, $this->getUserId());
 
             if($res === true){
                 $this->setError("Succès","Le modèle d\'évènement a bien été ajouté", SUCCESS_ALERT);

@@ -30,6 +30,11 @@
             </div>
 
             <div class="form-group">
+                <label>Nombre de place (0 = Pas d'inscription / -1 = Place illimité)</label>
+                <input data-toggle="touchspin" name="EventPlace" id="EventPlace" type="text" data-step="1" data-decimals="0" data-min="-1" value="0">
+            </div>
+
+            <div class="form-group">
                 <label>Date de l'événement</label>
                 <input type="text" class="form-control date" id="EventDate" name="EventDate" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY hh:mm'}">
             </div>

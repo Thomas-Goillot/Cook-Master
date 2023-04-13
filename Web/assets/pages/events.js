@@ -46,6 +46,7 @@ $(document).ready(function () {
     const name = $("#EventName");
     const description = $("#EventDescription");
     const price = $("#EventEntryPrice");
+    const place = $("#EventPlace");
     $.ajax({
       type: "POST",
       url: "../EventsTemplate/getEventTemplateById",
@@ -57,6 +58,7 @@ $(document).ready(function () {
         name.val(data.name);
         description.val(data.description);
         price.val(data.price);
+        place.val(data.place);
       },
     });
   });

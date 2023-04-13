@@ -12,3 +12,9 @@ include_once('Views/layout/dashboard/path.php');
         <?php include_once('Views/admin/events/events_calendar.php'); ?>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <?php include_once('Views/admin/events/events_list.php'); ?>
+    </div>
+</div>

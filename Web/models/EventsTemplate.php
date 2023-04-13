@@ -59,15 +59,16 @@ class EventsTemplate extends Model
      * @param int $id_users
      * @return bool
      */
-    public function addEventTemplate(string $name, string $description, float $price, int $id_users): bool
+    public function addEventTemplate(string $name, string $description, float $price, int $place, int $id_users): bool
     {
-        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users) VALUES (:name, :description, :price, :id_users)";
+        $query = "INSERT INTO " . $this->table . " (name, description, price, place, id_users) VALUES (:name, :description, :price, :place, :id_users)";
 
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':place', $place);
         $stmt->bindParam(':id_users', $id_users);
 
         return $stmt->execute();

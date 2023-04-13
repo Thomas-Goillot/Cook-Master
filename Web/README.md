@@ -10,3 +10,13 @@ Introduction au MVC en PHP
 composer install
 composer dump-autoload
 ```
+
+
+### Rules of database
+
+* Event table :
+``` place is the number of place available for the event
+    place = 0 => no inscription needed
+    place = -1 => unlimited place
+```
+

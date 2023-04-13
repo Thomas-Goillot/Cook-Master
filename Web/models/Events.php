@@ -58,11 +58,14 @@ class Events extends Model
      * @param string $description
      * @param float $price
      * @param int $id_users
+     * @param string $date_start
+     * @param string $date_end
+     * @param int $place
      * @return bool
      */
-    public function addEvent(string $name, string $description, float $price, int $id_users, $date_start, $date_end): bool
+    public function addEvent(string $name, string $description, float $price, int $id_users, string $date_start, string $date_end, int $place): bool
     {
-        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users, date_start, date_end) VALUES (:name, :description, :price, :id_users, :date_start, :date_end)";
+        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users, date_start, date_end, place) VALUES (:name, :description, :price, :id_users, :date_start, :date_end, :place)";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -72,6 +75,7 @@ class Events extends Model
         $stmt->bindParam(":id_users", $id_users);
         $stmt->bindParam(":date_start", $date_start);
         $stmt->bindParam(":date_end", $date_end);
+        $stmt->bindParam(":place", $place);
 
         return $stmt->execute();
     }
@@ -83,11 +87,14 @@ class Events extends Model
      * @param string $description
      * @param float $price
      * @param int $id_users
+     * @param string $date_start
+     * @param string $date_end
+     * @param int $place
      * @return bool
      */
-    public function updateEvent(int $id, string $name, string $description, float $price, int $id_users, $date_start, $date_end): bool
+    public function updateEvent(int $id, string $name, string $description, float $price, int $id_users, string $date_start, string $date_end, int $place): bool
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, price = :price, id_users = :id_users, date_start = :date_start, date_end = :date_end WHERE id_event = :id";
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, price = :price, id_users = :id_users, date_start = :date_start, date_end = :date_end, place = :place WHERE id_event = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -98,10 +105,59 @@ class Events extends Model
         $stmt->bindParam(":id_users", $id_users);
         $stmt->bindParam(":date_start", $date_start);
         $stmt->bindParam(":date_end", $date_end);
+        $stmt->bindParam(":place", $place);
 
         return $stmt->execute();
     }
 
+    /**
+     * Delete an event
+     * @param int $id
+     * @return bool
+     */
+
+    public function deleteEvent(int $id): bool
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Delete all providers for an event
+     * @param int $id
+     * @return bool
+     */
+    public function deleteProviderEvent(int $id): bool
+    {
+        $query = "DELETE FROM provider_occurs WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Delete all participants for an event
+     * @param int $id
+     * @return bool
+     */
+    public function deleteParticipantEvent(int $id): bool
+    {
+        $query = "DELETE FROM join_event WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        return $stmt->execute();
+    }
 
 
 }
