@@ -356,3 +356,5 @@ vendor/
 
 # .env file containing environment variables for db and other sensitive data
 Web/config/.env
+
+.vscode/extensions.json

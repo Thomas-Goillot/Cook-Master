@@ -74,14 +74,25 @@ include_once('Views/layout/dashboard/path.php');
                                             <td>" . $allProduct['name'] . "</td>
                                             <td>" . $allProduct['creation_date'] . "</td>
                                             <td><button type='button' class='btn btn-lg btn-danger' data-bs-toggle='popover' data-bs-title='azertyui' data-bs-content='zdzdzd'>Description</button></td>
-                                            <td>" . $allProduct['price_rental'] . " €</td>
-                                            <td>" . $allProduct['price_purchase'] . " €</td>
+                                            " ;
+                                            
+                                            if ($allProduct['price_rental'] == 0){
+                                                echo "<td> Non dispnobile à la location</td>";
+                                            }else{
+                                                echo "<td>" . $allProduct['price_rental'] . "€</td>";
+                                            }
+                                            if ($allProduct['price_purchase'] == 0){
+                                                echo "<td> Non dispnobile à la vente</td>";
+                                            }else{
+                                                echo "<td>" . $allProduct['price_purchase'] . "€</td>";
+                                            }
+                                            echo "
                                             <td>" . $allProduct['stock'] . "</td>
 
                                             
                                             <td>";
                                         if ($allProduct['allow_rental'] == 0) {
-                                            echo '<span class="mx-5">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx-5">Location : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                             
                                         } else {
                                             echo '<span class="mx-5">Location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
@@ -92,9 +103,9 @@ include_once('Views/layout/dashboard/path.php');
                                             echo '<span class="mx-5">Vente : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                         if ($allProduct['allow_event'] == 0) {
-                                            echo '<span class="mx-5">Évenement : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx-5">Éveneme:<i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                         } else {
-                                            echo '<span class="mx-5">Évenement : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                            echo '<span class="mx-5">Éveneme:<i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                     echo "
                                     </td>

@@ -14,6 +14,7 @@ include_once('Views/layout/dashboard/path.php');
 
                 echo '<div class="card-header">';
                 echo '<h3>' . $allProduct['name'] . '</h3>';
+                echo '<h5> Prix unitaire : '.$allProduct['price_purchase'].' €  </h5>'; 
                 echo '<p> Nombre disponible :' . $allProduct['stock'] . '</p>';
                 echo '</div>';
 
