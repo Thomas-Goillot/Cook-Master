@@ -59,11 +59,15 @@ include_once('Views/layout/dashboard/path.php');
                             <h4> Il y en a " . $allProduct['stock'] . " de disponibles !</h4>   
                             <div class='form-group d-flex flex-column align-items-center'>
                                 <label class='h5'>Date de la location</label>
-                                <input type='text' class='form-control date' id='RentDate' name='RentDate' data-toggle='daterangepicker' data-time-picker='true' data-locale='{'format': 'DD/MM/YYYY hh:mm'}>
-                            </div>
 
+                                <form action='<?= $path_prefix ?>rent' method='POST' enctype='multipart/form-data'>
+                                    <label class='h5'>Quantité à louer</label>
+                                    <input type='number' name='needRent' min='0' max='" . $allProduct['stock'] . "' class='form-control'>
+                                <input type='text' class='form-control date' id='RentDate' name='RentDate' data-toggle='daterangepicker' data-time-picker='true' data-locale='{'format': 'DD/MM/YYYY hh:mm'}>
                                 <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                                 <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Valider</button>
+                                </form>
+                            </div>
                             </div>
                         </div>
                     </div>
