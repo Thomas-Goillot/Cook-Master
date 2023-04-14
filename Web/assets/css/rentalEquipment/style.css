@@ -1,0 +1,7 @@
+.small{
+    width: 100px!important;
+}
+.smallBtn{
+    display: flex;
+    justify-content: center;
+}

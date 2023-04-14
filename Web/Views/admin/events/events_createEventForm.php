@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <label>Date de l'événement</label>
+                <label>Date de la location</label>
                 <input type="text" class="form-control date" id="EventDate" name="EventDate" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY hh:mm'}">
             </div>
 

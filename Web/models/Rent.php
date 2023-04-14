@@ -24,19 +24,16 @@ class Rent extends Model
     /**
      * validation rent
      */
-    public function verifRent(): void
+    public function verifRent(): array
     {
-        $query = "SELECT * FROM  equipment WHERE id_equipment = ";
+        $query = "SELECT * FROM  equipment WHERE id_equipment = ? id_equipment";
 
 
         $stmt = $this->_connexion->prepare($query);
 
+        $stmt->execute();
 
-
-
-        $stmt = $this->_connexion->prepare($query);
-
-        $stmt->execute($data);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 

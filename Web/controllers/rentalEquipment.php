@@ -35,8 +35,23 @@ class rentalEquipment extends Controller
         $this->render('rentalEquipment/index', compact('page_name','allProduct'), DASHBOARD);
     }
 
+/**
+     * Display verif rental page
+     * @return array
+     */
 
-    
-   
-   
+    public function verifRent(): void
+    {
+        $this->loadModel("Products");
+
+
+        $this->_model->verifRent();
+            
+        
+        // $this->redirect('../rentalEquipment');
+    }
+
+
+
+
 }
