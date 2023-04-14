@@ -36,6 +36,7 @@ class rentalEquipment extends Controller
     }
 
 
+    
    
    
 }

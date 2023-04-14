@@ -10,7 +10,6 @@ include_once('Views/layout/dashboard/path.php');
                 if($allProduct['allow_rental'] == 0){
                  echo ' <div class="col-lg-4 width="300px">';
                  echo ' <div class="card card-animate">';
-
                 echo '<div class="card-header">';
                 echo '<h3>' . $allProduct['name'] . '</h3>';
                 echo '<h5> Prix unitaire : '.$allProduct['price_rental'].' €  </h5>'; 
@@ -30,27 +29,35 @@ include_once('Views/layout/dashboard/path.php');
 
 
                 echo '<p class="h3">Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
+
+                echo "              
+                <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#equipment". $allProduct['id_equipment'] ."'>
+                    Launch demo modal
+                </button>";
+
+
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
+
+
+
                 echo " 
             
+   
 
 
 
-                
-                <div class=''>
 
-
-                <!-- Button trigger modal -->
-                <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>
-                    Launch demo modal
-                </button>
 
                 <!-- Modal -->
                 <!-- Modal -->
-                <div class='modal' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                <div class='modal' id='equipment". $allProduct['id_equipment'] ."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                     <div class='modal-dialog' role='document'>
                         <div class='modal-content'>
                             <div class='modal-header'>
-                                <h5 class='modal-title' id='exampleModalLabel'></h5>
+                                <h5 class='modal-title' id='label". $allProduct['id_equipment'] ."'></h5>
                                 
                             </div>
                             <div class='modal-body'>
@@ -96,14 +103,10 @@ include_once('Views/layout/dashboard/path.php');
                         </div>
                     </div>
                 </div>
-            </div>        
+
+
+               
                 " ;
-
-
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
                 
             }
         }
@@ -113,26 +116,5 @@ include_once('Views/layout/dashboard/path.php');
 
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade"  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
+        
