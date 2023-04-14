@@ -1,3 +1,6 @@
+<head>
+<link href="<?= $path_prefix ?>assets/css/products/products.css" rel="stylesheet" />
+</head>
 <?php
 include_once('Views/layout/dashboard/path.php');
 ?>
@@ -15,8 +18,8 @@ include_once('Views/layout/dashboard/path.php');
                         <input class="form-control" type="text" name="description" required="" placeholder="Description">
                     </div>
                     <div class="form-group">
-                        <label>Image</label>
-                        <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg" required="">
+                        <label for="exampleFormControlSelect1">Image</label>
+                        <input type="file" class="dropify" data-max-file-size="1M" />
                     </div>
                     
                         <div class="form-group d-flex flex-column align-items-center">
