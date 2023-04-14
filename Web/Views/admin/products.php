@@ -18,8 +18,8 @@ include_once('Views/layout/dashboard/path.php');
                         <input class="form-control" type="text" name="description" required="" placeholder="Description">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Image</label>
-                        <input type="file" class="dropify" data-max-file-size="1M" />
+                        <label>Image</label>
+                        <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg" required="">
                     </div>
                     
                         <div class="form-group d-flex flex-column align-items-center">
@@ -44,8 +44,8 @@ include_once('Views/layout/dashboard/path.php');
                         <input type="number" name="dispnobilityStock" min="0" class="form-control">
                     </div>
             </div>
-            <div class="mb-3 text-center">
-                <button class="btn btn-primary btn-block" type="submit">Ajouter le produit</button>
+            <div class="d-flex justify-content-center align-items-center plusgros">
+                <button type="submit" class="btn btn-primary btn-block w-25">Ajouter</button>
             </div>
             </form>
         </div>
@@ -80,12 +80,12 @@ include_once('Views/layout/dashboard/path.php');
                                             " ;
                                             
                                             if ($allProduct['price_rental'] == 0){
-                                                echo "<td> Non dispnobile à la location</td>";
+                                                echo "<td> Non disponible à la location</td>";
                                             }else{
                                                 echo "<td>" . $allProduct['price_rental'] . "€</td>";
                                             }
                                             if ($allProduct['price_purchase'] == 0){
-                                                echo "<td> Non dispnobile à la vente</td>";
+                                                echo "<td> Non disponible à la vente</td>";
                                             }else{
                                                 echo "<td>" . $allProduct['price_purchase'] . "€</td>";
                                             }
@@ -95,20 +95,20 @@ include_once('Views/layout/dashboard/path.php');
                                             
                                             <td>";
                                         if ($allProduct['allow_rental'] == 0) {
-                                            echo '<span class="mx-5">Location : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                             
                                         } else {
-                                            echo '<span class="mx-5">Location : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                            echo '<span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                         if ($allProduct['allow_purchase'] == 0) {
-                                            echo '<span class="mx-5">Vente : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx">Vente: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                         } else {
-                                            echo '<span class="mx-5">Vente : <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                            echo '<span class="mx">Vente: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                         if ($allProduct['allow_event'] == 0) {
-                                            echo '<span class="mx-5">Éveneme:<i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                         } else {
-                                            echo '<span class="mx-5">Éveneme:<i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                            echo '<span class="mx">Évenement: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                     echo "
                                     </td>
@@ -124,4 +124,3 @@ include_once('Views/layout/dashboard/path.php');
         </div>
     </div>
 </div>
-

@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use App\Controller;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class Users extends Controller{
 
@@ -38,5 +40,34 @@ class Users extends Controller{
 
         $this->render($this->default_path, compact('user', 'subscription', 'page_name'), DASHBOARD);
     }
+
+    /**
+     * Download information
+     */
+    public function downloadInformation():void{
+
+    $this->loadModel('user');
+    $data = $this->_model->getUserInfo($this->getUserId());
+
+    $html = $this->generateFile('pdf/pdfUser.php', $data);
+
+    $options = new Options();
     
+    $options->set('defaultFont', 'Courier');
+
+    $dompdf = new Dompdf($options);
+
+    $dompdf->loadHtml($html);
+
+    $dompdf->setPaper('A4', 'portrait');
+
+    $dompdf->render();
+
+    $fichier = 'informations_profil.pdf';
+
+    $dompdf->stream($fichier);
+
+
+
+    }
 }

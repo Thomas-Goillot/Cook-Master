@@ -9,7 +9,7 @@
                     <li><a href="#" class="dropdown-item">Modifier mes informations </a></li>
                     <li><a href="#" class="dropdown-item">Changer d'abonnement</a></li>
                     <li class="dropdown-divider"></li>
-                    <li><a href="#" class="dropdown-item">Télécharger en PDF</a></li>
+                    <li><a href="<?= $path_prefix ?>users/downloadInformation" class="dropdown-item">Télécharger en PDF</a></li>
                 </ul>
             </div>
             <h4 class="card-title d-inline-block"><i class="fas fa-info-circle"></i> Vos Informations</h4>

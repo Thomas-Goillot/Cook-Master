@@ -106,7 +106,7 @@ abstract class Controller extends Utils{
      * @param array $data
      * @return string
      */
-    private function generateFile(string $file, array $data): string
+    public function generateFile(string $file, array $data): string
     {
         if (file_exists($file)) {
             extract($data);

@@ -1,3 +1,12 @@
 .dropify-wrapper{
-    line-height: 60px!important;
+    line-height: 10px!important;
+}
+
+.dropify-wrapper .dropify-message span.file-icon {
+    font-size: 30px!important;
+    color: #CCC;
+}
+
+.plusgros{
+    margin-bottom: 1rem;
 }
