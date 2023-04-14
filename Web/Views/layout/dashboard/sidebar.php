@@ -49,7 +49,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
+                    <a href="<?= $path_prefix ?>chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
                 </li>
 
 

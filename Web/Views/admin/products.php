@@ -114,17 +114,6 @@ include_once('Views/layout/dashboard/path.php');
                                 }
 
                                 ?>
-
-
-
-
-
-
-
-
-
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
