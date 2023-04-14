@@ -30,7 +30,7 @@ include_once('Views/layout/dashboard/path.php');
                 echo " 
                 <div class='smallBtn'>             
                 <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-toggle='modal' data-target='#equipment". $allProduct['id_equipment'] ."'>
-                    Louer
+                    Acheter
                 </button>
                 </div>";
 
@@ -69,7 +69,7 @@ include_once('Views/layout/dashboard/path.php');
                             <h4> Il y en a " . $allProduct['stock'] . " de disponibles !</h4>   
 
                                 <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
-                                <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Louer !</button>
+                                <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter au panier </button>
                             </div>
                         </div>
                     </div>
