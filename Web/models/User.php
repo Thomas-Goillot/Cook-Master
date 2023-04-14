@@ -53,6 +53,25 @@ class User extends Model
     }
 
     /**
+     * Get user name and surname by id
+     * @param int $id
+     * @return array|bool
+     */
+    public function getUserName(int $id): array
+    {
+        $query = "SELECT name, surname FROM " . $this->table . " WHERE id_users = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
      * Check if user exist
      * @param int $id
      * @return bool
@@ -364,5 +383,7 @@ class User extends Model
             return false;
         }
     }
+
+
 
 }

@@ -211,13 +211,28 @@ CREATE TABLE EVENT(ID_EVENT
 	        FOREIGN KEY(id_users) REFERENCES users(id_users)
 	    );
 	CREATE TABLE
-	    TCHAT(
-	        id_message INT AUTO_INCREMENT,
-	        content VARCHAR(255) NOT NULL,
-	        id_users INT NOT NULL,
-	        PRIMARY KEY(id_message),
-	        FOREIGN KEY(id_users) REFERENCES users(id_users)
-	    );
+		conversation(
+			id_conversation INT AUTO_INCREMENT,
+			id_users1 INT NOT NULL,
+			id_users2 INT NOT NULL,
+			PRIMARY KEY(id_conversation),
+			FOREIGN KEY(id_users1) REFERENCES users(id_users),
+			FOREIGN KEY(id_users2) REFERENCES users(id_users)
+		);
+
+	CREATE TABLE
+		messages(
+			id_messages INT AUTO_INCREMENT,
+			sender_id INT NOT NULL,
+			recipiend_id INT NOT NULL,
+			message VARCHAR(255),
+			created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+			id_conversation INT NOT NULL,
+			PRIMARY KEY(id_messages),
+			FOREIGN KEY(id_conversation) REFERENCES conversation(id_conversation),
+			FOREIGN KEY(sender_id) REFERENCES users(id_users),
+			FOREIGN KEY(recipiend_id) REFERENCES users(id_users)
+		);
 	CREATE TABLE
 	    comment(
 	        id_comment INT AUTO_INCREMENT,
@@ -342,15 +357,6 @@ CREATE TABLE EVENT(ID_EVENT
 	        ),
 	        FOREIGN KEY(id_equipment) REFERENCES equipment(id_equipment),
 	        FOREIGN KEY(id_shopping_cart) REFERENCES shopping_cart(id_shopping_cart)
-	    );
-	CREATE TABLE
-	    SEND_MESSAGE(
-	        id_users INT,
-	        id_message INT,
-	        publication_date DATETIME NOT NULL,
-	        PRIMARY KEY(id_users, id_message),
-	        FOREIGN KEY(id_users) REFERENCES users(id_users),
-	        FOREIGN KEY(id_message) REFERENCES TCHAT(id_message)
 	    );
 	CREATE TABLE
 	    is_providers(
