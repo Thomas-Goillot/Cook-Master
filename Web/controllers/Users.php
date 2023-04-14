@@ -49,6 +49,8 @@ class Users extends Controller{
     $this->loadModel('user');
     $data = $this->_model->getUserInfo($this->getUserId());
 
+    $data["subscription"] = $this->_model->getUserSubscriptionName($this->getUserId());
+
     $html = $this->generateFile('pdf/pdfUser.php', $data);
 
     $options = new Options();
