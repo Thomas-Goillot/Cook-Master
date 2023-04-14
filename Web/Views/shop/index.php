@@ -25,7 +25,7 @@ include_once('Views/layout/dashboard/path.php');
                 echo '<p text-center><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="300px" height="300px"></p>';
 
 
-                echo '<p class="h3">Disponibilité à la location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
+                echo '<p class="h3">Disponibilité à l\'achat : <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i> </p>';
 
                 echo " 
                 <div class='smallBtn'>             
@@ -67,10 +67,6 @@ include_once('Views/layout/dashboard/path.php');
                             <div class='modal-footer d-flex flex-column'>
                             <p></p>
                             <h4> Il y en a " . $allProduct['stock'] . " de disponibles !</h4>   
-                            <div class='form-group'>
-                                <label class='h5'>Date de la location</label>
-                                <input type='text' class='form-control date' id='RentDate' name='RentDate' data-toggle='daterangepicker' data-time-picker='true' data-locale='{'format': 'DD/MM/YYYY hh:mm'}>
-                            </div>
 
                                 <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                                 <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Louer !</button>
