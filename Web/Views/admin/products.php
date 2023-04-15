@@ -10,7 +10,7 @@ include_once('Views/layout/dashboard/path.php');
             <div class="card-body">
                 <form action="<?= $path_prefix ?>admin/addProduct" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label">Nom</label>
+                        <label>Nom</label>
                             <input class="form-control" type="text" name="name" required="" placeholder="Nom du produit">
                     </div>
                     <div class="form-group">
@@ -23,24 +23,24 @@ include_once('Views/layout/dashboard/path.php');
                     </div>
                     
                         <div class="form-group d-flex flex-column align-items-center">
-                            <label>Disponibilité à la vente</label>
-                            <input type="checkbox" data-toggle="switchery" name="dispnobilitySale" data-color="#df3554" />
-                            <label>Prix de la vente</label>
+                            <label class="space">Disponibilité à la vente</label>
+                            <input type="checkbox" data-toggle="switchery" name="dispnobilitySale" data-color="#9e1b21" />
+                            <label class="space">Prix de la vente</label>
                             <input type="text" data-toggle="touchspin" name="price_purchase" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
                         </div>
                         <div class="form-group d-flex flex-column align-items-center">
-                            <label>Disponibilité à la location</label>
-                            <input type="checkbox" data-toggle="switchery" name="dispnobilityRental" data-color="#df3554" />
-                            <label>Prix de la location</label>
+                            <label class="space">Disponibilité à la location</label>
+                            <input type="checkbox" data-toggle="switchery" name="dispnobilityRental" data-color="#9e1b21" />
+                            <label class="space">Prix de la location</label>
                             <input type="text" data-toggle="touchspin" name="price_rental" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
                         </div>
                     
                     <div class="form-group d-flex flex-column align-items-center">
-                        <label>Disponibilité à l'evenementiel</label>
-                        <input type="checkbox" data-toggle="switchery" name="dispnobilityEvent" data-color="#df3554" />
+                        <label class="space">Disponibilité à l'evenementiel</label>
+                        <input type="checkbox" data-toggle="switchery" name="dispnobilityEvent" data-color="#9e1b21" />
                     </div>
                     <div class="form-group">
-                        <label>Nombre de stockage disponible</label>
+                        <label class="space">Nombre de stockage disponible</label>
                         <input type="number" name="dispnobilityStock" min="0" class="form-control">
                     </div>
             </div>
@@ -58,12 +58,11 @@ include_once('Views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Listes de tout les produits</h4>
 
-                    <table id="datatables" class="table dt-responsive">
+                    <table id="datatables" class="table dt-responsive ici2">
                         <thead>
                             <tr>
                                 <th>Nom</th>
                                 <th>Date de création</th>
-                                <th>Desription</th>
                                 <th>Prix location</th>
                                 <th>Prix à l'achat</th>
                                 <th>Stock</th>
@@ -75,9 +74,7 @@ include_once('Views/layout/dashboard/path.php');
                                 foreach ($allProduct as $allProduct) {
                                     echo "<tr>
                                             <td>" . $allProduct['name'] . "</td>
-                                            <td>" . $allProduct['creation_date'] . "</td>
-                                            <td><button type='button' class='btn btn-lg btn-danger' data-bs-toggle='popover' data-bs-title='azertyui' data-bs-content='zdzdzd'>Description</button></td>
-                                            " ;
+                                            <td>" . $allProduct['creation_date'] . "</td>" ;
                                             
                                             if ($allProduct['price_rental'] == 0){
                                                 echo "<td> Non disponible à la location</td>";
@@ -95,10 +92,10 @@ include_once('Views/layout/dashboard/path.php');
                                             
                                             <td>";
                                         if ($allProduct['allow_rental'] == 0) {
-                                            echo '<span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<div class="stretch"><span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                             
                                         } else {
-                                            echo '<span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                            echo '<div class="stretch"><span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                         if ($allProduct['allow_purchase'] == 0) {
                                             echo '<span class="mx">Vente: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
@@ -106,7 +103,7 @@ include_once('Views/layout/dashboard/path.php');
                                             echo '<span class="mx">Vente: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }
                                         if ($allProduct['allow_event'] == 0) {
-                                            echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                            echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span></div>';
                                         } else {
                                             echo '<span class="mx">Évenement: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                         }

@@ -10,3 +10,21 @@
 .plusgros{
     margin-bottom: 1rem;
 }
+
+.stretch {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.ici2 {
+    text-align: center!important;
+}
+
+span.switchery.switchery-default {
+    margin-bottom: 1rem;
+}
+
+label.space{
+    margin-bottom: 1rem;
+}
