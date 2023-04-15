@@ -21,7 +21,7 @@ class ErrorHttp extends Controller{
         
         $page_name = array("Error $error_code" => "");
 
-        $this->render($this->default_path, compact('page_name', 'error_code'), OTHERS);
+        $this->render($this->default_path, compact('page_name', 'error_code'), OTHERS, "../");
     }
 
 }
