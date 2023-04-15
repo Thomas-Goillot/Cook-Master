@@ -33,6 +33,30 @@ class Words extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Get all swear words
+     * @return array
+     */
+    public function getSwearWordsWithoutId(): array
+    {
+        $sql = "SELECT word FROM words";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $words = [];
+        
+        foreach ($data as $key => $value) {
+            $words[] = $value['word'];
+        }
+
+        return $words;
+    }
+
+
     /** 
      * Add a swear word
      * @param string $word

@@ -56,9 +56,10 @@ class Chat extends Controller
             $conversationGuest[$key]['lastMessage'] = $this->_model->getLastMessage($conversation['id_conversation']);
 
             $conversationGuest[$key]['lastMessage'] = $this->checkMessage($conversationGuest[$key]['lastMessage']);
+
             $this->loadModel('user');
             if ($this->_model->getUserCensureChat($user_id) == CENSURE_CHAT) {
-                $messages[$key]['lastMessage'] = $this->checkSwearWords($conversationGuest[$key]['lastMessage']);
+                $conversationGuest[$key]['lastMessage'] = $this->checkSwearWords($conversationGuest[$key]['lastMessage']);
             }
         }
 
@@ -106,6 +107,11 @@ class Chat extends Controller
 
             $this->loadModel('Tchat');
             $conversationGuest[$key]['lastMessage'] = $this->_model->getLastMessage($conversation['id_conversation']);
+
+            $this->loadModel('user');
+            if ($this->_model->getUserCensureChat($user_id) == CENSURE_CHAT) {
+                $conversationGuest[$key]['lastMessage'] = $this->checkSwearWords($conversationGuest[$key]['lastMessage']);
+            }
         }
 
         $this->loadModel('user');

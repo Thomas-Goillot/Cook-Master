@@ -213,9 +213,9 @@ abstract class Controller extends Utils{
      */
     public function checkSwearWords(string $message): string
     {
-        $this->loadModel('Tchat');
+        $this->loadModel('words');
 
-        $swearWords = $this->_model->getSwearWords();
+        $swearWords = $this->_model->getSwearWordsWithoutId();
 
         $message = explode(" ", $message);
 
