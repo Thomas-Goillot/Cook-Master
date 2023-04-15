@@ -167,11 +167,11 @@ class Admin extends Controller
             $name = $_POST['name'];
             $description = $_POST['description'];
             $image = $filename;
-            $dispnobilityStock = (int)$_POST['dispnobilityStock'];
-            $id_users = $_SESSION['user']['id_users'];
             $price_purchase = $_POST['price_purchase'];
             $price_rental = $_POST ['price_rental'];
-
+            $dispnobilityStock = (int)$_POST['dispnobilityStock'];
+            $id_users = $_SESSION['user']['id_users'];
+            
             $this->loadModel("Products");
 
             $this->_model->addProduct($name, $description, $image, $dispnobilitySale, $dispnobilityRental, $dispnobilityEvent,$price_purchase,$price_rental, $dispnobilityStock, $id_users);

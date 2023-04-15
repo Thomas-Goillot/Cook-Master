@@ -46,7 +46,7 @@ class Products extends Model
      * @param int $id_users
      * @return void
      */
-    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent, int $dispnobilityStock,string $price_purchase, string $price_rental,int $id_users): void
+    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent,string $price_purchase, string $price_rental, int $dispnobilityStock,int $id_users): void
     {
         $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,price_purchase,price_rental,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:price_purchase,:price_rental,:dispnobilityStock,:id_users)";
 

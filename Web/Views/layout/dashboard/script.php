@@ -119,12 +119,51 @@
 
 
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-    
-})  
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+
+    function displayConversation(idConversation) {
+        $("#ConversationChatBox").load("<?= $path_prefix ?>chat/displayConversation/" + idConversation);
+    }
+
+    function refreshConversation(idConversation) {
+        $("#tchatbox").load("<?= $path_prefix ?>chat/refreshConversation/" + idConversation);
+    }
 
 
+    $(document).ready(function() {
+        $("#buttonDisplay").click(function() {
+            let idConversation = $(this).data('idconversation');
+            displayConversation(idConversation);
+            setInterval(function() {
+                refreshConversation(idConversation);
+            }, 1500);
+        });
+
+        $("#sendMessage").click(function() {
+            let message = $("#message").val();
+            let idConversation = $(this).data('idconversation');
+            console.log(message)
+            $.ajax({
+                url: "<?= $path_prefix ?>chat/sendMessage",
+                type: "POST",
+                data: {
+                    message: message,
+                    idConversation: idConversation
+                },
+                success: function(data) {
+                    $("#message").val("");
+                    refreshConversation(idConversation);
+                }
+            });
+
+
+        });
+
+
+
+    });
 </script>
 
 <?php
@@ -132,6 +171,3 @@ if (isset($errors) && $errors != "") {
     echo $errors;
 }
 ?>
-
-
-
