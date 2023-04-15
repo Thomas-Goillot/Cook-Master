@@ -29,6 +29,9 @@ define('USER_IS_BANNED', 1); // if 1 then the user is banned
 
 define('USER_IS_NOT_BANNED', 0); // if 0 then the user is not banned
 
+define('CENSURE_CHAT',1); // if 1 then the Chat is censored
+
+define('UNCENSURE_CHAT',0); // if 0 then the Chat is not censored
 
 
 

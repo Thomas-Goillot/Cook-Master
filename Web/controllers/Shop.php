@@ -16,6 +16,7 @@ class Shop extends Controller
         }
 
     }
+    
     /**
      * Display the Shop page
      * @return void
@@ -31,7 +32,6 @@ class Shop extends Controller
         $page_name = array("Boutique" => "shop");
 
         
-
         $this->render('shop/index', compact('page_name','allProduct'), DASHBOARD);
     }
 

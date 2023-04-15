@@ -15,6 +15,10 @@ class Disconnect extends Controller
         }
     }
 
+    /**
+     * Disconnect the user
+     * @return void
+     */
     public function index()
     {
         $_SESSION = [];

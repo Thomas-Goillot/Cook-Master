@@ -13,6 +13,14 @@ abstract class Controller extends Utils{
      * @var object
      */
     public object $_model;
+
+
+    /**
+     * Will contain the script file
+     * @var array $script
+     */
+    private array $script = [];
+
     
     /**
      * Render a view
@@ -23,6 +31,14 @@ abstract class Controller extends Utils{
      * @return void
      */
     public function render(string $file, ?array $data, string $type, string $path = ""): void{
+                
+        //calculate path prefix
+        if ($path != "") {
+            $data['path_prefix'] = $path;
+        }
+        else{
+            $data['path_prefix'] = $this->pathPrefix($file);
+        }
 
         //handle error
         $getError = $this->getError();
@@ -31,26 +47,20 @@ abstract class Controller extends Utils{
             $errors = $this->alert($getError['title'], $getError['error'], $getError['type']);
         }
         $data = array_merge($data, array('errors' => $errors));
-        
-        $temp = explode('/', $file);
-        
-        
-        $data['path_prefix'] = '';
-        if(end($temp) != 'index'){
-            $data['path_prefix'] = '../';
-        }
 
-        if($path != ""){
-            $data['path_prefix'] = $path;
-        }
+        //handle new script 
+        $newScript = $this->generateScriptTag($this->getNewScript(), $data['path_prefix']);
+        $data = array_merge($data,
+            array('newScript' => $newScript)
+        );
 
+        //render view
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
         }else if($type == OTHERS){
             $this->renderOthers($file, $data);
         }
         else{
-            $path_prefix = "../";
             echo $this->generateFile('views/' . $file . '.php', $data);
         }
     }    
@@ -160,6 +170,64 @@ abstract class Controller extends Utils{
      */
     public function setError(string $title, string $error, string $type = WARNING_ALERT): void{
         $_SESSION['error'] = array('title' => $title, 'error' => $error, 'type' => $type);
+    }
+
+    /**
+     * Add js file to script.php
+     * The specified file must be in the assets/pages folder
+     * @param array $js
+     */
+    public function setJsFile(array $js): void{
+        foreach ($js as $value) {
+            $this->script[] = $value;
+        }
+    }
+
+    /**
+     * Get js file
+     * @return array
+     */
+    public function getNewScript(): array{
+        return $this->script;
+    }
+
+
+    /**check if there is some words in the message that are not allowed
+     * @param string $message 
+     * @return string $message
+     */
+    public function checkMessage(string $message): string
+    {
+        $message = trim($message);
+        $message = htmlspecialchars($message);
+        $message = strip_tags($message);
+        $message = str_replace(array("\r", " ", " ", "   ", "    ", "     "), " ", $message);
+
+        return htmlspecialchars_decode($message);
+    }
+
+
+    /**check if there is some words in the message that are not allowed
+     * @param string $message 
+     * @return string $message
+     */
+    public function checkSwearWords(string $message): string
+    {
+        $this->loadModel('Tchat');
+
+        $swearWords = $this->_model->getSwearWords();
+
+        $message = explode(" ", $message);
+
+        foreach ($message as $word) {
+            if (in_array($word, $swearWords)) {
+                $message = str_replace($word, "****", $message);
+            }
+        }
+
+        $message = implode(" ", $message);
+
+        return $message;
     }
 
 }

@@ -9,9 +9,9 @@
     </div>
 </div>
 
-<div class="d-flex flex-column mt-5" id="tchatbox">
+<div class="d-flex flex-column mt-5 overflow-auto" style="max-height: 50vh;" id="chatbox">
 
-    <?php include_once('Views/chat/tchatbox.php'); ?>
+    <?php include_once('Views/Chat/Chatbox.php'); ?>
 
 </div>
 
@@ -19,7 +19,7 @@
     <div class="w-100">
         <div class="d-flex justify-content-between">
             <input type="text" class="form-control" id="message" placeholder="Votre message">
-            <button class="btn btn-primary" id="sendMessage">Envoyer</button>
+            <button type="button" class="btn btn-primary" id="sendMessage">Envoyer</button>
         </div>
     </div>
 </div>

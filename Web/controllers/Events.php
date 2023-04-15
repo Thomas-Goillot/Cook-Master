@@ -232,7 +232,6 @@ class Events extends Controller
      * Check before delete an event
      * @return void
      */
-
     public function deleteEvent(): void
     {
         $defaultFallBack = "../admin/events";

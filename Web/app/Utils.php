@@ -22,6 +22,22 @@ abstract class Utils extends Security
         $this->env = parse_ini_file(__DIR__ . "/../config/.env");
     }
 
+    /**
+     * Calculate path prefix
+     * @param string $path
+     * @return string
+     */
+    public function pathPrefix(string $path): string
+    {
+        $temp = explode('/', $path);
+
+        $path_prefix = '';
+        if (end($temp) != 'index') {
+            $path_prefix = '../';
+        }
+
+        return $path_prefix;
+    }
 
     /**
      * Hash password
@@ -169,6 +185,18 @@ abstract class Utils extends Security
     }
 
     /**
+     * Create script tag for js files
+     */
+    public function generateScriptTag(array $scripts, string $path_prefix): string
+    {
+        $script = "";
+        foreach ($scripts as $value) {
+            $script .= "<script src='".$path_prefix."assets/pages/".$value."'></script>";
+        }
+        return $script;
+    }
+
+    /**
      * Get user id from session
      * @return int
      */
@@ -176,7 +204,5 @@ abstract class Utils extends Security
     {
         return $_SESSION['user']['id_users'];
     }
-
-
 
 }

@@ -12,6 +12,10 @@ class Recipes extends Controller{
      */
     private string $default_path = "recipes/index";
 
+    /**
+     * Display the recipes page
+     * @return void
+     */
     public function index(){
 
         $this->loadModel('Recipes');

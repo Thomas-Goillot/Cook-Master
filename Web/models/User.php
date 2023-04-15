@@ -384,6 +384,35 @@ class User extends Model
         }
     }
 
+    /**
+     * Get user censure_Chat
+     * @param int $id
+     * @return bool
+     */
+    public function getUserCensureChat(int $id):bool{
+        try {
+            $query = "SELECT censure_tchat FROM " . $this->table . " WHERE id_users = :id";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($result['censure_tchat'] == 0){
+                return false;
+            }
+
+            return true;
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+
 
 
 }

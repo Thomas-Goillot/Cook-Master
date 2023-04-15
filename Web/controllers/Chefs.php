@@ -12,6 +12,10 @@ class Chefs extends Controller{
      */
     private string $default_path = "chefs/index";
 
+    /**
+     * Display the chefs page
+     * @return void
+     */
     public function index(){
 
         $this->loadModel('Providers');

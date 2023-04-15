@@ -77,7 +77,7 @@ class Resetting extends Controller{
         $number = $this->generateRandomNumber(8);
 
         $this->loadModel('User');
-/*         $this->_model->setMailVerified($_SESSION['user']['id_users'], $number);
+        $this->_model->setMailVerified($_SESSION['user']['id_users'], $number);
 
         $body = file_get_contents('mails/resetpw.php');
         $body = str_replace('___validationCode___', $number, $body);
@@ -91,7 +91,7 @@ class Resetting extends Controller{
             'assets/images/mails/linkedin2x.png' => 'linkedin',
         ];
 
-        $mail->send($this->_model->getMailById($user['id_users']), 'Votre code de validation Cook Master', $body, $images); */
+        $mail->send($this->_model->getMailById($this->getUserId()), 'Votre code de validation Cook Master', $body, $images);
 
         $this->redirect('../resetting/verifymail');
     }

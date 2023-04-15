@@ -259,6 +259,8 @@ class Admin extends Controller
 
         $page_name = array("Admin" => $this->default_path, "Listes des Évènements" => "admin/events");
 
+        $this->setJsFile(array('events.js'));
+
         $this->render('admin/events', compact('eventsTemplate','events', 'page_name'), DASHBOARD);
     }
 

@@ -11,7 +11,7 @@ class Chat extends Controller
      * Default path to the view
      * @var string
      */
-    private string $default_path = "chat/index";
+    private string $default_path = "Chat/index";
 
     public function __construct()
     {
@@ -23,11 +23,11 @@ class Chat extends Controller
     }
 
     /**
-     * Display all conversation of a user
+     * Display page conversation of a user
      */
     public function index():void
     {
-        $this->loadModel('Chat');
+        $this->loadModel('Tchat');
 
         $user_id = $this->getUserId();
 
@@ -52,11 +52,19 @@ class Chat extends Controller
 
             $conversationGuest[] = $conversations['user1']['guest'] ? $conversations['user1'] : $conversations['user2'];
             
-            $this->loadModel('chat');
+            $this->loadModel('Tchat');
             $conversationGuest[$key]['lastMessage'] = $this->_model->getLastMessage($conversation['id_conversation']);
+
+            $conversationGuest[$key]['lastMessage'] = $this->checkMessage($conversationGuest[$key]['lastMessage']);
+            $this->loadModel('user');
+            if ($this->_model->getUserCensureChat($user_id) == CENSURE_CHAT) {
+                $messages[$key]['lastMessage'] = $this->checkSwearWords($conversationGuest[$key]['lastMessage']);
+            }
         }
 
-        $page_name = array("Conversation" => "chat");
+        $page_name = array("Conversation" => "Chat");
+
+        $this->setJsFile(array('Chat.js'));
 
         $this->render($this->default_path, compact('conversationGuest','page_name'),DASHBOARD);
     }
@@ -70,7 +78,7 @@ class Chat extends Controller
     {
         $id_conversation = (int) $_GET['params'][0];
 
-        $this->loadModel('Chat');
+        $this->loadModel('Tchat');
 
         $user_id = $this->getUserId();
 
@@ -96,12 +104,23 @@ class Chat extends Controller
 
             $conversationGuest[] = $conversations['user1']['guest'] ? $conversations['user1'] : $conversations['user2'];
 
-            $this->loadModel('chat');
+            $this->loadModel('Tchat');
             $conversationGuest[$key]['lastMessage'] = $this->_model->getLastMessage($conversation['id_conversation']);
         }
 
+        $this->loadModel('user');
 
-        $this->render('chat/conversation', compact('user_id','conversationGuest','messages'),NO_LAYOUT);
+        foreach ($messages as $key => $message) {
+            $messages[$key]['message'] = $this->checkMessage($messages[$key]['message']);
+        }
+
+        if ($this->_model->getUserCensureChat($user_id) == CENSURE_CHAT) {
+            foreach ($messages as $key => $message) {
+                $messages[$key]['message'] = $this->checkSwearWords($messages[$key]['message']);
+            }
+        }
+
+        $this->render('Chat/conversation', compact('user_id','conversationGuest','messages'),NO_LAYOUT);
     }
 
     /**
@@ -112,13 +131,25 @@ class Chat extends Controller
     {
         $id_conversation = (int) $_GET['params'][0];
 
-        $this->loadModel('Chat');
+        $this->loadModel('Tchat');
 
         $user_id = $this->getUserId();
 
         $messages = $this->_model->getMessages($id_conversation);
 
-        $this->render('chat/tchatbox', compact('user_id','messages'),NO_LAYOUT);
+        $this->loadModel('user');
+
+        foreach ($messages as $key => $message) {
+            $messages[$key]['message'] = $this->checkMessage($messages[$key]['message']);
+        }    
+
+        if($this->_model->getUserCensureChat($user_id) == CENSURE_CHAT){
+            foreach ($messages as $key => $message) {
+                $messages[$key]['message'] = $this->checkSwearWords($messages[$key]['message']);
+            }
+        }
+
+        $this->render('Chat/Chatbox', compact('user_id','messages'),NO_LAYOUT);
     }
 
     /**
@@ -126,16 +157,20 @@ class Chat extends Controller
      * @return void
      */
     public function sendMessage():void
-    {
-        $id_conversation = (int) $_POST['id_conversation'];
-        $message = $_POST['message'];
-        $id_user = $this->getUserId();
+    {   
+        $_POST = json_decode(file_get_contents('php://input'), true);
 
-        $this->loadModel('Chat');
+        $id_conversation = (int) htmlspecialchars($_POST['idConversation']);
+        $message = htmlspecialchars($_POST['message']);
+        $sender_id = $this->getUserId();
 
-        //$this->_model->sendMessage($id_conversation, $message, $id_user);
+        $this->loadModel('Tchat');
 
-        $this->displayConversation();
+        $info = $this->_model->getConversation($sender_id);
+
+        $recever_id = $info[0]['id_users1'] == $sender_id ? $info[0]['id_users2'] : $info[0]['id_users1'];
+
+        $this->_model->sendMessage($id_conversation, $message, $sender_id, $recever_id);
     }
 
 

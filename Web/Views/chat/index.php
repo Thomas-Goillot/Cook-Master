@@ -22,7 +22,7 @@ include_once('Views/layout/dashboard/path.php');
                         </div>
 
 
-                        <div data-simplebar style="min-height: 65vh;">
+                        <div data-simplebar style="min-height: 60vh;">
 
                             <?php
                             foreach ($conversationGuest as $conversation) {

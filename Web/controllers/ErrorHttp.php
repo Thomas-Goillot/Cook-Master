@@ -12,6 +12,10 @@ class ErrorHttp extends Controller{
      */
     private string $default_path = "error/index";
 
+    /**
+     * Display the error page
+     * @return void
+     */
     public function error(){
         $error_code = http_response_code();
         

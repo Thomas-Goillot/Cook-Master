@@ -12,6 +12,10 @@ class Home extends Controller{
      */
     private string $default_path = "home/index";
 
+    /**
+     * Display the home page
+     * @return void
+     */
     public function index(){
         $page_name = array("Accueil" => $this->default_path);
 
