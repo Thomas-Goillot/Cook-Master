@@ -27,7 +27,7 @@ include_once('Views/layout/dashboard/path.php');
                             <?php
                             foreach ($conversationGuest as $conversation) {
                                 echo "
-                            <a href=\"#\" class=\"d-flex align-items-center border-bottom py-3\" id=\"buttonDisplay\" data-idconversation=\"" . $conversation['id_conversation'] . "\">
+                            <a href=\"#\" class=\"d-flex align-items-center border-bottom py-3 buttonDisplay\" data-idconversation=\"" . $conversation['id_conversation'] . "\">
                                 <div class=\"mr-3\">
                                     <img src=\"" . $path_prefix . "assets/images/users/user.png\" class=\"rounded-circle avatar-sm\" alt=\"user\">
                                 </div>

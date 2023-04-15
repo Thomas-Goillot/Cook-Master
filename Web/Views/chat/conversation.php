@@ -4,7 +4,7 @@
     </div>
     <div class="w-100">
         <div class="d-flex justify-content-between">
-            <h6 class="mb-1"><?= $conversationGuest[0]['name'] . " " . $conversationGuest[0]['surname'] ?></h6>
+            <h6 class="mb-1"><?= $conversationGuest['name'] . " " . $conversationGuest['surname']; ?></h6>
         </div>
     </div>
 </div>

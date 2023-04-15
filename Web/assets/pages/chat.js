@@ -36,11 +36,11 @@ $(document).ready(function () {
   async function refreshConversation(idConversation) {
     await fetch("Chat/refreshConversation/" + idConversation)
       .then((response) => response.text())
-      .then((html) => $("#chatbox").html(html))
+      .then((html) => console.log("refresh"))
       .catch((error) => console.error(error));
   }
 
-  $("#buttonDisplay").click(async function () {
+  $(".buttonDisplay").click(async function () {
     let idConversation = $(this).data("idconversation");
     await displayConversation(idConversation);
 
