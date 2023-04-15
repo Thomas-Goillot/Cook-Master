@@ -36,7 +36,7 @@ $(document).ready(function () {
   async function refreshConversation(idConversation) {
     await fetch("Chat/refreshConversation/" + idConversation)
       .then((response) => response.text())
-      .then((html) => console.log("refresh"))
+      .then((html) => $("#chatbox").html(html))
       .catch((error) => console.error(error));
   }
 
