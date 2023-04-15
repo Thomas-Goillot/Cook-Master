@@ -48,7 +48,7 @@ class Chat extends Controller
             $conversations['user2'] = $this->_model->getUserName($conversation['id_users2']);
             $conversations['user2']['id'] = $temp;
             $conversations['user2']['guest'] = $conversations['user2']['id'] == $user_id ? false : true;
-            $conversation['user2']['id_conversation'] = $conversation['id_conversation'];
+            $conversations['user2']['id_conversation'] = $conversation['id_conversation'];
 
             $conversationGuest[] = $conversations['user1']['guest'] ? $conversations['user1'] : $conversations['user2'];
             
@@ -89,13 +89,15 @@ class Chat extends Controller
 
         $conversationGuest = array();
 
-        foreach ($conversations as $key => $conversation) {
+         foreach ($conversations as $key => $conversation) {
             $this->loadModel('user');
-            $temp = $conversation['id_users1'];
+
+            $temp = $conversation['id_users1'];            
             $conversations['user1'] = $this->_model->getUserName($conversation['id_users1']);
             $conversations['user1']['id'] = $temp;
             $conversations['user1']['guest'] = $conversations['user1']['id'] == $user_id ? false : true;
             $conversations['user1']['id_conversation'] = $conversation['id_conversation'];
+
 
             $temp = $conversation['id_users2'];
             $conversations['user2'] = $this->_model->getUserName($conversation['id_users2']);
@@ -134,8 +136,7 @@ class Chat extends Controller
         }
 
 
-
-        $this->render('Chat/conversation', compact('user_id','conversationGuest','messages'),NO_LAYOUT);
+        $this->render('Chat/conversation', compact('user_id', 'conversationGuest', 'messages', 'conversations'),NO_LAYOUT);
     }
 
     /**
