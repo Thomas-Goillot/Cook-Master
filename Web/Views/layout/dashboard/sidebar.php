@@ -45,7 +45,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
+                    <a href="<?= $path_prefix ?>personnalEvents" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
                 <li>
