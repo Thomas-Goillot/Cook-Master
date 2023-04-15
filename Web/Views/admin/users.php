@@ -69,37 +69,3 @@ include_once('Views/layout/dashboard/path.php');
         </div>
     </div>
 </div>
-
-<?php
-
-    require_once 'vendor/autoload.php';
-
-    use Dompdf\Dompdf;
-    use Dompdf\Options;
-
-    ob_start();
-
-    require_once 'pdfUser.php';
-
-    $html = ob_get_contents();
-
-    ob_end_clean();
-
-    $options = new Options();
-    
-    $options->set('defaultFont', 'Courier');
-
-    $dompdf = new Dompdf($options);
-
-    $dompdf->loadHtml('test');
-
-    $dompdf->setPaper('A4', 'portrait');
-
-    $dompdf->render();
-
-    $fichier = 'informations_profil.pdf';
-
-    $dompdf->stream($fichier);
-    
-?>
-
