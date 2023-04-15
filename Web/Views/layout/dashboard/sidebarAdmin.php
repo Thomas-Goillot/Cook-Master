@@ -28,8 +28,8 @@
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-check-shield"></i><span>Modération</span></a>
     <ul class="sub-menu" aria-expanded="false">
-        <li><a href="<?= $path_prefix ?>admin/wordlist"><i class="bx bx-list-check"></i>Liste de mots</a></li>
-        <li><a href="<?= $path_prefix ?>admin/Chat"><i class="bx bx-chat"></i>Conversations</a></li>
+        <li><a href="<?= $path_prefix ?>moderation/wordlist"><i class="bx bx-list-check"></i>Liste de mots</a></li>
+        <li><a href="<?= $path_prefix ?>moderation/Chat"><i class="bx bx-chat"></i>Conversations</a></li>
     </ul>
 </li>
 

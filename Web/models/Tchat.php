@@ -100,28 +100,4 @@ class Tchat extends Model
         return $stmt->execute();
         
     }
-
-    /**
-     * Get all swear words
-     * @return array
-     */
-    public function getSwearWords():array
-    {
-        $sql = "SELECT word FROM words";
-
-        $stmt = $this->_connexion->prepare($sql);
-
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $words = [];
-        foreach ($result as $key => $value) {
-            $words[] = $value['word'];
-        }
-        return $words;
-    }
-
-
-
 }
