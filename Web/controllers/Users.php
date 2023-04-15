@@ -69,7 +69,6 @@ class Users extends Controller{
 
     $dompdf->stream($fichier);
 
-
-
     }
+
 }

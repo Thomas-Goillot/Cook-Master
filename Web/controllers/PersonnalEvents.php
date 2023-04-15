@@ -3,6 +3,8 @@
 namespace Controllers;
 
 use App\Controller;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class PersonnalEvents extends Controller{
 
@@ -62,4 +64,62 @@ class PersonnalEvents extends Controller{
 
         $this->render($this->default_path, compact('events', 'page_name', 'upcomingEvents', 'pastEvents'), DASHBOARD);
     }
+
+    /**
+     * Download past event informations
+     */
+    public function downloadPastEventInformation():void{
+
+        $this->loadModel('PersonnalEvents');
+
+        $data = $this->_model->getPastPersonnalEvents($this->getUserId());
+    
+        $html = $this->generateFile('pdf/pdfPersonnalPastEvent.php', $data);
+    
+        $options = new Options();
+        
+        $options->set('defaultFont', 'Courier');
+    
+        $dompdf = new Dompdf($options);
+    
+        $dompdf->loadHtml($html);
+    
+        $dompdf->setPaper('A4', 'portrait');
+    
+        $dompdf->render();
+    
+        $fichier = 'PastEventInformation.pdf';
+    
+        $dompdf->stream($fichier);
+    
+        }
+
+    /**
+     * Download upcoming event informations
+     */
+    public function downloadUpcomingEventInformation():void{
+
+        $this->loadModel('PersonnalEvents');
+        
+        $data = $this->_model->getUpcomingPersonnalEvents($this->getUserId());
+    
+        $html = $this->generateFile('pdf/pdfPersonnalUpcomingEvent.php', $data);
+    
+        $options = new Options();
+    
+        $options->set('defaultFont', 'Courier');
+    
+        $dompdf = new Dompdf($options);
+    
+        $dompdf->loadHtml($html);
+    
+        $dompdf->setPaper('A4', 'portrait');
+    
+        $dompdf->render();
+    
+        $fichier = 'UpcomingEventInformation.pdf';
+    
+        $dompdf->stream($fichier);
+    
+        }
 }

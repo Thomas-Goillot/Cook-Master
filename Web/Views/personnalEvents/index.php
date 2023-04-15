@@ -36,6 +36,7 @@
                                 <th>Date de début</th>
                                 <th>Date de fin</th>
                                 <th>Prix</th>
+                                <th>Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,16 +47,26 @@
                                             <th>' . $informations['date_start'] .'</th>
                                             <th>' . $informations['date_end'] .'</th>
                                             <th>' . $informations['price'] .'€</th>
+                                            <th>
+                                                <div class="dropdown float-right position-relative">
+                                                    <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="' . $path_prefix . 'PersonnalEvents/downloadUpcomingEventInformation" class="dropdown-item">Télécharger en PDF</a></li>
+                                                    </ul>
+                                                </div>
+                                            </th>
                                             </tr>';
                                 }
                             ?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <!-- end card-body-->
         </div>
-        <!-- end card -->
+        <!-- end card-body-->
+    </div>
+    <!-- end card -->
 
     <div class="card">
         <div class="card-body">
@@ -68,6 +79,7 @@
                                 <th>Date de début</th>
                                 <th>Date de fin</th>
                                 <th>Prix</th>
+                                <th>Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,12 +90,22 @@
                                             <th>' . $informations['date_start'] .'</th>
                                             <th>' . $informations['date_end'] .'</th>
                                             <th>' . $informations['price'] .'€</th>
+                                            <th>
+                                                <div class="dropdown float-right position-relative">
+                                                    <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="mdi mdi-dots-vertical"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li><a href="' . $path_prefix . ' personnalevents/downloadPastEventInformation" class="dropdown-item">Télécharger en PDF</a></li>
+                                                    </ul>
+                                                </div>
+                                            </th>
                                             </tr>';
                                 }
                             ?>
                         </tbody>
                     </table>
-                </div>
+            </div>
         </div>
         <!-- end card-body-->
     </div>
