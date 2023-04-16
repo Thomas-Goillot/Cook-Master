@@ -54,10 +54,6 @@ abstract class Controller extends Utils{
             array('newScript' => $newScript)
         );
 
-        //handle avatar
-        $UserAvatar = $this->loadAvatar($this->getUserId());
-        $data = array_merge($data, array('UserAvatar' => $UserAvatar));
-
         //render view
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
@@ -241,7 +237,7 @@ abstract class Controller extends Utils{
      * @param int $height
      * @return string
      */
-    public function loadAvatar(int $id, int $width = NULL, int $height = NULL): string
+    public function loadAvatar(int $id, string $path_prefix,int $width = NULL, int $height = NULL): string
     {
         $this->loadModel('avatar');
 
@@ -299,9 +295,9 @@ abstract class Controller extends Utils{
             }
         } else {
             if ($width != NULL && $height != NULL) {
-                return '<img src="../assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
+                return '<img src="'. $path_prefix .'assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
             } else {
-                return '<img src="assets/images/users/user.png" alt="Avatar" class="rounded-circle header-profile-user">';
+                return '<img src="' . $path_prefix . 'assets/images/users/user.png" alt="Avatar" class="rounded-circle header-profile-user">';
             }
         }
     }  

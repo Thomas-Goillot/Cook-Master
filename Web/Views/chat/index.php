@@ -31,7 +31,7 @@ include_once('Views/layout/dashboard/path.php');
                                 <div class=\"mr-3\">
                                     ";
 
-                                echo $this->loadAvatar($conversation['id']);
+                                echo $this->loadAvatar($conversation['id'], $path_prefix);
 
                                 echo "
                                 </div>
