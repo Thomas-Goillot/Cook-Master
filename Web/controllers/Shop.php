@@ -44,6 +44,8 @@ class Shop extends Controller
         
         $id_users = $_SESSION['user']['id_users'];
 
+       
+
         $verifCart = $this->_model->verifCart($id_users);
 
         
@@ -53,9 +55,17 @@ class Shop extends Controller
             // $id_cart = ;
 
             $this->setError('Produit ajouté au panier !','Votre produit a bien été ajouter dans votre panier !',SUCCESS_ALERT);
-            $this->redirect('../shop/index');
-        }else{
-            // $id_cart =
+            $this->redirect('../shop');
+        }
+
+        
+        if($verifCart == false){
+             $id_command_status = 1;
+             $this->_model->createCart($id_command_status,$id_users);
+
+
+            $this->setError('Produit ajouté au panier !','Votre produit a bien été ajouter dans votre panier !',SUCCESS_ALERT);
+            $this->redirect('../shop');
         }
 
 
