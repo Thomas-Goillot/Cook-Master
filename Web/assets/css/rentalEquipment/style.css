@@ -23,8 +23,11 @@ td.tableau2 {
     width: 0%!important;
 }
 
-
-
 table#basic-datatable {
     text-align: center!important;
+}
+
+.d-flex.flex-column.icila {
+    display: flex!important;
+    align-items: center!important;
 }

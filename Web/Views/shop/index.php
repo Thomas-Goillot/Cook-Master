@@ -14,23 +14,16 @@
             echo ' <div class="col-lg-4 text-center width="300px">';
             echo ' <div class="card card-animate text-center">';
 
-
-            echo '<div class="card-header text-center">';
-            echo '<h3>' . $allProduct['name'] . '</h3>';
-            echo '<h5> Prix unitaire : ' . $allProduct['price_purchase'] . ' €</h5>';
-            echo '</div>';
-
-
-
             echo '<div class="card-body d-flex flex-column ">';
-            echo '<div class="d-flex flex-column">';
-            echo '<p text-center><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="300px" height="300px"></p>';
-            echo " 
-                <div class='smallBtn'>             
-                <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-toggle='modal' data-target='#equipment" . $allProduct['id_equipment'] . "'>
-                    Acheter
-                </button>
-                </div>";
+            echo '<div class="d-flex flex-column icila">';
+            echo '<img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="300px" height="300px">';
+            echo '<h3>' . $allProduct['name'] . '</h3>';
+            echo '<h5> Prix unitaire: ' . $allProduct['price_purchase'] . '€</h5>
+                    <div class="smallBtn">             
+                    <button type="button" class="btn btn-primary mt-4 mb-2 btn-rounded small" data-toggle="modal" data-target="#equipment' . $allProduct['id_equipment'] . '">
+                        Description
+                    </button>
+                    </div>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
@@ -57,20 +50,18 @@
                             <img width ='300px' src='" . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . "' alt='" . $allProduct['image'] . ">
 
                             <h4> Description :</h4>
-                            <p class='blockquote text-center'>" . $allProduct['description'] . "</p>         
-                            <h4> Il y en a " . $allProduct['stock'] . " de disponibles !</h4>   
-                           
-
-
-                            
+                                <p class='blockquote text-center'>" . $allProduct['description'] . "</p>  
+                                <h5> Prix unitaire: " . $allProduct['price_purchase'] . "€</h5>        
+                            </div>
+                    
+                            <div class='modal-footer d-flex flex-column'>
                             <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                                <label class='h5'>Quantité à commander</label>
-                                <input type='number' name='needRent' min='0' max='" . $allProduct['stock'] . "' class='form-control'>
+                                <input type='number' placeholfer='quantité' name='needRent' min='0' max='" . $allProduct['stock'] . "' class='form-control'>
+                                <div class='modal-footer d-flex flex-row'>
+                                <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter</button>
+                                <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                                 </div>
-                                <div class='modal-footer d-flex flex-column'>
-                                <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter au panier </button>
                             </form>
-                            <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                             </div>
                         </div>
                     </div>
