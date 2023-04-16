@@ -5,14 +5,14 @@ use PDO;
 use App\Model;
 use PDOException;
 
-class Products extends Model
+class Shop extends Model
 {
     /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->table = "equipment";
+        $this->table = "shopping_cart";
 
         $this->getConnection();
     }
@@ -32,25 +32,31 @@ class Products extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // public function updateStock(int $newStock, int $idEquipment){
-
-    // $query = "UPDATE ".  $this->table ." SET stock = :dispnobilityStock WHERE id = :id_Equipment";
 
 
 
-    // $data = array(
-    //     ":dispnobilityStock" => $newStock,
-    //     ":id_Equipment" => $idEquipment
 
-    // );
+    public function verifCart(int $id_users): array
+    {
+ 
+    $query = "SELECT * FROM ". $this->table ." WHERE id_users = :id_users AND id_command_status < 1";
+
+    $stmt = $this->_connexion->prepare($query);
 
 
+    $data = array(
+        ":id_users" => $id_users
+    );
 
-    // $stmt = $this->_connexion->prepare($query);
+    $stmt->execute($data);
 
-    // $stmt->execute($data);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // }
+    }
+
+
+    
+
 
 
 

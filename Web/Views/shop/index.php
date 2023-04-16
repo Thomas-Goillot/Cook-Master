@@ -7,61 +7,75 @@
 
 
 <div class="row">
-    <div class="col-12">
-         <div class="card ">
-            <div class="card-body">
-                <h4 class="card-title">Boutique</h4>
-                <table id="datatable" class="table dt-responsive nowrap">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Nom</th>
-                            <th>Prix</th>
-                            <th>Options</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ($allProduct as $allProduct) {
-                            if($allProduct['allow_purchase'] == 0){
-                            echo'<tr>
-                                    <td class="tableau1"><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" class="img-fluid tableimg"></td>
-                                    <td class="tableau">' . $allProduct['name'] . '</td>
-                                    <td class="tableau">'.$allProduct['price_purchase'].'€</td>
-                                    <td class="tableau2">
-                                        <div class="smallBtn">             
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#equipment'. $allProduct['id_equipment'] .'">
-                                            Descritpion
-                                        </button>
-                                        </div>
-                                    </td>
-                                </tr>';
+    <?php
 
-                                echo "
-                                <div class='modal' id='equipment". $allProduct['id_equipment'] ."' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-                                    <div class='modal-dialog' role='document'>
-                                        <div class='modal-content'>
-                                            <div class='modal-header d-flex flex-column align-items-center'>
-                                                <h1>".$allProduct['name']."</h1>
-                                            </div>
-                                            <div class='modal-body d-flex flex-column'>
-                                                <img class='img-fluid tableimg' src='". $path_prefix  . 'assets/images/productShop/'. $allProduct['image'] ."' alt='". $allProduct['image']."> 
-                                                <p class='blockquote text-center'>".$allProduct['description']."</p>                    
-                                            </div>
-                                            <div class='modal-footer d-flex flex-row'>    
-                                                <button type='button'  class='btn btn-secondary' data-dismiss='modal'>Annuler</button>
-                                                <button type='button' class='btn btn-primary'>Ajouter au panier </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>";
-                            }
-                        }
-                    ?>
-                    </tbody>
-                </table>
-            </div> <!-- end card body-->
-        </div> <!-- end card -->
-    </div><!-- end col-->
+    foreach ($allProduct as $allProduct) {
+        if ($allProduct['allow_purchase'] == 0) {
+            echo ' <div class="col-lg-4 text-center width="300px">';
+            echo ' <div class="card card-animate text-center">';
+
+
+            echo '<div class="card-header text-center">';
+            echo '<h3>' . $allProduct['name'] . '</h3>';
+            echo '<h5> Prix unitaire : ' . $allProduct['price_purchase'] . ' €</h5>';
+            echo '</div>';
+
+
+
+            echo '<div class="card-body d-flex flex-column ">';
+            echo '<div class="d-flex flex-column">';
+            echo '<p text-center><img src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '" width="300px" height="300px"></p>';
+            echo " 
+                <div class='smallBtn'>             
+                <button type='button' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-toggle='modal' data-target='#equipment" . $allProduct['id_equipment'] . "'>
+                    Acheter
+                </button>
+                </div>";
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+
+
+
+
+            echo " <!-- Modal -->
+                <!-- Modal -->
+                <div class='modal' id='equipment" . $allProduct['id_equipment'] . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog' role='document'>
+                        <div class='modal-content'>
+
+
+                        <div class='modal-header d-flex flex-column align-items-center'>
+                                <h5 class='modal-title' id='label" . $allProduct['id_equipment'] . "'></h5>
+                            <h1>" . $allProduct['name'] . "</h1>        
+                            
+                           
+                            </div>
+
+                            <div class='modal-body d-flex flex-column align-items-center'>
+                            <img width ='300px' src='" . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . "' alt='" . $allProduct['image'] . ">
+
+                            <h4> Description :</h4>
+                            <p class='blockquote text-center'>" . $allProduct['description'] . "</p>         
+                            <h4> Il y en a " . $allProduct['stock'] . " de disponibles !</h4>   
+                           
+
+
+                            
+                            <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                                <label class='h5'>Quantité à commander</label>
+                                <input type='number' name='needRent' min='0' max='" . $allProduct['stock'] . "' class='form-control'>
+                                </div>
+                                <div class='modal-footer d-flex flex-column'>
+                                <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter au panier </button>
+                            </form>
+                            <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+        }
+    }
+    ?>
 </div>
-<!-- end row-->
