@@ -132,7 +132,7 @@
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?= $UserAvatar?>
+                    <?= $this->loadAvatar($this->getUserId(), $path_prefix)?>
 
 
                     <span class="d-none d-sm-inline-block ml-1"><?= ucfirst($data['user']['name']) . " " . ucfirst($data['user']['surname']) ?></span>
