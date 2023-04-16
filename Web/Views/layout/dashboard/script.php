@@ -3,6 +3,7 @@
 <script src="<?= $path_prefix ?>assets/js/metismenu.min.js"></script>
 <script src="<?= $path_prefix ?>assets/js/waves.js"></script>
 <script src="<?= $path_prefix ?>assets/js/simplebar.min.js"></script>
+<script src="<?= $path_prefix ?>assets/js/function.js"></script>
 
 <!-- third party js -->
 <script src="<?= $path_prefix ?>plugins/datatables/jquery.dataTables.min.js"></script>

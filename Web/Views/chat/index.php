@@ -29,7 +29,11 @@ include_once('Views/layout/dashboard/path.php');
                                 echo "
                             <a href=\"#\" class=\"d-flex align-items-center border-bottom py-3 buttonDisplay\" data-idconversation=\"" . $conversation['id_conversation'] . "\">
                                 <div class=\"mr-3\">
-                                    <img src=\"" . $path_prefix . "assets/images/users/user.png\" class=\"rounded-circle avatar-sm\" alt=\"user\">
+                                    ";
+
+                                echo $this->loadAvatar($conversation['id']);
+
+                                echo "
                                 </div>
                                 <div class=\"w-100\">
                                     <div class=\"d-flex justify-content-between\">
