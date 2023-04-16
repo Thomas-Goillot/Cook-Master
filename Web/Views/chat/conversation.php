@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center border-bottom py-3">
     <div class="mr-3">
-        <?= $this->loadAvatar($conversationGuest['id'], $path_prefix); ?>
+        <?= $this->loadAvatar($conversationGuest['id'], ""); ?>
     </div>
     <div class="w-100">
         <div class="d-flex justify-content-between">
