@@ -28,6 +28,14 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title d-inline-block mb-3"><i class="bx bx-calendar-event"></i> Vos évènements à venir</h4>
+                <div class="dropdown float-right position-relative">
+                    <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-vertical"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="<?= $path_prefix ?>PersonnalEvents/downloadUpcomingEventsInformations" class="dropdown-item">Toutes vos factures en PDF</a></li>
+                    </ul>
+                </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead>
@@ -71,6 +79,14 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title d-inline-block mb-3"><i class="bx bx-calendar-event"></i> Vos évènements à venir</h4>
+            <div class="dropdown float-right position-relative">
+                <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="<?= $path_prefix ?>personnalevents/downloadPastEventsInformations" class="dropdown-item">Toutes vos factures en PDF</a></li>
+                </ul>
+            </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead>
@@ -96,7 +112,9 @@
                                                         <i class="mdi mdi-dots-vertical"></i>
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="' . $path_prefix . ' personnalevents/downloadPastEventInformation" class="dropdown-item">Télécharger en PDF</a></li>
+                                                        <li>
+                                                            <a href="' . $path_prefix . ' personnalevents/downloadPastEventInformation?id_event='. $informations['id_event'].'" class="dropdown-item">Télécharger en PDF</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </th>

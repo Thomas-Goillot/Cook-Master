@@ -32,11 +32,17 @@ class PersonnalEvents extends Controller{
 
         $id = $this->getUserId();
 
+/*        $id_event = $_GET['id_event'];*/
+        
         $events = $this->_model->getAllPersonnalEvents($id);
 
         $upcomingEvents = $this->_model->getUpcomingPersonnalEvents($id);
 
         $pastEvents = $this->_model->getPastPersonnalEvents($id);
+
+/*        $upcomingEvent = $this->_model->getUpcomingPersonnalEvent($id, $id_event);*/
+
+/*        $pastEvent = $this->_model->getPastPersonnalEvent($id, $id_event);*/
 
         foreach ($events as $key => $event) {
             $event['date_start'] = explode(" ", $event['date_start'])[0];
@@ -66,13 +72,71 @@ class PersonnalEvents extends Controller{
     }
 
     /**
+     * Download all past events informations
+     */
+    public function downloadPastEventsInformations():void{
+
+        $this->loadModel('PersonnalEvents');
+
+        $data = $this->_model->getPastPersonnalEvents($this->getUserId());
+    
+        $html = $this->generateFile('pdf/pdfPersonnalPastEvents.php', $data);
+    
+        $options = new Options();
+        
+        $options->set('defaultFont', 'Courier');
+    
+        $dompdf = new Dompdf($options);
+    
+        $dompdf->loadHtml($html);
+    
+        $dompdf->setPaper('A4', 'portrait');
+    
+        $dompdf->render();
+    
+        $fichier = 'PastEventsInformations.pdf';
+    
+        $dompdf->stream($fichier);
+    
+        }
+
+    /**
+     * Download all upcoming events informations
+     */
+    public function downloadUpcomingEventsInformations():void{
+
+        $this->loadModel('PersonnalEvents');
+        
+        $data = $this->_model->getUpcomingPersonnalEvents($this->getUserId());
+    
+        $html = $this->generateFile('pdf/pdfPersonnalUpcomingEvents.php', $data);
+    
+        $options = new Options();
+    
+        $options->set('defaultFont', 'Courier');
+    
+        $dompdf = new Dompdf($options);
+    
+        $dompdf->loadHtml($html);
+    
+        $dompdf->setPaper('A4', 'portrait');
+    
+        $dompdf->render();
+    
+        $fichier = 'UpcomingEventsInformations.pdf';
+    
+        $dompdf->stream($fichier);
+    
+        }
+
+    /**
      * Download past event informations
      */
     public function downloadPastEventInformation():void{
 
         $this->loadModel('PersonnalEvents');
 
-        $data = $this->_model->getPastPersonnalEvents($this->getUserId());
+        $data = $this->_model->getPastPersonnalEvent($this->getUserId(), 21);
     
         $html = $this->generateFile('pdf/pdfPersonnalPastEvent.php', $data);
     
@@ -101,7 +165,7 @@ class PersonnalEvents extends Controller{
 
         $this->loadModel('PersonnalEvents');
         
-        $data = $this->_model->getUpcomingPersonnalEvents($this->getUserId());
+        $data = $this->_model->getUpcomingPersonnalEvent($this->getUserId(), 21);
     
         $html = $this->generateFile('pdf/pdfPersonnalUpcomingEvent.php', $data);
     
