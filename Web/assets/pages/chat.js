@@ -1,4 +1,7 @@
 $(document).ready(function () {
+  
+  var intId = null;
+  
   async function displayConversation(idConversation) {
     await fetch("Chat/displayConversation/" + idConversation)
       .then((response) => response.text())
@@ -41,11 +44,17 @@ $(document).ready(function () {
   }
 
   $(".buttonDisplay").click(async function () {
-    let idConversation = $(this).data("idconversation");
+
+    if (intId) {
+      clearInterval(intId);
+    }
+
+    idConversation = $(this).data("idconversation");
     await displayConversation(idConversation);
 
-    setInterval(async function () {
+    intId = setInterval(async function () {
       await refreshConversation(idConversation);
+      console.log("refresh" + idConversation);
     }, 500);
   });
 });
