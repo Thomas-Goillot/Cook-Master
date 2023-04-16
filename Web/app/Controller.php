@@ -54,6 +54,10 @@ abstract class Controller extends Utils{
             array('newScript' => $newScript)
         );
 
+        //handle avatar
+        $UserAvatar = $this->loadAvatar($this->getUserId());
+        $data = array_merge($data, array('UserAvatar' => $UserAvatar));
+
         //render view
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
@@ -230,4 +234,75 @@ abstract class Controller extends Utils{
         return $message;
     }
 
+    /**
+     * Load avatar for the user
+     * @param int $id
+     * @param int $width
+     * @param int $height
+     * @return string
+     */
+    public function loadAvatar(int $id, int $width = NULL, int $height = NULL): string
+    {
+        $this->loadModel('avatar');
+
+        $avatar = $this->_model->CheckIfUserGetAvatar($id);
+
+        if ($avatar != false) {
+
+
+            $avatar = $this->_model->getAvatar($id);
+
+            $head = dirname(__DIR__, 1)  . '/assets/images/avatar/head/' . $avatar['head'] . '';
+            $eyes = dirname(__DIR__, 1)  . '/assets/images/avatar/eyes/' . $avatar['eyes'] . '';
+            $nose = dirname(__DIR__, 1)  . '/assets/images/avatar/nose/' . $avatar['nose'] . '';
+            $mouth = dirname(__DIR__, 1) . '/assets/images/avatar/mouth/' . $avatar['mouth'] . '';
+            $brows = dirname(__DIR__, 1) . '/assets/images/avatar/brows/' . $avatar['brows'] . '';
+
+            //DO NOT TOUCH (AVATAR SIZE)
+            $x = 733;
+            $y = 929;
+
+            $final_img = imagecreatetruecolor($x, $y);
+
+            $white = imagecolorallocatealpha($final_img, 0, 0, 0, 127);
+            imagefill($final_img, 0, 0, $white);
+            imagesavealpha($final_img, true);
+
+
+            $image_1 = imagecreatefrompng($head);
+
+            $image_2 = imagecreatefrompng($eyes);
+
+            $image_3 = imagecreatefrompng($nose);
+
+            $image_4 = imagecreatefrompng($mouth);
+
+            $image_5 = imagecreatefrompng($brows);
+
+            imagecopyresampled($final_img, $image_1, 0, 0, 0, 0, $x, $y, $x, $y);
+            imagecopyresampled($final_img, $image_2, 0, 0, 0, 0, $x, $y, $x, $y);
+            imagecopyresampled($final_img, $image_3, 0, 0, 0, 0, $x, $y, $x, $y);
+            imagecopyresampled($final_img, $image_4, 0, 0, 0, 0, $x, $y, $x, $y);
+            imagecopyresampled($final_img, $image_5, 0, 0, 0, 0, $x, $y, $x, $y);
+
+            ob_start();
+
+
+            imagepng($final_img);
+            $avatar_img = ob_get_contents();
+            ob_end_clean();
+
+            if ($width != NULL && $height != NULL) {
+                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
+            } else {
+                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" class="rounded-circle header-profile-user">';
+            }
+        } else {
+            if ($width != NULL && $height != NULL) {
+                return '<img src="../assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
+            } else {
+                return '<img src="assets/images/users/user.png" alt="Avatar" class="rounded-circle header-profile-user">';
+            }
+        }
+    }  
 }

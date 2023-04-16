@@ -132,7 +132,9 @@
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="<?= $path_prefix ?>assets/images/users/user.png" alt="Header Avatar">
+                    <?= $UserAvatar?>
+
+
                     <span class="d-none d-sm-inline-block ml-1"><?= ucfirst($data['user']['name']) . " " . ucfirst($data['user']['surname']) ?></span>
                     <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
                 </button>

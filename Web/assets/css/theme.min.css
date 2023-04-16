@@ -275,10 +275,8 @@ body.enable-vertical-menu .menu-overlay {
   color: #383c40;
 }
 .header-profile-user {
-  height: 36px;
   width: 36px;
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 3px;
 }
 .noti-icon i {
   font-size: 24px;
@@ -1370,3 +1368,58 @@ div.dt-button-info h2 {
   padding: 15px;
 }
 /*# sourceMappingURL=theme.min.css.map */
+
+
+
+/* ====== AVATAR ======*/
+
+
+#avatar_preview {
+  position: relative;
+}
+
+#avatar_preview img {
+  position: absolute;
+  width: 55%;
+}
+
+.nav-list{
+  cursor: pointer;
+}
+
+.items{
+  height: 55vh;
+  overflow-y: scroll;
+}
+
+.item{
+  cursor: pointer;
+}
+
+#head {
+  z-index: 10;
+}
+
+#eyes {
+  z-index: 11;
+}
+
+#nose{
+  z-index: 11;
+}
+
+#mouth {
+  z-index: 11;
+}
+
+#brows {
+  z-index: 11;
+}
+
+.show{
+  display: flex !important;
+}
+
+.hide{
+  display: none !important;
+}
