@@ -37,6 +37,10 @@
                 </li>
 
                 <li>
+                    <a href="<?= $path_prefix ?>avatar/createAvatar" class="waves-effect"><i class='bx bx-user-circle'></i><span>Avatar</span></a>
+                </li>
+
+                <li>
                     <a href="<?= $path_prefix ?>users/command" class="waves-effect"><i class='bx bx-cart'></i><span>Commandes</span></a>
                 </li>
 

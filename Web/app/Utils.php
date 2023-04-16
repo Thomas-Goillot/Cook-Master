@@ -205,4 +205,47 @@ abstract class Utils extends Security
         return $_SESSION['user']['id_users'];
     }
 
+
+    /**
+     * Get random image from a directory
+     * @param string $dir
+     */
+    public function randomImg($dir)
+    {
+
+        $imgs_arr = array();
+
+        if (file_exists($dir) && is_dir($dir)) {
+
+            $dir_arr = scandir($dir);
+            $arr_files = array_diff($dir_arr, array('.', '..'));
+
+            foreach ($arr_files as $file) {
+
+                $file_path = $dir . "/" . $file;
+
+                $ext = pathinfo($file_path, PATHINFO_EXTENSION);
+
+                if ($ext == "jpg" || $ext == "png" || $ext == "JPG" || $ext == "PNG") {
+
+                    array_push($imgs_arr, $file);
+                }
+            }
+
+            $count_img_index = count($imgs_arr) - 1;
+
+            return $imgs_arr[rand(0, $count_img_index)];
+        }
+    }
+
+    /**
+     * getAllImg of a folder
+     */
+    public function getAllImg(string $folder): array
+    {
+        $files = scandir($folder);
+        $files = array_diff($files, array('.', '..'));
+        $files = array_values($files);
+        return $files;
+    }
 }
