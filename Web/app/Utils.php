@@ -202,6 +202,9 @@ abstract class Utils extends Security
      */
     public function getUserId(): int
     {
+        if(!isset($_SESSION['user']['id_users'])){
+            return ANONYMOUS;
+        }
         return $_SESSION['user']['id_users'];
     }
 

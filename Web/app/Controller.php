@@ -243,7 +243,7 @@ abstract class Controller extends Utils{
 
         $avatar = $this->_model->CheckIfUserGetAvatar($id);
 
-        if ($avatar != false) {
+        if ($avatar != false || $id = ANONYMOUS) {
 
 
             $avatar = $this->_model->getAvatar($id);
