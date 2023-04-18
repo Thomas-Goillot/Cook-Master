@@ -33,7 +33,7 @@
 <script src='<?= $path_prefix ?>plugins/fullcalendar/js/fullcalendar.min.js'></script>
 
 <!-- PAGES JS -->
-<script src="<?= $path_prefix ?>assets/pages/materialdesign.init.js"></script>
+<!-- <script src="<?= $path_prefix ?>assets/pages/materialdesign.init.js"></script> -->
 <script src="<?= $path_prefix ?>assets/pages/fontawesome.init.js"></script>
 <?php
 if (isset($newScript) && $newScript != "") {
