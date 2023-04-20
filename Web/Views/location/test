@@ -1,0 +1,39 @@
+CREATE TABLE OPENING_HOURS(
+   id_opening_hours INT AUTO_INCREMENT,
+   opening_day VARCHAR(9)  NOT NULL,
+   opening_hours TIME NOT NULL,
+   closing_hours TIME NOT NULL,
+   PRIMARY KEY(id_opening_hours)
+);
+
+
+CREATE TABLE LOCATION(
+   id_location INT AUTO_INCREMENT,
+   name VARCHAR(50)  NOT NULL,
+   address VARCHAR(255)  NOT NULL,
+   is_open BOOLEAN NOT NULL default TRUE,
+   available_to_rental BOOLEAN NOT NULL DEFAULT TRUE,
+   price_day DOUBLE NOT NULL DEFAULT 0,
+   price_half_day DOUBLE NOT NULL DEFAULT 0,
+   id_users INT NOT NULL,
+   PRIMARY KEY(id_location),
+   FOREIGN KEY(id_users) REFERENCES users(id_users)
+);
+
+CREATE TABLE IMAGES_LOCATION(
+   id_images INT AUTO_INCREMENT,
+   image VARCHAR(255)  NOT NULL,
+   id_location INT NOT NULL,
+   PRIMARY KEY(id_images),
+   FOREIGN KEY(id_location) REFERENCES LOCATION(id_location)
+);
+
+
+CREATE TABLE OPENS_AT(
+   id_location INT,
+   id_opening_hours INT,
+   PRIMARY KEY(id_location, id_opening_hours),
+   FOREIGN KEY(id_location) REFERENCES LOCATION(id_location),
+   FOREIGN KEY(id_opening_hours) REFERENCES OPENING_HOURS(id_opening_hours)
+);
+

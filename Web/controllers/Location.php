@@ -35,11 +35,39 @@ class Location extends Controller
 
     public function index():void
     {
+        $this->loadModel('location');
+        $locations = $this->_model->getAllLocationWithOpeningHours();
+
+        $this->setJsFile(array('location.js'));
 
         $page_name = array("Admin" => $this->default_path, "Sites" => $this->default_path, "Liste des sites" => $this->default_path);
 
-        $this->render($this->default_path, compact('page_name'), DASHBOARD,'../');
+        $this->render($this->default_path, compact('page_name','locations'), DASHBOARD,'../');
     }
+
+    /**
+     * ajax request to get the location information
+     * @return void
+     */
+    public function getLocation():void
+    {
+        //get json params in the body
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        var_dump($data);
+
+
+        $id_location = $data['idLocation'];
+
+        $location = $this->_model->getLocationInfoById($id_location);
+
+        
+
+        echo json_encode($location);
+
+    }
+
+
 
     public function createLocation():void
     {
