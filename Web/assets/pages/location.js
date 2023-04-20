@@ -3,6 +3,8 @@ $(".location").click(function () {
 
   console.log(idLocation);
 
+
+  const request = new XMLHttpRequest();
   const params = {
     idLocation: idLocation,
   };
@@ -11,7 +13,7 @@ $(".location").click(function () {
 
   request.onreadystatechange = function () {
     if (request.readyState === 4) {
-      //get data in json format
+      
       var data = JSON.parse(request.responseText);
       console.log(data);
     }

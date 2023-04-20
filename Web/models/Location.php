@@ -96,7 +96,6 @@ class Location extends Model
      */
     public function getLocationInfoById(int $id): array
     {
-        //get all location
         $sql = "SELECT * FROM " . $this->table ." WHERE id_location = :id_location";
 
         $stmt = $this->_connexion->prepare($sql);
@@ -105,38 +104,35 @@ class Location extends Model
 
         $stmt->execute();
 
-        $locations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $location = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        //récupére les horaires de chaque location en passant par la table opens_at
-        foreach ($locations as $key => $location) {
-            $sql = "SELECT id_opening_hours FROM opens_at WHERE id_location = :id_location";
+        $sql = "SELECT id_opening_hours FROM opens_at WHERE id_location = :id_location";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $stmt->bindParam(':id_location', $location['id_location']);
+
+        $stmt->execute();
+
+        $opening_hours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $location['opening_hours'] = array();
+
+        foreach ($opening_hours as $opening_hour) {
+            $sql = "SELECT * FROM opening_hours WHERE id_opening_hours = :id_opening_hours";
 
             $stmt = $this->_connexion->prepare($sql);
 
-            $stmt->bindParam(':id_location', $location['id_location']);
+            $stmt->bindParam(':id_opening_hours', $opening_hour['id_opening_hours']);
 
             $stmt->execute();
 
-            $opening_hours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $opening_hours = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $locations[$key]['opening_hours'] = array();
-
-            foreach ($opening_hours as $opening_hour) {
-                $sql = "SELECT * FROM opening_hours WHERE id_opening_hours = :id_opening_hours";
-
-                $stmt = $this->_connexion->prepare($sql);
-
-                $stmt->bindParam(':id_opening_hours', $opening_hour['id_opening_hours']);
-
-                $stmt->execute();
-
-                $opening_hours = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                $locations[$key]['opening_hours'][] = $opening_hours;
-            }
+            $location['opening_hours'][] = $opening_hours;
         }
 
-        return $locations;
+        return $location;
     }
 
 

@@ -51,20 +51,15 @@ class Location extends Controller
      */
     public function getLocation():void
     {
-        //get json params in the body
         $data = json_decode(file_get_contents('php://input'), true);
-
-        var_dump($data);
-
 
         $id_location = $data['idLocation'];
 
+        $this->loadModel('location');
+
         $location = $this->_model->getLocationInfoById($id_location);
 
-        
-
         echo json_encode($location);
-
     }
 
 

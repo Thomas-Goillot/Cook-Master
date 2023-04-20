@@ -34,12 +34,63 @@ include_once('Views/layout/dashboard/path.php');
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">Information</h4>
+    <div class="col-lg-4">
+        <div class="card card-animate">
+            <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i> Information</h4>
+
+                <div id="locationImageCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#locationImageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#locationImageCarousel" data-slide-to="1"></li>
+                        <li data-target="#locationImageCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <img class="d-block img-fluid" src="<?= $path_prefix ?>assets/images/home/image4.png" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="<?= $path_prefix ?>assets/images/home/image4.png" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="<?= $path_prefix ?>assets/images/home/image4.png" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#locationImageCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#locationImageCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+                <div class="d-flex flex-column">
+                    <div class="d-flex">
+                        <p class="m-0 p-0 text-muted">Lundi</p>
+
+                        <div class="p-l-5 d-flex flex-column">
+                            <p class="m-0 p-0 text-muted">08:00-12:00</p>
+                            <p class="m-0 p-0 text-muted">14:00-18:00</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <p class="m-0 p-0 text-muted">Lundi</p>
+
+                        <div class="p-l-5 d-flex flex-column">
+                            <p class="m-0 p-0 text-muted">08:00-12:00</p>
+                            <p class="m-0 p-0 text-muted">14:00-18:00</p>
+                        </div>
+                    </div>
+
+                </div>
 
 
 
+
+            </div>
         </div>
     </div>
 
