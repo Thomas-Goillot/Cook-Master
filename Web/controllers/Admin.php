@@ -98,20 +98,20 @@ class Admin extends Controller
             //     $this->setError('Champs non valide',"Veuillez remplir tout les champs.",ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
-            if (isset($_POST['dispnobilitySale'])) {
-                $dispnobilitySale = 0;
+            if (isset($_POST['disponibilitySale'])) {
+                $disponibilitySale = 0;
             } else {
-                $dispnobilitySale = 1;
+                $disponibilitySale = 1;
             }
-            if (isset($_POST['dispnobilityRental'])) {
-                $dispnobilityRental = 0;
+            if (isset($_POST['disponibilityRental'])) {
+                $disponibilityRental = 0;
             } else {
-                $dispnobilityRental = 1;
+                $disponibilityRental = 1;
             }
-            if (isset($_POST['dispnobilityEvent'])) {
-                $dispnobilityEvent = 0;
+            if (isset($_POST['disponibilityEvent'])) {
+                $disponibilityEvent = 0;
             } else {
-                $dispnobilityEvent = 1;
+                $disponibilityEvent = 1;
             }
             if (strlen($_POST['name']) > 100) {
                 $this->setError('Nom du produit trop long',"Le nom du produit ne peut pas excéder 50 caractères.",ERROR_ALERT);
@@ -125,7 +125,7 @@ class Admin extends Controller
                 $this->setError('Description trop longue',"La description ne peut pas excéder 500 caractères.",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if (strlen($_POST['dispnobilityStock']) < 1) {
+            if (strlen($_POST['disponibilityStock']) < 1) {
                 $this->setError('Quantité invalide',"La quantité du stock ne peux pas débuter à '0' ",ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
@@ -169,19 +169,155 @@ class Admin extends Controller
             $image = $filename;
             $price_purchase = $_POST['price_purchase'];
             $price_rental = $_POST ['price_rental'];
-            $dispnobilityStock = (int)$_POST['dispnobilityStock'];
+            $disponibilityStock = (int)$_POST['disponibilityStock'];
             $id_users = $_SESSION['user']['id_users'];
             
             $this->loadModel("Products");
 
-            $this->_model->addProduct($name, $description, $image, $dispnobilitySale, $dispnobilityRental, $dispnobilityEvent,$price_purchase,$price_rental, $dispnobilityStock, $id_users);
+            $this->_model->addProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent,$price_purchase,$price_rental, $disponibilityStock, $id_users);
         }
 
         $this->redirect('../admin/products');
     }
 
 
+
+
+
+     /**
+     * edit product
+     * @return void
+     */
+    public function editProduct():void
+    {
+        $this->loadModel("Products");
+
+
+
+        if (!isset($_POST['submit'])) {
+
+            // if( isset($_POST['name']) || isset($_POST['description']) || isset($_POST['image']) ) {
+            //     $this->setError('Champs non valide',"Veuillez remplir tout les champs.",ERROR_ALERT);
+            //     $this->redirect('../admin/products');
+            // }
+            if (isset($_POST['disponibilitySale'])) {
+                $disponibilitySale = 0;
+            } else {
+                $disponibilitySale = 1;
+            }
+            if (isset($_POST['disponibilityRental'])) {
+                $disponibilityRental = 0;
+            } else {
+                $disponibilityRental = 1;
+            }
+            if (isset($_POST['disponibilityEvent'])) {
+                $disponibilityEvent = 0;
+            } else {
+                $disponibilityEvent = 1;
+            }
+            if (strlen($_POST['name']) > 100) {
+                $this->setError('Nom du produit trop long',"Le nom du produit ne peut pas excéder 50 caractères.",ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            // if (strlen($_POST['image']) > 50) {
+            //     $this->setError('Nom de l\'image trop long',"Le nom de l\'image ne peut pas excéder 50 caractères.",ERROR_ALERT);
+            //     $this->redirect('../admin/products');
+            // }
+            if (strlen($_POST['description']) > 500) {
+                $this->setError('Description trop longue',"La description ne peut pas excéder 500 caractères.",ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if (strlen($_POST['disponibilityStock']) < 1) {
+                $this->setError('Quantité invalide',"La quantité du stock ne peux pas débuter à '0' ",ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+
+            
+
+        $acceptable = ['image/jpeg, image/png'];
+    
+        // if(!in_array($_FILES['image']['type'], $acceptable)){
+        //     $this->setError('Type de fichier non autorisée',"Les type de fichier autorisé sont :  .png et .jpeg",ERROR_ALERT);
+        //     $this->redirect('../admin/products');
+        // }
+    
+        $maxSize = 5 * 1024 * 1024; //5 Mo
+        if($_FILES['image']['size'] > $maxSize){
+            $this->setError('Fichier trop lourd',"la taille du fichier ne doit pas dépasser 5 Mo",ERROR_ALERT);
+            $this->redirect('../admin/products');
+        }
+    
+        //Si le dossier uploads n'existe pas, le créer
+        $path = 'assets/images/productShop';
+        if(!file_exists('assets/images/productShop/')){
+            mkdir('assets/images/productShop/');
+        }
+
+        $filename = $_FILES['image']['name'];
+    
+        $array = explode('.', $filename);
+        $extension = end($array);
+    
+        $filename = 'image-' . time() . '.' . $extension;
+    
+        $destination = $path . '/' . $filename;
+    
+        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+
+        $params = $_GET['params'];
+
+        $id_equipment = (int) $params;
+
         
+
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $image = $filename;
+        $price_purchase = $_POST['price_purchase'];
+        $price_rental = $_POST ['price_rental'];
+        $disponibilityStock = (int)$_POST['disponibilityStock'];
+        $id_equipment = $this->_model->getEquipmentById($id_equipment);
+
+        
+        $this->_model->editProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock,$id_equipment);
+        }
+
+
+    }
+
+
+
+
+    /**
+     * display product page
+     * @return void
+     */
+    public function editProductDisplay(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_equipment = (int) $params[0];
+
+        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
+
+        $this->render('shop/products_edit', compact('page_name'), DASHBOARD, '../../');
+
+    }
+
+
+
+
+
+
+
+
 
 
 

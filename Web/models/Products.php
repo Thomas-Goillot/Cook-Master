@@ -34,32 +34,46 @@ class Products extends Model
     }
 
 
+    public function getEquipmentById(int $id_equipment): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_equipment = :id_equipment";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_equipment", $id_equipment);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     /**
      * Add a product
      * @param string $name
      * @param string $description
      * @param string $image
-     * @param int $dispnobilitySale
-     * @param int $dispnobilityRental
-     * @param int $dispnobilityEvent
-     * @param int $dispnobilityStock
+     * @param int $disponibilitySale
+     * @param int $disponibilityRental
+     * @param int $disponibilityEvent
+     * @param int $disponibilityStock
      * @param int $id_users
      * @return void
      */
-    public function addProduct(string $name, string $description, string $image, int $dispnobilitySale, int $dispnobilityRental, int $dispnobilityEvent,string $price_purchase, string $price_rental, int $dispnobilityStock,int $id_users): void
+    public function addProduct(string $name, string $description, string $image, int $disponibilitySale, int $disponibilityRental, int $disponibilityEvent,string $price_purchase, string $price_rental, int $disponibilityStock,int $id_users): void
     {
-        $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,price_purchase,price_rental,stock,id_users) VALUES (:name,:description,:image,:dispnobilityRental,:dispnobilityEvent,:dispnobilitySale,:price_purchase,:price_rental,:dispnobilityStock,:id_users)";
+        $query = "INSERT INTO " . $this->table . "(name,description,image,allow_rental,allow_event,allow_purchase,price_purchase,price_rental,stock,id_users) VALUES (:name,:description,:image,:disponibilityRental,:disponibilityEvent,:disponibilitySale,:price_purchase,:price_rental,:disponibilityStock,:id_users)";
 
         $data = array(
             ":name" => $name,
             ":description" => $description,
             ":image" => $image,
-            ":dispnobilityRental" => $dispnobilityRental,
-            ":dispnobilityEvent" => $dispnobilityEvent,
+            ":disponibilityRental" => $disponibilityRental,
+            ":disponibilityEvent" => $disponibilityEvent,
             ":price_purchase" => $price_purchase,
             ":price_rental" => $price_rental,
-            ":dispnobilitySale" => $dispnobilitySale,
-            ":dispnobilityStock" => $dispnobilityStock,
+            ":disponibilitySale" => $disponibilitySale,
+            ":disponibilityStock" => $disponibilityStock,
             ":id_users" => $id_users
         );
 
@@ -70,6 +84,28 @@ class Products extends Model
 
 
 
+    public function editProduct(string $name, string $description, string $image, int $disponibilitySale, int $disponibilityRental, int $disponibilityEvent,string $price_purchase, string $price_rental, int $disponibilityStock,int $id_equipment):void
+    {
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, disponibilityRental = :disponibilityRental, disponibilityEvent = :disponibilityEvent, price_purchase = :price_purchase, price_rental = :price_rental, disponibilitySale = :disponibilitySale, disponibilityStock = :disponibilityStock WHERE id_equipment = :id_equipment";
+       
+        $data = array(
+            ":name" => $name,
+            ":description" => $description,
+            ":image" => $image,
+            ":disponibilityRental" => $disponibilityRental,
+            ":disponibilityEvent" => $disponibilityEvent,
+            ":price_purchase" => $price_purchase,
+            ":price_rental" => $price_rental,
+            ":disponibilitySale" => $disponibilitySale,
+            ":disponibilityStock" => $disponibilityStock,
+            ":id_equipments" => $id_equipment
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
     
 
 

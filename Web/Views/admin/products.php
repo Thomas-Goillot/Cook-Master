@@ -1,5 +1,5 @@
 <head>
-<link href="<?= $path_prefix ?>assets/css/products/products.css" rel="stylesheet" />
+    <link href="<?= $path_prefix ?>assets/css/products/products.css" rel="stylesheet" />
 </head>
 <?php
 include_once('Views/layout/dashboard/path.php');
@@ -9,115 +9,84 @@ include_once('Views/layout/dashboard/path.php');
         <div class="card card-animate">
             <div class="card-body">
                 <form action="<?= $path_prefix ?>admin/addProduct" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Nom</label>
-                            <input class="form-control" type="text" name="name" required="" placeholder="Nom du produit">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input class="form-control" type="text" name="description" required="" placeholder="Description">
-                    </div>
-                    <div class="form-group">
-                        <label>Image</label>
-                        <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg" required="">
-                    </div>
-                    
-                        <div class="form-group d-flex flex-column align-items-center">
-                            <label class="space">Disponibilité à la vente</label>
-                            <input type="checkbox" data-toggle="switchery" name="dispnobilitySale" data-color="#9e1b21" />
-                            <label class="space">Prix de la vente</label>
-                            <input type="text" data-toggle="touchspin" name="price_purchase" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
-                        </div>
-                        <div class="form-group d-flex flex-column align-items-center">
-                            <label class="space">Disponibilité à la location</label>
-                            <input type="checkbox" data-toggle="switchery" name="dispnobilityRental" data-color="#9e1b21" />
-                            <label class="space">Prix de la location</label>
-                            <input type="text" data-toggle="touchspin" name="price_rental" data-step="1" value="0" data-bts-postfix="€" class="form-control"data-color="#df3554" />
-                        </div>
-                    
-                    <div class="form-group d-flex flex-column align-items-center">
-                        <label class="space">Disponibilité à l'evenementiel</label>
-                        <input type="checkbox" data-toggle="switchery" name="dispnobilityEvent" data-color="#9e1b21" />
-                    </div>
-                    <div class="form-group">
-                        <label class="space">Nombre de stockage disponible</label>
-                        <input type="number" name="dispnobilityStock" min="0" class="form-control">
-                    </div>
+                    <?php include_once('Views/shop/form.php'); ?>
+                </form>
             </div>
-            <div class="d-flex justify-content-center align-items-center plusgros">
-                <button type="submit" class="btn btn-primary btn-block w-25">Ajouter</button>
-            </div>
-            </form>
         </div>
-    </div>
 
 
-    <div class="row col-8">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Listes de tout les produits</h4>
+        <div class="row col-8">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Listes de tout les produits</h4>
 
-                    <table id="datatables" class="table dt-responsive ici2">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Date de création</th>
-                                <th>Prix location</th>
-                                <th>Prix à l'achat</th>
-                                <th>Stock</th>
-                                <th>Disponibilité:</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                        <table id="datatables" class="table dt-responsive ici2">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Date de création</th>
+                                    <th>Prix location</th>
+                                    <th>Prix à l'achat</th>
+                                    <th>Stock</th>
+                                    <th>Disponibilité:</th>
+                                    <th>Modifier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
                                 foreach ($allProduct as $allProduct) {
                                     echo "<tr>
                                             <td>" . $allProduct['name'] . "</td>
-                                            <td>" . $allProduct['creation_date'] . "</td>" ;
-                                            
-                                            if ($allProduct['price_rental'] == 0){
-                                                echo "<td> Non disponible à la location</td>";
-                                            }else{
-                                                echo "<td>" . $allProduct['price_rental'] . "€</td>";
-                                            }
-                                            if ($allProduct['price_purchase'] == 0){
-                                                echo "<td> Non disponible à la vente</td>";
-                                            }else{
-                                                echo "<td>" . $allProduct['price_purchase'] . "€</td>";
-                                            }
-                                            echo "
+                                            <td>" . $allProduct['creation_date'] . "</td>";
+
+                                    if ($allProduct['price_rental'] == 0) {
+                                        echo "<td> Non disponible à la location</td>";
+                                    } else {
+                                        echo "<td>" . $allProduct['price_rental'] . "€</td>";
+                                    }
+                                    if ($allProduct['price_purchase'] == 0) {
+                                        echo "<td> Non disponible à la vente</td>";
+                                    } else {
+                                        echo "<td>" . $allProduct['price_purchase'] . "€</td>";
+                                    }
+                                    echo "
                                             <td>" . $allProduct['stock'] . "</td>
 
                                             
                                             <td>";
-                                        if ($allProduct['allow_rental'] == 0) {
-                                            echo '<div class="stretch"><span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
-                                            
-                                        } else {
-                                            echo '<div class="stretch"><span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
-                                        }
-                                        if ($allProduct['allow_purchase'] == 0) {
-                                            echo '<span class="mx">Vente: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
-                                        } else {
-                                            echo '<span class="mx">Vente: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
-                                        }
-                                        if ($allProduct['allow_event'] == 0) {
-                                            echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span></div>';
-                                        } else {
-                                            echo '<span class="mx">Évenement: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
-                                        }
+                                    if ($allProduct['allow_rental'] == 0) {
+                                        echo '<div class="stretch"><span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                    } else {
+                                        echo '<div class="stretch"><span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                    }
+                                    if ($allProduct['allow_purchase'] == 0) {
+                                        echo '<span class="mx">Vente: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                    } else {
+                                        echo '<span class="mx">Vente: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                    }
+                                    if ($allProduct['allow_event'] == 0) {
+                                        echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span></div>';
+                                    } else {
+                                        echo '<span class="mx">Évenement: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                    }
                                     echo "
                                     </td>
-                                    </tr>";
 
+                                    <td>                  
+                                    <a href='".$path_prefix."admin/editProductDisplay/". $allProduct['id_equipment'] ."'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                    </td>
+
+                                    </tr>";
+                                  
                                 }
 
                                 ?>
-                        </tbody>
-                    </table>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
