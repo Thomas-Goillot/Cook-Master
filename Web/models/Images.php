@@ -24,7 +24,7 @@ class Images extends Model
      * @param int $id_location
      * @return void
      */
-    public function addLocation(string $image, int $id_location): void
+    public function addImage(string $image, int $id_location): void
     {
         $sql = "INSERT INTO " . $this->table . " (image, id_location) VALUES (:image, :id_location)";
 

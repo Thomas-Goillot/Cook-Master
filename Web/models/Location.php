@@ -132,6 +132,19 @@ class Location extends Model
             $location['opening_hours'][] = $opening_hours;
         }
 
+        $sql = "SELECT * FROM images_location WHERE id_location = :id_location";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $stmt->bindParam(':id_location', $location['id_location']);
+
+        $stmt->execute();
+
+        $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $location['images'] = $images;
+
+
         return $location;
     }
 

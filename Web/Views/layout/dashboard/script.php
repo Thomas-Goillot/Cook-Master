@@ -51,12 +51,7 @@ if (isset($newScript) && $newScript != "") {
 
 <script>
     $(document).ready(function() {
-
-        // Users Datatable
         $('#datatable').DataTable({
-            select: {
-                style: 'multi'
-            },
             "language": {
                 "paginate": {
                     "previous": "<i class='mdi mdi-chevron-left'>",

@@ -2,7 +2,7 @@
 include_once('Views/layout/dashboard/path.php');
 ?>
 
-<form action="../location/add" method="POST">
+<form action="../location/add" method="POST" enctype='multipart/form-data'>
 
 
     <div class="row">

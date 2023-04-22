@@ -12,7 +12,7 @@
             <div class="col-8">
                 <div class="form-group">
                     <label for="location_name">Name</label>
-                    <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Enter name">
+                    <input type="text" class="form-control" id="location_name" name="location_name" placeholder="Nom">
                 </div>
             </div>
             <div class="col-4">
@@ -28,17 +28,17 @@
         </div>
 
         <div class="form-group">
-            <label for="location_address">Address</label>
-            <input type="text" class="form-control" id="location_address" placeholder="Enter address" name="location_address">
+            <label for="location_address">Adresse</label>
+            <input type="text" class="form-control" id="location_address" placeholder="Adresse" name="location_address">
         </div>
 
         <div class="form-group">
-            <label for="location_price_day">Price per Day</label>
-            <input type="text" class="form-control" id="location_price_day" placeholder="Enter price per day" name="location_price_day">
+            <label for="location_price_day">Prix par Jour</label>
+            <input type="text" class="form-control" id="location_price_day" placeholder="Prix pour la journée" name="location_price_day">
         </div>
         <div class="form-group">
-            <label for="location_price_half_day">Price per Half Day</label>
-            <input type="text" class="form-control" id="location_price_half_day" placeholder="Enter price per half day" name="location_price_half_day">
+            <label for="location_price_half_day">Prix par demi journée</label>
+            <input type="text" class="form-control" id="location_price_half_day" placeholder="Prix pour la demi journée" name="location_price_half_day">
         </div>
 
     </div>

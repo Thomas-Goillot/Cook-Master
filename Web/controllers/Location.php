@@ -46,11 +46,13 @@ class Location extends Controller
     }
 
     /**
-     * ajax request to get the location information
+     * ajax request to get the location view
      * @return void
      */
-    public function getLocation():void
+    public function getlocationWithView():void
     {
+
+        $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
         $data = json_decode(file_get_contents('php://input'), true);
 
         $id_location = $data['idLocation'];
@@ -59,7 +61,7 @@ class Location extends Controller
 
         $location = $this->_model->getLocationInfoById($id_location);
 
-        echo json_encode($location);
+        echo $this->generateFile('Views/location/locationCard.php', compact('location', 'days'));
     }
 
 
@@ -79,8 +81,7 @@ class Location extends Controller
 
     public function add():void
     {
-
-        if (empty($_POST['location_name']) || empty($_POST['location_address']) || empty($_POST['location_available_to_rental']) || empty($_POST['location_price_day']) || empty($_POST['location_price_half_day'])) {
+        if (empty($_POST['location_name']) || empty($_POST['location_address']) || !isset($_POST['location_price_day']) || !isset($_POST['location_price_half_day'])) {
             $this->setError('Erreur', 'Tous les champs doivent être remplis.', ERROR_ALERT);
             $this->redirect('../location/createLocation');
             exit;
@@ -92,6 +93,7 @@ class Location extends Controller
         $available_to_rental = htmlspecialchars($_POST['location_available_to_rental']);
         $price_day = htmlspecialchars($_POST['location_price_day']);
         $price_half_day = htmlspecialchars($_POST['location_price_half_day']);
+        $user_id = $this->getUserId();
 
         if(strlen($name) > LOCATION_NAME) {
             $this->setError('Erreur', 'Le nom ne doit pas dépasser '. LOCATION_NAME.' caractères.', ERROR_ALERT);
@@ -105,7 +107,7 @@ class Location extends Controller
             exit;
         }
 
-        if($available_to_rental != 1 && $available_to_rental != 2) {
+        if($available_to_rental != 1 && $available_to_rental != 0) {
             $this->setError('Erreur', 'Le champ "Disponible à la location" est mal formaté.', ERROR_ALERT);
             $this->redirect('../location/createLocation');
             exit;
@@ -165,16 +167,16 @@ class Location extends Controller
                     exit;
                 }
 
-                $file_name = md5($file_name . time()) . '.' . $file_ext;
-
-                $images[] = $file_name;
+                $file_name = $user_id . md5($file_name . time()) . '.' . $file_ext;
+                array_push($images, $file_name);
             }
         }
 
+        $i = 0;
         foreach ($images as $image) {
-            move_uploaded_file($_FILES['images']['tmp_name'][$image], 'images/locations/' . $image);
+           move_uploaded_file($_FILES['images']['tmp_name'][$i], 'assets/images/location/' . $image);
+            $i++;
         }
-
 
         $opening_hours = array();
 
@@ -202,7 +204,7 @@ class Location extends Controller
             'available_to_rental' => $available_to_rental,
             'price_day' => $price_day,
             'price_half_day' => $price_half_day,
-            'id_users' => $this->getUserId(),
+            'id_users' => $user_id,
         );
 
 
