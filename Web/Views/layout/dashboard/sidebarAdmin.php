@@ -12,6 +12,14 @@
     </ul>
 </li>
 
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-map"></i><span>Emplacement</span></a>
+    <ul class="sub-menu" aria-expanded="false">
+        <li><a href="<?= $path_prefix ?>location/index"><i class="bx bx-map-alt"></i>Liste des Lieux</a></li>
+        <li><a href="<?= $path_prefix ?>location/createLocation"><i class="bx bxs-image-add"></i>Ajout d'un Lieu</a></li>
+    </ul>
+</li>
+
 <li><a href="<?= $path_prefix ?>admin/subscription" class=" waves-effect"><i class="mdi mdi-trophy-award"></i><span>Abonnement</span></a></li>
 
 <li><a href="<?= $path_prefix ?>admin/monitoring" class=" waves-effect"><i class="bx bx-server"></i><span>Monitoring</span></a></li>

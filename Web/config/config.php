@@ -45,5 +45,8 @@ include_once("eventTemplate.php");
 //CONST FOR LENGHT OF columns in table event
 include_once("events.php");
 
+//CONST FOR LOCATION FONCTIONNALITIES
+include_once("location.php");
+
 
 ?>

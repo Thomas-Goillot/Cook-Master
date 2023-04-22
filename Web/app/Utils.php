@@ -55,17 +55,6 @@ abstract class Utils extends Security
     }
 
     /**
-     * Encode data in base64
-     * @param string $data
-     * @return string
-     */
-    public function encode(string $data): string
-    {
-        return base64_encode($data);
-    }
-
-
-    /**
      * convert date to french format
      * @param string $date
      * @return string
@@ -207,7 +196,6 @@ abstract class Utils extends Security
         }
         return $_SESSION['user']['id_users'];
     }
-
 
     /**
      * Get random image from a directory
