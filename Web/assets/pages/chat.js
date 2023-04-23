@@ -8,9 +8,21 @@ $(document).ready(function () {
       .then((html) => {
         $("#ConversationChatBox").html(html);
 
+        $("#message").keypress(function (e) {
+          if (e.which == 13) {
+            $("#sendMessage").click();
+          }
+        });
+
         $("#sendMessage").on("click", async function () {
           let message = $("#message").val();
 
+          if (message == "") {
+            return;
+          }
+
+          $("#chatbox").append(`<div class="message user-1">${message}</div>`);
+          
           await fetch("Chat/sendMessage", {
             method: "POST",
             body: JSON.stringify({
@@ -54,7 +66,6 @@ $(document).ready(function () {
 
     intId = setInterval(async function () {
       await refreshConversation(idConversation);
-      console.log("refresh" + idConversation);
     }, 500);
   });
 });
