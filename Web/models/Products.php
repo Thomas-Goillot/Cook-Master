@@ -33,7 +33,10 @@ class Products extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * Get id of product
+     * @return array
+     */
     public function getEquipmentById(int $id_equipment): array
     {
         $query = "SELECT * FROM " . $this->table . " WHERE id_equipment = :id_equipment";
@@ -83,10 +86,13 @@ class Products extends Model
     }
 
 
-
+    /**
+     * Get edit product
+     * @return void
+     */
     public function editProduct(string $name, string $description, string $image, int $disponibilitySale, int $disponibilityRental, int $disponibilityEvent,string $price_purchase, string $price_rental, int $disponibilityStock,int $id_equipment):void
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, disponibilityRental = :disponibilityRental, disponibilityEvent = :disponibilityEvent, price_purchase = :price_purchase, price_rental = :price_rental, disponibilitySale = :disponibilitySale, disponibilityStock = :disponibilityStock WHERE id_equipment = :id_equipment";
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, allow_rental = :disponibilityRental, allow_event = :disponibilityEvent, allow_purchase = :disponibilitySale, price_purchase = :price_purchase, price_rental = :price_rental, stock = :disponibilityStock WHERE id_equipment = :id_equipment";
        
         $data = array(
             ":name" => $name,
@@ -98,7 +104,7 @@ class Products extends Model
             ":price_rental" => $price_rental,
             ":disponibilitySale" => $disponibilitySale,
             ":disponibilityStock" => $disponibilityStock,
-            ":id_equipments" => $id_equipment
+            ":id_equipment" => $id_equipment
         );
 
         $stmt = $this->_connexion->prepare($query);
@@ -107,6 +113,23 @@ class Products extends Model
 
     }
     
+    /**
+     * delete product from equipment
+     * @return bool
+     */
+    public function deleteProduct(int $id_equipment):bool
+    {
+        
+        $query = "DELETE FROM " . $this->table . " WHERE id_equipment = :id_equipment";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_equipment", $id_equipment);
+
+        return $stmt->execute();
+    
+    }
+
 
 
 }

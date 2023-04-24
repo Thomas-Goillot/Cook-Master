@@ -78,7 +78,7 @@ class Admin extends Controller
     {
         $this->loadModel("Products");
 
-        
+
         $allProduct = $this->_model->getAllProducts();
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
@@ -94,10 +94,52 @@ class Admin extends Controller
     {
         if (!isset($_POST['submit'])) {
 
-            // if( isset($_POST['name']) || isset($_POST['description']) || isset($_POST['image']) ) {
-            //     $this->setError('Champs non valide',"Veuillez remplir tout les champs.",ERROR_ALERT);
+
+            $acceptable = array('image/jpeg', 'image/png');
+            $image = $_FILES['image']['type'];
+
+            if (!in_array($image, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['image']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            //Si le dossier uploads n'existe pas, le créer
+            $path = 'assets/images/productShop';
+            if (!file_exists('assets/images/productShop/')) {
+                mkdir('assets/images/productShop/');
+            }
+
+            $filename = $_FILES['image']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $image = $filename;
+            $price_purchase = $_POST['price_purchase'];
+            $price_rental = $_POST['price_rental'];
+            $disponibilityStock = (int)$_POST['disponibilityStock'];
+            $id_users = $_SESSION['user']['id_users'];
+
+
+            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
+            //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
+
             if (isset($_POST['disponibilitySale'])) {
                 $disponibilitySale = 0;
             } else {
@@ -114,92 +156,101 @@ class Admin extends Controller
                 $disponibilityEvent = 1;
             }
             if (strlen($_POST['name']) > 100) {
-                $this->setError('Nom du produit trop long',"Le nom du produit ne peut pas excéder 50 caractères.",ERROR_ALERT);
+                $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            // if (strlen($_POST['image']) > 50) {
-            //     $this->setError('Nom de l\'image trop long',"Le nom de l\'image ne peut pas excéder 50 caractères.",ERROR_ALERT);
-            //     $this->redirect('../admin/products');
-            // }
             if (strlen($_POST['description']) > 500) {
-                $this->setError('Description trop longue',"La description ne peut pas excéder 500 caractères.",ERROR_ALERT);
+                $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if (strlen($_POST['disponibilityStock']) < 1) {
-                $this->setError('Quantité invalide',"La quantité du stock ne peux pas débuter à '0' ",ERROR_ALERT);
+            if ($disponibilitySale == 0 && $price_purchase == 0) {
+                $this->setError('Prix de vente invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilityRental == 0 && $price_rental == 0) {
+                $this->setError('Prix de location invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilitySale && $disponibilityRental && $disponibilityEvent == 1) {
+                $this->setError("Type de produit incorrect", "Veuillez sélectionner au moin un type de produit (evenement, location, ou vente)", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilityStock < 1) {
+                $this->setError("Quantité disponible incorrect", "La quantité du stock ne peut pas être inférieur à 1", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
 
 
-            
 
-        $acceptable = ['image/jpeg, image/png'];
-    
-        // if(!in_array($_FILES['image']['type'], $acceptable)){
-        //     $this->setError('Type de fichier non autorisée',"Les type de fichier autorisé sont :  .png et .jpeg",ERROR_ALERT);
-        //     $this->redirect('../admin/products');
-        // }
-    
-        $maxSize = 5 * 1024 * 1024; //5 Mo
-        if($_FILES['image']['size'] > $maxSize){
-            $this->setError('Fichier trop lourd',"la taille du fichier ne doit pas dépasser 5 Mo",ERROR_ALERT);
-            $this->redirect('../admin/products');
-        }
-    
-        //Si le dossier uploads n'existe pas, le créer
-        $path = 'assets/images/productShop';
-        if(!file_exists('assets/images/productShop/')){
-            mkdir('assets/images/productShop/');
-        }
 
-        $filename = $_FILES['image']['name'];
-    
-        $array = explode('.', $filename);
-        $extension = end($array);
-    
-        $filename = 'image-' . time() . '.' . $extension;
-    
-        $destination = $path . '/' . $filename;
-    
-        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-    
-
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $image = $filename;
-            $price_purchase = $_POST['price_purchase'];
-            $price_rental = $_POST ['price_rental'];
-            $disponibilityStock = (int)$_POST['disponibilityStock'];
-            $id_users = $_SESSION['user']['id_users'];
-            
             $this->loadModel("Products");
 
-            $this->_model->addProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent,$price_purchase,$price_rental, $disponibilityStock, $id_users);
+            $this->_model->addProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock, $id_users);
         }
 
         $this->redirect('../admin/products');
+        $this->setError("Produit ajouté !", "Votre produit a été ajouté avec succès", SUCCESS_ALERT);
     }
 
 
 
 
 
-     /**
+    /**
      * edit product
      * @return void
      */
-    public function editProduct():void
+    public function editProduct(): void
     {
         $this->loadModel("Products");
 
 
 
         if (!isset($_POST['submit'])) {
+            $acceptable = array('image/jpeg', 'image/png');
+            $image = $_FILES['image']['type'];
 
-            // if( isset($_POST['name']) || isset($_POST['description']) || isset($_POST['image']) ) {
-            //     $this->setError('Champs non valide',"Veuillez remplir tout les champs.",ERROR_ALERT);
+            if (!in_array($image, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['image']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            //Si le dossier uploads n'existe pas, le créer
+            $path = 'assets/images/productShop';
+            if (!file_exists('assets/images/productShop/')) {
+                mkdir('assets/images/productShop/');
+            }
+
+            $filename = $_FILES['image']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $image = $filename;
+            $price_purchase = $_POST['price_purchase'];
+            $price_rental = $_POST['price_rental'];
+            $disponibilityStock = (int)$_POST['disponibilityStock'];
+            $id_equipment = (int) $_GET['params'];
+
+            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
+            //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
+
             if (isset($_POST['disponibilitySale'])) {
                 $disponibilitySale = 0;
             } else {
@@ -216,82 +267,44 @@ class Admin extends Controller
                 $disponibilityEvent = 1;
             }
             if (strlen($_POST['name']) > 100) {
-                $this->setError('Nom du produit trop long',"Le nom du produit ne peut pas excéder 50 caractères.",ERROR_ALERT);
+                $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            // if (strlen($_POST['image']) > 50) {
-            //     $this->setError('Nom de l\'image trop long',"Le nom de l\'image ne peut pas excéder 50 caractères.",ERROR_ALERT);
-            //     $this->redirect('../admin/products');
-            // }
             if (strlen($_POST['description']) > 500) {
-                $this->setError('Description trop longue',"La description ne peut pas excéder 500 caractères.",ERROR_ALERT);
+                $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if (strlen($_POST['disponibilityStock']) < 1) {
-                $this->setError('Quantité invalide',"La quantité du stock ne peux pas débuter à '0' ",ERROR_ALERT);
+            if ($disponibilitySale == 0 && $price_purchase == 0) {
+                $this->setError('Prix de vente invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilityRental == 0 && $price_rental == 0) {
+                $this->setError('Prix de location invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilitySale && $disponibilityRental && $disponibilityEvent == 1) {
+                $this->setError("Type de produit incorrect", "Veuillez sélectionner au moin un type de produit (evenement, location, ou vente)", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+            if ($disponibilityStock < 1) {
+                $this->setError("Quantité disponible incorrect", "La quantité du stock ne peut pas être inférieur à 1", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
 
 
-            
 
-        $acceptable = ['image/jpeg, image/png'];
-    
-        // if(!in_array($_FILES['image']['type'], $acceptable)){
-        //     $this->setError('Type de fichier non autorisée',"Les type de fichier autorisé sont :  .png et .jpeg",ERROR_ALERT);
-        //     $this->redirect('../admin/products');
-        // }
-    
-        $maxSize = 5 * 1024 * 1024; //5 Mo
-        if($_FILES['image']['size'] > $maxSize){
-            $this->setError('Fichier trop lourd',"la taille du fichier ne doit pas dépasser 5 Mo",ERROR_ALERT);
-            $this->redirect('../admin/products');
-        }
-    
-        //Si le dossier uploads n'existe pas, le créer
-        $path = 'assets/images/productShop';
-        if(!file_exists('assets/images/productShop/')){
-            mkdir('assets/images/productShop/');
+            $this->_model->editProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock, $id_equipment);
         }
 
-        $filename = $_FILES['image']['name'];
-    
-        $array = explode('.', $filename);
-        $extension = end($array);
-    
-        $filename = 'image-' . time() . '.' . $extension;
-    
-        $destination = $path . '/' . $filename;
-    
-        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-
-
-        $params = $_GET['params'];
-
-        $id_equipment = (int) $params;
-
-        
-
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $image = $filename;
-        $price_purchase = $_POST['price_purchase'];
-        $price_rental = $_POST ['price_rental'];
-        $disponibilityStock = (int)$_POST['disponibilityStock'];
-        $id_equipment = $this->_model->getEquipmentById($id_equipment);
-
-        
-        $this->_model->editProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock,$id_equipment);
-        }
-
-
+        $this->redirect("../admin/products");
+        $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
     }
 
 
 
 
     /**
-     * display product page
+     * display Editproduct page
      * @return void
      */
     public function editProductDisplay(): void
@@ -308,7 +321,6 @@ class Admin extends Controller
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
 
         $this->render('shop/products_edit', compact('page_name'), DASHBOARD, '../../');
-
     }
 
 
@@ -330,7 +342,7 @@ class Admin extends Controller
         $id_admin = (int) $_SESSION['user']['id_users'];
         $id = (int) $_GET['params'][0];
 
-        if($id_admin === $id){
+        if ($id_admin === $id) {
             $this->setError('Erreur', 'Vous ne pouvez pas vous bannir vous même', ERROR_ALERT);
             $this->redirect('../../admin/users');
             exit();
@@ -348,12 +360,10 @@ class Admin extends Controller
 
         $is_banned = $this->_model->checkIsBanUserById($id);
 
-        if($is_banned){
+        if ($is_banned) {
             $this->_model->updateIsBanUser($id, USER_IS_NOT_BANNED);
             $this->setError('Succès', "L\'utilisateur a été débanni", SUCCESS_ALERT);
-
-        }
-        else{
+        } else {
             $this->_model->updateIsBanUser($id, USER_IS_BANNED);
             $this->setError('Succès', "L\'utilisateur a été banni", SUCCESS_ALERT);
         }
@@ -384,20 +394,19 @@ class Admin extends Controller
             $events[$key]['date_start'] = array();
             $events[$key]['date_end'] = array();
             $events[$key]['date_start']['day'] = $event['date_start'][2];
-            $events[$key]['date_start']['month'] = $event['date_start'][1]-1;
+            $events[$key]['date_start']['month'] = $event['date_start'][1] - 1;
             $events[$key]['date_start']['year'] = $event['date_start'][0];
 
             $events[$key]['date_end']['day'] = $event['date_end'][2];
-            $events[$key]['date_end']['month'] = $event['date_end'][1]-1;
+            $events[$key]['date_end']['month'] = $event['date_end'][1] - 1;
             $events[$key]['date_end']['year'] = $event['date_end'][0];
-
         }
 
         $page_name = array("Admin" => $this->default_path, "Listes des Évènements" => "admin/events");
 
         $this->setJsFile(array('events.js'));
 
-        $this->render('admin/events', compact('eventsTemplate','events', 'page_name'), DASHBOARD);
+        $this->render('admin/events', compact('eventsTemplate', 'events', 'page_name'), DASHBOARD);
     }
 
     /**
@@ -437,14 +446,14 @@ class Admin extends Controller
 
         $eventInfo['date_start'] = explode(" ", $eventInfo['date_start'])[0];
         $eventInfo['date_end'] = explode(" ", $eventInfo['date_end'])[0];
-        
+
         $eventInfo['date_start'] = explode("-", $eventInfo['date_start']);
         $eventInfo['date_end'] = explode("-", $eventInfo['date_end']);
         $eventInfo['date_start'] = $eventInfo['date_start'][2] . "/" . $eventInfo['date_start'][1] . "/" . $eventInfo['date_start'][0];
         $eventInfo['date_end'] = $eventInfo['date_end'][2] . "/" . $eventInfo['date_end'][1] . "/" . $eventInfo['date_end'][0];
 
 
-        $page_name = array("Admin" => $this->default_path, "Évènements" => "admin/events", "Modification de ".$eventInfo['name'] => "admin/events");
+        $page_name = array("Admin" => $this->default_path, "Évènements" => "admin/events", "Modification de " . $eventInfo['name'] => "admin/events");
 
         $this->render('admin/editEvent', compact('eventInfo', 'page_name'), DASHBOARD, "../../");
     }
@@ -459,6 +468,4 @@ class Admin extends Controller
 
         $this->render('admin/recipesAdmin', compact('page_name'), DASHBOARD);
     }
-
-
 }

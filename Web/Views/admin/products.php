@@ -31,6 +31,7 @@ include_once('Views/layout/dashboard/path.php');
                                     <th>Stock</th>
                                     <th>Disponibilité:</th>
                                     <th>Modifier</th>
+                                    <th>Supprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,6 +77,10 @@ include_once('Views/layout/dashboard/path.php');
                                     <td>                  
                                     <a href='".$path_prefix."admin/editProductDisplay/". $allProduct['id_equipment'] ."'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
                                     </td>
+                                    <td>                  
+                                    <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Supprimer</button>
+                                    </td>
+
 
                                     </tr>";
                                   
@@ -90,3 +95,5 @@ include_once('Views/layout/dashboard/path.php');
             </div>
         </div>
     </div>
+
+    
