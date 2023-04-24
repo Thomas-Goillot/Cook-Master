@@ -44,6 +44,25 @@ abstract class Security
         return false;
     }
 
+    /**
+     * Check if the user is Rh
+     * @param int $id_access
+     * @return bool
+     */
+    public function isRh(int $id_access): bool
+    {
+
+        if ($this->sessionStart === false) {
+            return false;
+        }
+
+        if ($id_access === ACCESS_RH) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 }
 

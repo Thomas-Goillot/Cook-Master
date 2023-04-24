@@ -78,12 +78,25 @@ abstract class Controller extends Utils{
         
         $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
         
-        $head = $this->generateFile('views/layout/dashboard/head.php', $data);
+        
         $sidebarAdmin = "";
-        if ($data['user']['id_access'] == ACCESS_ADMIN) {
+        $sidebarRh = "";
+        
+        if ($this->isAdmin($data['user']['id_access'])) {
             $sidebarAdmin = $this->generateFile('views/layout/dashboard/sidebarAdmin.php', $data);
+            $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
         }
+
+        if ($this->isRh($data['user']['id_access'])) {
+            $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
+        }
+
+
+
         $data = array_merge($data, array('sidebarAdmin' => $sidebarAdmin));
+        $data = array_merge($data, array('sidebarRh' => $sidebarRh));
+        
+        $head = $this->generateFile('views/layout/dashboard/head.php', $data);
         $sidebar = $this->generateFile('views/layout/dashboard/sidebar.php', $data);
         $header = $this->generateFile('views/layout/dashboard/header.php', $data);
         $content = $this->generateFile('views/' . $file . '.php', $data);

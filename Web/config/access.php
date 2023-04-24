@@ -5,5 +5,6 @@ define('ANONYMOUS', 0);
 
 define('ACCESS_USER', 1);
 define('ACCESS_ADMIN', 2);
+define('ACCESS_RH', 3);
 
 ?>

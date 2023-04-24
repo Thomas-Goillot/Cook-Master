@@ -30,6 +30,10 @@
                     <a href="<?= $path_prefix ?>event" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
+                <li>
+                    <a href="<?= $path_prefix ?>provider/join" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Nous rejoindre</span></a>
+                </li>
+
                 <li class="menu-title">Utilisateur</li>
 
                 <li>
@@ -56,6 +60,7 @@
                     <a href="<?= $path_prefix ?>Chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
                 </li>
 
+                <?= $sidebarRh ?>
 
                 <?= $sidebarAdmin ?>
 
