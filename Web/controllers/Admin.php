@@ -83,6 +83,8 @@ class Admin extends Controller
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
 
+        $this->setJsFile(['products.js']);
+        
         $this->render('admin/products', compact('allProduct', 'page_name'), DASHBOARD);
     }
 
@@ -332,6 +334,8 @@ class Admin extends Controller
         $id_equipment = (int) $params[0];
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
+
+        $this->setJsFile(['products.js']);
 
         $this->render('shop/products_edit', compact('page_name', 'id_equipment'), DASHBOARD, '../../');
     }
