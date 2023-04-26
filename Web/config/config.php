@@ -48,5 +48,8 @@ include_once("events.php");
 //CONST FOR LOCATION FONCTIONNALITIES
 include_once("location.php");
 
+//const for equipment
+include_once("equipment.php");
+
 
 ?>

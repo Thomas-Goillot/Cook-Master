@@ -43,7 +43,7 @@ class Products extends Model
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":id_equipment", $id);
+        $stmt->bindParam(":id", $id);
 
         $stmt->execute();
 

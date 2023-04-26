@@ -263,44 +263,46 @@ class Admin extends Controller
             //     $this->redirect('../admin/products');
             // }
 
+            $defaultFallBack = '../editProductDisplay/'. $id_equipment;
+
             if (isset($_POST['disponibilitySale'])) {
-                $disponibilitySale = 0;
+                $disponibilitySale = EQUIPMENT_IS_ACTIVE;
             } else {
-                $disponibilitySale = 1;
+                $disponibilitySale = EQUIPMENT_IS_NOT_ACTIVE;
             }
             if (isset($_POST['disponibilityRental'])) {
-                $disponibilityRental = 0;
+                $disponibilityRental = EQUIPMENT_IS_ACTIVE;
             } else {
-                $disponibilityRental = 1;
+                $disponibilityRental = EQUIPMENT_IS_NOT_ACTIVE;
             }
             if (isset($_POST['disponibilityEvent'])) {
-                $disponibilityEvent = 0;
+                $disponibilityEvent = EQUIPMENT_IS_ACTIVE;
             } else {
-                $disponibilityEvent = 1;
+                $disponibilityEvent = EQUIPMENT_IS_NOT_ACTIVE;
             }
             if (strlen($_POST['name']) > 100) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/');
+                $this->redirect($defaultFallBack);
             }
             if (strlen($_POST['description']) > 500) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/s');
+                $this->redirect($defaultFallBack);
             }
-            if ($disponibilitySale == 0 && $price_purchase == 0) {
+            if ($disponibilitySale == EQUIPMENT_IS_ACTIVE && $price_purchase == 0) {
                 $this->setError('Prix de vente invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/');
+                $this->redirect($defaultFallBack);
             }
-            if ($disponibilityRental == 0 && $price_rental == 0) {
+            if ($disponibilityRental == EQUIPMENT_IS_ACTIVE && $price_rental == 0) {
                 $this->setError('Prix de location invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/');
+                $this->redirect($defaultFallBack);
             }
-            if ($disponibilitySale && $disponibilityRental && $disponibilityEvent == 1) {
+            if ($disponibilitySale && $disponibilityRental && $disponibilityEvent == EQUIPMENT_IS_NOT_ACTIVE) {
                 $this->setError("Type de produit incorrect", "Veuillez sélectionner au moin un type de produit (evenement, location, ou vente)", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/');
+                $this->redirect($defaultFallBack);
             }
             if ($disponibilityStock < 1) {
                 $this->setError("Quantité disponible incorrect", "La quantité du stock ne peut pas être inférieur à 1", ERROR_ALERT);
-                $this->redirect('../editProductDisplay/');
+                $this->redirect($defaultFallBack);
             }
 
 
@@ -333,11 +335,37 @@ class Admin extends Controller
         
         $id_equipment = (int) $params[0];
 
-        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
+        $this->loadModel('Products');
+
+        $product = $this->_model->getEquipmentById($id_equipment);
+
+        if($product['allow_rental'] == EQUIPMENT_IS_ACTIVE){
+            $product['allow_rental'] = "checked";
+        }
+        else{
+            $product['allow_rental'] = "";
+        }
+
+        if($product['allow_event'] == EQUIPMENT_IS_ACTIVE){
+            $product['allow_event'] = "checked";
+        }
+        else{
+            $product['allow_event'] = "";
+        }
+
+        if($product['allow_purchase'] == EQUIPMENT_IS_ACTIVE){
+            $product['allow_purchase'] = "checked";
+        }
+        else{
+            $product['allow_purchase'] = "";
+        }
+
+
+        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products", "Modification de " . $product['name']."" => "admin/editProductDisplay/$id_equipment");
 
         $this->setJsFile(['products.js']);
 
-        $this->render('shop/products_edit', compact('page_name', 'id_equipment'), DASHBOARD, '../../');
+        $this->render('shop/products_edit', compact('page_name', 'id_equipment','product'), DASHBOARD, '../../');
     }
 
 
