@@ -4,7 +4,7 @@
                    </div>
                    <div class="form-group">
                        <label>Description</label>
-                       <input class="form-control" type="text" name="description" required="" placeholder="Description">
+                       <textarea class="form-control" type="text" id="floatingTextarea2"name="description" required="" placeholder="Description"></textarea>
                    </div>
                    <div class="form-group">
                        <label>Image</label>

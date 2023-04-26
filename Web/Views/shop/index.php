@@ -11,6 +11,7 @@
 
     foreach ($allProduct as $allProduct) {
         if ($allProduct['allow_purchase'] == 0) {
+            
             echo ' <div class="col-lg-4 text-center width="300px">';
             echo ' <div class="card card-animate text-center">';
 
@@ -40,7 +41,6 @@
 
 
                         <div class='modal-header d-flex flex-column align-items-center'>
-                                <h5 class='modal-title' id='label" . $allProduct['id_equipment'] . "'></h5>
                             <h1>" . $allProduct['name'] . "</h1>        
                             
                            
@@ -51,12 +51,12 @@
 
                             <h4> Description :</h4>
                                 <p class='blockquote text-center'>" . $allProduct['description'] . "</p>  
-                                <h5> Prix unitaire: " . $allProduct['price_purchase'] . "€</h5>        
+                                <h5> Prix unitaire: " . $allProduct['price_purchase'] . "€</h5>       
                             </div>
                     
-                            <div class='modal-footer d-flex flex-column'>
+                            <div class='d-flex flex-column'>
                             <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                                <input type='number' placeholfer='quantité' name='needRent' min='0' max='" . $allProduct['stock'] . "' class='form-control'>
+                            <input type='number' name='number_pruchase' min='0' required=' class='form-control'>
                                 <div class='modal-footer d-flex flex-row'>
                                 <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter</button>
                                 <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>

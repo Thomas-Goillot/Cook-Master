@@ -238,13 +238,23 @@ class Admin extends Controller
 
             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
+
+            $params = $_GET['params'];
+
+            if (count($params) === 0 || is_numeric($params[0]) === false) {
+                $this->redirect('../home');
+                exit();
+            }
+
+            $id_equipment = (int) $params[0];
+
             $name = $_POST['name'];
             $description = $_POST['description'];
             $image = $filename;
             $price_purchase = $_POST['price_purchase'];
             $price_rental = $_POST['price_rental'];
             $disponibilityStock = (int)$_POST['disponibilityStock'];
-            $id_equipment = (int) $_GET['params'];
+
 
             // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
             //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
@@ -268,36 +278,37 @@ class Admin extends Controller
             }
             if (strlen($_POST['name']) > 100) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/');
             }
             if (strlen($_POST['description']) > 500) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/s');
             }
             if ($disponibilitySale == 0 && $price_purchase == 0) {
                 $this->setError('Prix de vente invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/');
             }
             if ($disponibilityRental == 0 && $price_rental == 0) {
                 $this->setError('Prix de location invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/');
             }
             if ($disponibilitySale && $disponibilityRental && $disponibilityEvent == 1) {
                 $this->setError("Type de produit incorrect", "Veuillez sélectionner au moin un type de produit (evenement, location, ou vente)", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/');
             }
             if ($disponibilityStock < 1) {
                 $this->setError("Quantité disponible incorrect", "La quantité du stock ne peut pas être inférieur à 1", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect('../editProductDisplay/');
             }
 
 
 
             $this->_model->editProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock, $id_equipment);
+            
         }
-
-        $this->redirect("../admin/products");
         $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
+        $this->redirect("../products");
+        
     }
 
 
@@ -309,18 +320,20 @@ class Admin extends Controller
      */
     public function editProductDisplay(): void
     {
+
+
         $params = $_GET['params'];
 
         if (count($params) === 0 || is_numeric($params[0]) === false) {
-            $this->redirect('../home');
-            exit();
+          $this->redirect('../home');
+          exit();
         }
-
+        
         $id_equipment = (int) $params[0];
 
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
 
-        $this->render('shop/products_edit', compact('page_name'), DASHBOARD, '../../');
+        $this->render('shop/products_edit', compact('page_name', 'id_equipment'), DASHBOARD, '../../');
     }
 
 

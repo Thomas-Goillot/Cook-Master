@@ -37,13 +37,13 @@ class Products extends Model
      * Get id of product
      * @return array
      */
-    public function getEquipmentById(int $id_equipment): array
+    public function getEquipmentById(int $id): array
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id_equipment = :id_equipment";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_equipment = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":id_equipment", $id_equipment);
+        $stmt->bindParam(":id_equipment", $id);
 
         $stmt->execute();
 

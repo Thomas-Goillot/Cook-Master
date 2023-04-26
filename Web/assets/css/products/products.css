@@ -28,3 +28,7 @@ span.switchery.switchery-default {
 label.space{
     margin-bottom: 1rem;
 }
+
+h1.delete {
+    color: #9e1b21;
+}
