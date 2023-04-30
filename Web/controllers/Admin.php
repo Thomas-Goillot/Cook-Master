@@ -189,9 +189,9 @@ class Admin extends Controller
 
             $this->_model->addProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock, $id_users);
         }
-
-        $this->redirect('../admin/products');
         $this->setError("Produit ajouté !", "Votre produit a été ajouté avec succès", SUCCESS_ALERT);
+        $this->redirect('../admin/products');
+        
     }
 
 
@@ -372,6 +372,24 @@ class Admin extends Controller
 
 
 
+    public function deleteProduct():void
+    {
+        $this->loadModel("Products");
+        
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+          $this->redirect('../home');
+          exit();
+        }
+        
+        $id_equipment = (int) $params[0];
+
+        $this->_model->deleteProduct($id_equipment);
+
+        $this->setError("Produit supprimer", "Le produit a été supprimer", SUCCESS_ALERT);
+        $this->redirect("../products");
+    }
 
 
 

@@ -37,6 +37,6 @@
     <input type="text" data-toggle="touchspin" data-step="1" data-decimals="0" name="disponibilityStock" min="0" required="" class="form-control" value="<?= isset($product['stock']) ? $product['stock'] : "" ?>">
 </div>
 </div>
-<div class="d-flex justify-content-center align-items-center plusgros">
-    <button type="submit" class="btn btn-primary btn-block w-25">Ajouter</button>
+<div class="d-flex justify-content-center align-items-center">
+    <button type="submit" class="btn btn-primary btn-block w-25 btn-rounded small">Ajouter</button>
 </div>

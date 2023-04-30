@@ -117,14 +117,14 @@ class Products extends Model
      * delete product from equipment
      * @return bool
      */
-    public function deleteProduct(int $id_equipment):bool
+    public function deleteProduct(int $id):bool
     {
         
-        $query = "DELETE FROM " . $this->table . " WHERE id_equipment = :id_equipment";
+        $query = "DELETE FROM " . $this->table . " WHERE id_equipment = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":id_equipment", $id_equipment);
+        $stmt->bindParam(":id", $id);
 
         return $stmt->execute();
     
