@@ -55,8 +55,9 @@ include_once('Views/layout/dashboard/path.php');
                             </div>
                             <div class='d-flex flex-column'>
                             <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                            <input type='number' name='number_rental' min='0' required=' class='form-control'>
-                                <div class='modal-footer d-flex flex-row'>
+                            <h5>Quantité souhaité :</h5>
+                            <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='number_pruchase' min='0' required='' class='form-control'>
+                                <div class='modal-footer d-flex flex-column'>
                                 <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter</button>
                                 <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                                 </div>

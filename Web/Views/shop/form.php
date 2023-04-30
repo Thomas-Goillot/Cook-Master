@@ -8,7 +8,7 @@
 </div>
 <div class="form-group">
     <label>Image</label>
-    <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg" required="">
+    <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg">
 </div>
 
 <div class="form-group d-flex flex-column align-items-center">
@@ -34,9 +34,9 @@
 </div>
 <div class="form-group">
     <label class="space">Nombre de stockage disponible</label>
-    <input type="text" data-toggle="touchspin" data-step="1" data-decimals="0" name="disponibilityStock" min="0" required="" class="form-control" value="<?= isset($product['stock']) ? $product['stock'] : "" ?>">
+    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="disponibilityStock" min="0" required="" class="form-control" value="<?= isset($product['stock']) ? $product['stock'] : "" ?>">
 </div>
 </div>
 <div class="d-flex justify-content-center align-items-center">
-    <button type="submit" class="btn btn-primary btn-block w-25 btn-rounded small">Ajouter</button>
+    <button type="submit" class="btn b btn-primary btn-block btn-rounded small">Ajouter</button>
 </div>

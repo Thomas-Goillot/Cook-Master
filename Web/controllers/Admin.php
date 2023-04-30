@@ -137,7 +137,7 @@ class Admin extends Controller
             $id_users = $_SESSION['user']['id_users'];
 
 
-            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
+            // if (isset($image)) {
             //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
             //     $this->redirect('../admin/products');
             // }
