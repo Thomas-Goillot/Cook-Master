@@ -28,3 +28,8 @@ $(PROGRAM_NAME): $(OBJECTS)
 clean:
 	rm -f $(OBJECTS) $(PROGRAM_NAME)
 
+
+run:
+	make
+	./$(PROGRAM_NAME)
+
