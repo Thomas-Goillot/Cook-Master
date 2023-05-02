@@ -65,3 +65,13 @@ make
 ```bash
 pacman -S mingw-w64-x86_64-curl
 ```
+
+## Installation of mariadb for Windows
+```bash
+pacman -S mingw-w64-i686-libmariadbclient
+```
+
+## Installation of jansson for Windows
+```bash
+pacman -S mingw-w64-x86_64-jansson
+```
