@@ -8,9 +8,9 @@ int main()
     MYSQL_ROW row;
 
     const char *server = "sportplus.ddns.net";
-    const char *user = "cookedmaster_dev";
-    const char *password = "lk994jQZaAIDsggS";
-    const char *database = "cookedmaster_dev";
+    const char *user = "cookmaster_api_request_dev";
+    const char *password = "QGACsfzEvuel0S0b";
+    const char *database = "cookmaster_api_request_dev";
 
     conn = mysql_init(NULL);
 
@@ -20,7 +20,7 @@ int main()
         return 1;
     }
 
-    if (mysql_query(conn, "SELECT * FROM users"))
+    if (mysql_query(conn, "SELECT * FROM api"))
     {
         fprintf(stderr, "%s\n", mysql_error(conn));
         return 1;
@@ -49,6 +49,8 @@ int main()
 
     return 0;
 }
+
+
 
 /*
 

@@ -36,10 +36,6 @@ pacman -S mingw-w64-x86_64-gtk3
 ```bash
 pacman -S mingw-w64-x86_64-glade
 ```
-- Install devhelp
-```bash
-pacman -S mingw-w64-x86_64-devhelp
-```
 
 ## Compile and run the program
 - Open MSYS2 MinGW 64-bit
@@ -69,6 +65,7 @@ pacman -S mingw-w64-x86_64-curl
 ## Installation of mariadb for Windows
 ```bash
 pacman -S mingw-w64-i686-libmariadbclient
+pacman -S mingw-w64-x86_64-libmariadbclient
 ```
 
 ## Installation of jansson for Windows

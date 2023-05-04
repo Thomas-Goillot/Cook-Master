@@ -2,6 +2,7 @@
 #include <curl/curl.h>
 #include <jansson.h>
 #include <string.h>
+#include <mysql.h>
 
 void set_margin(GtkWidget *widget, int value)
 {
@@ -216,7 +217,47 @@ void handle_request(GtkButton *button, gpointer content)
 
 void on_button2_clicked(GtkButton *button, gpointer user_data)
 {
-    g_print("Button 2 clicked\n");
+    MYSQL *conn;
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+
+    const char *server = "sportplus.ddns.net";
+    const char *user = "cookmaster_api_request_dev";
+    const char *password = "QGACsfzEvuel0S0b";
+    const char *database = "cookmaster_api_request_dev";
+
+    conn = mysql_init(NULL);
+
+    if (!mysql_real_connect(conn, server, user, password, database, 0, NULL, 0))
+    {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+    }
+
+    if (mysql_query(conn, "SELECT * FROM api"))
+    {
+        fprintf(stderr, "%s\n", mysql_error(conn));
+    }
+
+    res = mysql_use_result(conn);
+
+    while ((row = mysql_fetch_row(res)) != NULL)
+    {
+        // count number of columns
+        unsigned int num_fields = mysql_num_fields(res);
+
+        // print column name
+        for (int i = 0; i < num_fields; i++)
+        {
+            printf("%s ", mysql_fetch_field_direct(res, i)->name);
+        }
+        for (int i = 0; i < num_fields; i++)
+        {
+            printf("%s \n", row[i] ? row[i] : "NULL");
+        }
+    }
+
+    mysql_free_result(res);
+    mysql_close(conn);
 }
 
 void on_button3_clicked(GtkButton *button, gpointer user_data)
