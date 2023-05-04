@@ -4,6 +4,8 @@
 #include <string.h>
 #include <mysql.h>
 
+void handle_request(GtkButton *button, gpointer content);
+
 void set_margin(GtkWidget *widget, int value)
 {
     gtk_widget_set_margin_top(widget, value);
@@ -12,10 +14,45 @@ void set_margin(GtkWidget *widget, int value)
     gtk_widget_set_margin_end(widget, value);
 }
 
-void handle_request(GtkButton *button, gpointer content);
-
-void on_button1_clicked(GtkButton *button, gpointer content)
+void clear_container(GtkWidget *container)
 {
+    GList *children, *iter;
+    children = gtk_container_get_children(GTK_CONTAINER(container));
+    for (iter = children; iter != NULL; iter = g_list_next(iter))
+    {
+        gtk_widget_destroy(GTK_WIDGET(iter->data));
+    }
+
+    gtk_widget_show_all(container);
+}
+
+void create_title(GtkWidget *content, char *title_text)
+{
+    /* Create a new title */
+    GtkWidget *title = gtk_label_new(title_text);
+    gtk_widget_set_halign(title, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(title, GTK_ALIGN_CENTER);
+    gtk_widget_set_hexpand(title, TRUE);
+    gtk_widget_set_vexpand(title, FALSE);
+    gtk_widget_set_margin_start(title, 10);
+    gtk_widget_set_margin_end(title, 10);
+    gtk_widget_set_margin_top(title, 10);
+    gtk_widget_set_margin_bottom(title, 10);
+    PangoFontDescription *font_desc = pango_font_description_from_string("Arial Bold 20");
+    gtk_widget_override_font(title, font_desc);
+    pango_font_description_free(font_desc);
+    gtk_container_add(GTK_CONTAINER(content), title);
+
+    gtk_widget_show_all(content);
+}
+
+
+void make_request_page(GtkButton *button, gpointer content)
+{
+    clear_container(content);
+
+    create_title(content, "Faire une requête");
+
     GtkWidget *api_name = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(api_name), "Enter Api name");
     gtk_widget_set_name(api_name, "api_name");
@@ -207,16 +244,15 @@ void handle_request(GtkButton *button, gpointer content)
         curl_easy_cleanup(curl);
     }
 
-
-
-
-
-
-
 }
 
-void on_button2_clicked(GtkButton *button, gpointer user_data)
+void api_list_page(GtkButton *button, gpointer content)
 {
+
+    clear_container(content);
+
+    create_title(content, "Listes des APIs");
+
     MYSQL *conn;
     MYSQL_RES *res;
     MYSQL_ROW row;
@@ -240,21 +276,47 @@ void on_button2_clicked(GtkButton *button, gpointer user_data)
 
     res = mysql_use_result(conn);
 
+    // Création d'un modèle de données GtkListStore avec deux colonnes : id et nom
+    GtkListStore *store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+
+    // Ajout de données au modèle de données
+    // Ici, nous ajoutons deux entrées pour illustrer le fonctionnement du tableau
+    GtkTreeIter iter;
+
     while ((row = mysql_fetch_row(res)) != NULL)
     {
-        // count number of columns
-        unsigned int num_fields = mysql_num_fields(res);
-
-        // print column name
-        for (int i = 0; i < num_fields; i++)
-        {
-            printf("%s ", mysql_fetch_field_direct(res, i)->name);
-        }
-        for (int i = 0; i < num_fields; i++)
-        {
-            printf("%s \n", row[i] ? row[i] : "NULL");
-        }
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter, 0, row[0], 1, row[1], 2, row[2], 3, row[3], -1);
+        printf("%s %s %s %s\n", row[0], row[1], row[2], row[3]);
     }
+
+
+    // Création d'un widget GtkTreeView pour afficher le modèle de données
+    GtkWidget *treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+
+    // Création des colonnes avec leurs titres
+    GtkTreeViewColumn *id_column = gtk_tree_view_column_new_with_attributes("ID", gtk_cell_renderer_text_new(), "text", 0, NULL);
+    GtkTreeViewColumn *name_column = gtk_tree_view_column_new_with_attributes("Nom", gtk_cell_renderer_text_new(), "text", 1, NULL);
+    GtkTreeViewColumn *http_method_column = gtk_tree_view_column_new_with_attributes("Methode HTTP", gtk_cell_renderer_text_new(), "text", 1, NULL);
+    GtkTreeViewColumn *url_column = gtk_tree_view_column_new_with_attributes("Url", gtk_cell_renderer_text_new(), "text", 1, NULL);
+
+
+
+    // Ajout des colonnes au tableau
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), id_column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), name_column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), http_method_column);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), url_column);
+
+
+    // Ajout du tableau à un conteneur parent
+    // Ici, nous utilisons un conteneur de type GtkScrolledWindow pour pouvoir faire défiler les entrées du tableau
+    GtkWidget *scroll = gtk_scrolled_window_new(NULL, NULL);
+    gtk_container_add(GTK_CONTAINER(scroll), treeview);
+    gtk_container_add(GTK_CONTAINER(content), scroll);
+
+    // Affichage du conteneur parent
+    gtk_widget_show_all(content);
 
     mysql_free_result(res);
     mysql_close(conn);
@@ -298,20 +360,20 @@ void generate_sidebar(GtkWidget *grid, GtkWidget *content, GtkWidget *sidebar, G
     gtk_container_add(GTK_CONTAINER(sidebar), title);
 
     /* Create three buttons in the sidebar */
-    GtkWidget *button1 = gtk_button_new_with_label("Faire une requête");
-    GtkWidget *button2 = gtk_button_new_with_label("Listes des APIs");
+    GtkWidget *make_request_button = gtk_button_new_with_label("Faire une requête");
+    GtkWidget *api_list_button = gtk_button_new_with_label("Listes des APIs");
     GtkWidget *button3 = gtk_button_new_with_label("Historique des requêtes");
     GtkWidget *button4 = gtk_button_new_with_label("Paramètres");
     GtkWidget *button5 = gtk_button_new_with_label("Quitter");
-    gtk_container_add(GTK_CONTAINER(sidebar), button1);
-    gtk_container_add(GTK_CONTAINER(sidebar), button2);
+    gtk_container_add(GTK_CONTAINER(sidebar), make_request_button);
+    gtk_container_add(GTK_CONTAINER(sidebar), api_list_button);
     gtk_container_add(GTK_CONTAINER(sidebar), button3);
     gtk_container_add(GTK_CONTAINER(sidebar), button4);
     gtk_container_add(GTK_CONTAINER(sidebar), button5);
 
     /* Connect button signals */
-    g_signal_connect(button1, "clicked", G_CALLBACK(on_button1_clicked), content);
-    g_signal_connect(button2, "clicked", G_CALLBACK(on_button2_clicked), NULL);
+    g_signal_connect(make_request_button, "clicked", G_CALLBACK(make_request_page), content);
+    g_signal_connect(api_list_button, "clicked", G_CALLBACK(api_list_page), content);
     g_signal_connect(button3, "clicked", G_CALLBACK(on_button3_clicked), NULL);
     g_signal_connect(button4, "clicked", G_CALLBACK(on_button4_clicked), NULL);
     g_signal_connect(button5, "clicked", G_CALLBACK(gtk_main_quit), NULL);
