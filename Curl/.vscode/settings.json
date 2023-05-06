@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "*.embeddedhtml": "html",
-        "gtk.h": "c"
+        "gtk.h": "c",
+        "ui.h": "c",
+        "sql.h": "c",
+        "apilistepage.h": "c",
+        "requestpage.h": "c"
     }
 }

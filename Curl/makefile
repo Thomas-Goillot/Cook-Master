@@ -1,38 +1,40 @@
-# Nom de votre programme
-PROGRAM_NAME = CookMasterApiRequest
-
-# Compilateur C
+#
 CC = gcc
 
-# Options de compilation pour gtk et glade
-CFLAGS = `pkg-config --cflags gtk+-3.0` `pkg-config --cflags libcurl` -I/mingw64/include/mysql
+CFLAGS= `pkg-config --cflags gtk+-3.0` `pkg-config --cflags libcurl` -I/mingw64/include/mysql
 
-# Options de compilation pour gtk et glade
-LIBS = `pkg-config --libs gtk+-3.0` -L /mingw64/lib/ -lmysqlclient -L./curlLib/lib -lcurl -ljansson
+CLIBS= `pkg-config --libs gtk+-3.0` -L /mingw64/lib/ -lmysqlclient -L./curlLib/lib -lcurl -ljansson
 
+EXE= executable
 
+OBJ= obj/
 
-# Liste des fichiers source de votre projet
-SOURCES = main.c
+SRC= src/
 
-# Liste des fichiers objet à générer
-OBJECTS = $(SOURCES:.c=.o)
+INCL= includes/
 
-# Règle de construction du programme
-$(PROGRAM_NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+FILEC:= $(wildcard $(SRC)*.c)
 
-# Règle de construction des fichiers objet
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+FILEH:= $(wildcard $(INCL)*.h)
 
-# Nettoyage des fichiers temporaires
-clean:
-	rm -f $(OBJECTS) $(PROGRAM_NAME)
+FILEO:= $(patsubst $(SRC)%.c,$(OBJ)%.o,$(FILEC))
+
+$(EXE) : $(FILEO)
+	$(CC) $(CFLAGS) -o $@ $^ $(CLIBS)
 
 
-run:
+$(OBJ)main.o : $(SRC)main.c $(FILEH)
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+$(OBJ)%.o : $(SRC)%.c $(INCL)%.h
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+clean :
+	rm -rf $(OBJ)*.o
+	rm -rf $(EXE)
+
+run :
 	make
-	./$(PROGRAM_NAME)
+	./$(EXE)
 
 
