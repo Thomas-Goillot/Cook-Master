@@ -6,7 +6,7 @@ use PDO;
 use App\Model;
 use PDOException;
 
-class Workshops extends Model
+class workshop extends Model
 {
     /**
      * User constructor.
@@ -19,7 +19,7 @@ class Workshops extends Model
     }
 
     /**
-     * Get all workshops
+     * Get all workshop
      * @return array
      */
     public function getAllWorkshop(): array
@@ -58,26 +58,22 @@ class Workshops extends Model
      * @param string $image
      * @param float $price
      * @param int $available
-     * @param string $date
-     * @param string $hour_start
-     * @param string $hour_end
+     * @param string $date_start
+     * @param string $date_end
      * @return void
      */
-    public function addWorkshop(string $name, string $description, string $image, float $price, int $available, string $date, string $hour_start, string $hour_end): void
+    public function workshop(string $name, string $description, string $image, float $price, int $available, string $date_start, string $date_end): void
     {
-        $query = "INSERT INTO " . $this->table . "(name,description,image,price,available,date,hour_start,hour_end) VALUES (:name,:description,:image,:price,:available,:date,:hour_start,:hour_end)";
+        $query = "INSERT INTO " . $this->table . "(name,description,image,price,available,date_start,date_end) VALUES (:name,:description,:image,:price,:available,:date_start,:date_end)";
 
         $data = array(
             ":name" => $name,
             ":description" => $description,
             ":image" => $image,
-            ":disponibilityRental" => $disponibilityRental,
-            ":disponibilityEvent" => $disponibilityEvent,
-            ":price_purchase" => $price_purchase,
-            ":price_rental" => $price_rental,
-            ":disponibilitySale" => $disponibilitySale,
-            ":disponibilityStock" => $disponibilityStock,
-            ":id_users" => $id_users
+            ":price" => $price,
+            ":available" => $available,
+            ":date_start" => $date_start,
+            ":date_end" => $date_end
         );
 
         $stmt = $this->_connexion->prepare($query);
@@ -114,7 +110,7 @@ class Workshops extends Model
     }
     
     /**
-     * delete workshop from workshops
+     * delete workshop from workshop
      * @return bool
      */
     public function deleteProduct(int $id):bool

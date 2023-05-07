@@ -45,7 +45,7 @@ fas fa-file-invoice-->
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bxs-cake"></i><span>Atelier</span></a>
     <ul class="sub-menu" aria-expanded="false">
         <li><a href="<?= $path_prefix ?>admin/listWorkshop"><i class="bx bx-list-ul"></i>Liste des ateliers</a></li>
-        <li><a href="<?= $path_prefix ?>admin/addWorkshopDisplay"><i class="bx bx-bookmark-plus"></i>Créer un atelier</a></li>
+        <li><a href="<?= $path_prefix ?>admin/workshop"><i class="bx bx-bookmark-plus"></i>Créer un atelier</a></li>
     </ul>
 </li>
 

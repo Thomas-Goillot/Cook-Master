@@ -533,40 +533,99 @@ class Admin extends Controller
     }
 
     /**
-     * Display the create workshops page
+     * Display the add workshop page
      * @return void
      */
-    public function addWorkshopDisplay(): void
+    public function workshop(): void
     {
+        $this->loadModel('Workshop');
 
-        $this->loadModel('Workshops');
-
-        $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshops", "Création d'atelier" => "admin/addWorkshop");
-
-        $this->render('admin/addWorkshop', compact('page_name'), DASHBOARD);
-    }
-
-
-    /**
-     * Create workshop
-     * @return void
-     */
-    public function addWorkshop(): void
-    {
-        $this->loadModel('Workshops');
-
-        $addWorkshop = $this->_model->addWorkshop();
-
+        $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
+        $this->render('admin/workshop', compact('page_name',), DASHBOARD);
+        
     }
 
     /**
-     * Display the list workshops page
+     * addWorkshop
+     * @return void
+     */
+    public function addWorkhop(): void
+
+    {
+        if (!isset($_POST['submit'])) {
+            $defaultErrorPath = "../admin/addWorkshop";
+            $acceptable = array('image/jpeg', 'image/png');
+            $image = $_FILES['image']['type'];
+
+            if (!in_array($image, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['image']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
+            }
+
+            //Si le dossier uploads n'existe pas, le créer
+            $path = 'assets/images/Workshop';
+            if (!file_exists('assets/images/Workshop/')) {
+                mkdir('assets/images/Workshop/');
+            }
+
+            $filename = $_FILES['image']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $image = $filename;
+            $price = $_POST['price'];
+            $available = $_POST['available'];
+            $date = $_POST['WorkshopDate'];
+
+
+            if (strlen($_POST['name']) > 100) {
+                $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
+            }
+            if (strlen($_POST['description']) > 500) {
+                $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
+            }
+
+
+
+
+        $addWorkshop = $this->_model->addWorkshop($name, $description, $image, $price,$available ,$date);
+        }
+
+
+    }
+
+
+
+
+
+
+    /**
+     * Display the list workshop page
      * @return void
      */
     public function listWorkshop(): void
     {
 
-        $this->loadModel('Workshops');
+        $this->loadModel('workshop');
 
         $allWorkshop = $this->_model->getAllWorkshop();
 
