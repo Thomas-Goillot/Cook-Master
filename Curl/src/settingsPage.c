@@ -110,7 +110,8 @@ void check_input(GtkButton *button, gpointer content)
     save_api(api_name_entry, method_entry, url_entry, api_key_entry, content);
 }
 
-void save_api(char *name, char *method, char *url, char *api_key, gpointer content){
+void save_api(const char *name, const char *method, const char *url, const char *api_key, gpointer content)
+{
     MYSQL *conn;
     MYSQL_RES *res;
     MYSQL_ROW row;

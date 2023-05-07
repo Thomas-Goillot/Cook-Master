@@ -14,6 +14,6 @@ void check_input(GtkButton *button, gpointer content);
 
 void setting_page(GtkButton *button, gpointer content);
 
-void save_api(char *name, char *method, char *url, char *api_key, gpointer content);
+void save_api(const char *name, const char *method, const char *url, const char *api_key, gpointer content);
 
 #endif

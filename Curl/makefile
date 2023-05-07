@@ -1,7 +1,7 @@
 #
 CC = gcc
 
-CFLAGS= `pkg-config --cflags gtk+-3.0` `pkg-config --cflags libcurl` -I/mingw64/include/mysql
+CFLAGS= `pkg-config --cflags gtk+-3.0` `pkg-config --cflags libcurl` -I/mingw64/include/mysql -w
 
 CLIBS= `pkg-config --libs gtk+-3.0` -L /mingw64/lib/ -lmysqlclient -L./curlLib/lib -lcurl -ljansson
 

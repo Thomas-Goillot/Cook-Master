@@ -188,7 +188,7 @@ void load_api(GtkButton *button, gpointer data)
     mysql_free_result(res);
     mysql_close(conn);
 
-    gtk_widget_destroy(gtk_widget_get_parent(gtk_widget_get_parent(button)));
+    gtk_widget_destroy(gtk_widget_get_parent(gtk_widget_get_parent(GTK_WIDGET(button))));
 }
 
 void handle_request(GtkButton *button, gpointer content)
