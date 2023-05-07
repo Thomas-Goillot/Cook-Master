@@ -12,14 +12,26 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Date de création</th>
-                                    <th>Prix location</th>
-                                    <th>Prix à l'achat</th>
-                                    <th>Stock</th>
-                                    <th>Disponibilité:</th>
+                                    <th>Place restante :</th>
+                                    <th>Prix</th>
                                     <th>Modifier / supprimer</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                                    <?php 
+                                    foreach($allWorkshop as $allWorkshop){
+
+                                        echo "<td>" . $allWorkshop['name'] . "</td>";
+                                        echo "<td>" . $allWorkshop['date'] . "</td>";
+                                        echo "<td>" . $allWorkshop['available'] . "</td>";
+                                        echo "<td>" . $allWorkshop['price'] . "</td>";
+                                        echo "<td>" . $allWorkshop['price'] . "</td>";
+
+
+                                        echo" <td>                  
+                                              <a href='" . $path_prefix . "admin/editWorkshopDisplay/" . $allWorkshop['id_workshop'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                            </td>";
+                                    }
+                                    ?>                            
                             </tbody>
                         </table>
                     </div>

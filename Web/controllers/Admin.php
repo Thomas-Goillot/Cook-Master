@@ -84,7 +84,7 @@ class Admin extends Controller
         $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products");
 
         $this->setJsFile(['products.js']);
-        
+
         $this->render('admin/products', compact('allProduct', 'page_name'), DASHBOARD);
     }
 
@@ -157,11 +157,11 @@ class Admin extends Controller
             } else {
                 $disponibilityEvent = 1;
             }
-            if (strlen($_POST['name']) > 100) {
+            if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if (strlen($_POST['description']) > 500) {
+            if (strlen($_POST['description']) > MAX_DESCRIPTION) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
@@ -191,7 +191,6 @@ class Admin extends Controller
         }
         $this->setError("Produit ajouté !", "Votre produit a été ajouté avec succès", SUCCESS_ALERT);
         $this->redirect('../admin/products');
-        
     }
 
 
@@ -263,7 +262,7 @@ class Admin extends Controller
             //     $this->redirect('../admin/products');
             // }
 
-            $defaultFallBack = '../editProductDisplay/'. $id_equipment;
+            $defaultFallBack = '../editProductDisplay/' . $id_equipment;
 
             if (isset($_POST['disponibilitySale'])) {
                 $disponibilitySale = EQUIPMENT_IS_ACTIVE;
@@ -280,11 +279,11 @@ class Admin extends Controller
             } else {
                 $disponibilityEvent = EQUIPMENT_IS_NOT_ACTIVE;
             }
-            if (strlen($_POST['name']) > 100) {
+            if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
             }
-            if (strlen($_POST['description']) > 500) {
+            if (strlen($_POST['description']) > MAX_DESCRIPTION) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
             }
@@ -308,11 +307,9 @@ class Admin extends Controller
 
 
             $this->_model->editProduct($name, $description, $image, $disponibilitySale, $disponibilityRental, $disponibilityEvent, $price_purchase, $price_rental, $disponibilityStock, $id_equipment);
-            
         }
         $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
         $this->redirect("../products");
-        
     }
 
 
@@ -329,60 +326,57 @@ class Admin extends Controller
         $params = $_GET['params'];
 
         if (count($params) === 0 || is_numeric($params[0]) === false) {
-          $this->redirect('../home');
-          exit();
+            $this->redirect('../home');
+            exit();
         }
-        
+
         $id_equipment = (int) $params[0];
 
         $this->loadModel('Products');
 
         $product = $this->_model->getEquipmentById($id_equipment);
 
-        if($product['allow_rental'] == EQUIPMENT_IS_ACTIVE){
+        if ($product['allow_rental'] == EQUIPMENT_IS_ACTIVE) {
             $product['allow_rental'] = "checked";
-        }
-        else{
+        } else {
             $product['allow_rental'] = "";
         }
 
-        if($product['allow_event'] == EQUIPMENT_IS_ACTIVE){
+        if ($product['allow_event'] == EQUIPMENT_IS_ACTIVE) {
             $product['allow_event'] = "checked";
-        }
-        else{
+        } else {
             $product['allow_event'] = "";
         }
 
-        if($product['allow_purchase'] == EQUIPMENT_IS_ACTIVE){
+        if ($product['allow_purchase'] == EQUIPMENT_IS_ACTIVE) {
             $product['allow_purchase'] = "checked";
-        }
-        else{
+        } else {
             $product['allow_purchase'] = "";
         }
 
 
-        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products", "Modification de " . $product['name']."" => "admin/editProductDisplay/$id_equipment");
+        $page_name = array("Admin" => $this->default_path, "Produits" => "admin/products", "Modification de " . $product['name'] . "" => "admin/editProductDisplay/$id_equipment");
 
         $this->setJsFile(['products.js']);
 
-        $this->render('shop/products_edit', compact('page_name', 'id_equipment','product'), DASHBOARD, '../../');
+        $this->render('shop/products_edit', compact('page_name', 'id_equipment', 'product'), DASHBOARD, '../../');
     }
 
 
 
 
 
-    public function deleteProduct():void
+    public function deleteProduct(): void
     {
         $this->loadModel("Products");
-        
+
         $params = $_GET['params'];
 
         if (count($params) === 0 || is_numeric($params[0]) === false) {
-          $this->redirect('../home');
-          exit();
+            $this->redirect('../home');
+            exit();
         }
-        
+
         $id_equipment = (int) $params[0];
 
         $this->_model->deleteProduct($id_equipment);
@@ -542,7 +536,6 @@ class Admin extends Controller
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
         $this->render('admin/workshop', compact('page_name',), DASHBOARD);
-        
     }
 
     /**
@@ -554,6 +547,7 @@ class Admin extends Controller
     {
         if (!isset($_POST['submit'])) {
             $defaultErrorPath = "../admin/addWorkshop";
+            $defaultValidePath = "../admin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -595,11 +589,11 @@ class Admin extends Controller
             $date = $_POST['WorkshopDate'];
 
 
-            if (strlen($_POST['name']) > 100) {
+            if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect($defaultErrorPath);
             }
-            if (strlen($_POST['description']) > 500) {
+            if (strlen($_POST['description']) > MAX_DESCRIPTION) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect($defaultErrorPath);
             }
@@ -607,10 +601,10 @@ class Admin extends Controller
 
 
 
-        $addWorkshop = $this->_model->addWorkshop($name, $description, $image, $price,$available ,$date);
+            $this->_model->addWorkshop($name, $description, $image, $price, $available, $date);
         }
-
-
+        $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
+        $this->redirect($defaultValidePath);
     }
 
 
@@ -627,11 +621,95 @@ class Admin extends Controller
 
         $this->loadModel('workshop');
 
-        $allWorkshop = $this->_model->getAllWorkshop();
+        // $allWorkshop = $this->_model->getAllWorkshop();
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
-        $this->render('admin/listWorkshop', compact('allWorkshop','page_name'), DASHBOARD);
+        $this->render('admin/listWorkshop', compact('page_name'), DASHBOARD);
     }
 
+
+      /**
+     * edit product
+     * @return void
+     */
+    public function editWorkshop(): void
+    {
+        $this->loadModel("Products");
+
+
+
+        if (!isset($_POST['submit'])) {
+            $acceptable = array('image/jpeg', 'image/png');
+            $image = $_FILES['image']['type'];
+
+            if (!in_array($image, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['image']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect('../admin/products');
+            }
+
+            //Si le dossier uploads n'existe pas, le créer
+            $path = 'assets/images/productShop';
+            if (!file_exists('assets/images/productShop/')) {
+                mkdir('assets/images/productShop/');
+            }
+
+            $filename = $_FILES['image']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+
+            $params = $_GET['params'];
+
+            if (count($params) === 0 || is_numeric($params[0]) === false) {
+                $this->redirect('../home');
+                exit();
+            }
+
+            $id_workshop = (int) $params[0];
+
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $image = $filename;
+            $price = $_POST['price'];
+            $available = $_POST['available'];
+            $date = $_POST['WorkshopDate'];
+
+
+            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
+            //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
+            //     $this->redirect('../admin/products');
+            // }
+
+            $defaultFallBack = '../editProductDisplay/' . $id_workshop;
+
+            if (strlen($_POST['name']) > MAX_NAME) {
+                $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+            if (strlen($_POST['description']) > MAX_DESCRIPTION) {
+                $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+
+
+            $this->_model->editWorshop($name, $description, $image, $price, $available, $date, $id_workshop);
+        }
+        $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
+        $this->redirect("../products");
+    }
 }

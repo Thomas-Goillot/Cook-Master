@@ -62,7 +62,7 @@ class workshop extends Model
      * @param string $date_end
      * @return void
      */
-    public function workshop(string $name, string $description, string $image, float $price, int $available, string $date_start, string $date_end): void
+    public function addworkshop(string $name, string $description, string $image, float $price, int $available, string $date_start, string $date_end): void
     {
         $query = "INSERT INTO " . $this->table . "(name,description,image,price,available,date_start,date_end) VALUES (:name,:description,:image,:price,:available,:date_start,:date_end)";
 
@@ -86,21 +86,19 @@ class workshop extends Model
      * Get edit workshop
      * @return void
      */
-    public function editProduct(string $name, string $description, string $image, int $disponibilitySale, int $disponibilityRental, int $disponibilityEvent,string $price_purchase, string $price_rental, int $disponibilityStock,int $id_equipment):void
+    public function editWorkshop(string $name, string $description, string $image, int $price, int $available, string $date_start, string $date_end, int $id_worshop):void
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, allow_rental = :disponibilityRental, allow_event = :disponibilityEvent, allow_purchase = :disponibilitySale, price_purchase = :price_purchase, price_rental = :price_rental, stock = :disponibilityStock WHERE id_equipment = :id_equipment";
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, price = :price, available = : available, date_start = :date_start, date_end = :date_end WHERE id_equipment = :id_equipment";
        
         $data = array(
             ":name" => $name,
             ":description" => $description,
             ":image" => $image,
-            ":disponibilityRental" => $disponibilityRental,
-            ":disponibilityEvent" => $disponibilityEvent,
-            ":price_purchase" => $price_purchase,
-            ":price_rental" => $price_rental,
-            ":disponibilitySale" => $disponibilitySale,
-            ":disponibilityStock" => $disponibilityStock,
-            ":id_equipment" => $id_equipment
+            ":price" => $price,
+            ":available" => $available,
+            ":date_start" => $date_start,
+            ":date_end" => $date_end,
+            ":id_worshop" => $id_worshop
         );
 
         $stmt = $this->_connexion->prepare($query);

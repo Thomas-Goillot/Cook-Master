@@ -33,7 +33,7 @@ define('CENSURE_CHAT',1); // if 1 then the Chat is censored
 
 define('UNCENSURE_CHAT',0); // if 0 then the Chat is not censored
 
-
+define('MAX_DESCRIPTION',500);
 
 
 
