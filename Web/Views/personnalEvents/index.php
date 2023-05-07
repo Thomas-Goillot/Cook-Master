@@ -56,7 +56,7 @@
                                             <th>' . $informations['date_end'] .'</th>
                                             <th>' . $informations['price'] .'€</th>
                                             <th>
-                                                <a href="' . $path_prefix . 'PersonnalEvents/downloadUpcomingEventInformation" class="dropdown-item">PDF</a>
+                                                <a href="' . $path_prefix . 'PersonnalEvents/downloadUpcomingEventInformation/'. $informations['id_event']. '" class="dropdown-item">PDF</a>
                                             </th>
                                             </tr>';
                                 }
@@ -100,7 +100,7 @@
                                             <th>' . $informations['date_end'] .'</th>
                                             <th>' . $informations['price'] .'€</th>
                                             <th>
-                                                <a href="' . $path_prefix . ' personnalevents/downloadPastEventInformation?id_event='. $informations['id_event'].'" class="dropdown-item">PDF</a>
+                                                <a href="' . $path_prefix . ' personnalevents/downloadPastEventInformation/'. $informations['id_event']. '" class="dropdown-item">PDF</a>
                                             </th>
                                             </tr>';
                                 }
