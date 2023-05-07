@@ -8,7 +8,7 @@
 #include <mysql.h>
 
 #include "ui.h"
-#include "../includes/json.h"
+#include "json.h"
 
 void api_list_page(GtkButton *button, gpointer content);
 

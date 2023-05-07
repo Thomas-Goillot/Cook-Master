@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/msys64/mingw64/include/gtk-3.0",
-                "C:/msys64/mingw64/include/glib-2.0"
+                "C:/msys64/mingw64/include/glib-2.0",
+                "C:/msys64/mingw64/include/mysql"
             ],
             "defines": [
                 "_DEBUG",

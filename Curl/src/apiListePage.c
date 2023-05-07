@@ -32,8 +32,6 @@ void api_list_page(GtkButton *button, gpointer content)
 
     GtkListStore *store = gtk_list_store_new(4, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 
-    // Ajout de données au modèle de données
-    // Ici, nous ajoutons deux entrées pour illustrer le fonctionnement du tableau
     GtkTreeIter iter;
 
     while ((row = mysql_fetch_row(res)) != NULL)

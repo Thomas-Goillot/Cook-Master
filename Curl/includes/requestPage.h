@@ -7,10 +7,20 @@
 #include <string.h>
 
 #include "ui.h"
-#include "../includes/json.h"
+#include "json.h"
+
+typedef struct
+{
+    GtkWidget *content;
+    GtkWidget *combo_box;
+} LoadApiParams;
 
 void handle_request(GtkButton *button, gpointer content);
 
 void make_request_page(GtkButton *button, gpointer content);
+
+void open_load_api_popup(GtkButton *button, gpointer content);
+
+void load_api(GtkButton *button, gpointer data);
 
 #endif

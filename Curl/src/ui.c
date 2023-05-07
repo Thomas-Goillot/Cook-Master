@@ -30,7 +30,7 @@ void generate_sidebar(GtkWidget *grid, GtkWidget *content, GtkWidget *sidebar, G
     /* Create three buttons in the sidebar */
     GtkWidget *make_request_button = gtk_button_new_with_label("Faire une requête");
     GtkWidget *api_list_button = gtk_button_new_with_label("Listes des APIs");
-    GtkWidget *button3 = gtk_button_new_with_label("Historique des requêtes");
+    GtkWidget *button3 = gtk_button_new_with_label("Historique");
     GtkWidget *button4 = gtk_button_new_with_label("Paramètres");
     GtkWidget *button5 = gtk_button_new_with_label("Quitter");
     gtk_container_add(GTK_CONTAINER(sidebar), make_request_button);
@@ -42,8 +42,8 @@ void generate_sidebar(GtkWidget *grid, GtkWidget *content, GtkWidget *sidebar, G
     /* Connect button signals */
     g_signal_connect(make_request_button, "clicked", G_CALLBACK(make_request_page), content);
     g_signal_connect(api_list_button, "clicked", G_CALLBACK(api_list_page), content);
-    //g_signal_connect(button3, "clicked", G_CALLBACK(on_button3_clicked), NULL);
-    //g_signal_connect(button4, "clicked", G_CALLBACK(on_button4_clicked), NULL);
+    g_signal_connect(button3, "clicked", G_CALLBACK(request_history_page), content);
+    g_signal_connect(button4, "clicked", G_CALLBACK(setting_page), content);
     g_signal_connect(button5, "clicked", G_CALLBACK(gtk_main_quit), NULL);
 }
 
@@ -84,4 +84,26 @@ void create_title(GtkWidget *content, char *title_text)
     gtk_container_add(GTK_CONTAINER(content), title);
 
     gtk_widget_show_all(content);
+}
+
+void send_popup(GtkWidget *content, char *message, char *title)
+{
+    GtkWidget *window = gtk_widget_get_toplevel(content);
+
+    GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW(window),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_OK,
+                                               message);
+    gtk_window_set_title(GTK_WINDOW(dialog), title);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+}
+
+void params_destroy_notify(gpointer data, GClosure *closure)
+{
+    if (data != NULL)
+    {
+        free(data);
+    }
 }

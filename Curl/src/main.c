@@ -7,21 +7,6 @@
 #include "../includes/ui.h"
 #include "../includes/json.h"
 
-#include "../includes/requestPage.h"
-#include "../includes/apiListePage.h"
-
-
-
-void on_button3_clicked(GtkButton *button, gpointer user_data)
-{
-    g_print("Button 3 clicked\n");
-}
-
-void on_button4_clicked(GtkButton *button, gpointer user_data)
-{
-    g_print("Button 4 clicked\n");
-}
-
 
 int main(int argc, char *argv[])
 {
