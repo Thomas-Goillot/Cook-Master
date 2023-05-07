@@ -134,9 +134,18 @@ class PersonnalEvents extends Controller{
      */
     public function downloadPastEventInformation():void{
 
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_event = (int) $params[0];
+
         $this->loadModel('PersonnalEvents');
 
-        $data = $this->_model->getPastPersonnalEvent($this->getUserId(), 21);
+        $data = $this->_model->getPastPersonnalEvent($this->getUserId(), $id_event);
     
         $html = $this->generateFile('pdf/pdfPersonnalPastEvent.php', $data);
     
@@ -163,9 +172,18 @@ class PersonnalEvents extends Controller{
      */
     public function downloadUpcomingEventInformation():void{
 
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_event = (int) $params[0];
+
         $this->loadModel('PersonnalEvents');
         
-        $data = $this->_model->getUpcomingPersonnalEvent($this->getUserId(), 21);
+        $data = $this->_model->getUpcomingPersonnalEvent($this->getUserId(), $id_event);
     
         $html = $this->generateFile('pdf/pdfPersonnalUpcomingEvent.php', $data);
     
