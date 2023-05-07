@@ -21,9 +21,9 @@ include_once('Views/layout/dashboard/path.php');
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Type</label>
                         <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1 - Entrée</option>
-                            <option>2 - Plat</option>
-                            <option>3 - Dessert</option>
+                            <option>Entrée</option>
+                            <option>Plat</option>
+                            <option>Dessert</option>
                         </select>
                     </div>
 
@@ -120,7 +120,7 @@ include_once('Views/layout/dashboard/path.php');
 </div>
             <!-- end col -->
 
-            <script>
+<script>
     var cartTable = document.getElementById("cart-table");
 
     function addToCart(name) {

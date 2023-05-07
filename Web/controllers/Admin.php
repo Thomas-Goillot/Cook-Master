@@ -531,4 +531,48 @@ class Admin extends Controller
 
         $this->render('admin/recipesAdmin', compact('page_name'), DASHBOARD);
     }
+
+    /**
+     * Display the create workshops page
+     * @return void
+     */
+    public function addWorkshopDisplay(): void
+    {
+
+        $this->loadModel('Workshops');
+
+        $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshops", "Création d'atelier" => "admin/addWorkshop");
+
+        $this->render('admin/addWorkshop', compact('page_name'), DASHBOARD);
+    }
+
+
+    /**
+     * Create workshop
+     * @return void
+     */
+    public function addWorkshop(): void
+    {
+        $this->loadModel('Workshops');
+
+        $addWorkshop = $this->_model->addWorkshop();
+
+    }
+
+    /**
+     * Display the list workshops page
+     * @return void
+     */
+    public function listWorkshop(): void
+    {
+
+        $this->loadModel('Workshops');
+
+        $allWorkshop = $this->_model->getAllWorkshop();
+
+        $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
+
+        $this->render('admin/listWorkshop', compact('allWorkshop','page_name'), DASHBOARD);
+    }
+
 }

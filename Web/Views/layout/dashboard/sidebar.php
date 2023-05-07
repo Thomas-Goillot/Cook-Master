@@ -31,7 +31,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>provider/join" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Nous rejoindre</span></a>
+                    <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Nous rejoindre</span></a>
                 </li>
 
                 <li class="menu-title">Utilisateur</li>
