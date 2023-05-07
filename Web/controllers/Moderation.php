@@ -63,8 +63,7 @@ class Moderation extends Controller
             exit();
         }
 
-
-        $res = $this->_model->addSwearWord($word);
+        $res = $this->_model->addSwearWord(htmlspecialchars($word),$this->getUserId());
 
         if ($res === false) {
             $this->setError("Erreur", "Erreur lors de l\'ajout du mot",ERROR_ALERT);

@@ -62,14 +62,15 @@ class Words extends Model
      * @param string $word
      * @return bool
      */
-    public function addSwearWord(string $word): bool
+    public function addSwearWord(string $word, int $id_users): bool
     {
-        $sql = "INSERT INTO words (word) VALUES (:word)";
+        $sql = "INSERT INTO words (word,id_users) VALUES (:word, :id_users)";
 
         $stmt = $this->_connexion->prepare($sql);
 
         $stmt->bindParam(":word", $word);
-
+        $stmt->bindParam(":id_users", $id_users);
+        
         return $stmt->execute();
     }
 
