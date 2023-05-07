@@ -136,11 +136,7 @@ void save_api(char *name, char *method, char *url, char *api_key, gpointer conte
 
     unsigned long id_api = mysql_insert_id(conn);
 
-    sprintf(query, "INSERT INTO logs (id_api, type) VALUES ('%lu', 'Nouvelle API')", id_api);
-    if (mysql_query(conn, query))
-    {
-        fprintf(stderr, "%s\n", mysql_error(conn));
-    }
+    addLog(conn, id_api, "Nouvelle API");
 
     send_popup(content, "L'api a bien été enregistrée", "Succès");
 

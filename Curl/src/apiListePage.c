@@ -63,6 +63,7 @@ void api_list_page(GtkButton *button, gpointer content)
     // Ajout du tableau à un conteneur parent
     // Ici, nous utilisons un conteneur de type GtkScrolledWindow pour pouvoir faire défiler les entrées du tableau
     GtkWidget *scroll = gtk_scrolled_window_new(NULL, NULL);
+    gtk_widget_set_size_request(scroll, -1, 600);
     gtk_container_add(GTK_CONTAINER(scroll), treeview);
     gtk_container_add(GTK_CONTAINER(content), scroll);
 

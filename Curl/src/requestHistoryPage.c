@@ -23,7 +23,7 @@ void request_history_page(GtkButton *button, gpointer content)
         fprintf(stderr, "%s\n", mysql_error(conn));
     }
 
-    if (mysql_query(conn, "SELECT id_logs,name,http_method,url,type,request_at FROM `logs`,api WHERE logs.id_api = api.id_api"))
+    if (mysql_query(conn, "SELECT id_logs,name,http_method,url,type,request_at FROM `logs`,api WHERE logs.id_api = api.id_api ORDER BY request_at DESC"))
     {
         fprintf(stderr, "%s\n", mysql_error(conn));
     }
@@ -31,9 +31,6 @@ void request_history_page(GtkButton *button, gpointer content)
     res = mysql_use_result(conn);
 
     GtkListStore *store = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
-
-    // Ajout de données au modèle de données
-    // Ici, nous ajoutons deux entrées pour illustrer le fonctionnement du tableau
     GtkTreeIter iter;
 
     while ((row = mysql_fetch_row(res)) != NULL)
@@ -60,8 +57,6 @@ void request_history_page(GtkButton *button, gpointer content)
     GtkTreeViewColumn *type_column = gtk_tree_view_column_new_with_attributes("Type", gtk_cell_renderer_text_new(), "text", 4, NULL);
     GtkTreeViewColumn *request_at_column = gtk_tree_view_column_new_with_attributes("Date", gtk_cell_renderer_text_new(), "text", 5, NULL);
 
-
-
     // Ajout des colonnes au tableau
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), id_column);
     gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), name_column);
@@ -75,6 +70,7 @@ void request_history_page(GtkButton *button, gpointer content)
     GtkWidget *scroll = gtk_scrolled_window_new(NULL, NULL);
     gtk_container_add(GTK_CONTAINER(scroll), treeview);
     gtk_container_add(GTK_CONTAINER(content), scroll);
+    gtk_widget_set_size_request(scroll, -1, 600);
 
     // Affichage du conteneur parent
     gtk_widget_show_all(content);

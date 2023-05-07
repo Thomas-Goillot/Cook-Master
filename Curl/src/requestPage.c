@@ -6,6 +6,11 @@ void make_request_page(GtkButton *button, gpointer content)
 
     create_title(content, "Faire une requête");
 
+    // Création d'un champ de saisie invisible
+    GtkWidget *id_api = gtk_entry_new();
+    gtk_entry_set_visibility(GTK_ENTRY(id_api), FALSE);
+    gtk_container_add(GTK_CONTAINER(content), id_api);
+
     GtkWidget *api_name = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(api_name), "Enter Api name");
     gtk_widget_set_name(api_name, "api_name");
@@ -48,6 +53,7 @@ void make_request_page(GtkButton *button, gpointer content)
     g_signal_connect(send_request_button, "clicked", G_CALLBACK(handle_request), content);
 
     gtk_widget_show_all(content);
+    gtk_widget_hide(id_api);
 }
 
 void open_load_api_popup(GtkButton *button, gpointer content){
@@ -154,18 +160,21 @@ void load_api(GtkButton *button, gpointer data)
 
     row = mysql_fetch_row(res);
 
+    char *api_id_db = row[0];
     char *api_name_db = row[1];
     char *api_method = row[2];
     char *api_url = row[3];
     char *api_key = row[4];
 
-    GtkWidget *api_name_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->data;
+    GtkWidget *id_api = gtk_container_get_children(GTK_CONTAINER(content))->next->data;
+    GtkWidget *api_name_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
     GtkWidget *api_name_widget = gtk_container_get_children(GTK_CONTAINER(api_name_parent))->data;
-    GtkWidget *select_box_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->data;
+    GtkWidget *select_box_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
     GtkWidget *select_box_widget = gtk_container_get_children(GTK_CONTAINER(select_box_parent))->next->data;
-    GtkWidget *url_widget = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
-    GtkWidget *api_key_widget = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->data;
+    GtkWidget *url_widget = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->data;
+    GtkWidget *api_key_widget = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->next->data;
 
+    gtk_entry_set_text(GTK_ENTRY(id_api), api_id_db);
     gtk_entry_set_text(GTK_ENTRY(api_name_widget), api_name_db);
     gtk_combo_box_set_active(GTK_COMBO_BOX(select_box_widget), atoi(api_method));
     gtk_entry_set_text(GTK_ENTRY(url_widget), api_url);
@@ -184,15 +193,18 @@ void load_api(GtkButton *button, gpointer data)
 
 void handle_request(GtkButton *button, gpointer content)
 {
-    const gchar *api_name_entry, *method_entry, *url_entry, *api_key_entry;
+    const gchar *id_api_entry, *api_name_entry, *method_entry, *url_entry, *api_key_entry;
 
-    GtkWidget *api_name_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->data;
+    GtkWidget *id_api = gtk_container_get_children(GTK_CONTAINER(content))->next->data;
+    GtkWidget *api_name_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
     GtkWidget *api_name = gtk_container_get_children(GTK_CONTAINER(api_name_parent))->data;
-    GtkWidget *select_box_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->data;
+    GtkWidget *select_box_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
     GtkWidget *select_box = gtk_container_get_children(GTK_CONTAINER(select_box_parent))->next->data;
-    GtkWidget *url = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
-    GtkWidget *api_key = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->data;
 
+    GtkWidget *url = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->data;
+    GtkWidget *api_key = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->next->data;
+
+    id_api_entry = gtk_entry_get_text(GTK_ENTRY(id_api));
     api_name_entry = gtk_entry_get_text(GTK_ENTRY(api_name));
     method_entry = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(select_box));
     url_entry = gtk_entry_get_text(GTK_ENTRY(url));
@@ -270,6 +282,24 @@ void handle_request(GtkButton *button, gpointer content)
 
             gtk_widget_show_all(response_window);
         }
+
+        MYSQL *conn;
+        MYSQL_RES *res;
+        MYSQL_ROW row;
+
+        const char *server = "sportplus.ddns.net";
+        const char *user = "cookmaster_api_request_dev";
+        const char *password = "QGACsfzEvuel0S0b";
+        const char *database = "cookmaster_api_request_dev";
+
+        conn = mysql_init(NULL);
+
+        if (!mysql_real_connect(conn, server, user, password, database, 0, NULL, 0))
+        {
+            fprintf(stderr, "%s\n", mysql_error(conn));
+        }
+
+        addLog(conn, atoi(id_api_entry), "Requete");
 
         curl_easy_cleanup(curl);
     }

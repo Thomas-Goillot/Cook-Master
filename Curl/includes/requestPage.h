@@ -8,6 +8,7 @@
 
 #include "ui.h"
 #include "json.h"
+#include "sql.h"
 
 typedef struct
 {
