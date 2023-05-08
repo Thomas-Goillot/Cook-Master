@@ -61,11 +61,13 @@ class Events extends Model
      * @param string $date_start
      * @param string $date_end
      * @param int $place
+     * @param string $image
+     * @param string $slug
      * @return bool
      */
-    public function addEvent(string $name, string $description, float $price, int $id_users, string $date_start, string $date_end, int $place): bool
+    public function addEvent(string $name, string $description, float $price, int $id_users, string $date_start, string $date_end, int $place, string $image, string $slug): bool
     {
-        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users, date_start, date_end, place) VALUES (:name, :description, :price, :id_users, :date_start, :date_end, :place)";
+        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users, date_start, date_end, place, image, slug) VALUES (:name, :description, :price, :id_users, :date_start, :date_end, :place, :image, :slug)";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -76,6 +78,8 @@ class Events extends Model
         $stmt->bindParam(":date_start", $date_start);
         $stmt->bindParam(":date_end", $date_end);
         $stmt->bindParam(":place", $place);
+        $stmt->bindParam(":image", $image);
+        $stmt->bindParam(":slug", $slug);
 
         return $stmt->execute();
     }

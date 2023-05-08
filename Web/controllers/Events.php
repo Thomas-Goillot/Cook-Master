@@ -48,9 +48,44 @@ class Events extends Controller
             $EventEntryPrice = htmlspecialchars($_POST['EventEntryPrice']);
             $EventDate = htmlspecialchars($_POST['EventDate']);
             $EventTemplateId = htmlspecialchars($_POST['EventTemplateId']);
-            $Eventplace = htmlspecialchars($_POST['EventPlace']);
+            $Eventplace = (int)htmlspecialchars($_POST['EventPlace']);
+            $EventSlug = htmlspecialchars($_POST['EventSlug']);
 
-            if (empty($EventName) || empty($EventDescription) || empty($EventEntryPrice) || empty($EventDate) || empty($EventTemplateId) || empty($Eventplace)) {
+            
+            $acceptable = array('image/jpeg', 'image/png');
+            $image = $_FILES['image']['type'];
+
+            if (!in_array($image, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['image']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            //Si le dossier uploads n'existe pas, le créer
+            $path = 'assets/images/event';
+            if (!file_exists('assets/images/event/')) {
+                mkdir('assets/images/event/');
+            }
+
+            $filename = $_FILES['image']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+            $image = $filename;
+
+            if (empty($EventName) || empty($EventDescription) || empty($EventEntryPrice) || empty($EventDate) || empty($EventTemplateId) || empty($Eventplace) || empty($EventSlug)) {
                 $this->setError("Echéc de l\'ajout","Veuillez remplir tous les champs", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
@@ -111,8 +146,7 @@ class Events extends Controller
             $EventDate['end'] = date('Y-m-d', strtotime($EventDate['end']));
 
             $userId = $this->getUserId();
-
-            $res = $this->_model->addEvent($EventName, $EventDescription, $EventEntryPrice, $userId, $EventDate['start'], $EventDate['end'], $Eventplace);
+            $res = $this->_model->addEvent($EventName, $EventDescription, $EventEntryPrice, $userId, $EventDate['start'], $EventDate['end'], $Eventplace, $image, $EventSlug);
 
             if ($res === false) {
                 $this->setError("Echéc de l\'ajout", "Une erreur est survenue lors de l\'ajout de l\'évènement", ERROR_ALERT);

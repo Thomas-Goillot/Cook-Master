@@ -7,7 +7,7 @@
 
             </div>
         </div>
-        </div>
+    </div>
 
 
 <script>
@@ -71,7 +71,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title d-inline-block mb-3"><i class="bx bx-calendar-event"></i> Vos évènements à venir</h4>
+            <h4 class="card-title d-inline-block mb-3"><i class="bx bx-calendar-event"></i> Vos évènements passés</h4>
             <div class="dropdown float-right position-relative">
                 <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown" aria-expanded="false">
                     <i class="mdi mdi-dots-vertical"></i>
