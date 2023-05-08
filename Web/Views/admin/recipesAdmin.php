@@ -84,9 +84,11 @@ include_once('Views/layout/dashboard/path.php');
                             </thead>
                             <tbody>
                                 <?php
-                                if (isset($data['results'])) {
-                                    foreach ($data['results'] as $ingredient) {
-                                        echo "<td>Nom : " . $ingredient['name'] ."</td>";
+                                dump($data);
+                                if (isset($redirectParams['results'])) {
+                                    foreach ($redirectParams['results'] as $data) {
+                                        echo "Nom : " . $data['name'] . "<br>";
+                                        echo "Image : " . $data['image'] . "<br>";
                                     }
                                 } else {
                                     echo "Aucun résultat trouvé";

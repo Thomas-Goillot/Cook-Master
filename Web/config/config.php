@@ -51,5 +51,6 @@ include_once("location.php");
 //const for equipment
 include_once("equipment.php");
 
+include_once("apiKey.php");
 
 ?>

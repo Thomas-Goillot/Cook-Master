@@ -128,12 +128,12 @@ class Admin extends Controller
 
             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
-            $name = $_POST['name'];
-            $description = $_POST['description'];
+            $name = htmlspecialchars($_POST['name']);
+            $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $price_purchase = $_POST['price_purchase'];
-            $price_rental = $_POST['price_rental'];
-            $disponibilityStock = (int)$_POST['disponibilityStock'];
+            $price_purchase = htmlspecialchars($_POST['price_purchase']);
+            $price_rental = htmlspecialchars($_POST['price_rental']);
+            $disponibilityStock = htmlspecialchars((int)$_POST['disponibilityStock']);
             $id_users = $_SESSION['user']['id_users'];
 
 
