@@ -54,6 +54,12 @@ abstract class Controller extends Utils{
             array('newScript' => $newScript)
         );
 
+        //handle params 
+        if(isset($_SESSION['params'])){
+            $data = array_merge($data, array('redirectParams' => $_SESSION['params']));
+            unset($_SESSION['params']);
+        }
+
         //render view
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
@@ -159,7 +165,11 @@ abstract class Controller extends Utils{
      * @param string $path
      * @return void
      */
-    public function redirect(string $path): void{
+    public function redirect(string $path, array $params = []): void{
+
+        if(count($params) > 0){
+            $_SESSION['params'] = $params;
+        }
         header('Location: ' . $path);
         exit();
     }
