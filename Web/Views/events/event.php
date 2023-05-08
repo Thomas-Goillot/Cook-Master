@@ -12,8 +12,8 @@ echo '  <div class="col-12 margin">
                 <img src="' . $path_prefix  . 'assets/images/events/' . $event['image'] . '" class="img-thumbnail">
                 <div class="overlay"></div>
                 <div class="caption">
-                    <h1 class="text-white">' . $event['name'] . '</h1>
-                    <h3 class="text-white">' . $event['slug'] . '</h1>
+                <h1 class="text-white">' . $event['name'] . '</h1>
+                <h4 class="text-white">' . $event['slug'] . '</h4>
                 </div>
             </div>
     </div>
