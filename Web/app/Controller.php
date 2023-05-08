@@ -21,6 +21,12 @@ abstract class Controller extends Utils{
      */
     private array $script = [];
 
+    /**
+     * Will contain the css file
+     * @var array $css
+     */
+    private array $css = [];
+
     
     /**
      * Render a view
@@ -52,6 +58,12 @@ abstract class Controller extends Utils{
         $newScript = $this->generateScriptTag($this->getNewScript(), $data['path_prefix']);
         $data = array_merge($data,
             array('newScript' => $newScript)
+        );
+
+        //handle new css 
+        $newCss = $this->generateLinkTag($this->getNewCss(), $data['path_prefix']);
+        $data = array_merge(
+            $data, array('newCss' => $newCss)
         );
 
         //handle params 
@@ -214,7 +226,25 @@ abstract class Controller extends Utils{
         return $this->script;
     }
 
+    /**
+     * Add css file to head.php
+     * The specified file must be in the assets folder
+     * @param array $css
+     */
+    public function setCssFile(array $css): void{
+        foreach ($css as $value) {
+            $this->css[] = $value;
+        }
+    }
 
+    /**
+     * Get css file
+     * @return array
+     */
+    public function getNewCss(): array{
+        return $this->css;
+    }
+    
     /**check if there is some words in the message that are not allowed
      * @param string $message 
      * @return string $message

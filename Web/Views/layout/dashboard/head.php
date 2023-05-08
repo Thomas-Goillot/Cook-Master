@@ -29,3 +29,10 @@
 <link href="<?= $path_prefix ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>assets/css/theme.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Custom css -->
+<?php
+if (isset($newCss) && $newCss != "") {
+    echo $newCss;
+}
+?>

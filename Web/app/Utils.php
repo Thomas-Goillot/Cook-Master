@@ -186,6 +186,18 @@ abstract class Utils extends Security
     }
 
     /**
+     * Create link tag for css files
+     */
+    public function generateLinkTag(array $links, string $path_prefix): string
+    {
+        $link = "";
+        foreach ($links as $value) {
+            $link .= "<link href='".$path_prefix."assets/".$value."' rel='stylesheet' type='text/css' />";
+        }
+        return $link;
+    }
+
+    /**
      * Get user id from session
      * @return int
      */
