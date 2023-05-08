@@ -1,6 +1,6 @@
 <div class="card card-animate">
     <div class="card-body">
-        <form action="../Events/addEvent" method="POST">
+        <form action="../Events/addEvent" method="POST" enctype="multipart/form-data">
 
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h4 class="card-title m-0 p-0">Créer un événement</h4>
@@ -46,7 +46,7 @@
 
             <div class="form-group">   
                 <label>Image</label>
-                <input type="file" name="EventImage" class="dropify" />       
+                <input type="file" name="image" class="dropify" accept="image/png, image/jpeg"/>       
             </div>
 
 
