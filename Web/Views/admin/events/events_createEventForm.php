@@ -20,7 +20,12 @@
             </div>
 
             <div class="form-group">
-                <label>Textarea</label>
+                <label>Label</label>
+                <textarea id="EventDescription" name="EventSlug" class="form-control" maxlength="500" rows="4" placeholder="Courte description de présentation"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Descritpion</label>
                 <textarea id="EventDescription" name="EventDescription" class="form-control" maxlength="500" rows="4" placeholder="Ceci est une courte description de moins de 500 caractères"></textarea>
             </div>
 
@@ -37,6 +42,11 @@
             <div class="form-group">
                 <label>Date de la location</label>
                 <input type="text" class="form-control date" id="EventDate" name="EventDate" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY hh:mm'}">
+            </div>
+
+            <div class="form-group">   
+                <label>Image</label>
+                <input type="file" name="EventImage" class="dropify" />       
             </div>
 
 

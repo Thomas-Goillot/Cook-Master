@@ -49,8 +49,10 @@ class Events extends Controller
             $EventDate = htmlspecialchars($_POST['EventDate']);
             $EventTemplateId = htmlspecialchars($_POST['EventTemplateId']);
             $Eventplace = htmlspecialchars($_POST['EventPlace']);
+            $EventImage = htmlspecialchars($_POST['EventImage']);
+            $EventSlug = htmlspecialchars($_POST['EventSlug']);
 
-            if (empty($EventName) || empty($EventDescription) || empty($EventEntryPrice) || empty($EventDate) || empty($EventTemplateId) || empty($Eventplace)) {
+            if (empty($EventName) || empty($EventDescription) || empty($EventEntryPrice) || empty($EventDate) || empty($EventTemplateId) || empty($Eventplace) || empty($EventSlug) || empty($EventImage)) {
                 $this->setError("Echéc de l\'ajout","Veuillez remplir tous les champs", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
@@ -112,7 +114,7 @@ class Events extends Controller
 
             $userId = $this->getUserId();
 
-            $res = $this->_model->addEvent($EventName, $EventDescription, $EventEntryPrice, $userId, $EventDate['start'], $EventDate['end'], $Eventplace);
+            $res = $this->_model->addEvent($EventName, $EventDescription, $EventEntryPrice, $userId, $EventDate['start'], $EventDate['end'], $Eventplace, $EventImage, $EventSlug);
 
             if ($res === false) {
                 $this->setError("Echéc de l\'ajout", "Une erreur est survenue lors de l\'ajout de l\'évènement", ERROR_ALERT);

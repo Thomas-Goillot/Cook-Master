@@ -535,14 +535,36 @@ class Admin extends Controller
         $this->loadModel('Workshop');
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
-        $this->render('admin/workshop', compact('page_name',), DASHBOARD);
+
+        $getAllLocationWithOpeningHours = $this->_model->getAllLocationWithOpeningHours();
+
+        $this->render('admin/workshop', compact('getAllLocationWithOpeningHours', 'page_name'), DASHBOARD);
+    }
+
+    /**
+     * ajax request to get the location view
+     * @return void
+     */
+    public function getlocationWithView():void
+    {
+
+        $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $id_location = $data['idLocation'];
+
+        $this->loadModel('Workshop');
+
+        $location = $this->_model->getLocationInfoById($id_location);
+
+        echo $this->generateFile('Views/admin/worskshop.php', compact('Workshop', 'days'));
     }
 
     /**
      * addWorkshop
      * @return void
      */
-    public function addWorkhop(): void
+    public function addWorkshop(): void
 
     {
         if (!isset($_POST['submit'])) {
@@ -712,4 +734,5 @@ class Admin extends Controller
         $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
         $this->redirect("../products");
     }
+
 }
