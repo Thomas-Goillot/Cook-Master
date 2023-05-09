@@ -28,7 +28,7 @@
 
 
                                         echo" <td>                  
-                                              <a href='" . $path_prefix . "admin/editWorkshopDisplay/" . $allWorkshop['id_workshop'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                              <a href='" . $path_prefix . "WorkshopAdmin/editWorkshopDisplay/" . $allWorkshop['id_workshop'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
                                             </td>";
                                     }
                                     ?>                            

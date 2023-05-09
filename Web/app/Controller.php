@@ -72,6 +72,10 @@ abstract class Controller extends Utils{
             unset($_SESSION['params']);
         }
 
+        $this->loadModel('User');
+
+        $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
+
         //render view
         if($type == DASHBOARD){
             $this->renderDashboard($file, $data);
@@ -92,9 +96,6 @@ abstract class Controller extends Utils{
      */
     private function renderDashboard(string $file, array $data = []): void{
 
-        $this->loadModel('User');
-        
-        $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
         
         
         $sidebarAdmin = "";
@@ -108,8 +109,6 @@ abstract class Controller extends Utils{
         if ($this->isRh($data['user']['id_access'])) {
             $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
         }
-
-
 
         $data = array_merge($data, array('sidebarAdmin' => $sidebarAdmin));
         $data = array_merge($data, array('sidebarRh' => $sidebarRh));
