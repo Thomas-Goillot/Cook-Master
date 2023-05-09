@@ -28,29 +28,29 @@ define('LOGO_SVG', 'assets/images/logo.svg');
 define('LOGO_PNG', 'assets/images/logo.png');
 
 //CONST FOR LENGHT OF columns in table users
-include_once("users.php");
+include_once("constant/users.php");
 
 //CONST FOR TYPE OF ACCESS
-include_once("access.php");
+include_once("constant/access.php");
 
 //CONST CONST FOR LENGHT OF columns in table subscriptions
-include_once("subscription.php");
+include_once("constant/subscription.php");
 
 //ALERT MESSAGES
-include_once("alert.php");
+include_once("constant/alert.php");
 
 //CONST FOR LENGHT OF columns in table event_template
-include_once("eventTemplate.php");
+include_once("constant/eventTemplate.php");
 
 //CONST FOR LENGHT OF columns in table event
-include_once("events.php");
+include_once("constant/events.php");
 
 //CONST FOR LOCATION FONCTIONNALITIES
-include_once("location.php");
+include_once("constant/location.php");
 
 //const for equipment
-include_once("equipment.php");
+include_once("constant/equipment.php");
 
-include_once("apiKey.php");
+include_once("constant/apiKey.php");
 
 ?>
