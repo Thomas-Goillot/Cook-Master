@@ -2,7 +2,7 @@
     <link href="<?= $path_prefix ?>assets/css/events/styles1.css" rel="stylesheet" />
 </head>
 <?php
-    include_once('Views/layout/dashboard/path.php');
+    include_once('views/layout/dashboard/path.php');
 ?>
 
 <div class="row">

@@ -1,5 +1,5 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 <form action="../location/add" method="POST" enctype='multipart/form-data'>
@@ -9,7 +9,7 @@ include_once('Views/layout/dashboard/path.php');
 
         <div class="col-lg-6">
 
-            <?php include_once('Views/location/createLocationFormInformation.php'); ?>
+            <?php include_once('views/location/createLocationFormInformation.php'); ?>
 
             <div class="card">
                 <div class="card-body">
@@ -42,9 +42,9 @@ include_once('Views/layout/dashboard/path.php');
 
         <div class="col-lg-6">
 
-            <?php include_once('Views/location/createLocationFormOpeningHours.php'); ?>
+            <?php include_once('views/location/createLocationFormOpeningHours.php'); ?>
 
-            <?php include_once('Views/location/createLocationFormImages.php'); ?>
+            <?php include_once('views/location/createLocationFormImages.php'); ?>
 
         </div>
 

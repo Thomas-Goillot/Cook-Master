@@ -1,13 +1,13 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 <div class="row">
 
-    <?php include_once('Views/users/userInfo.php'); ?>
+    <?php include_once('views/users/userInfo.php'); ?>
 
-    <?php include_once('Views/users/userCommand.php'); ?>
+    <?php include_once('views/users/userCommand.php'); ?>
 
-    <?php include_once('Views/users/userEvent.php'); ?>
+    <?php include_once('views/users/userEvent.php'); ?>
 
 </div>
 <!-- end row-->

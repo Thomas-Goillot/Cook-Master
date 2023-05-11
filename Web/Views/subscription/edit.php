@@ -1,5 +1,5 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 <div class="row">
@@ -46,7 +46,7 @@ include_once('Views/layout/dashboard/path.php');
     </div>
 
     <?php
-    include_once('Views/subscription/pricing.php');
+    include_once('views/subscription/pricing.php');
     ?>
 
     <script>

@@ -1,5 +1,5 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 <div class="row" style="max-height: 60vh;">

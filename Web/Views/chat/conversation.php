@@ -11,7 +11,7 @@
 
 <div class="d-flex flex-column mt-5 overflow-auto" style="max-height: 50vh;" id="chatbox">
 
-    <?php include_once('Views/Chat/Chatbox.php'); ?>
+    <?php include_once('views/chat/chatbox.php'); ?>
 
 </div>
 

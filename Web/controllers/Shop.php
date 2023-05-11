@@ -42,8 +42,7 @@ class Shop extends Controller
         $this->loadModel("Shop");
 
         
-        $id_users = $_SESSION['user']['id_users'];
-
+        $id_users = $$this->getUserId();
        
 
         $verifCart = $this->_model->verifCart($id_users);

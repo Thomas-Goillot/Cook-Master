@@ -44,7 +44,7 @@ class Avatar extends Controller
             $avatar['brows'] = $this->randomImg('assets/images/avatar/brows/');
         }
 
-        $avatar = $this->generateFile('Views/avatar/avatarImages.php', compact('avatar'));
+        $avatar = $this->generateFile('views/avatar/avatarImages.php', compact('avatar'));
 
 
         $page_name = array("Avatar" => "avatar", "Création d'un avatar" => "avatar/createAvatar");
@@ -64,7 +64,7 @@ class Avatar extends Controller
         $avatar['mouth'] = $this->randomImg('assets/images/avatar/mouth/');
         $avatar['brows'] = $this->randomImg('assets/images/avatar/brows/');
 
-        $html = $this->generateFile('Views/avatar/avatarImages.php',compact('avatar'));
+        $html = $this->generateFile('views/avatar/avatarImages.php',compact('avatar'));
 
         echo $html;
     }

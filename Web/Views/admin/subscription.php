@@ -1,14 +1,14 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 <div class="row">
-    <?php include_once('Views/admin/subscription/subscription_user_recap.php'); ?>
+    <?php include_once('views/admin/subscription/subscription_user_recap.php'); ?>
 </div>
 
 <div class="row">
 
-    <?php include_once('Views/admin/subscription/subscription_list.php'); ?>
+    <?php include_once('views/admin/subscription/subscription_list.php'); ?>
 
 </div>
 
@@ -23,11 +23,11 @@ include_once('Views/layout/dashboard/path.php');
 
 <div class="row">
 
-    <?php include_once('Views/admin/subscription/subscription_option.php'); ?>
+    <?php include_once('views/admin/subscription/subscription_option.php'); ?>
 
-    <?php include_once('Views/admin/subscription/subscription_rewards.php'); ?>
+    <?php include_once('views/admin/subscription/subscription_rewards.php'); ?>
 
-    <?php include_once('Views/admin/subscription/subscription_shipping_type.php'); ?>
+    <?php include_once('views/admin/subscription/subscription_shipping_type.php'); ?>
 
 </div>
 
@@ -46,7 +46,7 @@ include_once('Views/layout/dashboard/path.php');
 
 
             <?php
-            include_once('Views/subscription/pricing.php');
+            include_once('views/subscription/pricing.php');
 
             ?>
 

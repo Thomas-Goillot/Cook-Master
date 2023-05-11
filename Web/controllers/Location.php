@@ -61,7 +61,7 @@ class Location extends Controller
 
         $location = $this->_model->getLocationInfoById($id_location);
 
-        echo $this->generateFile('Views/location/locationCard.php', compact('location', 'days'));
+        echo $this->generateFile('views/location/locationCard.php', compact('location', 'days'));
     }
 
 

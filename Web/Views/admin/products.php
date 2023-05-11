@@ -2,14 +2,14 @@
     <link href="<?= $path_prefix ?>assets/css/products/products.css" rel="stylesheet" />
 </head>
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 <div class="row">
     <div class="col-lg-4">
         <div class="card card-animate">
             <div class="card-body">
                 <form action="<?= $path_prefix ?>admin/addProduct" method="POST" enctype="multipart/form-data">
-                    <?php include_once('Views/shop/form.php'); ?>
+                    <?php include_once('views/shop/form.php'); ?>
                 </form>
             </div>
         </div>

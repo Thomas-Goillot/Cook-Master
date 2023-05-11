@@ -3,7 +3,7 @@ $(document).ready(function () {
   var intId = null;
   
   async function displayConversation(idConversation) {
-    await fetch("Chat/displayConversation/" + idConversation)
+    await fetch("chat/displayConversation/" + idConversation)
       .then((response) => response.text())
       .then((html) => {
         $("#ConversationChatBox").html(html);
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
           $("#chatbox").append(`<div class="message user-1">${message}</div>`);
           
-          await fetch("Chat/sendMessage", {
+          await fetch("chat/sendMessage", {
             method: "POST",
             body: JSON.stringify({
               message: message,
@@ -49,7 +49,7 @@ $(document).ready(function () {
   }
 
   async function refreshConversation(idConversation) {
-    await fetch("Chat/refreshConversation/" + idConversation)
+    await fetch("chat/refreshConversation/" + idConversation)
       .then((response) => response.text())
       .then((html) => $("#chatbox").html(html))
       .catch((error) => console.error(error));

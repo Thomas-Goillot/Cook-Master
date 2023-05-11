@@ -11,7 +11,7 @@ class Chat extends Controller
      * Default path to the view
      * @var string
      */
-    private string $default_path = "Chat/index";
+    private string $default_path = "chat/index";
 
     public function __construct()
     {
@@ -65,7 +65,7 @@ class Chat extends Controller
 
         $page_name = array("Conversation" => "Chat");
 
-        $this->setJsFile(array('Chat.js'));
+        $this->setJsFile(array('chat.js'));
 
         $this->render($this->default_path, compact('conversationGuest','page_name'),DASHBOARD);
     }
@@ -136,7 +136,7 @@ class Chat extends Controller
         }
 
 
-        $this->render('Chat/conversation', compact('user_id', 'conversationGuest', 'messages', 'conversations'),NO_LAYOUT);
+        $this->render('chat/conversation', compact('user_id', 'conversationGuest', 'messages', 'conversations'),NO_LAYOUT);
     }
 
     /**
@@ -165,7 +165,7 @@ class Chat extends Controller
             }
         }
 
-        $this->render('Chat/Chatbox', compact('user_id','messages'),NO_LAYOUT);
+        $this->render('chat/chatbox', compact('user_id','messages'),NO_LAYOUT);
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-include_once('Views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 <head>
@@ -11,7 +11,7 @@ include_once('Views/layout/dashboard/path.php');
         <div class="card-body">
             <form action="<?= $path_prefix ?>admin/editProduct/<?= $id_equipment ?>" method="POST" enctype="multipart/form-data">
                 <h1>Modification du produit</h1>
-                <?php include_once('Views/shop/form.php'); ?>
+                <?php include_once('views/shop/form.php'); ?>
             </form>
 
             <div class="d-flex flex-column justify-content-center align-items-center">
