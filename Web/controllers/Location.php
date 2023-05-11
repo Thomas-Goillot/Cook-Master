@@ -11,7 +11,7 @@ class Location extends Controller
      * Default path to the view
      * @var string
      */
-    private string $default_path = "Location/index";
+    private string $default_path = "location/index";
 
     public function __construct()
     {
@@ -76,7 +76,7 @@ class Location extends Controller
 
         $this->setJsFile(array('location.js'));
 
-        $this->render("Location/createlocation", compact('page_name','days','days_fr'), DASHBOARD, '../');
+        $this->render("location/createLocation", compact('page_name','days','days_fr'), DASHBOARD, '../');
     }
 
     public function add():void

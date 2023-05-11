@@ -39,35 +39,63 @@ class Shop extends Controller
 
     public function verifCart() : void
     {
-        $this->loadModel("Shop");
 
+        $defaultFallBack = "../shop";
+
+        if(!isset($_POST)){
+            $this->setError("Erreur","Une erreur est survenue", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if (!isset($_POST['idProduct']) && !isset($_POST['numberOfProduct']) && empty($_POST['idProduct']) && empty($_POST['numberOfProduct'])) {
+            $this->setError("Erreur", "Merci de remplir tous les champs", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        $numberOfProduct = htmlspecialchars($_POST['numberOfProduct']);
+        $idProduct = htmlspecialchars($_POST['idProduct']);     
         
-        $id_users = $$this->getUserId();
+        $this->loadModel("Products");
+
+        $productExist = $this->_model->getEquipmentById($idProduct);
+
+        if(!is_numeric($numberOfProduct)){
+            $this->setError("Erreur","Le nombre de produit doit être un nombre", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if(!is_numeric($idProduct)){
+            $this->setError("Erreur","L'id du produit doit être un nombre", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if(!isset($productExist['id_equipment'])){
+            $this->setError("Erreur","Le produit n'existe pas", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        $this->loadModel("Shop");
+        
+        $idUser = $this->getUserId();
+
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        if($userCartId === false){
+            $this->_model->createCart($idUser);
+            $userCartId = $this->_model->getUserCartId($idUser);
+        }
+
+        if(!$this->_model->addProductToCart($userCartId,$idProduct,$numberOfProduct)){
+            $this->setError("Erreur","Une erreur est survenue lors de l'ajout du produit au panier", ERROR_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $this->setError("Succès","Le produit a bien été ajouté au panier", SUCCESS_ALERT);
+        $this->redirect('../shop');
+
+
        
 
-        $verifCart = $this->_model->verifCart($id_users);
-
-        
-
-        
-        if($verifCart == true){
-
-            $this->setError('Produit ajouté au panier !','Votre produit a bien été ajouter dans votre panier !',SUCCESS_ALERT);
-            $this->redirect('../shop');
-        }
-
-        
-        if($verifCart == false){
-             $id_command_status = 1;
-             $this->_model->createCart($id_command_status,$id_users);
-
-
-            $this->setError('Produit ajouté au panier !','Votre produit a bien été ajouter dans votre panier !',SUCCESS_ALERT);
-            $this->redirect('../shop');
-        }
-
-
-        
 
     }
 
