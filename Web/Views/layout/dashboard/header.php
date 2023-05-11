@@ -9,9 +9,9 @@
 
         <div class="d-flex align-items-center">
 
-            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>shop/cart">
                 <i class="bx bx-shopping-bag"></i>
-            </button>
+            </a>
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

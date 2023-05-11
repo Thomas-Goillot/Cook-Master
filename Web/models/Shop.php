@@ -23,7 +23,7 @@ class Shop extends Model
      */
     public function getAllProductsOfCart($idCart): array
     {
-        $query = "SELECT * FROM contains WHERE id_shopping_cart = :idCart";
+        $query = "SELECT contains.id_equipment, quantity,name,image,stock,price_purchase,allow_purchase FROM contains,equipment WHERE id_shopping_cart = :idCart and contains.id_equipment = equipment.id_equipment";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -125,6 +125,41 @@ class Shop extends Model
             ":id_equipment" => $idProduct,
             ":id_shopping_cart" => $userCartId,
             ":quantity" => $numberOfProduct            
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     * delete product from cart
+     * @return bool
+     */
+    public function deleteProductInCart(int $userCartId, int $idProduct): bool
+    {
+        $query = "DELETE FROM contains WHERE id_equipment = :id_equipment AND id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_equipment" => $idProduct,
+            ":id_shopping_cart" => $userCartId
+        );
+
+        return $stmt->execute($data);
+    }
+    
+    /**
+     * delete cart from user
+     * @return bool
+     */
+    public function deleteCart(int $userCartId): bool
+    {
+        $query = "DELETE FROM shopping_cart WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $userCartId
         );
 
         return $stmt->execute($data);

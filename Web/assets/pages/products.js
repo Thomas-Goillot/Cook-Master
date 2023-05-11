@@ -1,8 +1,3 @@
-
-
-
-
-
 const checkbox = document.getElementById("price_display");
 const priceDiv = document.getElementById("price");
 const priceDefault = document.getElementById("price_default");

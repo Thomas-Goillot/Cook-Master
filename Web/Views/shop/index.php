@@ -55,7 +55,7 @@
                             </div>
                     
                             <div class='d-flex flex-column'>
-                            <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                            <form action='$path_prefix shop/addProductToCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
                             <h5>Quantité souhaité :</h5>
                             <input type='hidden' name='idProduct' value='".$allProduct['id_equipment']. "'>
                             <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='numberOfProduct' min='0' required='' class='form-control'>

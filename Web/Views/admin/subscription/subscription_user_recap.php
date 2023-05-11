@@ -10,7 +10,7 @@ foreach($subscriptionsNumber as $subscription){
                     </span>
                 </div>
                 <h6 class=\"text-muted text-uppercase mt-0\">". $subscription['name']."</h6>
-                <h3 class=\"my-3\">". $subscription['subscription_total']. " utilisateur".$this->plural($subscription['subscription_total'])."</h3>
+                <h3 class=\"my-3\">". $subscription['subscription_total']. " utilisateur".plural($subscription['subscription_total'])."</h3>
                 <span class=\"badge badge-soft-primary mr-1\"> + " . $subscription['subscription_this_month'] . "</span> <span class=\"text-muted\">utilisateurs ce mois ci</span>
             </div>
         </div>

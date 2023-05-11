@@ -139,19 +139,6 @@ abstract class Utils extends Security
         return $page_name;
     }
 
-    /** 
-     * Calcul si faut mettre un s ou pas
-     * @param int $number
-     * @return string
-     */
-    public function plural(int $number): string
-    {
-        if ($number > 1) {
-            return "s";
-        }
-        return "";
-    }
-
     /**
      * Display an alerts
      * @param string $title
