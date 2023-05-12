@@ -1,4 +1,4 @@
-<div class="col-lg-4">
+<div class="col col-lg-4">
     <div class="card card-animate">
         <div class="card-body">
             <div class="dropdown float-right position-relative">

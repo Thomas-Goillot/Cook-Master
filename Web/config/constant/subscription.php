@@ -8,6 +8,8 @@ define('MIN_SUBSCRIPTION_PRICE', 0);
 
 define('MIN_ACCESS_TO_LESSONS', -1);
 
+define('NO_PAYMENT', 'NO_PAYMENT');
+
 //REWARDS
 define('MAX_REWARDS_NAME', 50);
 

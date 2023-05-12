@@ -1,3 +1,6 @@
 RewriteEngine On
 
+ErrorDocument 404 ErrorHttp
+
+
 RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1

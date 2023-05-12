@@ -25,13 +25,14 @@ include_once('views/layout/dashboard/path.php');
                         foreach ($allProduct as $allProduct) {
                             if ($allProduct['allow_purchase'] == 0) {
 
-                                echo ' <div class="row main align-items-center">';
-                                echo ' <div class="col-2"><img class="img-fluid" src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '"></div>';
-                                echo '<div class="col">';
-                                echo '<div class="row text-muted">' . $allProduct['name'] . '</div>';
-                                echo '</div>';
-                                echo '<div class="col">';
-                                echo '<a href="#">-</a><a href="#" class="border">' . $allProduct['quantity'] . '</a><a href="#">+</a>';
+                                echo '<div class="row main align-items-center">';
+                                    echo ' <div class="col-2"><img class="img-fluid" src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '"></div>';
+                                    echo '<div class="col">';
+                                        echo '<div class="row text-muted">' . $allProduct['name'] . '</div>';
+                                    echo '</div>';
+
+                                    echo '<div class="col">';
+                                        echo '<a href="#">-</a><a href="#" class="border" data-id="' . $allProduct['id_equipment'] . '">' . $allProduct['quantity'] . '</a><a href="#">+</a>';
                                 echo '</div>';
                                 echo '<div class="col">&euro; ' . $allProduct['price_purchase'] . ' <span class="close" data-id="'. $allProduct['id_equipment'].'">&#10005;</span></div>';
                                 echo '</div>';

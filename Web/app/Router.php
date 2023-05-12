@@ -12,6 +12,14 @@ class Router
 
         $params = explode('/', $params);
 
+        $nbParams = count($params);
+
+        $pathErrorHttp = "";
+
+        for ($i = 0; $i < $nbParams; $i++) {
+            $pathErrorHttp .= "../";
+        }
+
         if ($params[0] != "") {
 
             $controller = ucfirst($params[0]);

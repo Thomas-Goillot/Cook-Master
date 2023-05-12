@@ -287,7 +287,7 @@ abstract class Controller extends Utils{
      * @param int $height
      * @return string
      */
-    public function loadAvatar(int $id, string $path_prefix,int $width = NULL, int $height = NULL): string
+    public function loadAvatar(int $id, string $path_prefix, int $width = NULL, int $height = NULL): string
     {
         $this->loadModel('avatar');
 

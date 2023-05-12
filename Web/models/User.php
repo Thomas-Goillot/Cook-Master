@@ -135,10 +135,7 @@ class User extends Model
      * @param string $password
      */
     public function register(string $name, string $surname, string $email, string $phone, string $password){
-
-        try {
-
-        $query = "INSERT INTO " . $this->table . " (name, surname, email, phone, password) VALUES (:name, :surname, :email, :phone, :password); INSERT INTO subscribe_to (id_users,id_subscription) VALUES (LAST_INSERT_ID(),1)";
+        $query = "INSERT INTO " . $this->table . " (name, surname, email, phone, password) VALUES (:name, :surname, :email, :phone, :password);";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -148,11 +145,19 @@ class User extends Model
         $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":password", $password);
 
-        return $stmt->execute();
+        $val =  $stmt->execute();
 
-        } catch (PDOException $e) {
-            return $e->getMessage();
+        $query = "INSERT INTO subscribe_to (id_users,id_subscription) VALUES (LAST_INSERT_ID(),1)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $val2 = $stmt->execute();
+
+        if($val && $val2){
+            return true;
         }
+
+        return false;
     }
 
     /**
