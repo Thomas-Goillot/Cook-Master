@@ -287,7 +287,7 @@ abstract class Controller extends Utils{
      * @param int $height
      * @return string
      */
-    public function loadAvatar(int $id, string $path_prefix, int $width = NULL, int $height = NULL): string
+    public function loadAvatar(int $id, string $path_prefix,string $width = "", string $height = ""): string
     {
         $this->loadModel('avatar');
 
@@ -338,13 +338,13 @@ abstract class Controller extends Utils{
             $avatar_img = ob_get_contents();
             ob_end_clean();
 
-            if ($width != NULL && $height != NULL) {
-                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
+            if ($width != "" && $height != "") {
+                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" style="width:'.$width.';height:'.$height.'" class="rounded-circle header-profile-user">';
             } else {
                 return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" class="rounded-circle header-profile-user">';
             }
         } else {
-            if ($width != NULL && $height != NULL) {
+            if ($width != "" && $height != "") {
                 return '<img src="'. $path_prefix .'assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
             } else {
                 return '<img src="' . $path_prefix . 'assets/images/users/user.png" alt="Avatar" class="rounded-circle header-profile-user">';

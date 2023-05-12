@@ -6,7 +6,7 @@
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#" class="dropdown-item">Modifier mes informations </a></li>
+                    <li><a href="<?= $path_prefix ?>users/editProfil" class="dropdown-item">Modifier mes informations </a></li>
                     <li><a href="#" class="dropdown-item">Changer d'abonnement</a></li>
                     <li class="dropdown-divider"></li>
                     <li><a href="<?= $path_prefix ?>users/downloadInformation" class="dropdown-item">Télécharger en PDF</a></li>
@@ -44,3 +44,5 @@
         </div>
     </div>
 </div>
+
+
