@@ -41,7 +41,7 @@ class User extends Model
      */
     public function getUserInfo(int $id)
     {
-        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified FROM " . $this->table . " WHERE id_users = :id";
+        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified,censure_tchat FROM " . $this->table . " WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -412,6 +412,110 @@ class User extends Model
         }
     }
 
+    /**
+     * Get userPasswords
+     * @return array
+     */
+    public function getUserPasswords(int $id_users):array{
+        try {
+            $query = "SELECT password FROM " . $this->table . " WHERE id_users = :id_users";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id_users", $id_users);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+
+        } catch (PDOException $e) {
+            return array();
+        }
+    }
+
+
+
+    /**
+     * Get edit userInfo
+     * @return void
+     */
+    public function editUserInfo(string $name, string $surname, int $id_users):void
+    {
+        $query = "UPDATE " . $this->table . " SET name = :name, surname = :surname WHERE id_users = :id_users";
+       
+        $data = array(
+            ':name' => $name,
+            ':surname' => $surname,
+            ':id_users' => $id_users
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
+
+    /**
+     * Get edit userContact
+     * @return void
+     */
+    public function editUserContact(string $email, string $phone, int $id_users):void
+    {
+        $query = "UPDATE " . $this->table . " SET email = :email, phone = :phone WHERE id_users = :id_users";
+       
+        $data = array(
+            ':email' => $email,
+            ':phone' => $phone,
+            ':id_users' => $id_users
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
+    /**
+     * Get edit userAddress
+     * @return void
+     */
+    public function editUserAddress(string $country, string $address, string $city, string $zip_code, int $id_users):void
+    {
+        $query = "UPDATE " . $this->table . " SET country = :country, address = :address, city = :city, zip_code = :zip_code WHERE id_users = :id_users";
+       
+        $data = array(
+            ':country' => $country,
+            ':address' => $address,
+            ':city' => $city,
+            ':zip_code' => $zip_code,
+            ':id_users' => $id_users
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
+
+    /**
+     * Get edit userPassword
+     * @return void
+     */
+    public function editUserPassword(string $password, int $id_users):void
+    {
+        $query = "UPDATE " . $this->table . " SET password = :password WHERE id_users = :id_users";
+       
+        $data = array(
+            ':password' => $password,
+            ':id_users' => $id_users
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
 
 
 
