@@ -24,6 +24,10 @@
 <link href="<?= $path_prefix ?>plugins/dropify/dropify.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= $path_prefix ?>plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
+<!-- Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
 
 <!-- App css -->
 <link href="<?= $path_prefix ?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

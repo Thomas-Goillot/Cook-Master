@@ -33,6 +33,10 @@
 <script src="<?= $path_prefix ?>plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src='<?= $path_prefix ?>plugins/fullcalendar/js/fullcalendar.min.js'></script>
 
+<!-- Map -->
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
+
 <!-- PAGES JS -->
 <!-- <script src="<?= $path_prefix ?>assets/pages/materialdesign.init.js"></script> -->
 <script src="<?= $path_prefix ?>assets/pages/fontawesome.init.js"></script>

@@ -39,6 +39,7 @@ class Location extends Controller
         $locations = $this->_model->getAllLocationWithOpeningHours();
 
         $this->setJsFile(array('location.js'));
+        $this->setCssFile(array('css/location/location.css'));
 
         $page_name = array("Admin" => $this->default_path, "Sites" => $this->default_path, "Liste des sites" => $this->default_path);
 
