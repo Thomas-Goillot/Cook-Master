@@ -75,7 +75,7 @@ abstract class Model extends Utils{
         $sql = "SELECT * FROM ".$this->table;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
-        return $query->fetchAll();    
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

@@ -3,18 +3,17 @@
 namespace Controllers;
 
 use App\Controller;
+use App\StripePayment;
 
 class Shop extends Controller
 {
    
     public function __construct()
     {
-
         if ($this->isLogged() === false) {
             $this->redirect('../home');
             exit();
         }
-
     }
     
     /**
@@ -34,7 +33,6 @@ class Shop extends Controller
         
         $this->render('shop/index', compact('page_name','allProduct'), DASHBOARD);
     }
-
 
     /**
      * Add a product to the cart verif method
@@ -114,14 +112,17 @@ class Shop extends Controller
         }
 
         $allProduct = $this->_model->getAllProductsOfCart($userCartId);
-        $nbProduct = count($allProduct);
+        
+        $nbProduct = $this->getNbProductInCart($userCartId);
+
+        $sum = $this->getSumCart($userCartId);
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart");
 
         $this->setCssFile(array('css/shop/cart.css'));
         $this->setJsFile(array('cart.js'));
 
-        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct'), DASHBOARD);
+        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct','sum'), DASHBOARD);
     }
 
     /**
@@ -189,11 +190,284 @@ class Shop extends Controller
             ));
             exit;
         }
-
-
-
-
     }
 
+    /**
+     * Display the livraison page choice
+     * @return void
+     */
+    public function addressselect() : void
+    {
+        $this->loadModel("User");
+        
+        $idUser = $this->getUserId();
+
+        $user = $this->_model->getUserInfo($idUser);
+        
+        $this->loadModel("Shop");
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $userShippingAddress = $this->_model->getUserShippingAddress($idUser);
+        
+        
+        $this->loadModel('Location');
+
+        $allRelayPoint = $this->_model->getAll();
+
+        $this->setJsFile(array('location.js','addressSelect.js'));
+        $this->setCssFile(array('css/location/location.css'));
+
+        $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect");
+
+        $this->render('shop/addressSelect', compact('page_name', 'allRelayPoint', 'userShippingAddress', 'user'), DASHBOARD);
+    }
+
+    /**
+     * Save the relay point selected by the user
+     * @return void
+     */
+    public function relayPointSave(): void{
+        $this->loadModel("Shop");
+
+        $idUser = $this->getUserId();
+
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        $defaultFallBack = "../shop/addressselect";
+
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        if(!isset($_POST['idRelayPoint']) && empty($_POST['idRelayPoint'])){
+            $this->setError("Erreur","Une erreur est survenue lors de la sélection du point relais", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        //check if the relay point exist and if it's a int
+        $idRelayPoint = htmlspecialchars($_POST['idRelayPoint']);
+
+        $this->loadModel('Location');
+
+        $relayPointExist = $this->_model->getLocationInfoById($idRelayPoint);
+
+        if(!isset($relayPointExist['id_location'])){
+            $this->setError("Erreur","Le point relais n\'existe pas", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        $this->loadModel("Shop");
+
+        $this->_model->updateCartRelayPoint($userCartId,$idRelayPoint);
+
+        $this->setError("Succès","Le point relais a bien été enregistré", SUCCESS_ALERT);
+        $this->redirect('../shop/invoiceRecap');
+    }
+
+    /**
+     * Save the address set by the user 
+     * @return void
+     */
+    public function addressSave(): void{
+        $this->loadModel("Shop");
+
+        $idUser = $this->getUserId();
+
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $defaultFallBack = "../shop/addressselect";
+
+        if(!isset($_POST['name']) && empty($_POST['name']) && !isset($_POST['address']) && empty($_POST['address']) && !isset($_POST['city']) && empty($_POST['city']) && !isset($_POST['zipCode']) && empty($_POST['zipCode']) && !isset($_POST['country']) && empty($_POST['country']) && !isset($_POST['userShippingAddress']) || empty($_POST['userShippingAddress']) || $_POST['userShippingAddress'] == 0 || $_POST['userShippingAddress'] == -1){
+            $this->setError("Erreur","Une erreur est survenue lors de la sélection de l\'adresse", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        $name = htmlspecialchars($_POST['name']);
+        $address = htmlspecialchars($_POST['address']);
+        $city = htmlspecialchars($_POST['city']);
+        $zipCode = htmlspecialchars($_POST['zipCode']);
+        $country = htmlspecialchars($_POST['country']);
+
+        if(strlen($name) > SHIPPING_ADDRESS_NAME_MAX_LENGTH){
+            $this->setError("Erreur","Le nom de l\'adresse ne doit pas dépasser ". SHIPPING_ADDRESS_NAME_MAX_LENGTH." caractères", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if(strlen($address) > SHIPPING_ADDRESS_ADDRESS_MAX_LENGTH){
+            $this->setError("Erreur","L\'adresse ne doit pas dépasser ". SHIPPING_ADDRESS_ADDRESS_MAX_LENGTH." caractères", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if(strlen($city) > SHIPPING_ADDRESS_CITY_MAX_LENGTH){
+            $this->setError("Erreur","La ville ne doit pas dépasser ". SHIPPING_ADDRESS_CITY_MAX_LENGTH." caractères", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+
+        if(strlen($country) > SHIPPING_ADDRESS_COUNTRY_MAX_LENGTH){
+            $this->setError("Erreur","Le pays ne doit pas dépasser ". SHIPPING_ADDRESS_COUNTRY_MAX_LENGTH." caractères", ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+        }
+        
+        $this->loadModel("Shop");
+
+        if(isset($_POST['userShippingAddress']) && $_POST['userShippingAddress'] == -1 || !isset($_POST['userShippingAddress']) ){
+            $this->_model->addCartAddress($userCartId, $idUser,$name,$address,$city,(int)$zipCode,$country);
+        }
+        else{
+            $userShippingAddress = htmlspecialchars($_POST['userShippingAddress']);
+            $this->_model->updateCartAddress($userCartId, $idUser, $userShippingAddress, $name, $address, $city, $zipCode, $country);
+        }
+
+        $this->setError("Succès","L\'adresse a bien été enregistré", SUCCESS_ALERT);
+        $this->redirect('../shop/invoiceRecap');
+    }
+
+
+    /**
+     * Display the invoice recap page
+     */
+    public function invoiceRecap() : void
+    {
+        $idUser = $this->getUserId();
+
+        $this->loadModel("User");
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $this->loadModel("Shop");
+
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $allProduct = $this->_model->getAllProductsOfCart($userCartId);
+
+        $sum = $this->getSumCart($userCartId);
+
+        //calculate the tva and the price without tva
+        $tva = $sum * TVA;
+        $priceWithoutTva = $sum - $tva;
+
+        $this->loadModel('Location');
+
+        $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap");
+
+        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva'), DASHBOARD);
+    }
+
+    /**
+     * Display the payment page
+     * @return void
+     */
+    public function pay() : void
+    {
+        $idUser = $this->getUserId();
+
+        $this->loadModel("User");
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $userEmail = $user['email'];
+
+        $this->loadModel("Shop");
+
+        $userCartId = $this->_model->getUserCartId($idUser);
+
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $products = $this->_model->getAllProductsOfCart($userCartId);
+        $sum = $this->getSumCart($userCartId);
+
+
+        $payment = new StripePayment(STRIPE_API_KEY);
+
+        $payment->startPayment($sum, $products, $userEmail);
+
+
+
+
+        $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap", "Paiement" => "shop/pay");
+
+        $this->render('shop/pay', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva'), DASHBOARD);
+    }
+
+    /**
+     * Display the success page
+     * @return void
+     */
+    public function success() : void
+    {
+        echo "success";
+    }
+        
+    /**
+     * Display the cancel page
+     * @return void
+     */
+    public function cancel() : void
+    {
+        echo "cancel";
+    }
+        
+
+
+
+
+
+
+    /**
+     * NOT A PAGE
+     * Get the number of product in the cart
+     * @return int
+     */
+    private function getNbProductInCart(int $idCart): int
+    {
+        $this->loadModel("Shop");
+
+        $allproduct = $this->_model->getAllProductsOfCart($idCart);
+
+        $nbProduct = 0;
+        foreach ($allproduct as $product) {
+            $nbProduct += $product['quantity'];
+        }
+
+        return $nbProduct;
+    }
+
+    /**
+     * NOT A PAGE
+     * Get the sum of the cart
+     * @return int
+     */
+    private function getSumCart(int $idCart): int
+    {
+        $this->loadModel("Shop");
+
+        $allproduct = $this->_model->getAllProductsOfCart($idCart);
+
+        $sum = 0;
+        foreach ($allproduct as $product) {
+            $sum += $product['price_purchase'] * $product['quantity'];
+        }
+
+        return $sum;
+    }
 
 }

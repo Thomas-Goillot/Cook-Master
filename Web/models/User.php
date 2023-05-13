@@ -19,22 +19,6 @@ class User extends Model
     }
 
     /**
-     * Get all users
-     * @return array
-     */
-
-    public function getAll(): array
-    {
-        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified FROM " . $this->table;
-
-        $stmt = $this->_connexion->prepare($query);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Get user info by id
      * @param int $id
      * @return array|bool

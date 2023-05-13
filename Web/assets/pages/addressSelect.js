@@ -66,79 +66,68 @@ window.onload = function () {
       console.error(error);
     });
 
-
-  $(".location").click(function () {
-    var idLocation = $(this).data("idlocation");
-
-    const request = new XMLHttpRequest();
-    const params = {
-      idLocation: idLocation,
-    };
-
-    request.open("POST", "../location/getlocationWithView");
-
-    request.onreadystatechange = function () {
-      if (request.readyState === 4) {
-        document.getElementById("locationCol").innerHTML = request.responseText;
-      }
-    };
-
-    request.send(JSON.stringify(params));
-
-    findLocationCoordinates(
-      document.getElementById("addr" + idLocation).innerHTML
-    )
-      .then(function (coords) {
-        macarte.setView(coords, 15);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-    var msnry = new Masonry(document.getElementById("locationCol"), {
-      itemSelector: ".col-lg-8",
-      columnWidth: ".col-lg-8",
-      gutter: 20,
+    var msnry = new Masonry(document.getElementById("domicile"), {
+        itemSelector: ".col-lg-6",
+        columnWidth: ".col-lg-6",
+        gutter: 20,
     });
-  });
+
+    $(".list-group-item").click(function () {
+    var addr = $(this).data("addr");
+
+    $(this).find('input[type="radio"]').prop("checked", true);
+
+    findLocationCoordinates(addr)
+        .then(function (coords) {
+        macarte.setView(coords, 15);
+        })
+        .catch(function (error) {
+        console.error(error);
+        });
+    });
+
+
+    /* 
+    *  Gestion de la selection d'adresse 
+    */
+    $("#userShippingAddress").change(function () {
+      var id = $("#userShippingAddress option:selected").val();
+
+      if(id == -1){
+        $("#name").val("");
+        $("#address").val("");
+        $("#country").val("");
+        $("#city").val("");
+        $("#zipCode").val("");
+        return;
+      }
+      
+      var name = $("#userShippingAddress option:selected").data("name");
+      var addr = $("#userShippingAddress option:selected").data("address");
+      var country = $("#userShippingAddress option:selected").data("country");
+      var city = $("#userShippingAddress option:selected").data("city");
+      var zipCode = $("#userShippingAddress option:selected").data("zipcode");
+      
+      //set all the value in the input
+      $("#name").val(name);
+      $("#address").val(addr);
+      $("#country").val(country);
+      $("#city").val(city);
+      $("#zipCode").val(zipCode);
+
+
+
+
+
+
+
+
+    });
+
+
+
+
 };
-
-
-
-$("#replicate").click(function () {
-  const mondayMorningOpening = document.getElementById(
-    "opening_hours_morning_Monday"
-  ).value;
-  const mondayMorningClosing = document.getElementById(
-    "closing_hours_morning_Monday"
-  ).value;
-  const mondayAfternoonOpening = document.getElementById(
-    "opening_hours_afternoon_Monday"
-  ).value;
-  const mondayAfternoonClosing = document.getElementById(
-    "closing_hours_afternoon_Monday"
-  ).value;
-
-  const arrayDays = [
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-
-  for (let i = 0; i < arrayDays.length; i++) {
-    document.getElementById("opening_hours_morning_" + arrayDays[i]).value =
-      mondayMorningOpening;
-    document.getElementById("closing_hours_morning_" + arrayDays[i]).value =
-      mondayMorningClosing;
-    document.getElementById("opening_hours_afternoon_" + arrayDays[i]).value =
-      mondayAfternoonOpening;
-    document.getElementById("closing_hours_afternoon_" + arrayDays[i]).value =
-      mondayAfternoonClosing;
-  }
-});
 
 function findLocationCoordinates(addr) {
   return new Promise(function (resolve, reject) {

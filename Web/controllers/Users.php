@@ -83,11 +83,8 @@ class Users extends Controller{
         $this->loadModel('User');
 
         $id_users = $this->getUserId();
+        
         $user = $this->_model->getUserInfo($id_users);
-
-
-       
-
 
         $page_name = array("Profil" => $this->default_path,"Modification du profil : ".$user['name'].""=>"../views/users/editProfil/");
 

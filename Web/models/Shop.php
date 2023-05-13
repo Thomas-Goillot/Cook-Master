@@ -23,7 +23,7 @@ class Shop extends Model
      */
     public function getAllProductsOfCart($idCart): array
     {
-        $query = "SELECT contains.id_equipment, quantity,name,image,stock,price_purchase,allow_purchase FROM contains,equipment WHERE id_shopping_cart = :idCart and contains.id_equipment = equipment.id_equipment";
+        $query = "SELECT contains.id_equipment, quantity,name,image,stock,price_purchase,allow_purchase,description FROM contains,equipment WHERE id_shopping_cart = :idCart and contains.id_equipment = equipment.id_equipment";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -33,8 +33,6 @@ class Shop extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 
      /**
      * get user cart id
@@ -164,12 +162,110 @@ class Shop extends Model
 
         return $stmt->execute($data);
     }
+
+
+    /**
+     * updateCartRelayPoint
+     */
+    public function updateCartRelayPoint(int $userCartId, int $idRelayPoint): bool
+    {
+        $query = "UPDATE shopping_cart SET id_location = :id_location, id_shipping_address = NULL WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_location" => $idRelayPoint,
+            ":id_shopping_cart" => $userCartId
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     * addCartAddress
+     */
+    public function addCartAddress(int $idShoppingCart, int $userId, string $name, string $address, string $city, int $zipCode, string $country): bool
+    {
+        $query = "INSERT INTO shipping_address SET name = :name, address = :address, city = :city, zip_code = :zip_code, country = :country, id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":name" => $name,
+            ":address" => $address,
+            ":city" => $city,
+            ":zip_code" => $zipCode,
+            ":country" => $country,
+            ":id_users" => $userId
+        );
+
+        $stmt->execute($data);
+
+        $lastId = $this->_connexion->lastInsertId();
+
+        $query = "UPDATE shopping_cart SET id_shipping_address = :id_shipping_address, id_location = NULL WHERE id_users = :id_users AND id_command_status = " . CART_PROGRESS;
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shipping_address" => $lastId,
+            ":id_users" => $userId
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     * updateCartAddress
+     */
+    public function updateCartAddress(int $idShoppingCart, int $userId, int $userShippingAddress, string $name, string $address, string $city, int $zipCode, string $country): bool
+    {
+        $query = "UPDATE shipping_address SET name = :name, address = :address, city = :city, zip_code = :zip_code, country = :country WHERE id_shipping_address = :id_shipping_address AND id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":name" => $name,
+            ":address" => $address,
+            ":city" => $city,
+            ":zip_code" => $zipCode,
+            ":country" => $country,
+            ":id_shipping_address" => $userShippingAddress,
+            ":id_users" => $userId
+        );
+
+        $stmt->execute($data);
+        
+        $query = "UPDATE shopping_cart SET id_shipping_address = :id_shipping_address, id_location = NULL WHERE id_users = :id_users AND id_command_status = " . CART_PROGRESS;
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shipping_address" => $userShippingAddress,
+            ":id_users" => $userId
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     *  getUserShippingAddress
+     * */
+    public function getUserShippingAddress(int $userId): array
+    {
+        $query = "SELECT * FROM shipping_address WHERE id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_users" => $userId
+        );
+
+        $stmt->execute($data);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     
-
-
-
-
-
-
 
 }
