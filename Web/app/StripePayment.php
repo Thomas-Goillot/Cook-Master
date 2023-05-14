@@ -13,11 +13,10 @@ class StripePayment extends Controller{
         Stripe::setApiVersion('2022-11-15');
     }
 
-
-    /* 
-    $sum, "EUR", "Merci de faire confiance à". APPNAME, $products
+    /**
+     * Start the payment    
      */
-    public function startPayment(int $sum, array $products, string $email): void
+    public function startPayment(int $sum, array $products, string $email, string $succesPath= 'shop/success', string $cancelPath = 'shop/cancel'): void
     {
         $session = Session::create([
             'payment_method_types' => ['card'],
@@ -36,8 +35,8 @@ class StripePayment extends Controller{
                 }, $products),
             ],
             'mode' => 'payment',
-            'success_url' => 'http://localhost/Cook-Master/WEB/shop/success',
-            'cancel_url' => 'http://localhost/Cook-Master/WEB/shop/cancel',
+            'success_url' => 'http://localhost/Cook-Master/WEB/'. $succesPath,
+            'cancel_url' => 'http://localhost/Cook-Master/WEB/' . $cancelPath,
             'customer_email' => $email,
           ]);
 

@@ -1,5 +1,5 @@
 <head>
-    <link href="<?= $path_prefix ?>assets/css/events/styles.css" rel="stylesheet" />
+  <link href="<?= $path_prefix ?>assets/css/events/styles.css" rel="stylesheet" />
 </head>
 <?php
 include_once('views/layout/dashboard/path.php');
@@ -53,6 +53,39 @@ echo '  <div class="col-12 margin">
         </div>
       </div>
     </div>
-  </div>';
+ ';
+
+
+
+
+echo '
+<h3>Nombre de place à réserver :</h3>
+<div class="row">
+<div class="col-4">
+<form action="' . $path_prefix . 'Events/pay/'.$event['id_event'].'" method="POST">
+  <div class="d-flex align-items-center justify-content-center">
+    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="place" min="1"  max="' . $event['place'] . '" required="" class="form-control" value="1">
+    <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal">
+    Réserver
+  </button>
+  </div>
+  </form>
+</div>
+</div>
+</div>
+';
+
+
 ?>
 
+
+
+
+<!-- <form action="' . $path_prefix . 'Events/reservationEvent" method="POST">
+  <div class="d-flex align-items-center justify-content-center">
+    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="place" min="1"  max="' . $event['place'] . '" required="" class="form-control" value="1">
+    <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal">
+    Réserver
+  </button>
+  </div>
+  </form> -->
