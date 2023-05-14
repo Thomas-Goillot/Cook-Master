@@ -16,6 +16,7 @@ class Join extends Controller
         }
 
     }
+    
     /**
      * Display the join page
      * @return void
@@ -28,54 +29,110 @@ class Join extends Controller
 
         $this->render('join/index', compact('page_name'), DASHBOARD);
     }
-   
 
     /**
-     * Check before add a new event template
+     * Check before send request in the database
      * @return void
      */
-    public function addJoin(): void
+    public function sendRequest(): void
     {
 
-        $defaultFallBack = "../join";
+        if (!isset($_POST['submit'])) {
+            $defaultFallBack = '../join';
 
-        if (isset($_POST['siret']) && isset($_POST['cv']) && isset($_POST['photo'])) {
+            $acceptable = array('image/jpeg', 'image/png', 'application/pdf');
+            $cv = $_FILES['cv']['type'];
+            $photo = $_FILES['photo']['type'];
 
-            $Siret = htmlspecialchars($_POST['siret']);
-            $Cv = htmlspecialchars($_POST['cv']);
-            $Photo = htmlspecialchars($_POST['photo']);
-            
-            if (empty($Siret)) {
-                $this->setError("Echéc de l\'ajout","Le siret ne doit pas être vide", ERROR_ALERT);
+            if (!in_array($cv, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png, .jpeg et .pdf", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            if (!in_array($photo, $acceptable)) {
+                $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png, .jpeg et .pdf", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['cv']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            $maxSize = 5 * 1024 * 1024; //5 Mo
+            if ($_FILES['photo']['size'] > $maxSize) {
+                $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+            }
+
+            $path = 'assets/images/request/cv';
+            if (!file_exists('assets/images/request/cv')) {
+                mkdir('assets/images/request/cv');
+            }
+
+            $filename = $_FILES['cv']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['cv']['tmp_name'], $destination);
+
+            $cv = $filename;
+
+
+            $path = 'assets/images/request/pictures';
+            if (!file_exists('assets/images/request/pictures')) {
+                mkdir('assets/images/request/pictures');
+            }
+
+            $filename = $_FILES['photo']['name'];
+
+            $array = explode('.', $filename);
+            $extension = end($array);
+
+            $filename = 'image-' . time() . '.' . $extension;
+
+            $destination = $path . '/' . $filename;
+
+            move_uploaded_file($_FILES['photo']['tmp_name'], $destination);
+
+            $photo = $filename;
+
+
+            $siret = htmlspecialchars($_POST['siret']);
+            $type = htmlspecialchars($_POST['customRadio']);
+            $id_users = $this->getUserId();
+
+            if (empty($siret)) {
+                $this->setError("Echéc de l\'envoie de demande","Le siret ne doit pas être vide", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
             }
 
-            if (empty($Cv)) {
-                $this->setError("Echéc de l\'ajout","Le CV doit être renseigné", ERROR_ALERT);
+            if (empty($type)) {
+                $this->setError("Echéc de l\'envoie de demande","Selectionnez un poste", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
             }
 
-            if (empty($Photo)) {
-                $this->setError("Echéc de l\'ajout","La photo doit être renseignée", ERROR_ALERT);
+            if (strlen($siret) != 14) {
+                $this->setError("Echéc de l\'envoie de demande","Renseignez un siret valide", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
             }
-            
-            $this->loadModel('Join');
 
-            $res = $this->_model->addJoin($Siret, $Cv, $Photo, $this->getUserId());
+            $this->loadModel("Join");
 
-            if($res === true){
-                $this->setError("Succès","Le modèle d\'évènement a bien été ajouté", SUCCESS_ALERT);
-                $this->redirect($defaultFallBack);
-                exit();
-            }else{
-                $this->setError("Echéc de l\'ajout","Une erreur est survenue lors de l\'ajout du modèle d\'évènement", ERROR_ALERT);
-                $this->redirect($defaultFallBack);
-                exit();
-            }
+
+            $this->_model->sendRequest($siret, $id_users, $cv, $photo, $type);
         }
+        $this->setError("Demande envoyée !", "Votre demande a été envoyée avec succès", SUCCESS_ALERT);
+        $this->redirect($defaultFallBack);
     }
+   
 }

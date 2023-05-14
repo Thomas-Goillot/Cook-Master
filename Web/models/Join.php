@@ -21,27 +21,83 @@ class Join extends Model
 
     /**
      * Join us
-     * @param int $Siret
-     * @param string $Cv
-     * @param string $Photo
+     * @param string $siret
+     * @param int $id_users
+     * @param string $cv
+     * @param string $photo
+     * @param string $type
      */
-    public function addEvent(string $name, string $description, float $price, int $id_users, string $date_start, string $date_end, int $place, string $image, string $slug): bool
+    public function sendRequest(string $siret, int $id_users, string $cv, string $photo, string $type): void
     {
-        $query = "INSERT INTO " . $this->table . " (name, description, price, id_users, date_start, date_end, place, image, slug) VALUES (:name, :description, :price, :id_users, :date_start, :date_end, :place, :image, :slug)";
+        $query = "INSERT INTO providers (siret, id_users) VALUES (:siret, :id_users)";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":description", $description);
-        $stmt->bindParam(":price", $price);
+        $stmt->bindParam(":siret", $siret);
         $stmt->bindParam(":id_users", $id_users);
-        $stmt->bindParam(":date_start", $date_start);
-        $stmt->bindParam(":date_end", $date_end);
-        $stmt->bindParam(":place", $place);
-        $stmt->bindParam(":image", $image);
-        $stmt->bindParam(":slug", $slug);
 
-        return $stmt->execute();
+        $stmt->execute();
+
+        $idProviders = $this->_connexion->lastInsertId();
+
+        $query = "INSERT INTO providers_files (file) VALUES (:file)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":file", $cv);
+
+        $stmt->execute();
+
+        $idProvidersFile = $this->_connexion->lastInsertId();
+
+        $query = "INSERT INTO add_files (id_providers, id_providers_files) VALUES (:id_providers, :id_providers_files)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_providers", $idProviders);
+        $stmt->bindParam(":id_providers_files", $idProvidersFile);
+
+        $stmt->execute();
+
+
+        $query = "INSERT INTO providers_images (image) VALUES (:image)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":image", $photo);
+
+        $stmt->execute();
+
+        $idProvidersImages = $this->_connexion->lastInsertId();
+
+        $query = "INSERT INTO add_images (id_providers, id_providers_images) VALUES (:id_providers, :id_providers_images)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_providers", $idProviders);
+        $stmt->bindParam(":id_providers_images", $idProvidersImages);
+
+        $stmt->execute();
+
+        $query = "INSERT INTO providers_type (type) VALUES (:type)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":type", $type);
+
+        $stmt->execute();
+
+        $idProvidersType = $this->_connexion->lastInsertId();
+
+        $query = "INSERT INTO of_type (id_providers, id_providers_type) VALUES (:id_providers, :id_providers_type)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_providers", $idProviders);
+        $stmt->bindParam(":id_providers_type", $idProvidersType);
+
+        $stmt->execute();
+        
     }
 
 

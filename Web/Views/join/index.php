@@ -16,7 +16,7 @@
 
     <div class="card card-animate">
         <div class="card-body">
-            <form action="../Join/sendRequest" method="POST" enctype="multipart/form-data">
+            <form action="Join/sendRequest" method="POST" enctype="multipart/form-data">
                 
                 <div class="card-title center">
                     <h1 class="card-title">Rejoignez l'équipe CookMaster !</h1>
@@ -31,15 +31,15 @@
                     <h4>Poste souhaité</h4>
                         <div class="d-flex justify-content-center align-items-center">
                         <div class="custom-control custom-radio  button-eloigne">
-                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="chef">
                             <label class="custom-control-label" for="customRadio1">Chef</label>
                         </div>
                         <div class="custom-control custom-radio  button-eloigne">
-                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="livreur">
                             <label class="custom-control-label" for="customRadio2">Livreur</label>
                         </div>
                         <div class="custom-control custom-radio  button-eloigne">
-                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" value="autre">
                             <label class="custom-control-label" for="customRadio3">Autre</label>
                         </div>
                     </div> 
