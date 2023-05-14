@@ -65,7 +65,10 @@
                             <h4 class=\"mt-4 text-muted\">ou</h4>
                             <h4 class=\"mt-4\" id=\"subscriptionPriceYearly_pricing\">" . $subscription['price_yearly'] . "€ <span class=\"text-muted\">/an</span></h4>
                     </div>
-                    <button class=\"btn btn-primary mt-4 mb-2 btn-rounded\">Get Started <i class=\"mdi mdi-arrow-right ml-1\"></i></button>
+                    <form method=\"POST\" action=\"../UserSubscription/frequency\">
+                        <input type=\"hidden\" name=\"id_subscription\" value=\"".$subscription['id_subscription']."\">
+                        <button type=\"submit\"class=\"btn btn-primary mt-4 mb-2 btn-rounded\">Choisir <i class=\"mdi mdi-arrow-right ml-1\"></i></button>
+                    </form>
                 </div>
             </div>
         </div>";

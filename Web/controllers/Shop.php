@@ -368,11 +368,11 @@ class Shop extends Controller
         $tva = $sum * TVA;
         $priceWithoutTva = $sum - $tva;
 
-        $this->loadModel('Location');
+        $pathToPayment = "shop/pay";
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap");
 
-        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva'), DASHBOARD);
+        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva', 'pathToPayment'), DASHBOARD);
     }
 
     /**

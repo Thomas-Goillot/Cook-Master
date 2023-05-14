@@ -30,7 +30,7 @@ include_once('views/layout/dashboard/path.php');
                     <div class="col-6">
                         <div class="mt-3 float-right">
                             <p class="mb-2"><strong>Date de la commande </strong><?= date('d/m/Y'); ?></p>
-                            <p class="mb-2"><strong>Status de la commande </strong> <span class="badge badge-soft-success">Paid</span></p>
+                            <p class="mb-2"><strong>Status de la commande </strong> <span class="badge badge-soft-warning">En cours...</span></p>
                             <p class="m-b-10"><strong>Numéro de commande</strong> #<?= $userCartId; ?></p>
                         </div>
                     </div>
@@ -52,18 +52,18 @@ include_once('views/layout/dashboard/path.php');
                                 <tbody>
                                     <?php
                                     $i = 1;
-                                    foreach ($allProduct as $allProduct) {
-                                        if ($allProduct['allow_purchase'] == 0) {
+                                    foreach ($allProduct as $product) {
+                                        if ($product['allow_purchase'] == 0) {
                                             echo '<tr>';
                                             echo '<td>' . $i . '</td>';
                                             echo '<td>';
-                                            echo '<b>' . $allProduct['name'] . '</b>';
+                                            echo '<b>' . $product['name'] . '</b>';
                                             echo '<br>';
-                                            echo $allProduct['description'];
+                                            echo $product['description'];
                                             echo '</td>';
-                                            echo '<td>' . $allProduct['quantity'] . '</td>';
-                                            echo '<td>' . $allProduct['price_purchase'] . ' €</td>';
-                                            echo '<td class="text-right">' . $allProduct['price_purchase'] * $allProduct['quantity'] . ' €</td>';
+                                            echo '<td>' . $product['quantity'] . '</td>';
+                                            echo '<td>' . $product['price_purchase'] . ' €</td>';
+                                            echo '<td class="text-right">' . $product['price_purchase'] * $product['quantity'] . ' €</td>';
                                             echo '</tr>';
                                             $i++;
                                         }
@@ -98,7 +98,7 @@ include_once('views/layout/dashboard/path.php');
 
                 <div class="d-print-none my-4">
                     <div class="text-right">
-                        <a href="../shop/pay" class="btn btn-info waves-effect waves-light">Payer</a>
+                        <a href="../<?= $pathToPayment?>" class="btn btn-info waves-effect waves-light">Payer</a>
                     </div>
                 </div>
             </div>

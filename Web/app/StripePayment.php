@@ -13,9 +13,8 @@ class StripePayment extends Controller{
         Stripe::setApiVersion('2022-11-15');
     }
 
-
-    /* 
-    $sum, "EUR", "Merci de faire confiance à". APPNAME, $products
+    /**
+     * Start the payment    
      */
     public function startPayment(int $sum, array $products, string $email): void
     {
