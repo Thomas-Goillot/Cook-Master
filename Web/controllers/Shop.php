@@ -345,6 +345,12 @@ class Shop extends Controller
 
         $user = $this->_model->getUserInfo($idUser);
 
+        if(empty($user['address']) || empty($user['city']) || empty($user['zip_code']) || empty($user['country'])){
+            $this->setError("Erreur","Veuillez renseigner votre adresse dans votre profil", ERROR_ALERT);
+            $this->redirect('../users/editProfil');
+        }
+
+
         $this->loadModel("Shop");
 
         $userCartId = $this->_model->getUserCartId($idUser);

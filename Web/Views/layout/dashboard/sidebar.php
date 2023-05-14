@@ -23,7 +23,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Louer</span></a>
+                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer</span></a>
                 </li>
 
                 <li>
@@ -31,7 +31,11 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Nous rejoindre</span></a>
+                    <a href="<?= $path_prefix ?>UserSubscription/information" class="waves-effect"><i class='mdi mdi-trophy-award'></i><span>Nos abonnements</span></a>
+                </li>
+
+                <li>
+                    <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-id-card'></i><span>Nous rejoindre</span></a>
                 </li>
 
                 <li class="menu-title">Utilisateur</li>
