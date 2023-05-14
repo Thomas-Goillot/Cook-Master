@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use App\Controller;
-
+use App\StripePayment;
 class Events extends Controller
 {
 
@@ -316,7 +316,100 @@ class Events extends Controller
         $this->redirect($defaultFallBack);
         exit();
     }
+
+
+    /**
+     * pay succes
+     * @return void
+     */
+    public function paySuccess(): void{
+
+        $this->loadModel("User");
+
+        $idUser = $this->getUserId();
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $this->loadModel("Events");
+
+        $params = $_GET['params'];
+
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $place = $_POST['place'];
+        $id_event = $params[0];
+        $id_User = $this->getUserId();
+        
+        
+        $this->_model->reservationEvent($place,$id_event,$id_User);
+
+    }
+
+
+     /**
+     * pay error
+     * @return void
+     */
+    public function payError(): void{
+
+        $this->setError("Erreur lors de l'achat", "une erreur est survenue", ERROR_ALERT);
+        $this->redirect("../shop/index.php");
+    }
     
+    /**
+     * display the pay page for reservation
+     * @return void
+     */
+    public function pay(): void{
+       
+
+        $this->loadModel("User");
+
+        $idUser = $this->getUserId();
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $userEmail = $user['email'];
+
+
+
+
+
+        $this->loadModel("Events");
+
+        $params = $_GET['params'];
+
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_event = $params[0];
+        $id_User = $this->getUserId();
+        
+
+        $event = $this->_model->getEventById($id_event);
+
+        $eventData = array(array(
+            "name"=> $event['name'],
+            "price_purchase"=> $event['price'],
+            "quantity"=> $_POST['place']
+        ));
+
+        $payment = new StripePayment(STRIPE_API_KEY);
+
+        $payment->startPayment($id_User, $eventData, $userEmail, paySuccess(), payError() );
+
+        $page_name = array("Evenement" => "EventsPresentation", "Page de l'évenement" => "EventsPresentation/EventDisplay");
+
+        $this->render('shop/pay', compact('page_name',), DASHBOARD);
+
+    }
 
 
 }

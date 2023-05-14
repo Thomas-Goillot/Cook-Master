@@ -164,6 +164,24 @@ class Events extends Model
     }
 
 
+    /**
+     * reservationEvent
+     * @param int $id
+     * @param int $place
+     * @return void
+     */
+    public function reservationEvent(int $id_event, int $place, int $id_user): void{
+        $query = "UPDATE " . $this->table . " SET place = place - :place WHERE id_event = :id_event AND id_user = :id_user";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":place", $place);
+        $stmt->bindParam(":id_event", $id_event);
+        $stmt->bindParam(":id_user", $id_user);
+
+        $stmt->execute();
+    }
+
 }
 
 ?>
