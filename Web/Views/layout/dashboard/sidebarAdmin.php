@@ -80,4 +80,4 @@ fas fa-file-invoice-->
     </ul>
 </li>
 
-<li><a href="<?= $path_prefix ?>admin/stats" class=" waves-effect"><i class="bx bx-pie-chart-alt"></i><span>Statistiques</span></a></li>
+<li><a href="<?= $path_prefix ?>stats/index" class=" waves-effect"><i class="bx bx-pie-chart-alt"></i><span>Statistiques</span></a></li>
