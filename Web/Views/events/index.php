@@ -13,11 +13,13 @@
                                             <div id="carouselExampleCaption" class="carousel slide" data-ride="carousel">
                                                 <div class="carousel-inner" role="listbox">
                                                     <div class="carousel-item active">
-                                                        <img src="' . $path_prefix  . 'assets/images/events/' . $info['image'] . '" class="img-thumbnail sombre">
-                                                        <div class="carousel-caption">
-                                                            <a href="'. $path_prefix.'EventsPresentation/EventDisplay/'.$info['id_event'].'" ><h3 class="text-white">' . $info['name'] . '</h3></a>
-                                                            <p>' . $info['slug'] . '</p>
-                                                        </div>
+                                                        <a href="'. $path_prefix.'EventsPresentation/EventDisplay/'.$info['id_event'].'" >
+                                                            <img src="' . $path_prefix  . 'assets/images/events/' . $info['image'] . '" class="img-thumbnail sombre">
+                                                            <div class="carousel-caption">
+                                                                <h3 class="text-white">' . $info['name'] . '</h3>
+                                                                <p>' . $info['slug'] . '</p>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
