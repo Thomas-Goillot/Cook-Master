@@ -30,42 +30,42 @@ include_once('views/layout/dashboard/path.php');
             echo '</div>';
             echo '</div>';
 
-
-
-
-            echo " <!-- Modal -->
-                <!-- Modal -->
-                <div class='modal' id='equipment" . $allProduct['id_equipment'] . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-                    <div class='modal-dialog' role='document'>
-                        <div class='modal-content'>
-
-
-                        <div class='modal-header d-flex flex-column align-items-center'>
-                            <h1>" . $allProduct['name'] . "</h1>        
-                            
-                           
-                            </div>
-
-                            <div class='modal-body d-flex flex-column align-items-center'>
-                            <img width ='300px' src='" . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . "' alt='" . $allProduct['image'] . ">
-
-                            <h4> Description :</h4>
-                                <p class='blockquote text-center'>" . $allProduct['description'] . "</p>  
-                                <h5> Prix unitaire: " . $allProduct['price_rental'] . "€</h5>        
-                            </div>
-                            <div class='d-flex flex-column'>
-                            <form action='$path_prefix shop/verifCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                            <h5>Quantité souhaité :</h5>
-                            <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='number_pruchase' min='0' required='' class='form-control'>
-                                <div class='modal-footer d-flex flex-column'>
-                                <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Ajouter</button>
-                                <button type='button'  class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
+            echo "<div class='modal' id='equipment" . $allProduct['id_equipment'] . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal-dialog' role='document'>
+                <div class='modal-content'>
+    
+                    <!-- Header -->
+                    <div class='modal-header d-flex flex-column align-items-center'>
+                        <h1>" . $allProduct['name'] . "</h1>
                     </div>
-                </div>";
+    
+                    <!-- Body -->
+                    <div class='modal-body d-flex flex-column align-items-center'>
+                        <img width='300px' src='" . $path_prefix . "assets/images/productShop/" . $allProduct['image'] . "' alt='" . $allProduct['image'] . "'>
+    
+                        <h4> Description :</h4>
+                        <p class='blockquote text-center'>" . $allProduct['description'] . "</p>
+                        <h4> Prix : " . $allProduct['price_rental'] . "€</h4>
+                    </div>
+    
+                    <!-- Footer -->
+                    <div class='modal-footer d-flex flex-column align-items-center'>
+                        <form action='" . $path_prefix . "shop/addProductToCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                            <h5 class='mb-3'>Quantité souhaitée :</h5>
+                            <input type='hidden' name='idProduct' value='" . $allProduct['id_equipment'] . "'>
+                            <div class='input-group'>
+                                <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='numberOfProduct' min='0' required='' class='form-control'>
+                            </div>
+                            <div class='mt-3'>
+                                <button type='button' class='btn btn-secondary mr-2' data-dismiss='modal'>Annuler</button>
+                                <button type='submit' class='btn btn-primary'>Ajouter</button>
+                            </div>
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+        </div>";
         }
     }
     ?>

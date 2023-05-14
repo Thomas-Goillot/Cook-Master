@@ -161,10 +161,6 @@ class Admin extends Controller
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect('../admin/products');
             }
-            if (strlen($_POST['description']) > MAX_DESCRIPTION) {
-                $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
-                $this->redirect('../admin/products');
-            }
             if ($disponibilitySale == 0 && $price_purchase == 0) {
                 $this->setError('Prix de vente invalide', "Le prix de votre produit ne peut pas être de 0 € ", ERROR_ALERT);
                 $this->redirect('../admin/products');

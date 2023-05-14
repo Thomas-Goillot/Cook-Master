@@ -19,23 +19,23 @@
             <form action="../Events/addEvent" method="POST">
 
                 <div class="card-title center">
-                    <h4 class="card-title">Rejoignez l'équipe CookMaster !</h4>
+                    <h1 class="card-title">Rejoignez l'équipe CookMaster !</h1>
                 </div>
 
                 <div class="form-group">
-                    <label>N° SIRET</label>
+                    <h4>N° SIRET</h4>
                     <input type="text" name="siret" class="form-control" data-toggle="input-mask" data-mask-format="0000-0000">
                 </div>
                 <div class="row">
                 <div class="col-xl-6">
                     <div class="form-group">   
-                        <label>Curriculum Vitae</label>
+                        <h4>Curriculum Vitae</h4>
                         <input type="file" name="cv" class="dropify"/>       
                     </div>
                 </div>
                 <div class="col-xl-6">
                     <div class="form-group">   
-                        <label>Photo de profil</label>
+                        <h4>Photo de profil</h4>
                         <input type="file" name="photo" class="dropify"/>      
                     </div>
                 </div>
