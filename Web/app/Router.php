@@ -7,18 +7,10 @@ use Controllers\ErrorHttp;
 
 class Router
 {
-    public function __construct($params)
+    public function __construct(string $params)
     {
 
         $params = explode('/', $params);
-
-        $nbParams = count($params);
-
-        $pathErrorHttp = "";
-
-        for ($i = 0; $i < $nbParams; $i++) {
-            $pathErrorHttp .= "../";
-        }
 
         if ($params[0] != "") {
 

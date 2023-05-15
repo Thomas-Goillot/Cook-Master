@@ -1,6 +1,4 @@
 RewriteEngine On
-
-ErrorDocument 404 ErrorHttp
-
-
-RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?p=$1 [QSA,L]

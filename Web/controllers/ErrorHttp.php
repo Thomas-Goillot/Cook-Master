@@ -12,6 +12,15 @@ class ErrorHttp extends Controller{
      */
     private string $default_path = "error/index";
 
+    private string $pathError = "";
+
+    public function __construct()
+    {
+        for ($i = 0; $i < substr_count($_GET['p'], "/"); $i++) {
+            $this->pathError .= "../";
+        } 
+    }
+
     /**
      * Display the error page
      * @return void
@@ -21,7 +30,7 @@ class ErrorHttp extends Controller{
         
         $page_name = array("Error $error_code" => "");
 
-        $this->render($this->default_path, compact('page_name', 'error_code'), OTHERS, "../");
+        $this->render($this->default_path, compact('page_name', 'error_code'), OTHERS, $this->pathError);
     }
 
 }
