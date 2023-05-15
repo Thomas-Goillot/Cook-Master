@@ -27,7 +27,6 @@ define('PASSWORD_COST', 12);
 define('LOGO_SVG', 'assets/images/logo.svg');
 define('LOGO_PNG', 'assets/images/logo.png');
 
-
 // INCLUDE ALL THE CONSTANTS FILES IN THE CONFIG/CONSTANT FOLDER
 $directory = 'config/constant';
 foreach (scandir($directory) as $file) {

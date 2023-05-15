@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Stripe\Checkout\Session;
+use App\Utils;
 use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class StripePayment extends Controller{
 
@@ -35,8 +36,8 @@ class StripePayment extends Controller{
                 }, $products),
             ],
             'mode' => 'payment',
-            'success_url' => 'http://localhost/Cook-Master/WEB/'. $succesPath,
-            'cancel_url' => 'http://localhost/Cook-Master/WEB/' . $cancelPath,
+            'success_url' => Utils::getDomainName(). $succesPath,
+            'cancel_url' => Utils::getDomainName() . $cancelPath,
             'customer_email' => $email,
           ]);
 

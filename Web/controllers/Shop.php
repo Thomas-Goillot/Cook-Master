@@ -406,9 +406,6 @@ class Shop extends Controller
 
         $payment->startPayment($products, $userEmail);
 
-
-
-
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap", "Paiement" => "shop/pay");
 
         $this->render('shop/pay', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva'), DASHBOARD);

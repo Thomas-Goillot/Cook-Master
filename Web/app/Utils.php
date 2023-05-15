@@ -17,7 +17,7 @@ class Utils extends Security
     /**
      * Get data from .env file
      */
-    public function getEnv()
+    public function getEnv():void
     {
         $this->env = parse_ini_file(__DIR__ . "/../config/.env");
     }
@@ -237,5 +237,25 @@ class Utils extends Security
         $files = array_diff($files, array('.', '..'));
         $files = array_values($files);
         return $files;
+    }
+
+    /**
+     * Get domain name
+     */
+    public function getDomainName(): string
+    {
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+            $link = "https";
+        }else{
+            $link = "http";
+        }
+
+        self::getEnv();
+
+        if($this->env['ENV'] === "DEV"){
+            return $link . "://" . $_SERVER['HTTP_HOST'] . "/Cook-Master/WEB/";
+        }
+
+        return $link . "://" . $_SERVER['HTTP_HOST']."/";
     }
 }

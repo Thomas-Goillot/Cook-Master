@@ -101,7 +101,6 @@ abstract class Security
 
                 if (count($params) !== 2) return false;
 
-
                 if (!isset($params[0]) || !isset($params[1])) return false;
 
                 $token = htmlspecialchars($params[0]);
