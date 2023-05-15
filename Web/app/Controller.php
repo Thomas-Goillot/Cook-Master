@@ -174,7 +174,7 @@ abstract class Controller extends Utils{
      * @param string $path
      * @return void
      */
-    public function redirect(string $path, array $params = []): void{
+    public static function redirect(string $path, array $params = []): void{
 
         if(count($params) > 0){
             $_SESSION['params'] = $params;
@@ -188,7 +188,7 @@ abstract class Controller extends Utils{
      * Get error from session
      * @return string|null
      */
-    public function getError(): ?array{
+    public static function getError(): ?array{
         if(isset($_SESSION['error'])){
             $error = $_SESSION['error'];
             unset($_SESSION['error']);
@@ -200,7 +200,7 @@ abstract class Controller extends Utils{
     /**
      * Set error in session
      */
-    public function setError(string $title, string $error, string $type = WARNING_ALERT): void{
+    public static function setError(string $title, string $error, string $type = WARNING_ALERT): void{
         $_SESSION['error'] = array('title' => $title, 'error' => $error, 'type' => $type);
     }
 

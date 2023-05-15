@@ -4,7 +4,7 @@ namespace App;
 
 use App\Mail;
 
-abstract class Utils extends Security
+class Utils extends Security
 {
 
     /**
@@ -74,7 +74,7 @@ abstract class Utils extends Security
      * @param int $length
      * @return string
      */
-    public function generateRandomString(int $length = 10): string{
+    public static function generateRandomString(int $length = 10): string{
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

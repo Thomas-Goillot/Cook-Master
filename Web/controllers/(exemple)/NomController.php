@@ -127,6 +127,24 @@ class NomController extends Controller
         dump($data);
 
 
+        // ==================== FONCTIONS POUR LA SECURITE ==================== //
+
+        // EFFECTUER UNE VERIFICATION DE SECURITE 
+        // LA FONCTION activeSecurity() EST APPELEE DANS UN CONTROLLER AVANT UNE REDIRECTION VERS UNE PAGE AVEC DES PARAMETRES 
+        // ELLE PEUT PRENDRE UN PARAMETRE FACULTATIF QUI EST LE CHEMIN VERS LA PAGE DE REDIRECTION 
+        // ELLE RENVERA ALORS DANS LE TABLEAU A L'INDEX 'url' LE CHEMIN VERS LA PAGE DE REDIRECTION AVEC LES PARAMETRES NECESSAIRES
+        $this->activeSecurity();
+        // ICI LE CHEMIN VERS LA PAGE DE REDIRECTION EST "UserSubscription/Success" (nom du controller / nom de la methode)
+        $this->activeSecurity('UserSubscription/Success'); 
+
+        // DANS LE CONTROLLER QUI EST PROTEGER PAR LA FONCTION activeSecurity() IL FAUT RECUPERER LES PARAMETRES AVEC LA FONCTION checkSecurity()
+        // LA FONCTION RENVOIE SIMPLEMENT TRUE SI LA SECURITE EST VALIDE SINON ELLE RENVOIE FALSE
+        $this->checkSecurity();
+
+
+
+        // ==================== FONCTIONS POUR RENDRE UNE VUE ==================== //
+
 
         // PERMET D'AFFICHER LA VUE PAR DEFAUT DU CONTROLLER
         // LE CHEMIN VERS LA VUE COMMENCE DANS LE DOSSIER "views"

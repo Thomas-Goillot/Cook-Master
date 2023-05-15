@@ -18,6 +18,4 @@ function plural(int $number): string
     }
     return "";
 }
-
-
 ?>
