@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use App\Controller;
+use App\StripePayment;
 
 class UserSubscription extends Controller
 {
@@ -121,7 +122,7 @@ class UserSubscription extends Controller
         $tva = $sum * TVA;
         $priceWithoutTva = $sum - $tva;
 
-        $pathToPayment = "UserSubscription/payment";
+        $pathToPayment = "UserSubscription/pay/". $subscriptionInfo['id_subscription']."/".$typeSubscription;
 
         $page_name = array("Abonnements" => $this->default_path, "Choix de la périodicité" => "UserSubscription/frequency", "Récapitulatif de la commande" => "UserSubscription/recap");
 
@@ -129,6 +130,67 @@ class UserSubscription extends Controller
 
 
     }
+
+    public function pay():void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $idSubscription = (int) $params[0];
+        $typeSubscription = $params[1];
+
+        $idUser = $this->getUserId();
+
+        $this->loadModel("User");
+
+        $email = $this->_model->getUserInfo($idUser)['email'];
+
+
+        $this->loadModel('Subscription');
+
+        $subscriptionInfo = $this->_model->getAllSubscriptionInfoById($idSubscription)[0];
+
+
+        $data = array(array(
+            "name" => "Abonnement " . $subscriptionInfo['name'],
+            "price_purchase" => $subscriptionInfo['price_' . $typeSubscription],
+            "id" => $subscriptionInfo['id_subscription'],
+            "quantity" => 1,
+            "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $subscriptionInfo['price_' . $typeSubscription] . "€/mois",
+            "allow_purchase" => 0
+        ));
+
+
+        $unique = $this->generateRandomString(100);
+
+
+        $payment = new StripePayment(STRIPE_API_KEY);
+
+        if($typeSubscription === 'monthly'){
+            // monthly
+            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success")['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
+        }else{
+            // yearly
+            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success")['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
+        }
+    }
+
+    public function success():void{
+      
+        if($this->checkSecurity()){
+            echo "Le token de sécurité est valide"; 
+        }
+        else{
+            echo "Le token de sécurité n'est pas valide"; 
+        }
+
+
+    }
+
 
 
 

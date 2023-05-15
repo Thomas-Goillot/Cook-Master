@@ -16,7 +16,7 @@ class StripePayment extends Controller{
     /**
      * Start the payment    
      */
-    public function startPayment(int $sum, array $products, string $email, string $succesPath= 'shop/success', string $cancelPath = 'shop/cancel'): void
+    public function startPayment(array $products, string $email, string $succesPath= 'shop/success', string $cancelPath = 'shop/cancel'): void
     {
         $session = Session::create([
             'payment_method_types' => ['card'],
@@ -41,7 +41,5 @@ class StripePayment extends Controller{
           ]);
 
         $this->redirect($session->url);
-
     }
-
 }

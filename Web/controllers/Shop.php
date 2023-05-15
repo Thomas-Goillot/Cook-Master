@@ -404,7 +404,7 @@ class Shop extends Controller
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($sum, $products, $userEmail);
+        $payment->startPayment($products, $userEmail);
 
 
 
