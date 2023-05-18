@@ -417,7 +417,10 @@ class Shop extends Controller
      */
     public function success() : void
     {
-        echo "success";
+
+        
+
+
     }
         
     /**

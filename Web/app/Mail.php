@@ -13,7 +13,7 @@ class Mail
     public function __construct()
     {
 
-        include_once('config/mail.php');
+        include_once('config/constant/mail.php');
 
         $this->mail = new PHPMailer(true);
 

@@ -5,7 +5,7 @@ namespace App;
 use App\Utils;
 use Exception;
 
-abstract class Controller extends Utils{
+class Controller extends Utils{
 
     /**
      * Will contain the model

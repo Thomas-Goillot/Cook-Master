@@ -70,6 +70,80 @@ class login extends Controller{
         session_start();
         $_SESSION['user'] = $user;
 
+
+        $userIp = $_SERVER['REMOTE_ADDR'];
+        $this->loadModel('UserSecurity');
+        if ($this->_model->firstConnection($user['id_users']) === true) {
+            $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_ALLOWED);
+        }
+
+        if ($this->checkUserIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false) {
+            $error = "Vous vous êtes connecté depuis une adresse IP différente de la dernière fois, veuillez vérifier votre boite mail";
+
+            $mail = new Mail();
+
+            $body = file_get_contents('mails/ipchange.php');
+
+            $userName = $user['name'];
+
+            $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
+
+            $body = str_replace('___name___', $userName, $body);
+
+            $body = str_replace('___ip___', $userIp, $body);
+
+            $body = str_replace('___validationLink___', $this->getDomainName() . $this->activeSecurity('login/validateip', array('idUserIp' => $idUserIp))['url'], $body);
+
+            $images = [
+                'assets/images/logo.png' => 'logo',
+                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+                'assets/images/mails/facebook2x.png' => 'facebook',
+                'assets/images/mails/instagram2x.png' => 'instagram',
+                'assets/images/mails/twitter2x.png' => 'twitter',
+                'assets/images/mails/linkedin2x.png' => 'linkedin',
+            ];
+
+            $this->loadModel('User');
+            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion depuis une adresse IP différente', $body, $images);
+
+            $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
+            return;
+        }
+
+        if($this->checkAllowIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false){
+            $error = "Votre adresse IP n'est pas autorisée à se connecter à ce compte";
+
+            $mail = new Mail();
+
+            $body = file_get_contents('mails/notAllowedIp.php');
+
+            $userName = $user['name'];
+            $userIp = $_SERVER['REMOTE_ADDR'];
+
+            $this->loadModel('UserSecurity');
+
+            $body = str_replace('___name___', $userName, $body);
+
+            $body = str_replace('___ip___', $userIp, $body);
+
+            $images = [
+                'assets/images/logo.png' => 'logo',
+                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+                'assets/images/mails/facebook2x.png' => 'facebook',
+                'assets/images/mails/instagram2x.png' => 'instagram',
+                'assets/images/mails/twitter2x.png' => 'twitter',
+                'assets/images/mails/linkedin2x.png' => 'linkedin',
+            ];
+            $this->loadModel('User');
+            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion à votre compte depuis une adresse IP non autorisée', $body, $images);
+
+
+            unset($_SESSION['user']);
+            $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
+            return;
+        }
+
+        $this->loadModel('User');
         if($this->_model->checkMailVerified($user['id_users']) == false){
             $mail = new Mail();
             $number = $this->generateRandomNumber(8);
@@ -89,6 +163,7 @@ class login extends Controller{
                 'assets/images/mails/linkedin2x.png' => 'linkedin',
             ];
 
+            $this->loadModel('User');
             $mail->send($this->_model->getMailById($user['id_users']), 'Votre code de validation Cook Master', $body, $images);
 
 

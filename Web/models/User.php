@@ -90,7 +90,7 @@ class User extends Model
      */
     public function checklogin(string $email, string $password){
         try {
-            $query = "SELECT id_users FROM " . $this->table . " WHERE email = :email AND password = :password";
+            $query = "SELECT id_users,name FROM " . $this->table . " WHERE email = :email AND password = :password";
 
             $stmt = $this->_connexion->prepare($query);
 

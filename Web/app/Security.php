@@ -4,6 +4,7 @@ namespace App;
 
 use App\Controller;
 use App\Utils;
+use App\Model;
 
 abstract class Security
 {
@@ -135,6 +136,63 @@ abstract class Security
         }
         return [];
     }
+
+    public function checkUserIp(int $id_user, $ip):bool
+    {
+        $controller = new Controller();
+        $controller->loadModel('UserSecurity');
+
+        $user = $controller->_model->getUserAllowedIp($id_user);
+
+        if(count($user) === 0){
+            return true; // == first connection
+        }
+
+        for($i = 0; $i < count($user); $i++){
+            if($user[$i]['ip'] === $ip){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    public function checkAllowIp(int $id_user, $ip):bool
+    {
+        $controller = new Controller();
+        $controller->loadModel('UserSecurity');
+
+        $user = $controller->_model->getUserAllowedIp($id_user);
+
+        for($i = 0; $i < count($user); $i++){
+            if($user[$i]['allowed'] === IP_ALLOWED){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    /* 
+    * Check if the user is connected for the first time
+    */
+    public function firstConnection(int $id_user):bool
+    {
+        $controller = new Controller();
+        $controller->loadModel('UserSecurity');
+
+        $user = $controller->_model->getUserIp($id_user);
+
+        if(count($user) === 0){
+            return true; // == first connection
+        }
+        
+        return false;
+    }
+
+    
+
+
 
 }
 
