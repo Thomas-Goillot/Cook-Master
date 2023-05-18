@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-4 col-sm-12">
     <div class="card">
         <div class="card-body">
             <h4>Modification du contact</h4>
