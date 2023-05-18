@@ -29,6 +29,10 @@ class Utils extends Security
     public function pathPrefix(): string
     {
         $path_prefix = "";
+        if(!isset($_GET['p'])){
+            return $path_prefix;
+        }
+        
         for ($i = 0; $i < substr_count($_GET['p'], "/"); $i++) {
             $path_prefix .= "../";
         } 
