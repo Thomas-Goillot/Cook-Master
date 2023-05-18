@@ -84,7 +84,11 @@ class PersonnalEvents extends Model
      */
     public function getUpcomingPersonnalEvent(int $id, int $id_event): array
     {
-        $query = "SELECT event.* , users.id_users FROM " . $this->table . ", users WHERE event.id_users = :id_users AND  users.id_users = :id_users AND event.date_end > NOW() AND event.id_event = :id_event";
+        $query = "SELECT e.name, e.description, e.price, e.place, e.date_start, e.date_end, e.image, e.slug
+        FROM join_event AS je
+        JOIN event AS e ON je.id_event = e.id_event
+        WHERE je.id_users = :id_users AND je.id_event = :id_event
+        AND event.date_end > NOW()";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -106,7 +110,11 @@ class PersonnalEvents extends Model
      */
     public function getPastPersonnalEvent(int $id, int $id_event): array
     {
-        $query = "SELECT event.* , users.id_users FROM " . $this->table . ", users WHERE event.id_users = :id_users AND  users.id_users = :id_users AND event.date_end < NOW() AND event.id_event = :id_event";
+        $query = "SELECT e.name, e.description, e.price, e.place, e.date_start, e.date_end, e.image, e.slug
+        FROM join_event AS je
+        JOIN event AS e ON je.id_event = e.id_event
+        WHERE je.id_users = 5 AND je.id_event = 27
+        AND e.date_end < NOW()";
 
         $stmt = $this->_connexion->prepare($query);
 
