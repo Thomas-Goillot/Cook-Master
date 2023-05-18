@@ -43,7 +43,7 @@ abstract class Controller extends Utils{
             $data['path_prefix'] = $path;
         }
         else{
-            $data['path_prefix'] = $this->pathPrefix($file);
+            $data['path_prefix'] = $this->pathPrefix();
         }
 
         //handle error

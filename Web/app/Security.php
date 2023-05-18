@@ -68,7 +68,7 @@ abstract class Security
      * @param string $url
      * @return array
      */
-    public function activeSecurity(string $url = ""): array
+    public function activeSecurity(string $url = "", array $params = []): array
     {
         if(isset($_SESSION['security'])){
             return $_SESSION['security'];
@@ -78,6 +78,9 @@ abstract class Security
             'token' => Utils::generateRandomString(250),
             'time' => base64_encode(time()),
             'ip' => $_SERVER['REMOTE_ADDR'],
+            'params' => array_map(function ($param) {
+                return Utils::crypt($param);
+            }, $params)
         ];
 
         if ($url !== "") {
@@ -112,6 +115,10 @@ abstract class Security
 
                 if (time() - base64_decode($time) > 300) return false;
 
+                $_SESSION['securityParams'] = array_map(function ($param) {
+                    return Utils::decrypt($param);
+                }, $_SESSION['security']['params']);
+
                 return true;
             }
         }
@@ -119,6 +126,14 @@ abstract class Security
             unset($_SESSION['security']);
         }
         return false;
+    }
+
+    public function getSecurityParams(): array
+    {
+        if (isset($_SESSION['securityParams'])) {
+            return $_SESSION['securityParams'];
+        }
+        return [];
     }
 
 }

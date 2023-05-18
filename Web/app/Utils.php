@@ -24,17 +24,14 @@ class Utils extends Security
 
     /**
      * Calculate path prefix
-     * @param string $path
      * @return string
      */
-    public function pathPrefix(string $path): string
+    public function pathPrefix(): string
     {
-        $temp = explode('/', $path);
-
-        $path_prefix = '';
-        if (end($temp) != 'index') {
-            $path_prefix = '../';
-        }
+        $path_prefix = "";
+        for ($i = 0; $i < substr_count($_GET['p'], "/"); $i++) {
+            $path_prefix .= "../";
+        } 
 
         return $path_prefix;
     }
@@ -53,6 +50,40 @@ class Utils extends Security
 
         return $password;
     }
+
+    /**
+     * Crypt and decrypt data
+     * @param string $string
+     * @return string
+     */
+    public static function crypt(string $string): string
+    {
+        // crypt the string to be secure but can be decrypted
+        $string = openssl_encrypt($string, "AES-128-ECB", CRYPT_KEY);
+
+        // encode the encrypted string to be url friendly
+        $string = urlencode($string);
+
+        return $string;
+    }
+
+    /**
+     * Decrypt data
+     * @param string $string
+     * @return string
+     */
+    public static function decrypt(string $string): string
+    {
+        // decode the url friendly encrypted string
+        $string = urldecode($string);
+
+        // decrypt the string
+        $string = openssl_decrypt($string, "AES-128-ECB", CRYPT_KEY);
+
+        return $string;
+    }
+    
+
 
     /**
      * convert date to french format
