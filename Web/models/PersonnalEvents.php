@@ -44,11 +44,9 @@ class PersonnalEvents extends Model
      */
     public function getUpcomingPersonnalEvents(int $id): array
     {
-<<<<<<< Updated upstream
-        $query = "SELECT event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end > NOW()";
-=======
+
         $query = "SELECT event.*, join_event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end > NOW()";
->>>>>>> Stashed changes
+
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(":id_users", $id);
