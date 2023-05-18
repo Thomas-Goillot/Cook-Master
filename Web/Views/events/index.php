@@ -7,6 +7,9 @@
 
 <div class="row">
                 <?php
+                if($getAllEvents ==NULL){
+                    echo "<h1>Aucun évenement à venir</h1>";
+                }else{
                     foreach($getAllEvents as $info){
                          echo   '<div class="col-xl-6">
                                     <div class="card ">
@@ -26,6 +29,7 @@
                                     </div>
                                 </div>';
                     }
+                }
                 ?>
 </div>
 

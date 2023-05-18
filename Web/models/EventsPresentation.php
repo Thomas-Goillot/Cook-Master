@@ -33,6 +33,22 @@ class EventsPresentation extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+     * Get all events where place and date is ok
+     * @return array
+     */
+    public function getAllEventsAvailable(): array
+    {
+        $query = "SELECT * FROM " . $this->table ." WHERE date_end > NOW() AND place > (SELECT COUNT(id_join_event) FROM join_event WHERE id_event = event.id_event)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Get id of event
      * @return array
@@ -49,4 +65,20 @@ class EventsPresentation extends Model
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    public function getEventBookedPlace(int $id)
+    {
+        $query = "SELECT COUNT(id_join_event) FROM join_event WHERE id_event = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }

@@ -44,7 +44,11 @@ class PersonnalEvents extends Model
      */
     public function getUpcomingPersonnalEvents(int $id): array
     {
+<<<<<<< Updated upstream
         $query = "SELECT event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end > NOW()";
+=======
+        $query = "SELECT event.*, join_event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end > NOW()";
+>>>>>>> Stashed changes
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(":id_users", $id);
@@ -111,6 +115,31 @@ class PersonnalEvents extends Model
         $stmt->bindParam(":id_users", $id);
 
         $stmt->bindParam(":id_event", $id_event);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
+
+    /**
+     * delete personnal event
+     * @param int $id
+     * @param int $id_event 
+     * @return array
+     */
+    public function deleteEvent(int $id, int $id_join_event): array
+    {
+        $query = "DELETE FROM join_event WHERE id_join_event = :id_join_event AND id_users = :id_users";
+        
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id);
+
+        $stmt->bindParam(":id_join_event", $id_join_event);
 
         $stmt->execute();
 

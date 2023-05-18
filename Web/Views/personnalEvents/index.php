@@ -50,6 +50,7 @@
                         <tbody>
                             <?php
                                 foreach($upcomingEvents as $informations){
+                                    
                                     echo '<tr class="table-success">
                                             <th>' . $informations['name'] .'</th>
                                             <th>' . $informations['date_start'] .'</th>
@@ -57,6 +58,7 @@
                                             <th>' . $informations['price'] .'€</th>
                                             <th>
                                                 <a href="' . $path_prefix . 'PersonnalEvents/downloadUpcomingEventInformation/'. $informations['id_event']. '" class="dropdown-item">PDF</a>
+                                                <a href="' . $path_prefix . 'PersonnalEvents/deleteEvent/'. $informations['id_join_event']. '" class="dropdown-item">Supprimer</a>
                                             </th>
                                             </tr>';
                                 }

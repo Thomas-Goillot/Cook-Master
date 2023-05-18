@@ -319,33 +319,27 @@ class Events extends Controller
 
 
     /**
-     * pay succes
+     * pay success
      * @return void
      */
     public function paySuccess(): void{
+        
+        
+        
+        if($this->checkSecurity()){
+            $this->loadModel("Events");
+            $id_event = $this->getSecurityParams()['id_event'];
+            $id_user = $this->getUserId();
+            $place = (int) $this->getSecurityParams()['place'];
 
-        $this->loadModel("User");
-
-        $idUser = $this->getUserId();
-
-        $user = $this->_model->getUserInfo($idUser);
-
-        $this->loadModel("Events");
-
-        $params = $_GET['params'];
-
-
-        if (count($params) === 0 || is_numeric($params[0]) === false) {
-            $this->redirect('../home');
-            exit();
+            for($i = 0; $i < $place; $i++){
+                $this->_model->reservationEvent($id_event,$id_user);
+                $this->redirect("../../../personnalEvents");
+            }
         }
-
-        $place = $_POST['place'];
-        $id_event = $params[0];
-        $id_User = $this->getUserId();
-        
-        
-        $this->_model->reservationEvent($place,$id_event,$id_User);
+        else{
+            echo "Erreur";
+        }
 
     }
 
@@ -366,6 +360,7 @@ class Events extends Controller
      */
     public function pay(): void{
        
+
 
         $this->loadModel("User");
 
@@ -390,7 +385,8 @@ class Events extends Controller
         }
 
         $id_event = $params[0];
-        $id_User = $this->getUserId();
+        $place = $_POST['place'];
+
         
 
         $event = $this->_model->getEventById($id_event);
@@ -398,12 +394,12 @@ class Events extends Controller
         $eventData = array(array(
             "name"=> $event['name'],
             "price_purchase"=> $event['price'],
-            "quantity"=> $_POST['place']
+            "quantity"=> $place
         ));
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($id_User, $eventData, $userEmail, paySuccess(), payError() );
+        $payment->startPayment($eventData,$userEmail,$this->activeSecurity("Events/paySuccess",array("id_event"=>$id_event,"place"=>$place))['url']);
 
         $page_name = array("Evenement" => "EventsPresentation", "Page de l'évenement" => "EventsPresentation/EventDisplay");
 

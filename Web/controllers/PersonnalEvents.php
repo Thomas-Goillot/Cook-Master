@@ -204,4 +204,31 @@ class PersonnalEvents extends Controller{
         $dompdf->stream($fichier);
     
         }
+
+
+        /**
+     * DELETE PERSONNAL EVENT
+     */
+    public function deleteEvent():void{
+
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_join_event = (int) $params[0];
+
+        $this->loadModel('user');
+
+        $id_users = $this->getUserId();
+
+        $this->loadModel('PersonnalEvents');
+        
+        $this->_model->deleteEvent($id_users,$id_join_event);
+
+        $this->setError("Réservation annulé ! ","La réservation a bien été annulé !", SUCCESS_ALERT);
+        $this->redirect('../../personnalEvents');
+        }
 }
