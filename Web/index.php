@@ -6,4 +6,4 @@ require('vendor/autoload.php');
 
 use App\Router;
 
-new Router($_GET['p']);
+new Router(isset($_GET['p']) ? $_GET['p'] : "");
