@@ -172,20 +172,35 @@ class UserSubscription extends Controller
 
         if($typeSubscription === 'monthly'){
             // monthly
-            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success")['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
+            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success",array("typeSubscription" => 1, "idSubscription" => $subscriptionInfo['id_subscription']))['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
         }else{
             // yearly
-            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success")['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
+            $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success", array("typeSubscription" => 2, "idSubscription" => $subscriptionInfo['id_subscription']))['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
         }
     }
 
     public function success():void{
-      
         if($this->checkSecurity()){
-            echo "Le token de sécurité est valide"; 
+
+            $page_name = array("Abonnements" => $this->default_path, "Choix de la périodicité" => "UserSubscription/frequency", "Récapitulatif de la commande" => "UserSubscription/recap", "Merci pour votre achat" => "UserSubscription/success");
+
+            $infos = $this->getSecurityParams();
+
+            $this->loadModel('Subscription');
+
+            $subscriptionInfo = $this->_model->getAllSubscriptionInfoById($infos['idSubscription']);
+
+            $this->loadModel('UserSubscription');
+
+            $this->_model->updateSubscriptionToUser($this->getUserId(), $infos['idSubscription'], $infos['typeSubscription']);
+
+            
+
+            $this->render('shop/successPayment', compact('page_name','infos', 'subscriptionInfo'), DASHBOARD);
         }
         else{
-            echo "Le token de sécurité n'est pas valide"; 
+            $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
+            $this->redirect('../UserSubscription/information');
         }
 
 

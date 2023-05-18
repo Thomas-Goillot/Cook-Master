@@ -25,7 +25,7 @@ class PersonnalEvents extends Model
      */
     public function getAllPersonnalEvents(int $id): array
     {
-        $query = "SELECT event.* , users.id_users FROM " . $this->table . ", users WHERE event.id_users = :id_users AND  users.id_users = :id_users";
+        $query = "SELECT event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -44,8 +44,7 @@ class PersonnalEvents extends Model
      */
     public function getUpcomingPersonnalEvents(int $id): array
     {
-        $query = "SELECT event.* , users.id_users FROM " . $this->table . ", users WHERE event.id_users = :id_users AND  users.id_users = :id_users AND event.date_end > NOW()";
-
+        $query = "SELECT event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end > NOW()";
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(":id_users", $id);
@@ -63,7 +62,7 @@ class PersonnalEvents extends Model
      */
     public function getPastPersonnalEvents(int $id): array
     {
-        $query = "SELECT event.* , users.id_users FROM " . $this->table . ", users WHERE event.id_users = :id_users AND  users.id_users = :id_users AND event.date_end < NOW()";
+        $query = "SELECT event.* FROM event, join_event WHERE event.id_event = join_event.id_event AND join_event.id_users = :id_users AND event.date_end < NOW()";
 
         $stmt = $this->_connexion->prepare($query);
 
