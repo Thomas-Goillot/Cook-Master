@@ -133,6 +133,23 @@ class UserSecurity extends Model
         return false;
     }
 
+    public function getIpId($id_users, $ip):int
+    {
+        $query = "SELECT id_user_ip FROM " . $this->table . " WHERE id_users = :id_users AND ip = :ip";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_users" => $id_users,
+            ":ip" => $ip
+        );
+
+        $stmt->execute($data);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result['id_user_ip'];
+    }
 
 
 

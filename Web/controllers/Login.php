@@ -86,13 +86,19 @@ class login extends Controller{
 
             $userName = $user['name'];
 
-            $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
+            $this->loadModel('UserSecurity');
+            if($this->_model->checkIp($user['id_users'], $userIp) === false){
+                $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
+            }
+            else{
+                $idUserIp = $this->_model->getIpId($user['id_users'], $userIp);
+            }
 
             $body = str_replace('___name___', $userName, $body);
 
             $body = str_replace('___ip___', $userIp, $body);
 
-            $body = str_replace('___validationLink___', $this->getDomainName() . $this->activeSecurity('login/validateip', array('idUserIp' => $idUserIp))['url'], $body);
+            $body = str_replace('___validationLink___', $this->getDomainName() . $this->activeSecurity('login/validateIp', array('idUserIp' => $idUserIp))['url'], $body);
 
             $images = [
                 'assets/images/logo.png' => 'logo',
@@ -175,4 +181,27 @@ class login extends Controller{
         $this->redirect('users/profil');
 
     }
+
+
+    public function validateIp():void
+    {
+        echo "pour le moment valider dans bdd dans table user_ip";
+/*         if ($this->checkSecurity()) {
+            $infos = $this->getSecurityParams();
+
+            $this->loadModel('UserSecurity');
+
+            $this->_model->updateAllowedIp($infos['idUserIp'],$this->getUserId());
+
+            $this->setError("Ip validée", "Votre adresse IP a été validée", SUCCESS_ALERT);
+            $this->redirect('../users/profil');
+
+        } else {
+            $this->setError("Erreur", "Une erreur est survenue lors de la validation", ERROR_ALERT);
+            $this->redirect('../Home');
+        } */
+
+    }
+
+
 }

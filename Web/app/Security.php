@@ -142,7 +142,7 @@ abstract class Security
         $controller = new Controller();
         $controller->loadModel('UserSecurity');
 
-        $user = $controller->_model->getUserAllowedIp($id_user);
+        $user = $controller->_model->getUserIp($id_user);
 
         if(count($user) === 0){
             return true; // == first connection
