@@ -88,7 +88,7 @@ class PersonnalEvents extends Model
         FROM join_event AS je
         JOIN event AS e ON je.id_event = e.id_event
         WHERE je.id_users = :id_users AND je.id_event = :id_event
-        AND event.date_end > NOW()";
+        AND e.date_end > NOW()";
 
         $stmt = $this->_connexion->prepare($query);
 
