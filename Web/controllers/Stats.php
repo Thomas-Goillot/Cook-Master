@@ -41,6 +41,5 @@ class Stats extends Controller
 
         $this->render('admin/stats', compact('page_name','getNumberOfSubscriptionsByDate', 'getCountSubscriptions'), DASHBOARD);
     }
-
    
 }

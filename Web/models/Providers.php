@@ -33,5 +33,38 @@ class Providers extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-}
     
+    /**
+     * Get providers list u know
+     *
+     * @return array
+     */
+    public function getAllProvidersValidate(): array
+    {
+        $query = "SELECT users.name, 
+        users.surname, 
+        users.phone, 
+        users.email, 
+        users.id_users, 
+        providers.siret, 
+        providers_files.file, 
+        providers_images.image, 
+        providers_type.type 
+        FROM providers 
+        LEFT JOIN users ON providers.id_users = users.id_users 
+        LEFT JOIN add_files ON providers.id_providers = add_files.id_providers 
+        LEFT JOIN providers_files ON add_files.id_providers_files = providers_files.id_providers_files 
+        LEFT JOIN add_images ON providers.id_providers = add_images.id_providers 
+        LEFT JOIN providers_images ON add_images.id_providers_images = providers_images.id_providers_images 
+        LEFT JOIN of_type ON providers.id_providers = of_type.id_providers 
+        LEFT JOIN providers_type ON of_type.id_providers_type = providers_type.id_providers_type 
+        WHERE providers.verified = 1";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+}
