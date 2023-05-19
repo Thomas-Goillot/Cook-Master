@@ -8,5 +8,5 @@ include_once('views/layout/dashboard/path.php');
     <?php include_once('views/users/userCommand.php'); ?>
 
     <?php include_once('views/users/userEvent.php'); ?>
-    
+
 </div>

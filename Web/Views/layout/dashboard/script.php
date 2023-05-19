@@ -39,8 +39,9 @@
 <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js'></script>
 
 <!-- PAGES JS -->
-<!-- <script src="<?= $path_prefix ?>assets/pages/materialdesign.init.js"></script> -->
 <script src="<?= $path_prefix ?>assets/pages/fontawesome.init.js"></script>
+<script src="<?= $path_prefix ?>assets/js/theme.js"></script>
+
 <?php
 if (isset($newScript) && $newScript != "") {
     echo $newScript;
@@ -52,8 +53,6 @@ if (isset($newScript) && $newScript != "") {
 <!-- Raphael Js-->
 <script src="<?= $path_prefix ?>plugins/raphael/raphael.min.js"></script>
 
-<!-- App js -->
-<script src="<?= $path_prefix ?>assets/js/theme.js"></script>
 
 <script>
     $(document).ready(function() {

@@ -49,6 +49,10 @@
                 </li>
 
                 <li>
+                    <a href="<?= $path_prefix ?>users/increase" class="waves-effect"><i class='bx bx-line-chart'></i><span>Progression</span></a>
+                </li>
+
+                <li>
                     <a href="<?= $path_prefix ?>avatar/createAvatar" class="waves-effect"><i class='bx bx-user-circle'></i><span>Avatar</span></a>
                 </li>
 

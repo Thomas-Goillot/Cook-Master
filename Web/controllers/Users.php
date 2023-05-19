@@ -42,6 +42,16 @@ class Users extends Controller{
         $this->render($this->default_path, compact('user', 'subscription', 'page_name'), DASHBOARD);
     }
 
+    public function increase():void
+    {
+        //$this->setJsFile(['dotCheckProgressBar.js']);
+        $this->setCssFile(['css/certificate/dotCheckProgressBar.css']);
+
+        $page_name = array("Skills & Progress" => "../Users/increase");
+
+        $this->render('users/increase', compact('page_name'), DASHBOARD);
+    }
+
     /**
      * Download information
      */
