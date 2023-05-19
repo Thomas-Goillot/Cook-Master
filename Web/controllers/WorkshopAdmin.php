@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use App\Controller;
-
+use App\StripePayment;
 class WorkshopAdmin extends Controller
 {
 
@@ -39,10 +39,74 @@ class WorkshopAdmin extends Controller
      */
     public function index(): void
     {
+
+        $this->loadModel("Products");
+        $allProduct = $this->_model->getAllProducts();
+
+        $this->loadModel('location');
+        $locations = $this->_model->getAllLocationWithOpeningHours();
+
         $this->loadModel('Workshop');
 
+        $this->setJsFile(array('location.js'));
+        $this->setCssFile(array('css/location/location.css'));
+
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
-        $this->render('admin/workshop', compact('page_name',), DASHBOARD);
+        $this->render('admin/workshop', compact('page_name','locations','allProduct'), DASHBOARD);
+    }
+
+
+    /**
+     * display the pay page for workshops
+     * @return void
+     */
+    public function pay(): void{
+       
+
+
+        $this->loadModel("User");
+
+        $idUser = $this->getUserId();
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $userEmail = $user['email'];
+
+
+
+
+
+        $this->loadModel("Workshop");
+
+        $params = $_GET['params'];
+
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_workshop = $params[0];
+        $available = $_POST['place'];
+
+        
+
+        $workshop = $this->_model->getWorkshopById($id_workshop);
+
+        $eventData = array(array(
+            "name"=> $workshop['name'],
+            "price_purchase"=> $workshop['price'],
+            "quantity"=> $available
+        ));
+
+        $payment = new StripePayment(STRIPE_API_KEY);
+
+        $payment->startPayment($eventData,$userEmail,$this->activeSecurity("WorkshopAdmin/paySuccess",array("id_workshop"=>$id_workshop,"available"=>$available))['url']);
+
+        $page_name = array("Liste des Ateliers" => "AtelierPresentation");
+
+        $this->render('WorkshopAdmin/pay', compact('page_name',), DASHBOARD);
+
     }
 
     /**
@@ -53,8 +117,10 @@ class WorkshopAdmin extends Controller
 
     {
         if (!isset($_POST['submit'])) {
+            
             $defaultErrorPath = "../admin/addWorkshop";
             $defaultValidePath = "../admin/listWorkshop";
+            
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -110,8 +176,10 @@ class WorkshopAdmin extends Controller
 
             $this->_model->addWorkshop($name, $description, $image, $price, $available, $date);
         }
-        $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
-        $this->redirect($defaultValidePath);
+
+
+        // $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
+        // $this->redirect($defaultValidePath);
     }
 
 
