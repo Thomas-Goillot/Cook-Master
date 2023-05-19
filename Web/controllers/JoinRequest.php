@@ -37,5 +37,57 @@ class JoinRequest extends Controller
 
         $this->render($this->default_path, compact('getAllRequest', 'page_name'), DASHBOARD);
     }
+
+    /**
+     * Add someone to providers list
+     * @return void
+     */ 
+    public function Add(): void
+    {
+        $defaultFallBack = "../index";
+
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id = (int) $params[0];
+        
+        $this->loadModel("joinRequest");
+
+        $add = $this->_model->Add($id);
+
+        $this->redirect($defaultFallBack);
+        exit();
+
+    }
+
+    /**
+     * Delete someone to providers list
+     * @return void
+     */ 
+    public function Supp(): void
+    {
+        $defaultFallBack = "../index";
+
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id = (int) $params[0];
+        
+        $this->loadModel("joinRequest");
+
+        $supp = $this->_model->Add($id);
+
+        $this->redirect($defaultFallBack);
+        exit();
+
+    }
    
 }

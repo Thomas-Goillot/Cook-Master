@@ -39,7 +39,8 @@ class JoinRequest extends Model
         LEFT JOIN add_images ON providers.id_providers = add_images.id_providers 
         LEFT JOIN providers_images ON add_images.id_providers_images = providers_images.id_providers_images 
         LEFT JOIN of_type ON providers.id_providers = of_type.id_providers 
-        LEFT JOIN providers_type ON of_type.id_providers_type = providers_type.id_providers_type";
+        LEFT JOIN providers_type ON of_type.id_providers_type = providers_type.id_providers_type 
+        WHERE providers.verified IS NULL";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -48,4 +49,40 @@ class JoinRequest extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    /**
+     * Add someone to providers list
+     * int id
+     * @return array
+     */
+    public function Add(int $id): array
+    {
+        $query = "UPDATE providers SET verified = 1 WHERE id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Delete someone to providers list
+     * int id
+     * @return array
+     */
+    public function Supp(int $id): array
+    {
+        $query = "UPDATE providers SET verified = 1 WHERE id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -38,6 +38,10 @@
                     <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-id-card'></i><span>Nous rejoindre</span></a>
                 </li>
 
+                <li>
+                    <a href="<?= $path_prefix ?>HomeService" class="waves-effect"><i class='bx bx-buildings'></i><span>Prestation à domicile</span></a>
+                </li>
+
                 <li class="menu-title">Utilisateur</li>
 
                 <li>
