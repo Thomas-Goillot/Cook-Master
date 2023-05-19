@@ -12,6 +12,26 @@ class Recipes extends Controller{
      */
     private string $default_path = "recipes/index";
 
+    public function __construct()
+    {
+
+        if ($this->isLogged() === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $this->loadModel('User');
+
+        $id_access = $this->_model->getAll();
+
+        $id_access = (int)$id_access[0]['id_access'];
+
+        if ($this->isAdmin($id_access) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+    }
+
     /**
      * Display the recipes page
      * @return void
@@ -70,8 +90,101 @@ class Recipes extends Controller{
 
             
         }
+    }
 
+    /** 
+     * Display the recipes page 
+     * @return void
+     */
+    public function recipesAdmin(): void
+    {
+        $page_name = array("Admin" => $this->default_path, "Recettes" => "admin/recipesAdmin");
 
+        $this->setJsFile(['recipesAdmin.js']);
+
+        $this->setCssFile(['css/recipesAdmin/recipesAdmin.css']);
+
+        $this->render('admin/recipesAdmin', compact('page_name'), DASHBOARD);
+    }
+
+    /**
+     * Add a recipe
+     * @return void
+     */
+    public function addRecipe(): void
+    {
+
+        $defaultFallback = "../Recipes/recipesAdmin";
+        //nameRecipe typeRecipe infoRecipe ingredients[] quantities[] 
+        if(!isset($_POST['nameRecipe']) && !isset($_POST['typeRecipe']) && !isset($_POST['infoRecipe']) && !isset($_POST['ingredients']) && !isset($_POST['quantities'])){
+            $this->setError('ERREUR', "Tout les champs doivent être remplis", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+
+        $nameRecipe = htmlspecialchars($_POST['nameRecipe']);
+        $typeRecipe = htmlspecialchars($_POST['typeRecipe']);
+        $infoRecipe = htmlspecialchars($_POST['infoRecipe']);
+        $ingredients = $_POST['ingredients'];
+        $quantities = $_POST['quantities'];
+
+        if(empty($nameRecipe) || empty($typeRecipe) || empty($infoRecipe) || empty($ingredients) || empty($quantities)){
+            $this->setError('ERREUR', "Tout les champs doivent être remplis", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+
+        //handle image
+        if(!isset($_FILES['imageRecipe'])){
+            $this->setError('ERREUR', "Vous devez ajouter une image", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+        
+        $acceptable = array('image/jpeg', 'image/png');
+        $image = $_FILES['imageRecipe']['type'];
+
+        if (!in_array($image, $acceptable)) {
+            $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+
+        $maxSize = 5 * 1024 * 1024; //5 Mo
+        if ($_FILES['imageRecipe']['size'] > $maxSize) {
+            $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+
+        //Si le dossier uploads n'existe pas, le créer
+        $path = 'assets/images/recipes';
+        if (!file_exists($path)) {
+            mkdir($path);
+        }
+
+        $filename = $_FILES['imageRecipe']['name'];
+
+        $array = explode('.', $filename);
+        $extension = end($array);
+
+        $filename = 'image-' . time() . '.' . $extension;
+
+        $destination = $path . '/' . $filename;
+
+        move_uploaded_file($_FILES['imageRecipe']['tmp_name'], $destination);
+    
+
+        $this->loadModel('Recipes');
+
+        $idRecipe = $this->_model->addRecipe($nameRecipe, $typeRecipe, $infoRecipe, $filename, $this->getUserId());
+
+        if($idRecipe === false){
+            $this->setError('ERREUR', "Une erreur est survenue lors de l\'ajout de la recette", ERROR_ALERT);
+            $this->redirect($defaultFallback);
+        }
+
+        for ($i=0; $i < count($ingredients); $i++) { 
+            $this->_model->addIngredient($ingredients[$i], $quantities[$i], $idRecipe);
+        }
+
+        $this->setError('SUCCES', "La recette a bien été ajoutée", SUCCESS_ALERT);
+        $this->redirect($defaultFallback);
     }
 
 }

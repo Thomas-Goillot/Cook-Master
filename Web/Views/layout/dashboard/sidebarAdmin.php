@@ -2,9 +2,9 @@
 
 <li><a href="<?= $path_prefix ?>admin/users" class="waves-effect"><i class="bx bx-group"></i><span>Utilisateurs</span></a></li>
 
-<li><a href="<?= $path_prefix ?>admin/recipesAdmin" class=" waves-effect"><i class="bx bx-restaurant"></i><span>Recettes</span></a></li>
+<li><a href="<?= $path_prefix ?>Recipes/recipesAdmin" class=" waves-effect"><i class="bx bx-restaurant"></i><span>Recettes</span></a></li>
 
-<li><a href="<?= $path_prefix ?>admin/recipesAdmin" class=" waves-effect"><i class="fas fa-glass-cheers"></i><span>Préstations</span></a></li>
+<li><a href="<?= $path_prefix ?>prestation/index" class=" waves-effect"><i class="fas fa-glass-cheers"></i><span>Préstations</span></a></li>
 
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="fa fa-book-reader"></i><span>Cours</span></a>

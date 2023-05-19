@@ -499,18 +499,4 @@ class Admin extends Controller
 
         $this->render('admin/editEvent', compact('eventInfo', 'page_name'), DASHBOARD, "../../");
     }
-
-    /** 
-     * Display the recipes page 
-     * @return void
-     */
-    public function recipesAdmin(): void
-    {
-        $page_name = array("Admin" => $this->default_path, "Recettes" => "admin/recipesAdmin");
-
-        $this->setJsFile(['recipesAdmin.js']);
-
-        $this->render('admin/recipesAdmin', compact('page_name'), DASHBOARD);
-    }
-
 }
