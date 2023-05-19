@@ -52,7 +52,7 @@ function decrementQuantity(id, idCart) {
             }
         }
     );
-
+}
 
 function deleteEquipmentInCart(id) {
     fetch("../shop/deleteProductInCart", {
