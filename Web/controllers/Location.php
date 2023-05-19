@@ -35,6 +35,7 @@ class Location extends Controller
 
     public function index():void
     {
+
         $this->loadModel('location');
         $locations = $this->_model->getAllLocationWithOpeningHours();
 

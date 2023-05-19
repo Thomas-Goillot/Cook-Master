@@ -6,19 +6,21 @@ include_once('views/layout/dashboard/path.php');
     <div class="col-xl-4">
         <div class="card card-animate">
             <div class="card-body">
-
-                <form action="<?= $path_prefix ?>WorkshopAdmin/index" method="POST" enctype="multipart/form-data">
-                    <?php include_once('views/admin/workshop/form.php'); ?>
-                </form>
+                <form action="<?= $path_prefix ?>WorkshopAdmin/addWorskhop/"  method="POST" enctype="multipart/form-data">
+                    <?php include_once("views/admin/workshop/form.php"); ?>
+                    <div class="d-flex justify-content-center">
+                        <div class="col-xl-4">
+                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small">Ajouter</button>
+                        </div>
+                    </div>
             </div>
+            
+            <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
         </div>
-        </div>
-
         <div class="col-xl-8">
             <div class="card card-animate">
                 <div class="card-body">
                     <h4 class="card-title"><i class="fas fa-clipboard-list mr-2"></i> Liste des lieux</h4>
-
                     <table id="datatable" class="table nowrap">
                         <thead>
                             <tr>
@@ -26,80 +28,95 @@ include_once('views/layout/dashboard/path.php');
                                 <th>adresse</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             <?php
-
-                            foreach ($getAllLocationWithOpeningHours as $location) {
+                            foreach ($locations as $location) {
                                 echo "<tr class=\"location \" style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\">";
                                 echo "<td>" . $location['name'] . "</td>";
-                                echo "<td>" . $location['address'] . "</td>";
+                                echo "<td id='addr" . $location['id_location'] . "'>" . $location['address'] . "</td>";
                                 echo "</tr>";
                             }
                             ?>
-
                         </tbody>
                     </table>
+                </div>
+            </div>
 
+            <div class="card card-animate">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fas fa-map-marker-alt mr-2"></i> Carte des lieux</h4>
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4" id="locationCol">
-        </div>
-
-
-
-    </div>
-
-    <div class="card card-animate">
-    <img class="card-img-top img-fluid" src="../assets/images/location/<?= $location['images'][0]['image'] ?>" alt=" Card image cap">
-    <div class="card-body">
-        <h5 class="card-title"><?= $location['name'] ?></h5>
-        <p class="card-text"><?= $location['address'] ?></p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Disponible à la location : <span class="card-text p-0 m-0 font-weight-bold"><?php echo $location['available_to_rental'] == 0 ? "Non" : "Oui" ?></span></li>
-        <li class="list-group-item">Prix par jour : <span class="card-text p-0 m-0 font-weight-bold"><?= $location['price_day']?> €</span></li>
-        <li class="list-group-item">Prix par demi-journée : <span class="card-text p-0 m-0 font-weight-bold"><?= $location['price_half_day']?> €</span></li>
-    </ul>
-    <div class="card-body">
-
-        <?php //dump($location); ?>
-
-        <?php
-        $actualDay = date('l');
-
-        foreach ($days as $day) {
-            $isToDay = $day == $actualDay ? "font-weight-bold" : "text-muted";
-
-            echo "<div class=\"row\">";
-            echo "<div class=\"col-3\">";
-            echo "<p class=\"card-text p-0 m-0 " . $isToDay . "\">" . $day . "</p>";
-            echo "</div>";
-
-            echo "<div class=\"col-9\">";
-
-
-            $temp = array_filter($location['opening_hours'], function ($opening_hour) use ($day) {
-                return $opening_hour['opening_day'] == $day;
-            });
-
-            if (count($temp) == 0) {
-                echo "<p class=\"card-text p-0 m-0" . $isToDay . " text-danger\">Fermé</p>";
-            } else {
-                foreach ($temp as $opening_hour) {
-                    $opening_hour['opening_hours'] = substr($opening_hour['opening_hours'], 0, -3);
-                    $opening_hour['closing_hours'] = substr($opening_hour['closing_hours'], 0, -3);
-                    echo "<p class=\"card-text p-0 m-0 " . $isToDay . "\">" . $opening_hour['opening_hours'] . " - " . $opening_hour['closing_hours'] . "</p>";
-                }
-            }
-
-            echo "</div>";
-
-            echo "</div>";
-        }
-        ?>
-
     </div>
 </div>
+
+
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <table id="datatables" class="table dt-responsive ici2">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Disponibilité:</th>
+                        <th>Description</th>
+                        <th>Quantité souhaitée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($allProduct as $allProduct) {
+                        if ($allProduct['allow_rental'] == 0) {
+                            echo "<tr>";
+                            echo "<td>" . $allProduct['name'] . "</td>";
+                            echo "<td>" . $allProduct['price_rental'] . "€</td>";
+                            echo "<td>" . $allProduct['stock'] . "</td>";
+                            echo "<td><span class='description'>" . substr($allProduct['description'], 0, 40) . "... </span><a href='#' class='read-more'>[...] </a><span class='full-description' style='display: none;'>" . $allProduct['description'] . "</span></td>";
+                            echo "<td><input type='number' data-toggle='touchspin' name='available' max=" . $allProduct['stock'] . " data-step='1' value='0' class='form-control' data-color='#df3554'></td>";
+                            echo "</tr>";
+                        }
+                    };
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+</form>
+
+
+
+
+<script>
+    var adresses = [
+        <?php foreach ($locations as $location) {
+            echo "\"" . $location['address'] . "\",";
+        } ?>
+    ];
+
+    var readMoreLinks = document.getElementsByClassName('read-more');
+    for (var i = 0; i < readMoreLinks.length; i++) {
+        readMoreLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+            var description = this.parentNode.getElementsByClassName('description')[0];
+            var fullDescription = this.parentNode.getElementsByClassName('full-description')[0];
+            if (description.style.display === 'none') {
+                description.style.display = 'inline';
+                fullDescription.style.display = 'none';
+            } else {
+                description.style.display = 'none';
+                fullDescription.style.display = 'inline';
+            }
+        });
+        readMoreLinks[i].style.color = 'black';
+    }
+</script>

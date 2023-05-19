@@ -2,7 +2,7 @@
     <link href="<?= $path_prefix ?>assets/css/rentalEquipment/style.css" rel="stylesheet" />
 </head>
 <?php
-    include_once('views/layout/dashboard/path.php');
+include_once('views/layout/dashboard/path.php');
 ?>
 
 
@@ -11,7 +11,7 @@
 
     foreach ($allProduct as $allProduct) {
         if ($allProduct['allow_purchase'] == 0) {
-            
+
             echo ' <div class="col-lg-4 text-center width="300px">';
             echo ' <div class="card card-animate text-center">';
 
