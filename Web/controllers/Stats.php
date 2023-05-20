@@ -34,12 +34,24 @@ class Stats extends Controller
         $getNumberOfSubscriptionsByDate = $this->_model->getNumberOfSubscriptionsByDate();
 
         $getCountSubscriptions = $this->_model->getCountSubscriptions();
-        
+
+        $dataOfStarters = $this->_model->CountStarters();
+
+        $dataOfStarters_1 = $dataOfStarters[0];
+
+        $dataOfDishes = $this->_model->CountDishes();
+
+        $dataOfDishes_1 = $dataOfDishes[0];
+
+        $dataOfDesserts = $this->_model->CountDesserts();
+
+        $dataOfDesserts_1 = $dataOfDesserts[0];
+
         $page_name = array("Les statistiques" => "admin/stats"); 
 
         $this->setJsFile(['stats.js']);
 
-        $this->render('admin/stats', compact('page_name','getNumberOfSubscriptionsByDate', 'getCountSubscriptions'), DASHBOARD);
+        $this->render('admin/stats', compact('page_name','getNumberOfSubscriptionsByDate', 'getCountSubscriptions','dataOfStarters_1','dataOfDishes_1','dataOfDesserts_1'), DASHBOARD);
     }
    
 }

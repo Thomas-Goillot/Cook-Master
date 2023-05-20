@@ -27,9 +27,23 @@
 </div>
 <!-- end row-->
 
+<div class="row">
 
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nombres de recettes</h4>
+                <p class="card-subtitle mb-4">Nombres de recettes par type.</p>
+                <div id="morris-donut-example" class="morris-chart"></div>
+                </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+</div>
+<!-- end row-->
 
 <script>
+
     var dataOfUsers = [
         <?php
             echo "{";
@@ -41,7 +55,6 @@
             echo "},";
         ?>
     ];
-
 
     var dataOfSubscriptions = [
         <?php
@@ -65,6 +78,24 @@
             echo " \"#FFD0C6\", ";
             echo "],";
             echo "},";
+        ?>
+    ];
+
+    var dataOfStarters = [
+        <?php
+            echo $dataOfStarters_1["COUNT(*)"];
+        ?>
+    ];
+
+    var dataOfDishes = [
+        <?php
+            echo $dataOfDishes_1["COUNT(*)"];
+        ?>
+    ];
+    
+    var dataOfDesserts = [
+        <?php
+            echo $dataOfDesserts_1["COUNT(*)"];
         ?>
     ];
 
