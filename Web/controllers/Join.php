@@ -128,8 +128,16 @@ class Join extends Controller
 
             $this->loadModel("Join");
 
-
-            $this->_model->sendRequest($siret, $id_users, $cv, $photo, $type);
+            $siretNumber = $this->_model->checksiret($siret);
+            
+            if ($siretNumber[0]["COUNT(*)"] == 1) {
+                $this->setError("Echéc de l\'envoie de demande","Siret déjà utilisé", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+                exit();
+            }else{
+                $this->_model->sendRequest($siret, $id_users, $cv, $photo, $type);
+            }
+            
         }
         $this->setError("Demande envoyée !", "Votre demande a été envoyée avec succès", SUCCESS_ALERT);
         $this->redirect($defaultFallBack);

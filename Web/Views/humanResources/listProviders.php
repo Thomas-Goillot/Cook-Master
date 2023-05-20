@@ -14,6 +14,7 @@
                     <p class="card-text"><strong>Numéro de siret :</strong> <?php echo $request['siret']; ?></p>
                     <p class="card-text"><strong>Métier recherché :</strong> <?php echo $request['type']; ?></p>
                     <a href="<?php echo $path_prefix . 'assets/images/request/cv/' . $request['file']; ?>" target="_blank" class="btn btn-primary">Voir CV</a>
+                    <a href="<?php echo $path_prefix .'Providers/supp/' . $request['id_users']; ?>" class="btn btn-primary">Supprimer</a>
                 </div>
             </div>
         </div>

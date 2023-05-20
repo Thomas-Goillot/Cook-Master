@@ -38,4 +38,30 @@ class Providers extends Controller
         $this->render('humanResources/listProviders', compact('page_name', 'getAllProvidersValidate'), DASHBOARD);
     }
    
+    /**
+     * Delete someone to providers list
+     * @param int $id_users
+     * @return void
+     */ 
+    public function supp($id_users): void
+    {
+        $defaultFallBack = "../index";
+
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect($defaultFallBack);
+            exit();
+        }
+
+        $id_users = (int) $params[0];
+        
+        $this->loadModel("Providers");
+
+        $supp = $this->_model->supp($id_users);
+
+        $this->setError("Action effectuée !", "Le prestataire a bien été supprimé", SUCCESS_ALERT);
+
+        $this->redirect($defaultFallBack);
+    }
 }

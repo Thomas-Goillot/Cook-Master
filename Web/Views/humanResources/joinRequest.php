@@ -10,7 +10,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title"><?php echo $request['name'] . ' ' . $request['surname']; ?></h5>
                     <p class="card-text"><strong>Téléphone :</strong> <?php echo $request['phone']; ?></p>
-                    <p class="card-text"><strong>Email :</strong> <?php echo $request['email']; ?></p>
+                    <p class="card-text"><strong>Email :</strong> <a href="mailto:<?php echo $request['email']; ?>"><?php echo $request['email']; ?></a></p>
                     <p class="card-text"><strong>Numéro de siret :</strong> <?php echo $request['siret']; ?></p>
                     <p class="card-text"><strong>Métier recherché :</strong> <?php echo $request['type']; ?></p>
                     <a href="<?php echo $path_prefix . 'assets/images/request/cv/' . $request['file']; ?>" target="_blank" class="btn btn-primary">Voir CV</a>
