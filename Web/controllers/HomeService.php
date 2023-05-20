@@ -24,13 +24,13 @@ class HomeService extends Controller
     }
     
     /**
-     * Display the joinRequest page
+     * Display the Home service page
      * @return void
      */ 
     public function index(): void
     {
         $this->loadModel('User');
-
+        $id_users = $this->getUserId();
         $user = $this->_model->getUserInfo($_SESSION['user']['id_users']);
 
         $this->loadModel("HomeService");
@@ -40,6 +40,8 @@ class HomeService extends Controller
         $getAllDishesWithoutIngredients = $this->_model->getAllDishesWithoutIngredients();
 
         $getAllDessertsWithoutIngredients = $this->_model->getAllDessertsWithoutIngredients();
+
+        $getAllHomeServices = $this->_model->getAllHomeServices($id_users);
 
         $this->setJsFile(array('location.js'));
         
@@ -55,11 +57,31 @@ class HomeService extends Controller
 
         $address .= $user["zip_code"];
 
-        $this->render("homeService/index", compact('address','user','getAllEntrancesWithoutIngredients','getAllDishesWithoutIngredients','getAllDessertsWithoutIngredients','page_name'), DASHBOARD);
+        $this->render("homeService/index", compact('address','user','getAllHomeServices','getAllEntrancesWithoutIngredients','getAllDishesWithoutIngredients','getAllDessertsWithoutIngredients','page_name'), DASHBOARD);
     }
 
     /**
-     * Add a request
+     * Delete a home service
+     * @param int $id_home_service
+     * @return void
+     */ 
+    public function deleteService($id_home_service): void
+    {
+        $defaultFallBack = '../homeService';
+
+        $id_home_service = htmlspecialchars($_POST['id_home_service']);
+
+        $this->loadModel("HomeService");
+
+        $this->_model->deleteService($id_home_service);
+    
+        $this->setError("Suppression effectuée !", "Vous recevrez un remboursement sous 24h !", SUCCESS_ALERT);
+        $this->redirect($defaultFallBack);
+
+    }
+
+    /**
+     * Add a home service request
      * @return void
      */ 
     public function sendRequest(): void
@@ -82,6 +104,14 @@ class HomeService extends Controller
             $id_recipes_1 = htmlspecialchars($_POST['Dishes']);
 
             $id_recipes_2 = htmlspecialchars($_POST['Desserts']);
+
+            $date = htmlspecialchars($_POST['date']);
+
+            if (strtotime($date) < strtotime(date('Y-m-d'))) {
+                $this->setError("Echec","Selectionnez une date valide", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+                exit();
+            }
 
             if (empty($id_recipes) || empty($id_recipes_1) || empty($id_recipes_2)) {
                 $this->setError("Echec","Merci de préciser les plats", ERROR_ALERT);
@@ -116,7 +146,7 @@ class HomeService extends Controller
             $this->loadModel("HomeService");
 
 
-            $this->_model->sendRequest($nb_places, $type_home_services, $type_equipment, $type_nourriture, $id_users, $id_recipes, $id_recipes_1, $id_recipes_2);
+            $this->_model->sendRequest($nb_places, $type_home_services, $type_equipment, $type_nourriture, $id_users, $id_recipes, $id_recipes_1, $id_recipes_2, $date);
         }
         $this->setError("Achat effectué !", "Votre demande a bien été prise en compte !", SUCCESS_ALERT);
         $this->redirect($defaultFallBack);

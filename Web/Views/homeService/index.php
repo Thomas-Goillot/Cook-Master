@@ -13,6 +13,11 @@ include_once('views/layout/dashboard/path.php');
                 echo '<p><strong>Adresse : </strong>' . $address . '</p>';
                 ?>
                 <form action="HomeService/sendRequest" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>Date et heure</label>
+                    <input type="datetime-local" name="date">
+                </div>
                     
                     <div class="form-group">
                         <p><strong>Couverts : </strong></p>
@@ -123,7 +128,71 @@ include_once('views/layout/dashboard/path.php');
             </div>
         </div>
     </div>
+
+    <div class="card card-animate">
+        <div class="card-body">
+            <h4 class="card-title">Gérer vos demandes de prestations</h4>
+            <table id="datatable" class="table nowrap">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Emplacement</th>
+                        <th>Type</th>
+                        <th>Equipement</th>
+                        <th>Ingrédients</th>
+                        <th>Prix</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    
+                    foreach ($getAllHomeServices as $service) {
+                        echo "<tr>";
+                        echo "<td>" . $service['id_home_service'] . "</td>";
+                        echo "<td>" . $service['date'] . "</td>";
+                        echo "<td>" . $address . "</td>";
+                        // Calculer le prix en fonction des options sélectionnées
+                        $prixTotal = 0;
+                        $typeHomeService = $service['type_home_service'];
+                        $typeEquipment = $service['type_equipment'];
+                        $typeNourriture = $service['type_nourriture'];
+                        $couverts = $service['nb_places'];
+                        if ($typeHomeService == 2) {
+                            $prixTotal += ceil($couverts / 20) * 800;
+                        } else {
+                            $prixTotal += ceil($couverts / 20) * 400;
+                        }
+                        if ($typeEquipment == 1) {
+                            $prixTotal += ceil($couverts / 20) * 50;
+                        }
+                        if ($typeNourriture == 1) {
+                            $prixTotal += $couverts * 100;
+                        }
+                        echo "<td>" . ($typeHomeService == 2 ? 'Chef et serveur' : 'Chef uniquement') . "</td>";
+                        echo "<td>" . ($typeEquipment == 2 ? 'Kit de cuisine' : 'Equipement personnel') . "</td>";
+                        echo "<td>" . ($typeNourriture == 2 ? 'Ingrédients du chef' : 'Ingrédients personnels') . "</td>";
+                        echo "<td>" . $prixTotal . " €</td>";
+                        echo "<td class=\"d-flex\">
+                                    <form action=\"" . $path_prefix . "HomeService/deleteService\" method=\"POST\">
+                                        <input type=\"hidden\" name=\"id_home_service\" value=\"" . $service['id_home_service'] . "\" />
+                                        <button type=\"submit\" class=\"btn btn-link text-danger\"><i class=\"bx bx-trash\"></i></button>
+                                    </form>                  
+                                </td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
 </div>
+
+
+
 
 <script>
     // Fonction pour calculer et afficher le prix total

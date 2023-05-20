@@ -90,13 +90,14 @@ class HomeService extends Model
      * @param int $id_recipes
      * @param int $id_recipes_1
      * @param int $id_recipes_2
+     * @param $date
      * @return array
      */
-    public function sendRequest($nb_places, $type_home_services, $type_equipment, $type_nourriture, $id_users, $id_recipes, $id_recipes_1, $id_recipes_2)
+    public function sendRequest($nb_places, $type_home_services, $type_equipment, $type_nourriture, $id_users, $id_recipes, $id_recipes_1, $id_recipes_2, $date)
     {
         $query = "INSERT INTO home_service 
-        (type_home_service, type_equipment, type_nourriture, nb_places, id_users, id_recipes, id_recipes_1, id_recipes_2)
-        VALUES (:type_home_service, :type_equipment, :type_nourriture, :nb_places, :id_users, :id_recipes, :id_recipes_1, :id_recipes_2)";
+        (type_home_service, type_equipment, type_nourriture, nb_places, id_users, id_recipes, id_recipes_1, id_recipes_2, date)
+        VALUES (:type_home_service, :type_equipment, :type_nourriture, :nb_places, :id_users, :id_recipes, :id_recipes_1, :id_recipes_2, :date)";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -108,7 +109,43 @@ class HomeService extends Model
         $stmt->bindParam(":id_recipes", $id_recipes);
         $stmt->bindParam(":id_recipes_1", $id_recipes_1);
         $stmt->bindParam(":id_recipes_2", $id_recipes_2);
+        $stmt->bindParam(":date", $date);
 
         $stmt->execute();
     }
+
+    /**
+     * Get all home services
+     * @param int $id_users
+     * @return array
+     */
+    public function getAllHomeServices(int $id_users)
+    {
+        $query = "SELECT * FROM home_service WHERE id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Delete a home service
+     * @param int $id_home_service
+     * @return array
+     */
+    public function deleteService($id_home_service)
+    {
+        $query = "DELETE FROM `home_service` WHERE id_home_service = :id_home_service";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_home_service", $id_home_service);
+
+        $stmt->execute();
+    }
+
 }
