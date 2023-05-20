@@ -191,7 +191,7 @@ abstract class Security
         $user = $controller->_model->getUserAllowedIp($id_user);
 
         for($i = 0; $i < count($user); $i++){
-            if($user[$i]['allowed'] === IP_ALLOWED){
+            if($user[$i]['allowed'] === IP_ALLOWED && $user[$i]['ip'] === $ip){
                 return true;
             }
         }

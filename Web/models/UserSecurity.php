@@ -61,15 +61,14 @@ class UserSecurity extends Model
         return $this->_connexion->lastInsertId();
     }
 
-    public function updateAllowedIp($id_user_ip, $id_users):bool
+    public function updateAllowedIp($id_user_ip):bool
     {
-        $query = "UPDATE " . $this->table . " SET allowed = 1 WHERE id_user_ip = :id_user_ip AND id_users = :id_users";
+        $query = "UPDATE " . $this->table . " SET allowed = 1 WHERE id_user_ip = :id_user_ip";
 
         $stmt = $this->_connexion->prepare($query);
 
         $data = array(
             ":id_user_ip" => $id_user_ip,
-            ":id_users" => $id_users
         );
 
         return $stmt->execute($data);

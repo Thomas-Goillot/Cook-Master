@@ -195,17 +195,11 @@
 																				<p> Il semblerait que qu'un utilisateur essaye de se connecter à votre compte depuis une nouvelle adresse IP définit comme <strong>non autorisé</strong></p>
 																				<p> Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer ce message.</p>
 																				<p>Ip de connection: <strong>___ip___</strong></p>
+																				<p>Si vous n'arrivez pas à vous connecter merci de contacter l'administrateur du site.</p>
 																				<p> Cordialement, </p>
 																				<p> L'équipe CookMaster </p>
 																	</div>
 																</div>
-															</td>
-														</tr>
-													</table>
-													<table border="0" cellpadding="0" cellspacing="0" class="button_block block-5" role="presentation" width="100%">
-														<tr>
-															<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:15px;text-align:center;">
-																<div align="center" class="alignment"><!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="www.example.com" style="height:62px;width:210px;v-text-anchor:middle;" arcsize="57%" stroke="false" fillcolor="#f7a50c"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]--><a href="___validationLink___" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f7a50c;border-radius:35px;width:auto;border-top:0px solid transparent;font-weight:undefined;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:15px;padding-bottom:15px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;text-align:center;word-break:keep-all;" target="_blank"><span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="margin: 0; word-break: break-word; line-height: 32px;"><strong>Valider maintenant</strong></span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
 															</td>
 														</tr>
 													</table>

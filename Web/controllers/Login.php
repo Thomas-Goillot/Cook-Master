@@ -4,6 +4,7 @@ namespace Controllers;
 
 use App\Mail;
 use App\Controller;
+use App\Utils;
 
 class login extends Controller{
 
@@ -98,7 +99,7 @@ class login extends Controller{
 
             $body = str_replace('___ip___', $userIp, $body);
 
-            $body = str_replace('___validationLink___', $this->getDomainName() . $this->activeSecurity('login/validateIp', array('idUserIp' => $idUserIp))['url'], $body);
+            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/'. Utils::crypt($idUserIp), $body);
 
             $images = [
                 'assets/images/logo.png' => 'logo',
@@ -183,23 +184,33 @@ class login extends Controller{
     }
 
 
-    public function validateIp():void
+    public function validate():void
     {
-        echo "pour le moment valider dans bdd dans table user_ip";
-/*         if ($this->checkSecurity()) {
-            $infos = $this->getSecurityParams();
-
-            $this->loadModel('UserSecurity');
-
-            $this->_model->updateAllowedIp($infos['idUserIp'],$this->getUserId());
-
-            $this->setError("Ip validée", "Votre adresse IP a été validée", SUCCESS_ALERT);
-            $this->redirect('../users/profil');
-
-        } else {
-            $this->setError("Erreur", "Une erreur est survenue lors de la validation", ERROR_ALERT);
+        if(!isset($_GET['params']) || empty($_GET['params'])){
             $this->redirect('../Home');
-        } */
+            return;
+        }
+
+        $params = $_GET['params'];
+
+        if(count($params) === 0){
+            $this->redirect('../Home');
+            return;
+        }
+
+        $idIp = Utils::decrypt($params[0]);
+
+        if(!is_numeric($idIp)){
+            $this->redirect('../Home');
+            return;
+        }
+
+        $this->loadModel('UserSecurity');
+
+        $this->_model->updateAllowedIp($idIp);
+
+        $this->setError("Ip validée", "Votre adresse IP a été validée", SUCCESS_ALERT);
+        $this->redirect('../../users/profil'); 
 
     }
 
