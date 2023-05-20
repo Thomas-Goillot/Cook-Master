@@ -124,8 +124,28 @@ class Recipes extends Model
         return $this->_connexion->lastInsertId();
     }
     
+    /**
+     * Get a recipe to display
+     * @param int $id_recipes
+     * @return array
+     */
+    public function getRecipeForDisplay($id_recipes): array
+    {
+        $query = "SELECT r.id_recipes, r.image, r.name, r.description, r.type, r.price, 
+        ( SELECT GROUP_CONCAT(CONCAT(i.name, ': ', u.quantity) SEPARATOR ', ') 
+        FROM used u JOIN ingredient i ON u.id_ingredient = i.id_ingredient 
+        WHERE u.id_recipes = r.id_recipes ) AS ingredients FROM recipes r 
+        WHERE r.id_recipes = :id_recipes";
 
+        $stmt = $this->_connexion->prepare($query);
 
+        $stmt->bindParam(":id_recipes", $id_recipes);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 
 }
     
