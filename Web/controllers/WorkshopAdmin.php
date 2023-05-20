@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use App\Controller;
-use App\StripePayment;
+
 class WorkshopAdmin extends Controller
 {
 
@@ -43,78 +43,22 @@ class WorkshopAdmin extends Controller
         $this->loadModel('Workshop');
 
         $this->setJsFile(array('location.js'));
-        $this->setCssFile(array('css/location/location.css'));
+         $this->setCssFile(array('css/location/location.css'));
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
         $this->render('admin/workshop', compact('page_name','locations','allProduct'), DASHBOARD);
-    }
-
-
-    /**
-     * display the pay page for workshops
-     * @return void
-     */
-    public function pay(): void{
-       
-
-
-        $this->loadModel("User");
-
-        $idUser = $this->getUserId();
-
-        $user = $this->_model->getUserInfo($idUser);
-
-        $userEmail = $user['email'];
-
-
-
-
-
-        $this->loadModel("Workshop");
-
-        $params = $_GET['params'];
-
-
-        if (count($params) === 0 || is_numeric($params[0]) === false) {
-            $this->redirect('../home');
-            exit();
-        }
-
-        $id_workshop = $params[0];
-        $available = $_POST['place'];
-
-        
-
-        $workshop = $this->_model->getWorkshopById($id_workshop);
-
-        $eventData = array(array(
-            "name"=> $workshop['name'],
-            "price_purchase"=> $workshop['price'],
-            "quantity"=> $available
-        ));
-
-        $payment = new StripePayment(STRIPE_API_KEY);
-
-        $payment->startPayment($eventData,$userEmail,$this->activeSecurity("WorkshopAdmin/paySuccess",array("id_workshop"=>$id_workshop,"available"=>$available))['url']);
-
-        $page_name = array("Liste des Ateliers" => "AtelierPresentation");
-
-        $this->render('WorkshopAdmin/pay', compact('page_name',), DASHBOARD);
-
     }
 
     /**
      * addWorkshop
      * @return void
      */
-    public function addWorkhop(): void
+    public function addWorkshop(): void
 
     {
         if (!isset($_POST['submit'])) {
-            
             $defaultErrorPath = "../admin/addWorkshop";
             $defaultValidePath = "../admin/listWorkshop";
-            
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -146,14 +90,32 @@ class WorkshopAdmin extends Controller
 
             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
+            //part of name, description, etc..
 
-
-            $name = $_POST['name'];
-            $description = $_POST['description'];
+            $name = htmlspecialchars($_POST['name']);
+            $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $price = $_POST['price'];
-            $available = $_POST['available'];
-            $date = $_POST['WorkshopDate'];
+            $image2 = $filename;
+            $image3 = $filename;
+            $price = htmlspecialchars($_POST['price']);
+            $available = htmlspecialchars($_POST['available']);
+            //date gestion
+
+            $date = htmlspecialchars($_POST['WorkshopDate']);
+            $date = explode('-', $date);
+            $date['start'] = $date[0];
+            $date['end'] = $date[1];
+
+            $date['start'] = str_replace('/', '-', $date['start']);
+            $date['end'] = str_replace('/', '-', $date['end']);
+
+            
+            $date['start'] = date('Y-m-d', strtotime($date['start']));
+            $date['end'] = date('Y-m-d', strtotime($date['end']));
+
+
+            //part of location
+            $location = htmlspecialchars($_POST['location']);
 
 
             if (strlen($_POST['name']) > MAX_NAME) {
@@ -166,14 +128,19 @@ class WorkshopAdmin extends Controller
             }
 
 
+            
+                
+        
 
 
-            $this->_model->addWorkshop($name, $description, $image, $price, $available, $date);
+            dump($_POST);
+            dump($_FILES);
+            die();
+            $this->loadModel('Workshop');
+            $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $available, $date['start'],$date['end'],$location);
         }
-
-
-        // $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
-        // $this->redirect($defaultValidePath);
+        $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
+        $this->redirect($defaultValidePath);
     }
 
 
