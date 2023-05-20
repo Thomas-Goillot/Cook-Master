@@ -215,11 +215,6 @@ abstract class Security
         
         return false;
     }
-
-    
-
-
-
 }
 
 ?>
