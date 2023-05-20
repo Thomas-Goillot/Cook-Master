@@ -19,6 +19,7 @@ class StripePayment extends Controller{
      */
     public function startPayment(array $products, string $email, string $succesPath= 'shop/success', string $cancelPath = 'shop/cancel'): void
     {
+        $utils = new Utils();
         $session = Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [
@@ -36,8 +37,8 @@ class StripePayment extends Controller{
                 }, $products),
             ],
             'mode' => 'payment',
-            'success_url' => Utils::getDomainName(). $succesPath,
-            'cancel_url' => Utils::getDomainName() . $cancelPath,
+            'success_url' => $utils->getDomainName(). $succesPath,
+            'cancel_url' => $utils->getDomainName() . $cancelPath,
             'customer_email' => $email,
           ]);
 
