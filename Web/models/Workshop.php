@@ -62,18 +62,21 @@ class workshop extends Model
      * @param string $date_end
      * @return void
      */
-    public function addworkshop(string $name, string $description, string $image, float $price, int $available, string $date_start, string $date_end): void
+    public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $available, int $id_location): void
     {
-        $query = "INSERT INTO " . $this->table . "(name,description,image,price,available,date_start,date_end) VALUES (:name,:description,:image,:price,:available,:date_start,:date_end)";
+        $query = "INSERT INTO ". $this->table.  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :available, :id_location)";
 
         $data = array(
-            ":name" => $name,
             ":description" => $description,
+            ":name" => $name,
             ":image" => $image,
+            ":image" => $image2,
+            ":image" => $image3,
             ":price" => $price,
             ":available" => $available,
             ":date_start" => $date_start,
-            ":date_end" => $date_end
+            ":date_end" => $date_end,
+            ":id_location" => $id_location
         );
 
         $stmt = $this->_connexion->prepare($query);

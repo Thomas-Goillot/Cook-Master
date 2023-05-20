@@ -6,7 +6,7 @@ include_once('views/layout/dashboard/path.php');
     <div class="col-xl-4">
         <div class="card card-animate">
             <div class="card-body">
-                <form action="<?= $path_prefix ?>WorkshopAdmin/addWorskhop/"  method="POST" enctype="multipart/form-data">
+                <form action="<?= $path_prefix ?>WorkshopAdmin/addWorkshop" method="POST" enctype="multipart/form-data">
                     <?php include_once("views/admin/workshop/form.php"); ?>
                     <div class="d-flex justify-content-center">
                         <div class="col-xl-4">
@@ -14,8 +14,8 @@ include_once('views/layout/dashboard/path.php');
                         </div>
                     </div>
             </div>
-            
-            <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
+
+
         </div>
         <div class="col-xl-8">
             <div class="card card-animate">
@@ -31,7 +31,7 @@ include_once('views/layout/dashboard/path.php');
                         <tbody>
                             <?php
                             foreach ($locations as $location) {
-                                echo "<tr class=\"location \" style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\">";
+                                echo "<tr class=\"location \" name='location' style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\">";
                                 echo "<td>" . $location['name'] . "</td>";
                                 echo "<td id='addr" . $location['id_location'] . "'>" . $location['address'] . "</td>";
                                 echo "</tr>";
@@ -47,6 +47,9 @@ include_once('views/layout/dashboard/path.php');
                     <h4 class="card-title"><i class="fas fa-map-marker-alt mr-2"></i> Carte des lieux</h4>
                     <div id="map"></div>
                 </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
             </div>
         </div>
     </div>
@@ -103,6 +106,7 @@ include_once('views/layout/dashboard/path.php');
         } ?>
     ];
 
+    //more text
     var readMoreLinks = document.getElementsByClassName('read-more');
     for (var i = 0; i < readMoreLinks.length; i++) {
         readMoreLinks[i].addEventListener('click', function(event) {
@@ -119,4 +123,19 @@ include_once('views/layout/dashboard/path.php');
         });
         readMoreLinks[i].style.color = 'black';
     }
+
+    //color for hover
+    var locationRows = document.querySelectorAll(".location");
+    var previousRow = null;
+
+    locationRows.forEach(function(locationRow) {
+        locationRow.addEventListener("click", function() {
+            if (previousRow !== null) {
+                previousRow.style.backgroundColor = "";
+            }
+            locationRow.style.backgroundColor = "#9e1b21";
+
+            previousRow = locationRow;
+        });
+    });
 </script>
