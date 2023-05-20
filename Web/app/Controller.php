@@ -100,17 +100,25 @@ class Controller extends Utils{
         $sidebarRh = "";
         $sidebarProviders = "";
         
-        if ($this->isAdmin($data['user']['id_access'])) {
+        if ($this->isAdmin($_SESSION['user']['id_users'])) {
             $sidebarAdmin = $this->generateFile('views/layout/dashboard/sidebarAdmin.php', $data);
             $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
+            $sidebarProviders = $this->generateFile('views/layout/dashboard/sidebarProviders.php', $data);
         }
 
-        if ($this->isRh($data['user']['id_access'])) {
+        if ($this->isRh($_SESSION['user']['id_users'])) {
             $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
         }
 
+        if ($this->isProvider($_SESSION['user']['id_users'])) {
+            $sidebarProviders = $this->generateFile('views/layout/dashboard/sidebarProviders.php', $data);
+        }
+
+        /* SIDE BAR */
         $data = array_merge($data, array('sidebarAdmin' => $sidebarAdmin));
         $data = array_merge($data, array('sidebarRh' => $sidebarRh));
+        $data = array_merge($data, array('sidebarProviders' => $sidebarProviders));
+        
         
         $head = $this->generateFile('views/layout/dashboard/head.php', $data);
         $sidebar = $this->generateFile('views/layout/dashboard/sidebar.php', $data);

@@ -28,17 +28,21 @@ abstract class Security
 
     /**
      * Check if the user is admin
-     * @param int $id_access
+     * @param int $idUser
      * @return bool
      */
-    public function isAdmin(int $id_access): bool
+    public function isAdmin(int $idUser): bool
     {
+
+        $controller = new Controller();
+        $controller->loadModel('User');
+        $access = $controller->_model->getUserInfo($idUser)['id_access'];
 
         if($this->sessionStart === false){
             return false;
         }
 
-        if ($id_access === ACCESS_ADMIN) {
+        if ($access === ACCESS_ADMIN) {
             return true;
         }
 
@@ -47,22 +51,44 @@ abstract class Security
 
     /**
      * Check if the user is Rh
-     * @param int $id_access
+     * @param int $idUser
      * @return bool
      */
-    public function isRh(int $id_access): bool
+    public function isRh(int $idUser): bool
     {
+        $controller = new Controller();
+        $controller->loadModel('User');
+        $access = $controller->_model->getUserInfo($idUser)['id_access'];
 
         if ($this->sessionStart === false) {
             return false;
         }
 
-        if ($id_access === ACCESS_RH) {
+        if ($access === ACCESS_RH) {
             return true;
         }
 
         return false;
     }
+
+    /**
+     * Check if the user is Provider
+     * @param int $idUser
+     * @return bool
+     */
+    public function isProvider(int $idUser): bool
+    {
+        if ($this->sessionStart === false) {
+            return false;
+        }
+
+        $controller = new Controller();
+        $controller->loadModel('Providers');
+        return $controller->_model->userIsProvider($idUser);
+    
+    }
+
+
 
     /**
      * active security

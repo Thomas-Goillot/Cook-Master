@@ -37,13 +37,17 @@ class NomController extends Controller
             exit();
         }
 
-        $this->loadModel('User');
+        if ($this->isAdmin($this->getUserId()) === false) {
+            $this->redirect('../home');
+            exit();
+        }
 
-        $id_access = $this->_model->getAll();
+        if($this->isRh($this->getUserId()) === false){
+            $this->redirect('../home');
+            exit();
+        }
 
-        $id_access = (int)$id_access[0]['id_access'];
-
-        if ($this->isAdmin($id_access) === false) {
+        if ($this->isProvider($this->getUserId()) === false) {
             $this->redirect('../home');
             exit();
         }

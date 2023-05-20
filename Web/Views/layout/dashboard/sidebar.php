@@ -76,6 +76,8 @@
                     <a href="<?= $path_prefix ?>Chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
                 </li>
 
+                <?= $sidebarProviders ?>
+
                 <?= $sidebarRh ?>
 
                 <?= $sidebarAdmin ?>

@@ -19,6 +19,31 @@ class Providers extends Model
     }
 
     /**
+     * Check if a user is a provider
+     * @param int $idUser
+     * @return bool
+     */
+    public function userIsProvider($idUser): bool
+    {
+        $query = "SELECT COUNT(id_providers) FROM providers WHERE id_users = :id_users AND verified = 1";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $idUser);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result['COUNT(id_providers)'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
      * Get chefs image from is_providers and name from users
      *
      * @return array

@@ -22,13 +22,7 @@ class EventsTemplate extends Controller
             exit();
         }
 
-        $this->loadModel('User');
-
-        $id_access = $this->_model->getAll();
-
-        $id_access = (int)$id_access[0]['id_access'];
-
-        if ($this->isAdmin($id_access) === false) {
+        if ($this->isAdmin($this->getUserId()) === false) {
             $this->redirect('../home');
             exit();
         }
