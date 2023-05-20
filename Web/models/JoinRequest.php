@@ -70,16 +70,16 @@ class JoinRequest extends Model
 
     /**
      * Delete someone to providers list
-     * int id
+     * @param int $id_users
      * @return array
      */
-    public function Supp(int $id): array
+    public function supp(int $id_users): array
     {
-        $query = "UPDATE providers SET verified = 1 WHERE id_users = :id_users";
+        $query = "UPDATE providers SET verified = 2 WHERE id_users = :id_users";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":id_users", $id);
+        $stmt->bindParam(":id_users", $id_users);
 
         $stmt->execute();
 

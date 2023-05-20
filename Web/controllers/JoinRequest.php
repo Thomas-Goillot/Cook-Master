@@ -66,28 +66,29 @@ class JoinRequest extends Controller
 
     /**
      * Delete someone to providers list
+     * @param int $id_users
      * @return void
      */ 
-    public function Supp(): void
+    public function supp($id_users): void
     {
         $defaultFallBack = "../index";
 
         $params = $_GET['params'];
 
         if (count($params) === 0 || is_numeric($params[0]) === false) {
-            $this->redirect('../home');
+            $this->redirect($defaultFallBack);
             exit();
         }
 
-        $id = (int) $params[0];
+        $id_users = (int) $params[0];
         
         $this->loadModel("joinRequest");
 
-        $supp = $this->_model->Add($id);
+        $supp = $this->_model->supp($id_users);
+
+        $this->setError("Action effectuée !", "Le prestataire a bien été supprimé", SUCCESS_ALERT);
 
         $this->redirect($defaultFallBack);
-        exit();
-
     }
    
 }

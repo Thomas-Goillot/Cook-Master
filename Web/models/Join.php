@@ -18,6 +18,23 @@ class Join extends Model
         $this->getConnection();
     }
 
+    /**
+     * Check if siret is valid
+     * @param string $siret
+     * @return array|bool
+     */
+    public function checksiret($siret){
+
+        $query = "SELECT COUNT(*) FROM `providers` WHERE siret = :siret";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":siret", $siret);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     /**
      * Join us
@@ -99,6 +116,5 @@ class Join extends Model
         $stmt->execute();
         
     }
-
 
 }

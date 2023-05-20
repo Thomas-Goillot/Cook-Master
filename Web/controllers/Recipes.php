@@ -40,7 +40,7 @@ class Recipes extends Controller{
 
         $this->loadModel('Recipes');
 
-        $page_name = array("Recipes" => $this->default_path);
+        $page_name = array("Recettes" => "recipes/index");
 
         $getAllRecipesDishes = $this->_model->getAllRecipesDishes();
 
@@ -48,9 +48,9 @@ class Recipes extends Controller{
 
         $getAllRecipesDesserts = $this->_model->getAllRecipesDesserts();
 
-        $this->render($this->default_path, compact('page_name', 'getAllRecipesDishes', 'getAllRecipesStarters', 'getAllRecipesDesserts'), NO_LAYOUT);
+        $this->render("recipes/index", compact('getAllRecipesDishes','getAllRecipesStarters','getAllRecipesDesserts','page_name'), DASHBOARD);
     }
-
+    
     public function searchIngredient(){
 
         if (isset($_POST['ingredient'])) {

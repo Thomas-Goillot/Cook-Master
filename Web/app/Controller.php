@@ -98,6 +98,7 @@ class Controller extends Utils{
         
         $sidebarAdmin = "";
         $sidebarRh = "";
+        $sidebarProviders = "";
         
         if ($this->isAdmin($data['user']['id_access'])) {
             $sidebarAdmin = $this->generateFile('views/layout/dashboard/sidebarAdmin.php', $data);

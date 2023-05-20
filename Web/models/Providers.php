@@ -67,4 +67,22 @@ class Providers extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Delete someone to providers list
+     * @param int $id_users
+     * @return array
+     */
+    public function supp(int $id_users): array
+    {
+        $query = "UPDATE providers SET verified = 2 WHERE id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
