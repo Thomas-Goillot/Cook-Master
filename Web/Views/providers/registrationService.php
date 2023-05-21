@@ -21,6 +21,7 @@
                             <th>Lieu</th>
                             <th>Menu</th>
                             <th>Couverts</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,14 @@
                                             echo '<br>';
                                             echo'<a href="'. $path_prefix.'Recipes/RecipeDisplay/'.$info['id_recipes_2'].'" >Dessert</a></td>';
                                             echo '<td>' . $info["nb_places"] . ' personnes</td>
+                                                <td>
+                                                    <form action="'. $path_prefix .'RegistrationService/registration/'.$info['id_providers'].'/'.$info['id_home_service'].'" method="POST">
+                                                        <input type="hidden" name="id_providers" value="'.$info['id_providers'].'" />
+                                                        <input type="hidden" name="id_home_service" value="'.$info['id_home_service'].'" />
+                                                        <button type="submit"><i class="mdi mdi-progress-check"></i></button>
+                                                    </form> 
+                                                </td>
+                                                
                                         </tr>';
                             }
                         ?>

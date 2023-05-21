@@ -43,4 +43,32 @@ class RegistrationService extends Controller
 
         $this->render("providers/registrationService", compact('page_name','getAllHomeServiceRequest'), DASHBOARD);
     }
+
+    /**
+     * Register a provider to a home service request
+     * @return void
+     */ 
+    public function registration(): void
+    {
+        $defaultFallBack = "../index";
+
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect($defaultFallBack);
+            exit();
+        }
+
+        $id_providers = (int) $params[0];
+
+        $id_home_service = (int) $params[1];
+        
+        $this->loadModel('RegistrationService');
+
+        $this->_model->registration($id_providers, $id_home_service);
+
+        $this->setError("Action effectuée !", "Vous vous êtes bien inscrits sur la prestation", SUCCESS_ALERT);
+
+        $this->redirect($defaultFallBack);
+    }
 }
