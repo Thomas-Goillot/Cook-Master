@@ -19,13 +19,13 @@ class Recipes extends Model
     }
 
     /**
-     * Get all dishes
+     * Get all starters
      *
      * @return array
      */
-    public function getAllRecipesDishes(): array
+    public function getAllRecipesStarters(): array
     {
-        $query = "SELECT * FROM recipes WHERE type = 2";
+        $query = "SELECT * FROM recipes WHERE type = 1";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -35,13 +35,13 @@ class Recipes extends Model
     }
 
     /**
-     * Get all starters
+     * Get all dishes
      *
      * @return array
      */
-    public function getAllRecipesStarters(): array
+    public function getAllRecipesDishes(): array
     {
-        $query = "SELECT * FROM recipes WHERE type = 1";
+        $query = "SELECT * FROM recipes WHERE type = 2";
 
         $stmt = $this->_connexion->prepare($query);
 

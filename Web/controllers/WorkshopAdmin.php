@@ -185,11 +185,11 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('workshop');
 
-        // $allWorkshop = $this->_model->getAllWorkshop();
+        $allWorkshop = $this->_model->getAllWorkshop();
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
-        $this->render('admin/listWorkshop', compact('page_name'), DASHBOARD);
+        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop'), DASHBOARD);
     }
 
 

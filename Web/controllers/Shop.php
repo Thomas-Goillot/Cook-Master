@@ -353,16 +353,16 @@ class Shop extends Controller
 
         $this->loadModel("Shop");
 
-        $userCartId = $this->_model->getUserCartId($idUser);
+        $orderId = $this->_model->getUserCartId($idUser);
 
-        if($userCartId === false){
+        if($orderId === false){
             $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
             $this->redirect('../shop');
         }
 
-        $allProduct = $this->_model->getAllProductsOfCart($userCartId);
+        $allProduct = $this->_model->getAllProductsOfCart($orderId);
 
-        $sum = $this->getSumCart($userCartId);
+        $sum = $this->getSumCart($orderId);
 
         //calculate the tva and the price without tva
         $tva = $sum * TVA;
@@ -372,7 +372,7 @@ class Shop extends Controller
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap");
 
-        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva', 'pathToPayment'), DASHBOARD);
+        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'orderId', 'tva', 'priceWithoutTva', 'pathToPayment'), DASHBOARD);
     }
 
     /**

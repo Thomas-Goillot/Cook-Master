@@ -15,12 +15,10 @@ class Providers extends Controller
    
     public function __construct()
     {
-
         if ($this->isLogged() === false) {
             $this->redirect('../home');
             exit();
         }
-
     }
 
     /**
