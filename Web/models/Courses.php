@@ -23,13 +23,28 @@ class Courses extends Model
      * Get all courses request of a user
      * @return array
      */
-    public function getAllCoursesRequest(int $id): array
+    public function getAllCoursesRequestOfUser(int $id): array
     {
         $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users ORDER BY date_of_courses DESC";
 
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(":id_users", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all courses request
+     * @return array
+     */
+    public function getAllCoursesRequest(): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE statut = ". COURSES_PAYED ." ORDER BY date_of_courses DESC";
+
+        $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute();
 
@@ -94,7 +109,7 @@ class Courses extends Model
      */
     public function addCoursesRequest(int $course_type, string $special_request, \DateTime $course_date, int $userId): int
     {
-        $sql = "INSERT INTO " . $this->table . " (type, special_request, date_of_courses, id_users, statut) VALUES (:course_type, :special_request, :date_of_courses, :id_users, ".COURSES_REQUEST.")";
+        $sql = "INSERT INTO " . $this->table . " (type, special_request, date_of_courses, id_users, statut) VALUES (:course_type, :special_request, :date_of_courses, :id_users, ". COURSES_REQUEST.")";
 
         $stmt = $this->_connexion->prepare($sql);
 
@@ -166,12 +181,13 @@ class Courses extends Model
      */
     public function addProviderToCourses(int $id_courses, int $id_provider): bool
     {
-        $sql = "UPDATE courses SET id_provider = :id_provider WHERE id_courses = :id_courses";
+        $sql = "UPDATE courses SET id_providers = :id_provider, statut = :statut WHERE id_courses = :id_courses";
 
         $stmt = $this->_connexion->prepare($sql);
 
         $data = array(
             ":id_provider" => $id_provider,
+            ":statut" => COURSES_ACCEPTED,
             ":id_courses" => $id_courses
         );
 
@@ -179,6 +195,23 @@ class Courses extends Model
 
         return true;
     }
+
+    /**
+     * Get all courses of a provider
+     */
+    public function getAllCoursesByProvider(int $id): array
+    {
+        $query = "SELECT * FROM courses WHERE id_providers = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * addlinkToCourses

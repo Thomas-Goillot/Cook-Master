@@ -58,6 +58,21 @@ class Providers extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Get provider info by id
+     */
+    public function getProviderInfoByUserId(int $id): array
+    {
+        $query = "SELECT * FROM providers WHERE id_users = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     /**
      * Get chefs image from is_providers and name from users

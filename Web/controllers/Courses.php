@@ -32,7 +32,7 @@ class Courses extends Controller
 
         $page_name = array("Mes demandes de cours" => $this->default_path);
 
-        $courses = $this->_model->getAllCoursesRequest($this->getUserId());
+        $courses = $this->_model->getAllCoursesRequestOfUser($this->getUserId());
 
         $this->render("courses/myRequest", compact('page_name', 'courses'), DASHBOARD);
     }

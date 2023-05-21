@@ -4,4 +4,4 @@
 
 <li><a href="<?= $path_prefix ?>courseService" class="waves-effect"><i class="bx bx-book-reader"></i><span>Cours</span></a></li>
 
-<li><a href="<?= $path_prefix ?>providersCourses" class="waves-effect"><i class="bx bx-book-reader"></i><span>Vos Cours</span></a></li>
+<li><a href="<?= $path_prefix ?>courseService/providersCourses" class="waves-effect"><i class="bx bx-book-reader"></i><span>Vos Cours</span></a></li>
