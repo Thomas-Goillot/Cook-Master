@@ -21,24 +21,19 @@ include_once('views/layout/dashboard/path.php');
             <div class="card card-animate">
                 <div class="card-body">
                     <h4 class="card-title"><i class="fas fa-clipboard-list mr-2"></i> Liste des lieux</h4>
-                    <table id="datatable" class="table nowrap">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>adresse</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($locations as $location) {
-                                echo "<tr class=\"location \" name='location' style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\">";
-                                echo "<td>" . $location['name'] . "</td>";
-                                echo "<td id='addr" . $location['id_location'] . "'>" . $location['address'] . "</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                    <ul class="list-group">
+                        <?php
+                        foreach ($locations as $location) {
+                            echo '<li class="list-group-item" data-addr="' . $location['address'] . '">';
+                            echo '<div class="form-check">';
+                            echo '<input class="form-check-input" type="radio" name="location" value="' . $location['id_location'] . '">';
+                            echo '<label class="form-check-label" for="point-relais-' . $location['id_location'] . '">';
+                            echo $location['name'] . " - " . $location['address'];
+                            echo '</label>';
+                            echo '</div>';
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
 
@@ -80,7 +75,8 @@ include_once('views/layout/dashboard/path.php');
                             echo "<td>" . $allProduct['price_rental'] . "€</td>";
                             echo "<td>" . $allProduct['stock'] . "</td>";
                             echo "<td><span class='description'>" . substr($allProduct['description'], 0, 40) . "... </span><a href='#' class='read-more'>[...] </a><span class='full-description' style='display: none;'>" . $allProduct['description'] . "</span></td>";
-                            echo "<td><input type='number' data-toggle='touchspin' name='available' max=" . $allProduct['stock'] . " data-step='1' value='0' class='form-control' data-color='#df3554'></td>";
+                            echo "<td><input type='number' name='nb_stock[]' max='" . $allProduct['stock'] . "' data-step='1' value='0' min='0' class='form-control' data-color='#df3554'></td>";
+                            echo "<td><input type='hidden' name='id_equipment[]' value='" . $allProduct['id_equipment'] . "'></td>";
                             echo "</tr>";
                         }
                     };
@@ -90,14 +86,7 @@ include_once('views/layout/dashboard/path.php');
         </div>
     </div>
 </div>
-
-
-
-
 </form>
-
-
-
 
 <script>
     var adresses = [
@@ -123,19 +112,4 @@ include_once('views/layout/dashboard/path.php');
         });
         readMoreLinks[i].style.color = 'black';
     }
-
-    //color for hover
-    var locationRows = document.querySelectorAll(".location");
-    var previousRow = null;
-
-    locationRows.forEach(function(locationRow) {
-        locationRow.addEventListener("click", function() {
-            if (previousRow !== null) {
-                previousRow.style.backgroundColor = "";
-            }
-            locationRow.style.backgroundColor = "#9e1b21";
-
-            previousRow = locationRow;
-        });
-    });
 </script>

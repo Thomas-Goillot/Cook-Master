@@ -42,8 +42,8 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('Workshop');
 
-        $this->setJsFile(array('location.js'));
-         $this->setCssFile(array('css/location/location.css'));
+        $this->setJsFile(array('location.js','addressSelect.js'));
+        $this->setCssFile(array('css/location/location.css'));
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Création d'atelier" => "admin/workshop");
         $this->render('admin/workshop', compact('page_name','locations','allProduct'), DASHBOARD);
@@ -56,8 +56,9 @@ class WorkshopAdmin extends Controller
     public function addWorkshop(): void
 
     {
+        
         if (!isset($_POST['submit'])) {
-            $defaultErrorPath = "../admin/addWorkshop";
+            $defaultErrorPath = "../WorkshopAdmin/index";
             $defaultValidePath = "../admin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
@@ -98,9 +99,11 @@ class WorkshopAdmin extends Controller
             $image2 = $filename;
             $image3 = $filename;
             $price = htmlspecialchars($_POST['price']);
-            $available = htmlspecialchars($_POST['available']);
+            $nb_place = (int)$_POST['nb_place'];
+            $nb_stock = $_POST['nb_stock'];
+            $id_equipments = $_POST['id_equipment'];
             //date gestion
-
+            var_dump($nb_place);
             $date = htmlspecialchars($_POST['WorkshopDate']);
             $date = explode('-', $date);
             $date['start'] = $date[0];
@@ -118,6 +121,9 @@ class WorkshopAdmin extends Controller
             $location = htmlspecialchars($_POST['location']);
 
 
+            
+
+            //all condition
             if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
                 $this->redirect($defaultErrorPath);
@@ -126,19 +132,41 @@ class WorkshopAdmin extends Controller
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
                 $this->redirect($defaultErrorPath);
             }
+            if($_POST['price'] < MIN_PRICE){
+                $this->setError('Prix négatif', "Le prix ne peut pas être inférieur à 0.", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
+            }
+            // if($_POST['location'] == NULL){
+            //     $this->setError('Aucun lieu sélectionnée', "Veuillez sélectionner un lieu.", ERROR_ALERT);
+            //     $this->redirect($defaultErrorPath);
+            // }
+
+
+            // if (empty(array_filter($_POST['location']))) {
+            //     $this->setError('Aucun lieu sélectionné', 'Veuillez sélectionner un lieu.', ERROR_ALERT);
+            //     $this->redirect($defaultErrorPath);
+            // }
+
 
 
             
                 
         
 
-
-            dump($_POST);
-            dump($_FILES);
-            die();
             $this->loadModel('Workshop');
-            $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $available, $date['start'],$date['end'],$location);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price,$nb_place, $date['start'],$date['end'],$location);
+
+            for($i = 0; $i < count($id_equipments); $i++){
+               if($nb_stock[$i] > 0){
+                    for($j = 0; $j < $nb_stock[$i]; $j++){
+                        $this->_model->addWorkshopProduct($id_workshop, $id_equipments[$i]);
+                    }
+               }
+            }
+            
+            
         }
+
         $this->setError("Atelier créer !", "L'atelier a été créer avec succès", SUCCESS_ALERT);
         $this->redirect($defaultValidePath);
     }

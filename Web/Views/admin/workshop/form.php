@@ -31,6 +31,6 @@
 
     <div class="form-group d-flex flex-column align-items-center">
             <label class="space">Nombre de place disponible</label>
-            <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="available" data-bts-postfix=" " min="0" required="" class="form-control">
+            <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="nb_place" data-bts-postfix=" " min="0" required="" class="form-control">
     </div>
 </div>

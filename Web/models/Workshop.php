@@ -60,11 +60,11 @@ class workshop extends Model
      * @param int $available
      * @param string $date_start
      * @param string $date_end
-     * @return void
+     * @return int
      */
-    public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $available, int $id_location): void
+    public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
     {
-        $query = "INSERT INTO ". $this->table.  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :available, :id_location)";
+        $query = "INSERT INTO ". $this->table.  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :nb_place, :id_location)";
 
         $data = array(
             ":description" => $description,
@@ -73,7 +73,7 @@ class workshop extends Model
             ":image2" => $image2,
             ":image3" => $image3,
             ":price" => $price,
-            ":available" => $available,
+            ":nb_place" => $nb_place,
             ":date_start" => $date_start,
             ":date_end" => $date_end,
             ":id_location" => $id_location
@@ -82,6 +82,8 @@ class workshop extends Model
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute($data);
+
+        return $this->_connexion->lastInsertId();
     }
 
 
@@ -233,6 +235,26 @@ class workshop extends Model
         return $location;
     }
 
+
+    /**
+     * add addWorkshopProduct
+     * @param int $id_equipment
+     * @param int $id_workshop
+     * @return array
+     */
+    public function addWorkshopProduct(int $id_equipment, int $id_workshop ): void{
+        $query = "INSERT INTO use_equipment_worksho (id_equipment, id_workshop) VALUES (:id_equipment, :id_workshop)";
+
+        $data = array(
+            ":id_equipment" => $id_equipment,
+            ":id_workshop" => $id_workshop
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
+
+    }
 
 
 }   
