@@ -20,7 +20,6 @@ class RegistrationService extends Controller
             $this->redirect('../home');
             exit();
         }
-
     }
     
     /**
@@ -39,7 +38,7 @@ class RegistrationService extends Controller
 
         $getAllHomeServiceRequest = $this->_model->getAllHomeServiceRequest();
 
-        $page_name = array("Inscription aux prestations" => "providers/registrationService");
+        $page_name = array("Inscription aux prestations" => "registrationService");
 
         $this->render("providers/registrationService", compact('page_name','getAllHomeServiceRequest'), DASHBOARD);
     }

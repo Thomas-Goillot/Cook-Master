@@ -192,7 +192,7 @@ class WorkshopAdmin extends Controller
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
-        $this->render('admin/listWorkshop', compact('page_name'), DASHBOARD);
+        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop'), DASHBOARD);
     }
 
 

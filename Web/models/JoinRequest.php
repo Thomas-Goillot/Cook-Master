@@ -57,7 +57,7 @@ class JoinRequest extends Model
      */
     public function Add(int $id): array
     {
-        $query = "UPDATE providers SET verified = 1 WHERE id_users = :id_users";
+        $query = "UPDATE providers SET verified = 1, date_of_join = NOW() WHERE id_users = :id_users";
 
         $stmt = $this->_connexion->prepare($query);
 

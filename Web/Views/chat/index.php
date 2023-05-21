@@ -46,9 +46,9 @@ include_once('views/layout/dashboard/path.php');
                             }
                             ?>
 
-                            <div class="d-flex justify-content-center align-items-center border-bottom py-3">
+                            <!-- <div class="d-flex justify-content-center align-items-center border-bottom py-3">
                                 <button class="btn btn-primary"><i class="bx bx-plus"></i> Conversation</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@ include_once('views/layout/dashboard/path.php');
 
                         <div class="d-flex flex-column justify-content-center align-items-center h-100 ">
                             <p class="text-muted">Vous n'êtes pas encore dans une conversation</p>
-                            <button class="btn btn-primary"><i class="bx bx-plus"></i> Conversation</button>
+                            <!-- <button class="btn btn-primary"><i class="bx bx-plus"></i> Conversation</button> -->
                         </div>
 
 

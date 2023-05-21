@@ -46,6 +46,13 @@
                     <a href="<?= $path_prefix ?>Recipes" class="waves-effect"><i class='bx bx-food-menu'></i><span>Recettes</span></a>
                 </li>
 
+                <li><a href="javascript: void(0);" class="has-arrow"><i class="bx bx-book-reader"></i>Cours</a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= $path_prefix ?>Courses/request"><i class="bx bx-edit"></i>Faire une demande</a></li>
+                        <li><a href="<?= $path_prefix ?>Courses/myRequest"><i class="bx bx-list-ol"></i>Mes demandes</a></li>
+                    </ul>
+                </li>
+
                 <li class="menu-title">Utilisateur</li>
 
                 <li>

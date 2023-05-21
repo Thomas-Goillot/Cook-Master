@@ -18,17 +18,17 @@
                                 </tr>
                             </thead>
                                     <?php 
-                                    foreach($allWorkshop as $allWorkshop){
+                                    foreach($allWorkshop as $workshop){
 
-                                        echo "<td>" . $allWorkshop['name'] . "</td>";
-                                        echo "<td>" . $allWorkshop['date'] . "</td>";
-                                        echo "<td>" . $allWorkshop['available'] . "</td>";
-                                        echo "<td>" . $allWorkshop['price'] . "</td>";
-                                        echo "<td>" . $allWorkshop['price'] . "</td>";
+                                        echo "<td>" . $workshop['name'] . "</td>";
+                                        echo "<td>" . $workshop['date'] . "</td>";
+                                        echo "<td>" . $workshop['available'] . "</td>";
+                                        echo "<td>" . $workshop['price'] . "</td>";
+                                        echo "<td>" . $workshop['price'] . "</td>";
 
 
                                         echo" <td>                  
-                                              <a href='" . $path_prefix . "WorkshopAdmin/editWorkshopDisplay/" . $allWorkshop['id_workshop'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                              <a href='" . $path_prefix . "WorkshopAdmin/editWorkshopDisplay/" . $workshop['id_workshop'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
                                             </td>";
                                     }
                                     ?>                            

@@ -44,47 +44,6 @@ class Recipes extends Controller{
 
         $this->render("recipes/index", compact('getAllRecipesDishes','getAllRecipesStarters','getAllRecipesDesserts','page_name'), DASHBOARD);
     }
-    
-    public function searchIngredient(){
-
-        if (isset($_POST['ingredient'])) {
-                
-            $curl = curl_init('https://api.spoonacular.com/food/ingredients/search?apiKey=7c54efd616d54ef88364d744339b3601&query='. $_POST['ingredient'].'&number=2&sort=calories&sortDirection=desc');
-
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_CUSTOMREQUEST => "GET",
-                CURLOPT_HTTPHEADER => [
-                    "Accept: application/json"
-                ]
-            ]);
-            
-            $data = curl_exec($curl);
-
-
-            if ($data === false) {
-                 dump($data);
-                echo "Erreur : " . curl_error($curl);
-            } else {
-               
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200) {
-                    $data = json_decode($data, true);
-                    
-                    // $this->setError('ERREUR', "Une erreur est survenue", SUCCESS_ALERT);
-                    $this->redirect("../admin/recipesAdmin",["result" => "pouet"]);
-                } else {
-                    // $this->setError('ERREUR', "Une erreur est survenue", ERROR_ALERT);
-                    // $this->redirect("../admin/recipesAdmin");
-                };
-            };
-            
-            curl_close($curl);
-           
-
-            
-        }
-    }
 
     /** 
      * Display the recipes page 
@@ -208,7 +167,7 @@ class Recipes extends Controller{
 
         $StepsArray = explode('ÉTAPE ', $StepsString);
 
-        $page_name = array($recipes[0]['name']=> $this->default_path, $recipes[0]['name'] => "RecipeDisplay/$id_recipes");
+        $page_name = array("Inscription aux prestations" => "registrationService", $recipes[0]['name'] => "Recipes/RecipeDisplay/$id_recipes");
 
         $this->render('recipes/recipe', compact('page_name', 'recipes', 'ingredientsArray', 'StepsArray'), DASHBOARD, '../../');
     }

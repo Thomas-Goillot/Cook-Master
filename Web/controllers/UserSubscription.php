@@ -102,7 +102,7 @@ class UserSubscription extends Controller
             $this->redirect('../UserSubscription/information');
         }
 
-        $userCartId = uniqid();
+        $orderId = uniqid();
 
         $allProduct = array(
             array(
@@ -126,7 +126,7 @@ class UserSubscription extends Controller
 
         $page_name = array("Abonnements" => $this->default_path, "Choix de la périodicité" => "UserSubscription/frequency", "Récapitulatif de la commande" => "UserSubscription/recap");
 
-        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'userCartId', 'tva', 'priceWithoutTva', 'pathToPayment'), DASHBOARD);
+        $this->render('shop/invoiceRecap', compact('page_name', 'allProduct', 'sum', 'user', 'orderId', 'tva', 'priceWithoutTva', 'pathToPayment'), DASHBOARD);
 
 
     }
@@ -163,10 +163,6 @@ class UserSubscription extends Controller
             "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $subscriptionInfo['price_' . $typeSubscription] . "€/mois",
             "allow_purchase" => 0
         ));
-
-
-        $unique = $this->generateRandomString(100);
-
 
         $payment = new StripePayment(STRIPE_API_KEY);
 

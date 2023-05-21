@@ -31,7 +31,7 @@ include_once('views/layout/dashboard/path.php');
                         <div class="mt-3 float-right">
                             <p class="mb-2"><strong>Date de la commande </strong><?= date('d/m/Y'); ?></p>
                             <p class="mb-2"><strong>Status de la commande </strong> <span class="badge badge-soft-warning">En cours...</span></p>
-                            <p class="m-b-10"><strong>Numéro de commande</strong> #<?= $userCartId; ?></p>
+                            <p class="m-b-10"><strong>Numéro de commande</strong> #<?= $orderId; ?></p>
                         </div>
                     </div>
                 </div>

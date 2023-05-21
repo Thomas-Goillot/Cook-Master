@@ -33,6 +33,7 @@ class workshop extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     /**
      * Get id of workshop
      * @return array
