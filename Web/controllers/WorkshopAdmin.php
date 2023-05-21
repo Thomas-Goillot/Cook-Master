@@ -58,7 +58,7 @@ class WorkshopAdmin extends Controller
     {
         
         if (!isset($_POST['submit'])) {
-            $defaultErrorPath = "../WorkshopAdmin/index";
+            $defaultErrorPath = "../WorkshopAdmin/listWorkshop";
             $defaultValidePath = "../admin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
@@ -102,8 +102,8 @@ class WorkshopAdmin extends Controller
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
             $id_equipments = $_POST['id_equipment'];
-            //date gestion
-            var_dump($nb_place);
+
+
             $date = htmlspecialchars($_POST['WorkshopDate']);
             $date = explode('-', $date);
             $date['start'] = $date[0];
@@ -154,7 +154,7 @@ class WorkshopAdmin extends Controller
         
 
             $this->loadModel('Workshop');
-            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price,$nb_place, $date['start'],$date['end'],$location);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end']   ,$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
@@ -185,7 +185,10 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('workshop');
 
-        $allWorkshop = $this->_model->getAllWorkshop();
+        // $id_equipment = ;
+        // $id_workshop = ;
+
+        //  $allWorkshop = $this->_model->addWorkshopProduct($id_equipment,$id_workshop);
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
