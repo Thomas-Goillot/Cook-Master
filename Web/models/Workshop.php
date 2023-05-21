@@ -73,9 +73,9 @@ class workshop extends Model
             ":image2" => $image2,
             ":image3" => $image3,
             ":price" => $price,
-            ":nb_place" => $nb_place,
             ":date_start" => $date_start,
             ":date_end" => $date_end,
+            ":nb_place" => $nb_place,
             ":id_location" => $id_location
         );
 
@@ -243,7 +243,7 @@ class workshop extends Model
      * @return array
      */
     public function addWorkshopProduct(int $id_equipment, int $id_workshop ): void{
-        $query = "INSERT INTO use_equipment_worksho (id_equipment, id_workshop) VALUES (:id_equipment, :id_workshop)";
+        $query = "INSERT INTO use_equipment_workshop (id_equipment, id_workshop) VALUES (:id_equipment, :id_workshop)";
 
         $data = array(
             ":id_equipment" => $id_equipment,
