@@ -9,11 +9,10 @@ include_once('views/layout/dashboard/path.php');
 <?php
 echo '  <div class="col-12 margin">
             <div class="position-relative">
-                <img src="' . $path_prefix  . 'assets/images/events/' . $event['image'] . '" class="img-thumbnail">
+                <img src="' . $path_prefix  . 'assets/images/recipes/' . $recipes[0]['image'] . '" class="img-thumbnail">
                 <div class="overlay"></div>
                 <div class="caption">
-                <h1 class="text-white">' . $event['name'] . '</h1>
-                <h4 class="text-white">' . $event['slug'] . '</h4>
+                <h1 class="text-white">' . $recipes[0]['name'] . '</h1>
                 </div>
             </div>
     </div>
@@ -24,22 +23,17 @@ echo '  <div class="col-12 margin">
 
       <div class="col-md-6 col-lg-4">
         <div class="event-details-item">
-          <h3>Date</h3>
-          <p class="event-date">' . $event['date_start'] . ' - ' . $event['date_end'] . '</p>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="event-details-item">
-          <h3>Nombre de places</h3>
-          <p class="event-place">' . $nbPlace . '</p>
-        </div>
+          <h3>Ingrédients</h3>';
+            foreach($ingredientsArray as $ingredient){
+              echo '<p class="event-date">' . $ingredient . '</p>';
+            }
+  echo '</div>
       </div>
 
       <div class="col-md-6 col-lg-4">
         <div class="event-details-item">
           <h3>Prix</h3>
-          <p class="event-price">' . $event['price'] . '€</p>
+          <p class="event-price">' . $recipes[0]["price"] . '€</p>
         </div>
       </div>
 
@@ -48,32 +42,13 @@ echo '  <div class="col-12 margin">
     <div class="row">
       <div class="col-12">
         <div class="event-details-item">
-          <h3>Description</h3>
-          <p class="event-description">' . $event['description'] . '</p>
-        </div>
+          <h3>Recette</h3>';
+          foreach($StepsArray as $steps){
+            echo '<p class="event-description">' . $steps . '</p>';
+          }
+          
+  echo' </div>
       </div>
     </div>
  ';
-
-
-
-
-echo '
-<h3>Nombre de place à réserver :</h3>
-<div class="row">
-<div class="col-4">
-<form action="' . $path_prefix . 'Events/pay/' . $event['id_event'] . '" method="POST">
-  <div class="d-flex align-items-center justify-content-center">
-    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="place" min="1"  max="' . $event['place'] . '" required="" class="form-control" value="1">
-    <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal">
-    Réserver
-  </button>
-  </div>
-  </form>
-</div>
-</div>
-</div>
-';
-
-
 ?>

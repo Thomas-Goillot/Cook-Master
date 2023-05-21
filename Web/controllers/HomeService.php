@@ -132,7 +132,7 @@ class HomeService extends Controller
             }
 
             if (empty($type_nourriture)) {
-                $this->setError("Echec","Selectionnez la nourriture souahaitée", ERROR_ALERT);
+                $this->setError("Echec","Selectionnez la nourriture souhaitée", ERROR_ALERT);
                 $this->redirect($defaultFallBack);
                 exit();
             }
@@ -144,7 +144,6 @@ class HomeService extends Controller
             }
 
             $this->loadModel("HomeService");
-
 
             $this->_model->sendRequest($nb_places, $type_home_services, $type_equipment, $type_nourriture, $id_users, $id_recipes, $id_recipes_1, $id_recipes_2, $date);
         }

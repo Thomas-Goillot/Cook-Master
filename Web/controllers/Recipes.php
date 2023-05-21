@@ -181,4 +181,36 @@ class Recipes extends Controller{
         $this->redirect($defaultFallback);
     }
 
+    /**
+     * display recipe page
+     * @return void
+     */
+    public function RecipeDisplay(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_recipes = (int) $params[0];
+
+        $this->loadModel('Recipes');
+
+        $recipes = $this->_model->getRecipeForDisplay($id_recipes);
+
+        $ingredientsString = $recipes[0]["ingredients"]; // Récupérer la chaîne d'ingrédients
+
+        $ingredientsArray = explode(', ', $ingredientsString);
+
+        $StepsString = $recipes[0]["description"]; // Récupérer les étapes de la recette
+
+        $StepsArray = explode('ÉTAPE ', $StepsString);
+
+        $page_name = array($recipes[0]['name']=> $this->default_path, $recipes[0]['name'] => "RecipeDisplay/$id_recipes");
+
+        $this->render('recipes/recipe', compact('page_name', 'recipes', 'ingredientsArray', 'StepsArray'), DASHBOARD, '../../');
+    }
+
 }

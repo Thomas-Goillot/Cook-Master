@@ -59,4 +59,49 @@ class Stats extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Count all starters
+     * @return array
+     */
+    public function CountStarters(): array
+    {
+        $query = "SELECT COUNT(*) FROM `recipes` WHERE type = 1";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Count all dishes
+     * @return array
+     */
+    public function CountDishes(): array
+    {
+        $query = "SELECT COUNT(*) FROM `recipes` WHERE type = 2";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Count all desserts
+     * @return array
+     */
+    public function CountDesserts(): array
+    {
+        $query = "SELECT COUNT(*) FROM `recipes` WHERE type = 3";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
