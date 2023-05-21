@@ -34,6 +34,8 @@ class Admin extends Controller
      */
     public function users(): void
     {
+        $this->loadModel('User');
+
         $users = $this->_model->getAll();
 
         $page_name = array("Admin" => "", "Utilisateurs" => "admin/users");

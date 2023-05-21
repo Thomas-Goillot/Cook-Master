@@ -11,6 +11,8 @@ define('COURSES_ARCHIVED',5);
 
 define('COURSES_IS_IN_PROGRESS',6);
 
+define('COURSES_IS_DONE',7);
+
 define('COURSES_IS_ONLINE',0);
 
 define('COURSES_IS_AT_HOME',1);
