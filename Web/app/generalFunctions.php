@@ -44,5 +44,44 @@ function fancyStatut(int $statut): string
     }
 }
 
+/**
+ * Calculate number of days between two dates
+ * @param string $date1
+ * @param string $date2
+ * @return int
+ */
+function dateDiff(string $date1, string $date2): int
+{
+    //calcul le nombre de jours entre deux dates (la valeur peux etre négative si la date1 est supérieur à la date2)
+    $date1 = strtotime($date1);
+    $date2 = strtotime($date2);
+    $nbJoursTimestamp = $date1 - $date2;
+    return round($nbJoursTimestamp / (60 * 60 * 24));
+}
+
+/**
+ * Disaply fancy number of days between two dates
+ */
+function fancyDateDiff(int $days): string
+{
+    if ($days === 0) {
+        return "Aujourd'hui";
+    } else if ($days === 1) {
+        return "Demain";
+    } else if ($days === 2) {
+        return "Après demain";
+    } else if ($days === -1) {
+        return "Hier";
+    } else if ($days === -2) {
+        return "Avant hier";
+    } else if ($days > 0) {
+        return "Dans " . $days . " jour" . plural($days);
+    } else if ($days < 0) {
+        return "Il y a " . abs($days) . " jour" . plural($days);
+    }
+
+    return "";
+}
+
 
 ?>

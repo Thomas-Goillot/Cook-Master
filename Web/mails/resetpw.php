@@ -275,7 +275,7 @@
 																		<p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#95979c;font-size:12px;">Want to stop receiving these emails?</span></p>
 																		<p style="margin: 0; font-size: 14px; text-align: center;"><span style="color:#95979c;font-size:12px;"> <a href="http://www.example.com" rel="noopener" style="text-decoration: underline; color: #ffffff;" target="_blank">Unsubscribe </a></span></p>
 																	</div>
-																</div>""
+																</div>
 															</td>
 														</tr>
 													</table>

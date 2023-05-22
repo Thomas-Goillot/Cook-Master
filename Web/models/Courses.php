@@ -201,7 +201,7 @@ class Courses extends Model
      */
     public function getAllCoursesByProvider(int $id): array
     {
-        $query = "SELECT * FROM courses WHERE id_providers = :id";
+        $query = "SELECT * FROM courses WHERE id_providers = :id AND statut != ". COURSES_ARCHIVED ." ORDER BY date_of_courses DESC";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -277,6 +277,24 @@ class Courses extends Model
         $stmt->execute($data);
 
         return true;
+    }
+
+    /**
+     * Get user id of a course
+     */
+    public function getUserIdByCourseId(int $id): int
+    {
+        $query = "SELECT id_users FROM courses WHERE id_courses = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $res['id_users'];
     }
 
     
