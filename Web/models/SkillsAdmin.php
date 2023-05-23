@@ -88,7 +88,9 @@ class SkillsAdmin extends Model
         return $this->_connexion->lastInsertId();
     }
 
-
+    /**
+     * Add a skill to a certificate
+     */
     public function addCertificateSkill(int $idCertificate, int $idSkill):bool
     {
         $query = "INSERT INTO on_validate (id_certificate, id_skills) VALUES (:id_certificate, :id_skills)";
@@ -99,6 +101,42 @@ class SkillsAdmin extends Model
         $stmt->bindParam(":id_skills", $idSkill);
 
         return $stmt->execute();
+    }
+
+    /**
+     * Add a skill to a user
+     * @param int $id_users
+     * @param int $id_skills
+     * @return bool
+     */
+    public function addSkillToUser(int $id_users, int $id_skills):bool
+    {
+        //check if the user already have the skill
+        $query = "SELECT * FROM optains WHERE id_users = :id_users AND id_skills = :id_skills";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+
+        $stmt->bindParam(":id_skills", $id_skills);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return false;
+        } else {
+            $query = "INSERT INTO optains (id_users, id_skills) VALUES (:id_users, :id_skills)";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id_users", $id_users);
+
+            $stmt->bindParam(":id_skills", $id_skills);
+
+            return $stmt->execute();
+        }
     }
 
 }

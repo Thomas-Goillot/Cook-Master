@@ -28,6 +28,8 @@ include_once('views/layout/dashboard/path.php');
                 <p>Email: <?= $course['email'] ?></p>
                 <p>Date d'inscription: <?= $this->convertDateFrench(explode(" ", $course['creation_date'])[0]) ?></p>
 
+                <a href="<?= $path_prefix ?>CourseService/createChat/<?= $course['id_courses'] ?>" class="btn btn-primary">Contacter le client</a>
+
             </div>
         </div>
     </div>
@@ -39,7 +41,7 @@ include_once('views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Cours en ligne</h4>
 
-                    <p>Lien: <?= isset($course['url']) ? $course['url'] : "Le lien n'a pas encore été défini" ?></p>
+                    <p>Lien: <?= isset($course['url']) ? '<a href="' . $course['url'] . '" target="_blank">Lien du cours</a>' : "Le lien n'a pas encore été défini" ?></p>
 
                 </div>
             </div>
@@ -63,26 +65,52 @@ include_once('views/layout/dashboard/path.php');
     <?php endif; ?>
 
 
-    <div class="col-4">
+    <div class="col-8">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Action</h4>
+                <h4 class="card-title">Actions</h4>
 
-                    <?php
-                    if (dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d")) == 0) {
-                        echo '<a href="CourseService/startCourse/' . $course['id_courses'] . '" class="btn btn-primary">Commencer le cours</a>';
-                        echo '<a href="CourseService/endCourse/' . $course['id_courses'] . '" class="btn btn-warning">Terminer le cours</a>';
-                    } else {
-                        echo '<p class="mx-3">Ce n\'est pas encore le moment du cours</p>';
-                    }
-                    ?>
+                <?php
+                if (dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d")) == 0 && $course['statut'] < COURSES_IS_IN_PROGRESS) {
+                    echo '<a href="' . $path_prefix . 'CourseService/startCourse/' . $course['id_courses'] . '" class="btn btn-success mx-2">Commencer le cours</a>';
+                } else if ($course['statut'] == COURSES_IS_IN_PROGRESS) {
+                    echo '<a href="' . $path_prefix . 'CourseService/endCourse/' . $course['id_courses'] . '" class="btn btn-warning mx-2">Terminer le cours</a>';
+                } else if ($course['statut'] <= COURSES_IS_DONE) {
+                    echo '<p class="mx-2">Ce n\'est pas encore le moment du cours</p>';
+                }
 
-                    <a href="CourseService/reportCourse/<?= $course['id_courses'] ?>" class="btn btn-info">Reporter le cours</a>
 
-                    <a href="CourseService/cancelCourse/<?= $course['id_courses'] ?>" class="btn btn-primary">Annuler le cours</a>
+                if (dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d")) < 0) {
+                    echo '<a href="' . $path_prefix . 'CourseService/cancelCourse/' . $course['id_courses'] . '" class="btn btn-primary mx-2">Annuler le cours</a>';
+                } else if ($course['statut'] > COURSES_IS_IN_PROGRESS) {
+                    echo '<p class="mx-2 mt-2">Le cours est terminé</p>';
+                } else {
+                    echo '<p class="mx-2 mt-2">Il est trop tard pour annuler le cours...';
+                }
+
+                if ($course['statut'] == COURSES_IS_DONE) {
+                    echo '<a href="' . $path_prefix . 'CourseService/ValidateSkills/' . $course['id_courses'] . '" class="btn btn-primary mx-2">Valider les compétences</a>';
+                }
+
+
+                ?>
 
             </div>
         </div>
     </div>
+
+    <?php
+    if (isset($course['commentary']) && !empty($course['commentary']) && $course['commentary'] != " " ) : ?>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Commentaire</h4>
+
+                    <p><?= $course['commentary'] ?> </p>
+
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
 </div>

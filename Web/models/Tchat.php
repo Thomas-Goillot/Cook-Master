@@ -97,7 +97,54 @@ class Tchat extends Model
         $stmt->bindParam(":sender_id", $sender_id);
         $stmt->bindParam(":recever_id", $recever_id);
 
-        return $stmt->execute();
-        
+        return $stmt->execute();   
     }
+
+    /**
+     * Create a conversation
+     * @param int $id_users1
+     * @param int $id_users2
+     * @return int
+     */
+
+    public function createConversation(int $id_users1, int $id_users2):int
+    {
+        $sql = "INSERT INTO ".$this->table." (id_users1, id_users2) VALUES (:id_users1, :id_users2)";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $stmt->bindParam(":id_users1", $id_users1);
+        $stmt->bindParam(":id_users2", $id_users2);
+
+        $stmt->execute();
+
+        return $this->_connexion->lastInsertId();
+    }
+
+    /**
+     * Check if a conversation exist
+     * @param int $id_users1
+     * @param int $id_users2
+     * @return bool
+     */
+    public function checkConversation(int $id_users1, int $id_users2):bool
+    {
+        $sql = "SELECT COUNT(id_conversation) FROM ".$this->table." WHERE id_users1 = :id_users1 AND id_users2 = :id_users2";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $stmt->bindParam(":id_users1", $id_users1);
+        $stmt->bindParam(":id_users2", $id_users2);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($result['COUNT(id_conversation)'] == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -133,7 +133,7 @@
 													<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" width="100%">
 														<tr>
 															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img src="cid:logo" style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;" /></a></div>
+																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img alt="Cook Master Logo" src="cid:logo" style="display: block; height: auto; border: 0; width: 160px; max-width: 100%;" /></a></div>
 															</td>
 														</tr>
 													</table>
@@ -153,13 +153,6 @@
 										<tbody>
 											<tr>
 												<td class="column column-1" style="  font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
-													<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" width="100%">
-														<tr>
-															<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-																<div align="center" class="alignment" style="line-height:10px"><a href="www.example.com" style="outline:none" tabindex="-1" target="_blank"><img class="big" src="cid:passwordreset" style="display: block; height: auto; border: 0; width: 640px; max-width: 100%;" title="Image of lock & key." width="640" /></a></div>
-															</td>
-														</tr>
-													</table>
 													<table border="0" cellpadding="0" cellspacing="0" class="divider_block block-2" role="presentation" width="100%">
 														<tr>
 															<td class="pad" style="padding-top:30px;">
@@ -178,8 +171,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class="" style="font-size: 12px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #555555; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 16px; text-align: center;"><span style="font-size:30px;color:#2b303a;"><strong>
-																					Quelqu'un essaye de se connecter à votre compte depuis une nouvelle adresse IP.
+																		<p style="margin: 0; font-size: 16px; text-align: center;"><span style="font-size:30px;color:#2b303a;"><strong>Hop hop hop ! C'est l'heure ! </strong></span></p>
 																	</div>
 																</div>
 															</td>
@@ -190,13 +182,12 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #555555; line-height: 1.5;">
-																			<p> Bonjour ___name___ ,</p>
-																			<p> Il semblerait que qu'un utilisateur essaye de se connecter à votre compte depuis une nouvelle adresse IP définit comme <strong>non autorisé</strong></p>
-																			<p> Si vous n'êtes pas à l'origine de cette demande, veuillez ignorer ce message.</p>
-																			<p>Ip de connection: <strong>___ip___</strong></p>
-																			<p>Si vous n'arrivez pas à vous connecter merci de contacter l'administrateur du site.</p>
-																			<p> Cordialement, </p>
-																			<p> L'équipe CookMaster </p>
+																		<p> Bonjour ___name___ ,</p>
+																		<p> Notre prestataire ___provider___ vient de démarrer votre cours !</p>
+																		<p> Vous pouvez dès à présent vous connecter à votre espace personnel pour suivre votre cours si celui ci est en ligne.</p>
+																		<p> Si votre cours est en présentiel, alors votre prestataire est la pour vous accueillir ou arrive bientôt !</p>
+																		<p> Cordialement, </p>
+																		<p> L'équipe CookMaster </p>
 																	</div>
 																</div>
 															</td>

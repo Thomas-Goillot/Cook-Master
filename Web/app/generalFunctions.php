@@ -33,12 +33,12 @@ function fancyStatut(int $statut): string
             return "<span class='text-info'>Payé</span>";
         case COURSES_ACCEPTED:
             return "<span class='text-success'>Accepté</span>";
-        case COURSES_REFUSED:
-            return "<span class='text-danger'>Refusé</span>";
-        case COURSES_ARCHIVED:
-            return "<span class='text-secondary'>Archivé</span>";
         case COURSES_IS_IN_PROGRESS:
             return "<span class='text-primary'>En cours</span>";
+        case COURSES_IS_DONE:
+            return "<span class='text-success'>Terminé</span>";
+        case COURSES_ARCHIVED:
+            return "<span class='text-secondary'>Archivé</span>";
         default:
             return "<span class='text-warning'>En attente</span>";
     }

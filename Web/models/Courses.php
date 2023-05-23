@@ -212,6 +212,27 @@ class Courses extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Remove provider from a course
+     * @param int $id_courses
+     * @return bool
+     */
+    public function removeProviderFromCourse(int $id_courses): bool
+    {
+        $sql = "UPDATE courses SET id_providers = :id_provider, statut = :statut WHERE id_courses = :id_courses";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $data = array(
+            ":id_provider" => null,
+            ":statut" => COURSES_PAYED,
+            ":id_courses" => $id_courses
+        );
+
+        $stmt->execute($data);
+
+        return true;
+    }
 
     /**
      * addlinkToCourses
@@ -295,6 +316,49 @@ class Courses extends Model
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $res['id_users'];
+    }
+
+    /**
+     * Get user id of the provider of a course
+     * @param int $id
+     * @return int
+     */
+    public function getUserIdbyProviderId(int $id): int
+    {
+        $query = "SELECT id_users FROM providers WHERE id_providers = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $res['id_users'];
+    }
+
+
+    /**
+     * Add commentary to a course
+     * @param int $id_courses
+     * @param string $commentary
+     * @return bool
+     */
+    public function addCommentaryToCourse(int $id_courses, string $commentary): bool
+    {
+        $sql = "UPDATE courses SET commentary = :commentary WHERE id_courses = :id_courses";
+
+        $stmt = $this->_connexion->prepare($sql);
+
+        $data = array(
+            ":commentary" => $commentary,
+            ":id_courses" => $id_courses
+        );
+
+        $stmt->execute($data);
+
+        return true;
     }
 
     
