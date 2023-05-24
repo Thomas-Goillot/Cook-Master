@@ -201,7 +201,7 @@ class Courses extends Model
      */
     public function getAllCoursesByProvider(int $id): array
     {
-        $query = "SELECT * FROM courses WHERE id_providers = :id AND statut != ". COURSES_ARCHIVED ." ORDER BY date_of_courses DESC";
+        $query = "SELECT * FROM courses WHERE id_providers = :id ORDER BY date_of_courses DESC";
 
         $stmt = $this->_connexion->prepare($query);
 

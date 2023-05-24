@@ -41,7 +41,7 @@ include_once('views/layout/dashboard/path.php');
                 <div class="card-body">
                     <h4 class="card-title">Cours en ligne</h4>
 
-                    <p>Lien: <?= isset($course['url']) ? '<a href="' . $course['url'] . '" target="_blank">Lien du cours</a>' : "Le lien n'a pas encore été défini" ?></p>
+                    <p>Lien: <?= !empty($course['link']) ? '<a href="' . $course['link'] . '" target="_blank">Rejoindre le cours</a>' : "Le lien n'a pas encore été défini" ?></p>
 
                 </div>
             </div>
@@ -80,7 +80,7 @@ include_once('views/layout/dashboard/path.php');
                 }
 
 
-                if (dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d")) < 0) {
+                if (dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d")) > 0 && $course['statut'] != COURSES_IS_IN_PROGRESS && $course['statut'] != COURSES_IS_DONE && $course['statut'] != COURSES_ARCHIVED) {
                     echo '<a href="' . $path_prefix . 'CourseService/cancelCourse/' . $course['id_courses'] . '" class="btn btn-primary mx-2">Annuler le cours</a>';
                 } else if ($course['statut'] > COURSES_IS_IN_PROGRESS) {
                     echo '<p class="mx-2 mt-2">Le cours est terminé</p>';
@@ -100,7 +100,7 @@ include_once('views/layout/dashboard/path.php');
     </div>
 
     <?php
-    if (isset($course['commentary']) && !empty($course['commentary']) && $course['commentary'] != " " ) : ?>
+    if (isset($course['commentary']) && !empty($course['commentary']) && $course['commentary'] != " ") : ?>
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
@@ -108,9 +108,10 @@ include_once('views/layout/dashboard/path.php');
 
                     <p><?= $course['commentary'] ?> </p>
 
+                    <div id="meet"></div>
+
                 </div>
             </div>
         </div>
     <?php endif; ?>
-
 </div>

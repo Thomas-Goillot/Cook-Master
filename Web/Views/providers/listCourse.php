@@ -26,7 +26,7 @@ include_once('views/layout/dashboard/path.php');
                             <th scope="col">Type</th>
                             <th scope="col">Date du cours</th>
                             <th scope="col">Heure du cours</th>
-                            <th>Cours dans:</th>
+                            <th>Echéance</th>
                             <th scope="col">Statut</th>
                             <th scope="col">Action</th>
                         </tr>

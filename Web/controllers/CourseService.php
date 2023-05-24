@@ -169,7 +169,6 @@ class CourseService extends Controller
         $this->render("providers/infoCourse", compact('page_name', 'course'), DASHBOARD);
     }
 
-
     /**
      * Start a course
      * @return void
@@ -197,7 +196,8 @@ class CourseService extends Controller
 
 
         if($courseInfo['type'] === COURSES_IS_ONLINE){
-            //génération du lien de la visio
+            $uniqueId = uniqid();
+            $this->_model->addlinkToCourses($idCourse, $this->getDomainName() . "Courses/onlineCourse/" . $idCourse. "/" . $uniqueId);
         }
 
         $mail = new Mail();

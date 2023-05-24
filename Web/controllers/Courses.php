@@ -25,6 +25,7 @@ class Courses extends Controller
 
     /**
      * Display page my request courses
+     * @return void
      */
     public function myRequest():void
     {
@@ -39,6 +40,7 @@ class Courses extends Controller
 
     /**
      * Voir les details d'une demande de cours
+     * @return void
      */
     public function details():void
     {
@@ -89,6 +91,7 @@ class Courses extends Controller
 
     /**
      * Display page request courses
+     * @return void
      */
     public function request():void
     {
@@ -107,6 +110,7 @@ class Courses extends Controller
 
     /**
      * Cancel a course request
+     * @return void
      */
     public function cancelRequest():void
     {
@@ -142,6 +146,7 @@ class Courses extends Controller
 
     /**
      * Activate a course request
+     * @return void
      */
     public function activate():void
     {
@@ -170,6 +175,7 @@ class Courses extends Controller
 
     /**
      * Display page validation request
+     * @return void
      */
     public function validation():void
     {
@@ -205,8 +211,6 @@ class Courses extends Controller
             $special_request = htmlspecialchars($_POST["special-request"]);
         }
 
-
-
         $this->loadModel('Courses');
 
         $idCourse = $this->_model->addCoursesRequest($course_type, $special_request, $date, $this->getUserId());
@@ -236,6 +240,7 @@ class Courses extends Controller
 
     /**
      * Display page récap request / devis
+     * @return void
      */
     public function invoice():void
     {
@@ -305,6 +310,7 @@ class Courses extends Controller
 
     /**
      * Display page payment
+     * @return void
      */
     public function payment():void
     {
@@ -347,6 +353,7 @@ class Courses extends Controller
 
     /**
      * Display page payment success
+     * @return void
      */
     public function success():void
     {
@@ -375,6 +382,7 @@ class Courses extends Controller
 
     /**
      * Display page payment cancel
+     * @return void
      */
     public function cancel():void
     {
@@ -382,6 +390,52 @@ class Courses extends Controller
         $this->redirect('../courses/myRequest');
     }
 
+    /**
+     * Start a online course
+     * @return void
+     */
+    public function onlineCourse():void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../courses/myRequest/');
+            exit();
+        }
+
+        $idCourse = (int) $params[0];
+        $unique = $params[1];
+
+        $this->loadModel('Courses');
+
+        $course = $this->_model->getCourseById($idCourse);
+
+        if($course === false){
+            $this->redirect('../courses/myRequest/');
+            exit();
+        }
+
+        if($course['type'] !== COURSES_IS_ONLINE){
+            $this->redirect('../courses/myRequest/');
+            exit();
+        }
+
+        $course['link'] = substr($course['link'], strrpos($course['link'], "/") + 1);
+        if ($unique !== $course['link']) {
+            $this->redirect('../courses/myRequest/');
+            exit();
+        }
+
+        $this->loadModel('User');
+
+        $user = $this->_model->getUserInfo($this->getUserId());
+
+
+
+        $page_name = array( "Cours en ligne" => "courses/onlineCourse/" . $idCourse);
+
+        $this->render("courses/onlineCall", compact('page_name', 'course', 'user'), DASHBOARD);
+    }
 
 
 
