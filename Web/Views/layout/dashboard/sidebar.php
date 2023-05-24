@@ -60,7 +60,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/increase" class="waves-effect"><i class='bx bx-line-chart'></i><span>Progression</span></a>
+                    <a href="<?= $path_prefix ?>SkillsUsers/increase" class="waves-effect"><i class='bx bx-line-chart'></i><span>Progression</span></a>
                 </li>
 
                 <li>
