@@ -108,8 +108,6 @@ include_once('views/layout/dashboard/path.php');
 
                     <p><?= $course['commentary'] ?> </p>
 
-                    <div id="meet"></div>
-
                 </div>
             </div>
         </div>

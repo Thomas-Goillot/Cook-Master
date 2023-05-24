@@ -40,17 +40,45 @@ include_once('views/layout/dashboard/path.php');
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Votre prestataire</h5>
-                <?php 
-                    if ($provider != null && $providerInfo != null) {
-                        echo "<p>Prestataire : " . $providerInfo['name'] . ' ' . $providerInfo['surname'] . "</p>";
-                        echo "<p>Préstataire chez nous depuis: " . $this->convertDateFrench($provider['date_of_join']) . "</p>";
-                    } else { 
-                        echo '<p>Il n\'y a pas encore de prestataire pour votre cours</p>';
-                    } 
+                <?php
+                if ($provider != null && $providerInfo != null) {
+                    echo "<p>Prestataire : " . $providerInfo['name'] . ' ' . $providerInfo['surname'] . "</p>";
+                    echo "<p>Préstataire chez nous depuis: " . $this->convertDateFrench($provider['date_of_join']) . "</p>";
+                } else {
+                    echo '<p>Il n\'y a pas encore de prestataire pour votre cours</p>';
+                }
                 ?>
             </div>
         </div>
     </div>
+
+    <?php
+    if ($course['type'] === COURSES_IS_ONLINE) : ?>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Cours en ligne</h4>
+
+                    <p>Lien: <?= !empty($course['link']) ? '<a href="' . $course['link'] . '" target="_blank">Rejoindre le cours</a>' : "Le lien n'a pas encore été défini" ?></p>
+
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php
+    if (isset($course['commentary']) && !empty($course['commentary']) && $course['commentary'] != " ") : ?>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Commentaire</h4>
+
+                    <p><?= $course['commentary'] ?> </p>
+
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
 
     <div class="col-lg-4">
