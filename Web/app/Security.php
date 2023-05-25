@@ -183,20 +183,18 @@ abstract class Security
         return false;
     }
 
-    public function checkAllowIp(int $id_user, $ip):bool
+    public function checkBannedIp(int $id_user, $ip):bool
     {
         $controller = new Controller();
         $controller->loadModel('UserSecurity');
 
-        $user = $controller->_model->getUserAllowedIp($id_user);
+        $bannedIp = $controller->_model->getUserBannedIp($id_user);
 
-        for($i = 0; $i < count($user); $i++){
-            if($user[$i]['allowed'] === IP_ALLOWED && $user[$i]['ip'] === $ip){
-                return true;
-            }
+        if(count($bannedIp) === 0){
+            return true;
         }
-        
-        return false;
+
+        return in_array($ip, $bannedIp);
     }
 
     /* 
