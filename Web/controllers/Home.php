@@ -17,9 +17,12 @@ class Home extends Controller{
      * @return void
      */
     public function index(){
+
+        $isLogged = $this->isLogged();
+
         $page_name = array("Accueil" => $this->default_path);
 
-        $this->render($this->default_path, compact('page_name'), NO_LAYOUT);
+        $this->render($this->default_path, compact('page_name', 'isLogged'), NO_LAYOUT);
     }
 
 }

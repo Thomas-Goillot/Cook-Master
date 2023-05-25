@@ -410,22 +410,30 @@ class Courses extends Controller
 
         $course = $this->_model->getCourseById($idCourse);
 
-        if($course === false){
-            $this->redirect('../courses/myRequest/');
+        if ($course === false) {
+            $this->setError("Erreur", "Une erreur est survenue lors de la récupération du cours", ERROR_ALERT);
+            $this->redirect('../../myRequest/');
             exit();
         }
 
-        if($course['type'] !== COURSES_IS_ONLINE){
-            $this->redirect('../courses/myRequest/');
+        if ($course['type'] !== COURSES_IS_ONLINE) {
+            $this->setError("Erreur", "Ce cours n\'est pas un cours en ligne", ERROR_ALERT);
+            $this->redirect('../../myRequest/');
             exit();
         }
 
         $course['link'] = substr($course['link'], strrpos($course['link'], "/") + 1);
         if ($unique !== $course['link']) {
-            $this->redirect('../courses/myRequest/');
+            $this->setError("Erreur", "Ce cours n\'est pas disponible", ERROR_ALERT);
+            $this->redirect('../../myRequest/');
             exit();
         }
 
+        if ($course['status'] !== COURSES_IS_IN_PROGRESS) {
+            $this->setError("Erreur", "Ce n\'est pas le moment de suivre ce cours", ERROR_ALERT);
+            $this->redirect('../../myRequest/');
+            exit();
+        }
         $this->loadModel('User');
 
         $user = $this->_model->getUserInfo($this->getUserId());

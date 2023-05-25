@@ -27,7 +27,7 @@ class Controller extends Utils{
      */
     private array $css = [];
 
-    
+
     /**
      * Render a view
      *
@@ -36,8 +36,8 @@ class Controller extends Utils{
      * @param string $type
      * @return void
      */
-    public function render(string $file, ?array $data, string $type, string $path = ""): void{
-                
+    public function render(string $file, ?array $data, string $type, string $path = ""): void
+    {
         //calculate path prefix
         if ($path != "") {
             $data['path_prefix'] = $path;
@@ -56,18 +56,20 @@ class Controller extends Utils{
 
         //handle new script 
         $newScript = $this->generateScriptTag($this->getNewScript(), $data['path_prefix']);
-        $data = array_merge($data,
+        $data = array_merge(
+            $data,
             array('newScript' => $newScript)
         );
 
         //handle new css 
         $newCss = $this->generateLinkTag($this->getNewCss(), $data['path_prefix']);
         $data = array_merge(
-            $data, array('newCss' => $newCss)
+            $data,
+            array('newCss' => $newCss)
         );
 
         //handle params 
-        if(isset($_SESSION['params'])){
+        if (isset($_SESSION['params'])) {
             $data = array_merge($data, array('redirectParams' => $_SESSION['params']));
             unset($_SESSION['params']);
         }
@@ -75,15 +77,14 @@ class Controller extends Utils{
         $this->loadModel('User');
 
         //render view
-        if($type == DASHBOARD){
+        if ($type == DASHBOARD) {
             $this->renderDashboard($file, $data);
-        }else if($type == OTHERS){
+        } else if ($type == OTHERS) {
             $this->renderOthers($file, $data);
-        }
-        else{
+        } else {
             echo $this->generateFile('views/' . $file . '.php', $data);
         }
-    }    
+    }
 
     /**
      * Render a view for dashboard
@@ -92,10 +93,11 @@ class Controller extends Utils{
      * @param array $data
      * @return void
      */
-    private function renderDashboard(string $file, array $data = []): void{
+    private function renderDashboard(string $file, array $data = []): void
+    {
 
         $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
-        
+
         $sidebarAdmin = "";
         $sidebarRh = "";
         $sidebarProviders = "";
@@ -126,7 +128,7 @@ class Controller extends Utils{
         $content = $this->generateFile('views/' . $file . '.php', $data);
         $footer = $this->generateFile('views/layout/dashboard/footer.php', $data);
         $script = $this->generateFile('views/layout/dashboard/script.php', $data);
-        $view = $this->generateFile('views/layout/dashboard/default.php', array('head' => $head, 'sidebar' => $sidebar,'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
+        $view = $this->generateFile('views/layout/dashboard/default.php', array('head' => $head, 'sidebar' => $sidebar, 'header' => $header, 'content' => $content, 'footer' => $footer, 'script' => $script));
         echo $view;
     }
 
@@ -137,7 +139,8 @@ class Controller extends Utils{
      * @param array $data
      * @return void
      */
-    private function renderOthers(string $file, array $data = []): void{
+    private function renderOthers(string $file, array $data = []): void
+    {
 
         $head = $this->generateFile('views/layout/others/head.php', $data);
         $content = $this->generateFile('views/' . $file . '.php', $data);
@@ -171,8 +174,9 @@ class Controller extends Utils{
      * @param string $model
      * @return void
      */
-    public function loadModel(string $model): void{
-        
+    public function loadModel(string $model): void
+    {
+
         $model = "Models\\" . ucfirst($model);
         $this->_model = new $model;
     }
@@ -185,7 +189,7 @@ class Controller extends Utils{
      */
     public static function redirect(string $path, array $params = []): void{
 
-        if(count($params) > 0){
+        if (count($params) > 0) {
             $_SESSION['params'] = $params;
         }
         header('Location: ' . $path);
@@ -218,7 +222,8 @@ class Controller extends Utils{
      * The specified file must be in the assets/pages folder
      * @param array $js
      */
-    public function setJsFile(array $js): void{
+    public function setJsFile(array $js): void
+    {
         foreach ($js as $value) {
             $this->script[] = $value;
         }
@@ -228,7 +233,8 @@ class Controller extends Utils{
      * Get js file
      * @return array
      */
-    public function getNewScript(): array{
+    public function getNewScript(): array
+    {
         return $this->script;
     }
 
@@ -237,7 +243,8 @@ class Controller extends Utils{
      * The specified file must be in the assets folder
      * @param array $css
      */
-    public function setCssFile(array $css): void{
+    public function setCssFile(array $css): void
+    {
         foreach ($css as $value) {
             $this->css[] = $value;
         }
@@ -247,10 +254,11 @@ class Controller extends Utils{
      * Get css file
      * @return array
      */
-    public function getNewCss(): array{
+    public function getNewCss(): array
+    {
         return $this->css;
     }
-    
+
     /**check if there is some words in the message that are not allowed
      * @param string $message 
      * @return string $message
@@ -296,7 +304,7 @@ class Controller extends Utils{
      * @param int $height
      * @return string
      */
-    public function loadAvatar(int $id, string $path_prefix,string $width = "", string $height = ""): string
+    public function loadAvatar(int $id, string $path_prefix, string $width = "", string $height = ""): string
     {
         $this->loadModel('avatar');
 
@@ -348,16 +356,16 @@ class Controller extends Utils{
             ob_end_clean();
 
             if ($width != "" && $height != "") {
-                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" style="width:'.$width.';height:'.$height.'" class="rounded-circle header-profile-user">';
+                return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" style="width:' . $width . ';height:' . $height . '" class="rounded-circle header-profile-user">';
             } else {
                 return '<img src="data:image/png;base64,' . base64_encode($avatar_img) . '" alt="Avatar" class="rounded-circle header-profile-user">';
             }
         } else {
             if ($width != "" && $height != "") {
-                return '<img src="'. $path_prefix .'assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
+                return '<img src="' . $path_prefix . 'assets/images/users/user.png" alt="Avatar" width="' . $width . '" height="' . $height . '" class="rounded-circle header-profile-user">';
             } else {
                 return '<img src="' . $path_prefix . 'assets/images/users/user.png" alt="Avatar" class="rounded-circle header-profile-user">';
             }
         }
-    }  
+    }
 }
