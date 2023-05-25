@@ -77,47 +77,8 @@ class login extends Controller{
         if ($this->_model->firstConnection($user['id_users']) === true) {
             $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_ALLOWED);
         }
-
-        if ($this->checkUserIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false) {
-            $error = "Vous vous êtes connecté depuis une adresse IP différente de la dernière fois, veuillez vérifier votre boite mail";
-
-            $mail = new Mail();
-
-            $body = file_get_contents('mails/ipchange.php');
-
-            $userName = $user['name'];
-
-            $this->loadModel('UserSecurity');
-            if($this->_model->checkIp($user['id_users'], $userIp) === false){
-                $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
-            }
-            else{
-                $idUserIp = $this->_model->getIpId($user['id_users'], $userIp);
-            }
-
-            $body = str_replace('___name___', $userName, $body);
-
-            $body = str_replace('___ip___', $userIp, $body);
-
-            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/'. Utils::crypt($idUserIp), $body);
-
-            $images = [
-                'assets/images/logo.png' => 'logo',
-                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
-                'assets/images/mails/facebook2x.png' => 'facebook',
-                'assets/images/mails/instagram2x.png' => 'instagram',
-                'assets/images/mails/twitter2x.png' => 'twitter',
-                'assets/images/mails/linkedin2x.png' => 'linkedin',
-            ];
-
-            $this->loadModel('User');
-            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion depuis une adresse IP différente', $body, $images);
-
-            $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
-            return;
-        }
-
-        if($this->checkAllowIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false){
+        
+        if($this->checkBannedIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false){
             $error = "Votre adresse IP n'est pas autorisée à se connecter à ce compte";
 
             $mail = new Mail();
@@ -142,10 +103,48 @@ class login extends Controller{
                 'assets/images/mails/linkedin2x.png' => 'linkedin',
             ];
             $this->loadModel('User');
-            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion à votre compte depuis une adresse IP non autorisée', $body, $images);
+           $mail->send($this->_model->getMailById($user['id_users']), 'Connexion à votre compte depuis une adresse IP non autorisée', $body, $images);
 
 
             unset($_SESSION['user']);
+            $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
+            return;
+        }
+
+        if ($this->checkUserIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false) {
+            $error = "Vous vous êtes connecté depuis une adresse IP différente de la dernière fois, veuillez vérifier votre boite mail";
+
+            $mail = new Mail();
+
+            $body = file_get_contents('mails/ipchange.php');
+
+            $userName = $user['name'];
+
+            $this->loadModel('UserSecurity');
+            if ($this->_model->checkIp($user['id_users'], $userIp) === false) {
+                $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
+            } else {
+                $idUserIp = $this->_model->getIpId($user['id_users'], $userIp);
+            }
+
+            $body = str_replace('___name___', $userName, $body);
+
+            $body = str_replace('___ip___', $userIp, $body);
+
+            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . Utils::crypt($idUserIp), $body);
+
+            $images = [
+                'assets/images/logo.png' => 'logo',
+                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+                'assets/images/mails/facebook2x.png' => 'facebook',
+                'assets/images/mails/instagram2x.png' => 'instagram',
+                'assets/images/mails/twitter2x.png' => 'twitter',
+                'assets/images/mails/linkedin2x.png' => 'linkedin',
+            ];
+
+            $this->loadModel('User');
+            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion depuis une adresse IP différente', $body, $images);
+
             $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
             return;
         }

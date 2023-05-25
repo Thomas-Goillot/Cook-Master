@@ -20,7 +20,25 @@ class UserSecurity extends Model
 
     public function getUserAllowedIp(int $id_users): array
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND allowed = 1";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND allowed =". IP_ALLOWED;
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get user banned ip
+     * @param int $id_users
+     * @return array
+     */
+    public function getUserBannedIp(int $id_users): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND allowed =". IP_BANNED;
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -63,7 +81,7 @@ class UserSecurity extends Model
 
     public function updateAllowedIp($id_user_ip):bool
     {
-        $query = "UPDATE " . $this->table . " SET allowed = 1 WHERE id_user_ip = :id_user_ip";
+        $query = "UPDATE " . $this->table . " SET allowed = ".IP_ALLOWED." WHERE id_user_ip = :id_user_ip";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -112,7 +130,7 @@ class UserSecurity extends Model
 
     public function checkIpAllowed($id_users, $ip):bool
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND ip = :ip AND allowed = 1";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND ip = :ip AND allowed = ".IP_ALLOWED;
 
         $stmt = $this->_connexion->prepare($query);
 
