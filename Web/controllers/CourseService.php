@@ -279,7 +279,7 @@ class CourseService extends Controller
         
         $courseInfo = $this->_model->getCourseById($idCourse);
 
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
 
         $allSkills = $this->_model->getAllSkills();
 
@@ -325,7 +325,7 @@ class CourseService extends Controller
         $this->loadModel('Courses');
         $userId = $this->_model->getUserIdByCourseId($idCourse);
 
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
 
         foreach($skills as $skill){
             $this->_model->addSkillToUser($userId, $skill);

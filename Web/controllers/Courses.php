@@ -429,11 +429,12 @@ class Courses extends Controller
             exit();
         }
 
-        if ($course['status'] !== COURSES_IS_IN_PROGRESS) {
+/*         if ($course['status'] !== COURSES_IS_IN_PROGRESS) {
             $this->setError("Erreur", "Ce n\'est pas le moment de suivre ce cours", ERROR_ALERT);
             $this->redirect('../../myRequest/');
             exit();
-        }
+        } */
+        
         $this->loadModel('User');
 
         $user = $this->_model->getUserInfo($this->getUserId());

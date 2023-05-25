@@ -43,8 +43,8 @@
 
 <li><a href="javascript: void(0);" class="has-arrow"><i class="bx bx-certification"></i>Compétences</a>
     <ul class="sub-menu" aria-expanded="false">
-        <li><a href="<?= $path_prefix ?>SkillsAdmin/certificate"><i class="bx bxs-wallet-alt"></i>Certificats</a></li>
-        <li><a href="<?= $path_prefix ?>SkillsAdmin/skills"><i class="fas fa-lightbulb"></i>Compétences</a></li>
+        <li><a href="<?= $path_prefix ?>skillsAdmin/certificate"><i class="bx bxs-wallet-alt"></i>Certificats</a></li>
+        <li><a href="<?= $path_prefix ?>skillsAdmin/skills"><i class="fas fa-lightbulb"></i>Compétences</a></li>
     </ul>
 </li>
 

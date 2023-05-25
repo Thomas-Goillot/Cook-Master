@@ -4,14 +4,14 @@ namespace Controllers;
 
 use App\Controller;
 
-class SkillsAdmin extends Controller
+class skillsAdmin extends Controller
 {
 
     /**
      * Default path to the view
      * @var string
      */
-    private string $default_path = "SkillsAdmin/certificate";
+    private string $default_path = "skillsAdmin/certificate";
 
 
     public function __construct()
@@ -34,7 +34,7 @@ class SkillsAdmin extends Controller
      */
     public function certificate(): void
     {
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
         $certificates = $this->_model->getAllCertificates();
         $allSkills = $this->_model->getAllSkills();
 
@@ -45,7 +45,7 @@ class SkillsAdmin extends Controller
 
     public function addcertificate(): void
     { 
-        $defaultFallBack = "../SkillsAdmin/certificate";
+        $defaultFallBack = "../skillsAdmin/certificate";
         if (!isset($_POST['name']) && !isset($_POST['description']) && !isset($_POST['Skills'])) {
             $this->setError('Erreur', 'Veuillez remplir tous les champs', ERROR_ALERT);
             $this->redirect($defaultFallBack);
@@ -71,7 +71,7 @@ class SkillsAdmin extends Controller
             $this->redirect($defaultFallBack);
         }
 
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
 
         $idCertificate = $this->_model->addCertificate($name, $description);
 
@@ -90,12 +90,12 @@ class SkillsAdmin extends Controller
      */
     public function skills(): void
     {
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
         $skills = $this->_model->getAllSkills();
 
         $page_name = array("Admin" => $this->default_path, "Compétences" => $this->default_path);
 
-        $this->render('SkillsAdmin/skills', compact('page_name', 'skills'), DASHBOARD);
+        $this->render('skillsAdmin/skills', compact('page_name', 'skills'), DASHBOARD);
     }
 
     /**
@@ -105,7 +105,7 @@ class SkillsAdmin extends Controller
     public function addSkill(): void
     {
 
-        $defaultFallBack = "../SkillsAdmin/skills";
+        $defaultFallBack = "../skillsAdmin/skills";
         if (!isset($_POST['name']) && !isset($_POST['description'])) {
 
             $this->setError('Erreur', 'Veuillez remplir tous les champs', ERROR_ALERT);
@@ -125,7 +125,7 @@ class SkillsAdmin extends Controller
             $this->redirect($defaultFallBack);
         }
 
-        $this->loadModel('SkillsAdmin');
+        $this->loadModel('skillsAdmin');
 
         if($this->_model->addSkill($name, $description)){
             $this->setError('Succès', 'La compétence a bien été ajoutée', SUCCESS_ALERT);

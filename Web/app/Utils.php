@@ -288,7 +288,7 @@ class Utils extends Security
         self::getEnv();
 
         if($this->env['ENV'] === "DEV"){
-            return $link . "://" . $_SERVER['HTTP_HOST'] . "/Cook-Master/WEB/";
+            return $link . "://" . $_SERVER['HTTP_HOST'] . "/Cook-Master/Web/";
         }
 
         return $link . "://" . $_SERVER['HTTP_HOST']."/";

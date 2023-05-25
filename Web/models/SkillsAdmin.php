@@ -6,7 +6,7 @@ use PDO;
 use App\Model;
 use PDOException;
 
-class SkillsAdmin extends Model
+class skillsAdmin extends Model
 {
     /**
      * User constructor.
