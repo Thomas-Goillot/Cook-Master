@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use App\Controller;
-
+use App\StripePayment;
 class WorkshopPresentation extends Controller
 {
     /**
@@ -45,7 +45,7 @@ class WorkshopPresentation extends Controller
 
 
     /**
-     * display worshop page
+     * display workshop page
      * @return void
      */
     public function workshopDisplay(): void
@@ -65,21 +65,104 @@ class WorkshopPresentation extends Controller
 
         $workshop = $this->_model->getWorkshopById($id_workshop);
 
-        $nbPlaceAvailable = $workshop['place'];
+        $workshop['address'] = $this->_model->getWorkshopLocation($workshop['id_location']);
 
-            $nbPlaceBooked = $this->_model->getWorkshopBookedPlace($id_workshop);
+        // $nbPlaceAvailable = $workshop['nb_place'];
 
-            if($nbPlaceBooked == NULL){
-                $nbPlace = $nbPlaceAvailable;
-            }else{
-                $nbPlace = $nbPlaceAvailable - $nbPlaceBooked["COUNT(id_join_event)"];
-            }
+        //     $nbPlaceBooked = $this->_model->getWorkshopBookedPlace($id_workshop);
+
+        //     if($nbPlaceBooked == NULL){
+        //         $nbPlace = $nbPlaceAvailable;
+        //     }else{
+        //         $nbPlace = $nbPlaceAvailable - $nbPlaceBooked["COUNT(id_workshop)"];
+        //     }
 
 
 
         $page_name = array("Atelier"=> $this->default_path, $workshop['name'] => "workshopDisplay/$id_workshop");
 
-        $this->render('workshop/workshopDisplay', compact('page_name', 'id_workshop','workshop','place'), DASHBOARD, '../../');
+        $this->render('workshop/workshopDisplay', compact('page_name', 'id_workshop','workshop'), DASHBOARD, '../../');
+    }
+
+
+
+     /**
+     * pay success
+     * @return void
+     */
+    public function paySuccess(): void{
+        
+        
+        
+        if($this->checkSecurity()){
+            $this->loadModel("worshop");
+            $id_event = $this->getSecurityParams()['id_workshop'];
+            $id_user = $this->getUserId();
+            $place = (int) $this->getSecurityParams()['place'];
+
+            for($i = 0; $i < $place; $i++){
+                $this->_model->reservationEvent($id_event,$id_user);
+                $this->redirect("../../../personnalWorkshop");
+            }
+        }
+        else{
+            echo "Erreur";
+        }
+
+    }
+
+
+     /**
+     * display the pay page for workshop
+     * @return void
+     */
+    public function pay(): void{
+       
+
+
+        $this->loadModel("User");
+
+        $idUser = $this->getUserId();
+
+        $user = $this->_model->getUserInfo($idUser);
+
+        $userEmail = $user['email'];
+
+
+
+
+
+        $this->loadModel("workshop");
+
+        $params = $_GET['params'];
+
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_workshop = $params[0];
+        $place = $_POST['place'];
+
+        
+
+        $workshop = $this->_model->getWorkshopById($id_workshop);
+
+        $eventData = array(array(
+            "name"=> $workshop['name'],
+            "price_purchase"=> $workshop['price'],
+            "quantity"=> $place
+        ));
+
+        $payment = new StripePayment(STRIPE_API_KEY);
+
+        $payment->startPayment($eventData,$userEmail,$this->activeSecurity("Workshop/paySuccess",array("id_event"=>$id_workshop,"place"=>$place))['url']);
+
+        $page_name = array("Evenement" => "EventsPresentation", "Page de l'évenement" => "EventsPresentation/EventDisplay");
+
+        $this->render('shop/pay', compact('page_name'), DASHBOARD);
+
     }
 
 }
