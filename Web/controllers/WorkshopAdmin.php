@@ -58,8 +58,8 @@ class WorkshopAdmin extends Controller
     {
         
         if (!isset($_POST['submit'])) {
-            $defaultErrorPath = "../WorkshopAdmin/listWorkshop";
-            $defaultValidePath = "../admin/listWorkshop";
+            $defaultErrorPath = "../../WorkshopAdmin/index";
+            $defaultValidePath = "../WorkshopAdmin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -101,8 +101,7 @@ class WorkshopAdmin extends Controller
             $price = htmlspecialchars($_POST['price']);
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
-            $id_equipments = $_POST['id_equipment'];
-
+            $id_equipments = array_map('intval', $_POST['id_equipment']);
 
             $date = htmlspecialchars($_POST['WorkshopDate']);
             $date = explode('-', $date);
@@ -152,14 +151,14 @@ class WorkshopAdmin extends Controller
             
                 
         
-
+            
             $this->loadModel('Workshop');
             $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end']   ,$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
                     for($j = 0; $j < $nb_stock[$i]; $j++){
-                        $this->_model->addWorkshopProduct($id_workshop, $id_equipments[$i]);
+                        $this->_model->addWorkshopProduct($id_equipments[$i],$id_workshop);
                     }
                }
             }
@@ -185,14 +184,13 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('workshop');
 
-        // $id_equipment = ;
-        // $id_workshop = ;
+        $location = $this->_model->getAllWorkshopLocation();
 
-        //  $allWorkshop = $this->_model->addWorkshopProduct($id_equipment,$id_workshop);
+        $allWorkshop = $this->_model->getAllWorkshop();
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
-        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop'), DASHBOARD);
+        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop','location'), DASHBOARD);
     }
 
 
