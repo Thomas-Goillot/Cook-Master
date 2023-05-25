@@ -38,7 +38,6 @@ class Controller extends Utils{
      */
     public function render(string $file, ?array $data, string $type, string $path = ""): void
     {
-
         //calculate path prefix
         if ($path != "") {
             $data['path_prefix'] = $path;

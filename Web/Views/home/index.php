@@ -27,8 +27,10 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>recipes">Recettes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>chefs">Nos Chefs</a></li>
                     <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
-                    <?= $this->isLogged ? "<li class='nav-item'><a class='nav-link' href='logout'>Déconnexion</a></li>" : "<li><a class='nav-link' href='login'><i class='bi bi-person'></i></a></li>" ?>
+                    <?= $isLogged ? '<li class="nav-item"><a class="nav-link" href="' . $path_prefix . 'users/profil">Votre espace</a></li>' : '<li><a class="nav-link" href="' . $path_prefix . 'login"><i class="bi bi-person"></i></a></li>' ?>
                     
                 </ul>
             </div>
