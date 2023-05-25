@@ -347,3 +347,14 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+# Folder containing base html file
+admin_template/
+
+# Composer vendor folder
+vendor/
+
+# .env file containing environment variables for db and other sensitive data
+Web/config/.env
+
+.vscode/extensions.json
