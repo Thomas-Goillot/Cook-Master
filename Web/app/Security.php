@@ -168,19 +168,25 @@ abstract class Security
         $controller = new Controller();
         $controller->loadModel('UserSecurity');
 
-        $user = $controller->_model->getUserIp($id_user);
+        $userIp = $controller->_model->getUserIp($id_user);
 
-        if(count($user) === 0){
-            return true; // == first connection
-        }
+        return in_array($ip, $userIp);
+    }
 
-        for($i = 0; $i < count($user); $i++){
-            if($user[$i]['ip'] === $ip){
-                return true;
+    public function checkIpIsValid(int $id_user, $ip):bool
+    {
+        $controller = new Controller();
+        $controller->loadModel('UserSecurity');
+
+        $userIp = $controller->_model->getUserNotAllowedIp($id_user);
+
+        foreach($userIp as $key => $value){
+            if($userIp[$key]['ip'] === $ip){
+                return false;
             }
         }
-        
-        return false;
+
+        return true;
     }
 
     public function checkBannedIp(int $id_user, $ip):bool

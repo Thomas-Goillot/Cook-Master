@@ -18,9 +18,9 @@ class UserSecurity extends Model
         $this->getConnection();
     }
 
-    public function getUserAllowedIp(int $id_users): array
+    public function getUserNotAllowedIp(int $id_users): array
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id_users AND allowed =". IP_ALLOWED;
+        $query = "SELECT ip FROM " . $this->table . " WHERE id_users = :id_users AND allowed =". IP_NOT_ALLOWED;
 
         $stmt = $this->_connexion->prepare($query);
 

@@ -111,7 +111,7 @@ class login extends Controller{
             return;
         }
 
-        if ($this->checkUserIp($user['id_users'], $_SERVER['REMOTE_ADDR']) === false) {
+        if ($this->checkUserIp($user['id_users'], $_SERVER['REMOTE_ADDR'])) {
             $error = "Vous vous êtes connecté depuis une adresse IP différente de la dernière fois, veuillez vérifier votre boite mail";
 
             $mail = new Mail();
@@ -131,7 +131,7 @@ class login extends Controller{
 
             $body = str_replace('___ip___', $userIp, $body);
 
-            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . Utils::crypt($idUserIp), $body);
+            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . $idUserIp, $body);
 
             $images = [
                 'assets/images/logo.png' => 'logo',
@@ -147,6 +147,41 @@ class login extends Controller{
 
             $this->render($this->default_path, compact('page_name', 'error'), OTHERS);
             return;
+        }
+        dump($this->checkIpIsValid($user['id_users'], $_SERVER['REMOTE_ADDR']));
+        if($this->checkIpIsValid($user['id_users'], $_SERVER['REMOTE_ADDR'])){
+            $error = "Merci de valider votre adresse IP pour vous connecter à votre compte. Un mail vous a été envoyé";
+
+            $mail = new Mail();
+
+            $body = file_get_contents('mails/ipchange.php');
+
+            $userName = $user['name'];
+
+            $this->loadModel('UserSecurity');
+            if ($this->_model->checkIp($user['id_users'], $userIp) === false) {
+                $idUserIp = $this->_model->addIp($user['id_users'], $userIp, IP_NOT_ALLOWED);
+            } else {
+                $idUserIp = $this->_model->getIpId($user['id_users'], $userIp);
+            }
+
+            $body = str_replace('___name___', $userName, $body);
+
+            $body = str_replace('___ip___', $userIp, $body);
+
+            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . $idUserIp, $body);
+
+            $images = [
+                'assets/images/logo.png' => 'logo',
+                'assets/images/mails/___passwordreset.gif' => 'passwordreset',
+                'assets/images/mails/facebook2x.png' => 'facebook',
+                'assets/images/mails/instagram2x.png' => 'instagram',
+                'assets/images/mails/twitter2x.png' => 'twitter',
+                'assets/images/mails/linkedin2x.png' => 'linkedin',
+            ];
+
+            $this->loadModel('User');
+            $mail->send($this->_model->getMailById($user['id_users']), 'Connexion depuis une adresse IP différente', $body, $images);
         }
 
         $this->loadModel('User');
@@ -177,7 +212,6 @@ class login extends Controller{
             return;
         }
 
-
         $this->redirect('users/profil');
 
     }
@@ -197,7 +231,7 @@ class login extends Controller{
             return;
         }
 
-        $idIp = Utils::decrypt($params[0]);
+        $idIp = $params[0];
 
         if(!is_numeric($idIp)){
             $this->redirect('../Home');
