@@ -184,22 +184,66 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('workshop');
 
-        $location = $this->_model->getAllWorkshopLocation();
+
+
 
         $allWorkshop = $this->_model->getAllWorkshop();
 
+        foreach($allWorkshop as $key => $value){
+            $allWorkshop[$key]['address'] = $this->_model->getWorkshopLocation($value['id_location']);
+        }
+
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
-        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop','location'), DASHBOARD);
+        $this->render('admin/listWorkshop', compact('page_name', 'allWorkshop'), DASHBOARD);
     }
 
 
+
+
+    /**
+     * Display the edit workshop page
+     * @return void
+     */
+    public function editWorkshopDisplay(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_workshop = (int) $params[0];
+
+        $this->loadModel("Products");
+        $allProduct = $this->_model->getAllProducts();
+
+        $this->loadModel('workshop');
+
+        $allWorkshop = $this->_model->getAllWorkshop();
+
+        $this->loadModel('location');
+        $locations = $this->_model->getAllLocationWithOpeningHours();
+
+
+        $this->setJsFile(array('location.js','addressSelect.js'));
+        $this->setCssFile(array('css/location/location.css'));
+
+
+
+
+        $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Modification d'atelier" => "admin/workshop/editWorkshopDisplay");
+        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop'), DASHBOARD);
+    }
+
       /**
-     * edit product
+     * edit workshop
      * @return void
      */
     public function editWorkshop(): void
     {
+        $defaultErrorPath = '../../WorkshopAdmin/listWorkshop';
         $this->loadModel("Products");
 
 
@@ -210,19 +254,19 @@ class WorkshopAdmin extends Controller
 
             if (!in_array($image, $acceptable)) {
                 $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect($defaultErrorPath);
             }
 
             $maxSize = 5 * 1024 * 1024; //5 Mo
             if ($_FILES['image']['size'] > $maxSize) {
                 $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect($defaultErrorPath);
             }
 
             //Si le dossier uploads n'existe pas, le créer
             $path = 'assets/images/productShop';
-            if (!file_exists('assets/images/productShop/')) {
-                mkdir('assets/images/productShop/');
+            if (!file_exists('assets/images/Workshop/')) {
+                mkdir('assets/images/Workshop/');
             }
 
             $filename = $_FILES['image']['name'];
