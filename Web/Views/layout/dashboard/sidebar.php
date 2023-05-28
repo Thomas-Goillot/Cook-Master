@@ -29,6 +29,9 @@
                 <li>
                     <a href="<?= $path_prefix ?>EventsPresentation" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
+                <li>
+                    <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='fas fa-store'></i><span>Atelier</span></a>
+                </li>
 
                 <li>
                     <a href="<?= $path_prefix ?>UserSubscription/information" class="waves-effect"><i class='mdi mdi-trophy-award'></i><span>Nos abonnements</span></a>
