@@ -11,7 +11,7 @@ class SkillsUsers extends Controller
      * Default path to the view
      * @var string
      */
-    private string $default_path = "SkillsAdmin/certificate";
+    private string $default_path = "skillsAdmin/certificate";
 
 
     public function __construct()

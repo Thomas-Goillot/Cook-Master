@@ -11,7 +11,7 @@ class SkillsAdmin extends Controller
      * Default path to the view
      * @var string
      */
-    private string $default_path = "SkillsAdmin/certificate";
+    private string $default_path = "skillsAdmin/certificate";
 
 
     public function __construct()
@@ -45,7 +45,7 @@ class SkillsAdmin extends Controller
 
     public function addcertificate(): void
     { 
-        $defaultFallBack = "../SkillsAdmin/certificate";
+        $defaultFallBack = "../skillsAdmin/certificate";
         if (!isset($_POST['name']) && !isset($_POST['description']) && !isset($_POST['Skills'])) {
             $this->setError('Erreur', 'Veuillez remplir tous les champs', ERROR_ALERT);
             $this->redirect($defaultFallBack);
@@ -95,7 +95,7 @@ class SkillsAdmin extends Controller
 
         $page_name = array("Admin" => $this->default_path, "Compétences" => $this->default_path);
 
-        $this->render('SkillsAdmin/skills', compact('page_name', 'skills'), DASHBOARD);
+        $this->render('skillsAdmin/skills', compact('page_name', 'skills'), DASHBOARD);
     }
 
     /**
@@ -105,7 +105,7 @@ class SkillsAdmin extends Controller
     public function addSkill(): void
     {
 
-        $defaultFallBack = "../SkillsAdmin/skills";
+        $defaultFallBack = "../skillsAdmin/skills";
         if (!isset($_POST['name']) && !isset($_POST['description'])) {
 
             $this->setError('Erreur', 'Veuillez remplir tous les champs', ERROR_ALERT);
