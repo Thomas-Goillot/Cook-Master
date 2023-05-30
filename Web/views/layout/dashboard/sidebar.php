@@ -56,7 +56,7 @@
                     </ul>
                 </li>
 
-                <li class="menu-title">Utilisateur test</li>
+                <li class="menu-title">Utilisateur</li>
 
                 <li>
                     <a href="<?= $path_prefix ?>users/profil" class="waves-effect"><i class='bx bx-user'></i><span>Profil</span></a>
