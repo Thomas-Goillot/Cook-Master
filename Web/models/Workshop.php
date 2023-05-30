@@ -35,6 +35,56 @@ class workshop extends Model
 
 
     /**
+     * Get all workshop where place and date is ok
+     * @return array
+     */
+    public function getAllWorkshopAvailable(): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE date_end > NOW() AND nb_place > 0";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+     /**
+     * Get all events where place and date is ok
+     * @return array
+     */
+    // public function getAllWorkshopAvailable(): array
+    // {
+    //     $query = "SELECT * FROM " . $this->table ." WHERE date_end > NOW() AND nb_place > (SELECT COUNT(id_join_event) FROM user_join_workshop WHERE id_workshop = workshop.id_workshop)";
+
+    //     $stmt = $this->_connexion->prepare($query);
+
+    //     $stmt->execute();
+
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+
+
+/**
+     * Get place booked
+     * @return array
+     */
+    public function getWorkshopBookedPlace(int $id)
+    {
+        $query = "SELECT COUNT(id_workshop) FROM user_join_workshop WHERE id_workshop = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
      * Get id of workshop
      * @return array
      */
@@ -65,7 +115,7 @@ class workshop extends Model
      */
     public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
     {
-        $query = "INSERT INTO ". $this->table.  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :nb_place, :id_location)";
+        $query = "INSERT INTO " . $this->table .  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :nb_place, :id_location)";
 
         $data = array(
             ":description" => $description,
@@ -92,10 +142,10 @@ class workshop extends Model
      * Get edit workshop
      * @return void
      */
-    public function editWorkshop(string $name, string $description, string $image, int $price, int $available, string $date_start, string $date_end, int $id_worshop):void
+    public function editWorkshop(string $name, string $description, string $image, int $price, int $available, string $date_start, string $date_end, int $id_worshop): void
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, price = :price, available = : available, date_start = :date_start, date_end = :date_end WHERE id_equipment = :id_equipment";
-       
+        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, price = :price, available = :available, date_start = :date_start, date_end = :date_end WHERE id_equipment = :id_equipment";
+
         $data = array(
             ":name" => $name,
             ":description" => $description,
@@ -110,16 +160,15 @@ class workshop extends Model
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute($data);
-
     }
-    
+
     /**
      * delete workshop from workshop
      * @return bool
      */
-    public function deleteProduct(int $id):bool
+    public function deleteProduct(int $id): bool
     {
-        
+
         $query = "DELETE FROM " . $this->table . " WHERE id_equipment = :id";
 
         $stmt = $this->_connexion->prepare($query);
@@ -127,7 +176,6 @@ class workshop extends Model
         $stmt->bindParam(":id", $id);
 
         return $stmt->execute();
-    
     }
 
     /**
@@ -136,7 +184,7 @@ class workshop extends Model
      */
     public function getAllLocationWithOpeningHours(): array
     {
-       //get all location
+        //get all location
         $sql = "SELECT * FROM location";
 
         $stmt = $this->_connexion->prepare($sql);
@@ -175,7 +223,6 @@ class workshop extends Model
         }
 
         return $locations;
-
     }
 
     /**
@@ -184,7 +231,7 @@ class workshop extends Model
      */
     public function getLocationInfoById(int $id): array
     {
-        $sql = "SELECT * FROM " . $this->table ." WHERE id_location = :id_location";
+        $sql = "SELECT * FROM " . $this->table . " WHERE id_location = :id_location";
 
         $stmt = $this->_connexion->prepare($sql);
 
@@ -243,7 +290,8 @@ class workshop extends Model
      * @param int $id_workshop
      * @return array
      */
-    public function addWorkshopProduct(int $id_equipment, int $id_workshop ): void{
+    public function addWorkshopProduct(int $id_equipment, int $id_workshop): void
+    {
         $query = "INSERT INTO use_equipment_workshop (id_equipment, id_workshop) VALUES (:id_equipment, :id_workshop)";
 
         $data = array(
@@ -254,8 +302,26 @@ class workshop extends Model
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute($data);
-
     }
 
 
-}   
+    /**
+     *  getWorkshopLocation
+     *  @param int $id_location
+     * @return array
+     */
+    public function getWorkshopLocation(int $id_location): string
+    {
+        $query = "SELECT * FROM location WHERE id_location = :id_location";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_location", $id_location);
+
+        $stmt->execute();
+
+        $location = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $location['address'];
+    }
+}

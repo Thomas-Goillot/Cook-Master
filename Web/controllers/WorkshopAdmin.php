@@ -58,8 +58,8 @@ class WorkshopAdmin extends Controller
     {
         
         if (!isset($_POST['submit'])) {
-            $defaultErrorPath = "../WorkshopAdmin/listWorkshop";
-            $defaultValidePath = "../admin/listWorkshop";
+            $defaultErrorPath = "../../WorkshopAdmin/index";
+            $defaultValidePath = "../WorkshopAdmin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -101,8 +101,7 @@ class WorkshopAdmin extends Controller
             $price = htmlspecialchars($_POST['price']);
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
-            $id_equipments = $_POST['id_equipment'];
-
+            $id_equipments = array_map('intval', $_POST['id_equipment']);
 
             $date = htmlspecialchars($_POST['WorkshopDate']);
             $date = explode('-', $date);
@@ -152,14 +151,14 @@ class WorkshopAdmin extends Controller
             
                 
         
-
+            
             $this->loadModel('Workshop');
             $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end']   ,$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
                     for($j = 0; $j < $nb_stock[$i]; $j++){
-                        $this->_model->addWorkshopProduct($id_workshop, $id_equipments[$i]);
+                        $this->_model->addWorkshopProduct($id_equipments[$i],$id_workshop);
                     }
                }
             }
@@ -185,10 +184,14 @@ class WorkshopAdmin extends Controller
 
         $this->loadModel('workshop');
 
-        // $id_equipment = ;
-        // $id_workshop = ;
 
-        //  $allWorkshop = $this->_model->addWorkshopProduct($id_equipment,$id_workshop);
+
+
+        $allWorkshop = $this->_model->getAllWorkshop();
+
+        foreach($allWorkshop as $key => $value){
+            $allWorkshop[$key]['address'] = $this->_model->getWorkshopLocation($value['id_location']);
+        }
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "listWorkshop");
 
@@ -196,12 +199,51 @@ class WorkshopAdmin extends Controller
     }
 
 
+
+
+    /**
+     * Display the edit workshop page
+     * @return void
+     */
+    public function editWorkshopDisplay(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_workshop = (int) $params[0];
+
+        $this->loadModel("Products");
+        $allProduct = $this->_model->getAllProducts();
+
+        $this->loadModel('workshop');
+
+        $allWorkshop = $this->_model->getAllWorkshop();
+
+        $this->loadModel('location');
+        $locations = $this->_model->getAllLocationWithOpeningHours();
+
+
+        $this->setJsFile(array('location.js','addressSelect.js'));
+        $this->setCssFile(array('css/location/location.css'));
+
+
+
+
+        $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Modification d'atelier" => "admin/workshop/editWorkshopDisplay");
+        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop'), DASHBOARD);
+    }
+
       /**
-     * edit product
+     * edit workshop
      * @return void
      */
     public function editWorkshop(): void
     {
+        $defaultErrorPath = '../../WorkshopAdmin/listWorkshop';
         $this->loadModel("Products");
 
 
@@ -212,19 +254,19 @@ class WorkshopAdmin extends Controller
 
             if (!in_array($image, $acceptable)) {
                 $this->setError('Type de fichier non autorisée', "Les type de fichier autorisé sont :  .png et .jpeg", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect($defaultErrorPath);
             }
 
             $maxSize = 5 * 1024 * 1024; //5 Mo
             if ($_FILES['image']['size'] > $maxSize) {
                 $this->setError('Fichier trop lourd', "la taille du fichier ne doit pas dépasser 5 Mo", ERROR_ALERT);
-                $this->redirect('../admin/products');
+                $this->redirect($defaultErrorPath);
             }
 
             //Si le dossier uploads n'existe pas, le créer
             $path = 'assets/images/productShop';
-            if (!file_exists('assets/images/productShop/')) {
-                mkdir('assets/images/productShop/');
+            if (!file_exists('assets/images/Workshop/')) {
+                mkdir('assets/images/Workshop/');
             }
 
             $filename = $_FILES['image']['name'];

@@ -2,7 +2,7 @@
     <div class="card-body">
         <h4 class="card-title">Créer un certificat</h4>
 
-        <form action="../SkillsAdmin/addCertificate" method="POST">
+        <form action="../skillsAdmin/addCertificate" method="POST">
 
             <div class="form-group">
                 <label for="name">Nom du certificat</label>

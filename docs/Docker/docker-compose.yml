@@ -1,0 +1,43 @@
+version: '3.8'
+
+# Services
+services:
+
+    # PHP Service
+    php:
+        build:
+            context: .
+            dockerfile: php-dockerfile
+        volumes:
+            - './php-files:/var/www/html'
+            - './composer:/var/www/composer'
+        depends_on:
+            - mariadb
+
+    # Nginx Service
+    nginx:
+        image: nginx:latest
+        ports:
+            - 80:80
+            - 443:443
+        links:
+            - 'php'
+        volumes:
+            - './php-files:/var/www/html'
+            - './nginx-conf:/etc/nginx/conf.d'
+            - './certs:/etc/ssl/certs'  # Ajout du volume pour les certificats SSL
+        depends_on:
+            - php
+
+    # MariaDB Service
+    mariadb:
+        image: mariadb:10.9
+        environment:
+            MYSQL_ROOT_PASSWORD: SecureBD24!
+        volumes:
+            - mysqldata:/var/lib/mysql
+
+# Volumes
+volumes:
+
+    mysqldata:

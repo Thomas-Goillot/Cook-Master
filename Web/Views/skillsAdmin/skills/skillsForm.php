@@ -2,7 +2,7 @@
     <div class="card-body">
         <h4 class="card-title">Créer une compétence</h4>
 
-        <form action="../SkillsAdmin/addSkill" method="POST">
+        <form action="../skillsAdmin/addSkill" method="POST">
 
             <div class="form-group">
                 <label for="name">Nom de la compétence</label>

@@ -1,6 +1,6 @@
 <div class="form-group">
         <label>Nom</label>
-        <input class="form-control" type="text" name="name" required="" placeholder="Nom du produit">
+        <input class="form-control" type="text" name="name" required="" placeholder="Nom de l'atelier" value="<?=$allWorkshop['name']?>">
     </div>
     <div class="form-group">
         <label>Description</label>
