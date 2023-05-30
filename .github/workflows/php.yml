@@ -19,9 +19,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: | 
-          echo Hello, world!
-          sleep 15
-          echo Goodbye!
+      # Save the content of the repo in the folder of the docker container /var/www/html
+      - name: Copy Files
+        run: |
+          cp -r . /var/www/html
