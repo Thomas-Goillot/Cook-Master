@@ -23,3 +23,9 @@ jobs:
       - name: Copy Files
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
+
+      - name: Rename Folder with no UpperCase
+        run: |
+          mv /home/cookmaster/lemp/php-files/Controllers /home/cookmaster/lemp/php-files/controllers
+          mv /home/cookmaster/lemp/php-files/Models /home/cookmaster/lemp/php-files/models
+          mv /home/cookmaster/lemp/php-files/Views /home/cookmaster/lemp/php-files/views
