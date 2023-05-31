@@ -1,7 +1,6 @@
 # Installation de docker sur Debian 11
 
 ```bash
-# Mise à jour des paquets
 sudo apt update
 
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release

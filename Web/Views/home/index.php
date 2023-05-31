@@ -31,7 +31,7 @@
                     <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>chefs">Nos Chefs</a></li>
                     <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     <?= $isLogged ? '<li class="nav-item"><a class="nav-link" href="' . $path_prefix . 'users/profil">Votre espace</a></li>' : '<li><a class="nav-link" href="' . $path_prefix . 'login"><i class="bi bi-person"></i></a></li>' ?>
-                    
+
                 </ul>
             </div>
         </div>
@@ -47,24 +47,25 @@
         </div>
     </header>
     <!-- About-->
-<div class="fondjaparis" id="about">
+    <div class="fondjaparis" id="about">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="text-center text-white">
-                    <h1>Une cuisine d’excellence</h1>
-                    <p class="text-white-50">
-                        Une cuisine reconnue à travers le monde et appréciée de tous.
-                        Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
-                        une des recettes emblématiques que nous proposons.
-                    </p>
-                </div>
+            <div class="text-center text-white">
+                <h1>Une cuisine d’excellence</h1>
+                <p class="text-white-50">
+                    Une cuisine reconnue à travers le monde et appréciée de tous.
+                    Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
+                    une des recettes emblématiques que nous proposons.
+                </p>
+            </div>
         </div>
-</div>
+    </div>
     <!-- Projects-->
     <section class="projects-section bg-light" id="about">
         <div class="container px-4 px-lg-5">
             <!-- Project One Row-->
             <div class="row gx-0 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="<?= $path_prefix ?>assets/images/home/img1.png" alt="..." /></div>
+                <div class="col-lg-6"> <ins class="adsbygoogle w-100" style="display:block" data-ad-format="fluid" data-ad-layout-key="-6t+ed+2i-1n-4w" data-ad-client="ca-pub-7119326631938628" data-ad-slot="3921959095"></ins>
+                </div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -181,6 +182,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?= $path_prefix ?>assets/pages/scripts_home.js"></script>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7119326631938628" crossorigin="anonymous"></script>
+
+
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </body>
 
 </html>
