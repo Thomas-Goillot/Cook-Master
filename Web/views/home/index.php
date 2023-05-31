@@ -47,7 +47,7 @@
         </div>
     </header>
     <!-- About-->
-<div class="fondjaparis" id="about">
+    <div class="fondjaparis" id="about">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="text-center text-white">
                     <h1>Une cuisine d’excellence</h1>
@@ -58,7 +58,7 @@
                     </p>
                 </div>
         </div>
-</div>
+    </div>
     <!-- Projects-->
     <section class="projects-section bg-light" id="about">
         <div class="container px-4 px-lg-5">
@@ -114,13 +114,6 @@
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
                     <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                     <h2 class="text-white mb-5">Inscrivez-vous pour recevoir les dernières news !</h2>
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- * * SB Forms Contact Form * *-->
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- This form is pre-integrated with SB Forms.-->
-                    <!-- To make this form functional, sign up at-->
-                    <!-- https://startbootstrap.com/solution/contact-forms-->
-                    <!-- to get an API token!-->
                     <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
                         <!-- Email address input-->
                         <div class="row input-group-newsletter">
