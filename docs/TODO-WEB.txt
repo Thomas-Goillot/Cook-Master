@@ -1,0 +1,34 @@
+------------------------------------------
+abonnement
+------------------------------------------
+
+- Affichage des pubs si utilisateur == abonnement free
+- Création des commentaires sur les évènements
+- Désactiver la fonction de tchat avec un chef si utilisateur == free
+- Faire les réductions sur les évènements si utilisateur == abonnement Master
+- (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?)
+- Désactiver la possibilité de réserver un événements exclusif si utilisateur == free
+- Mettre en place les récompenses de parainage
+- Payement des frais de livraison si utilisateur == abonnement free
+- Limiter le nombre de cours en fonction de l'abonnement
+
+------------------------------------------
+- Pas de possibilité de louer du matériel ( A FAIRE)
+- Finir délivrance des diplômes lorsque tout les skills sont validés
+- retirer commandes et locations de la partie utilisateur et l'afficher dans profil / ou inversement supprimé de profil et afficher dans utilisateur
+- Finaliser le tchat avec les chefs
+- Traduction des pages
+
+------------------------------------------
+Prestataire
+------------------------------------------
+- Vérifier / Finaliser la partie préstations
+
+------------------------------------------
+Admin
+------------------------------------------
+- Finaliser l'onglet utilisateurs
+- Pas de page prestations ?
+- SUpprimer l'onglet "cours" ou dev une page de visualisation de tout les cours en cours et à venir
+- Finaliser "atelier"
+- onglet "boutique" section ventes ?? ( A FAIRE)
