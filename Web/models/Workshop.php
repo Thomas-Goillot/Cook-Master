@@ -324,4 +324,27 @@ class workshop extends Model
 
         return $location['address'];
     }
+
+
+
+    /**
+     *  get * of use_equipment_workshop
+     * @param int $id_workshop
+     * @return array
+     */
+    public function getAllUseEquipmentWorkshopById(int $id_workshop): array
+    {
+        $query = "SELECT * FROM use_equipment_workshop WHERE :id_workshop = :id_workshop";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+
+        $use_equipment_workshop = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $use_equipment_workshop;
+    }
+
 }

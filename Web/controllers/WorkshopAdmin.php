@@ -216,15 +216,44 @@ class WorkshopAdmin extends Controller
 
         $id_workshop = (int) $params[0];
 
+        
+
+        
+
         $this->loadModel("Products");
         $allProduct = $this->_model->getAllProducts();
 
         $this->loadModel('workshop');
 
-        $allWorkshop = $this->_model->getAllWorkshop();
+        $allWorkshop = $this->_model->getWorkshopById($id_workshop);
+        $allIdEquipmentWorkshop = $this->_model->getAllUseEquipmentWorkshopById($id_workshop);
+
+        $stockEquipment = array();
+
+        foreach ($allIdEquipmentWorkshop as $row) {
+            $idEquipment = $row['id_equipment'];
+            
+            if (isset($stockEquipment[$idEquipment])) {
+                $stockEquipment[$idEquipment]++;
+            } else {
+                $stockEquipment[$idEquipment] = 1;
+            }
+        }
+
+        foreach ($allProduct as $row) {
+            $idEquipment = $row['id_equipment'];
+            if (!isset($stockEquipment[$idEquipment])) {
+                $stockEquipment[$idEquipment] = 0;
+            }
+        }
+        
 
         $this->loadModel('location');
         $locations = $this->_model->getAllLocationWithOpeningHours();
+
+        
+
+
 
 
         $this->setJsFile(array('location.js','addressSelect.js'));
@@ -234,7 +263,7 @@ class WorkshopAdmin extends Controller
 
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Modification d'atelier" => "admin/workshop/editWorkshopDisplay");
-        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop'), DASHBOARD);
+        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop','stockEquipment'), DASHBOARD);
     }
 
       /**
