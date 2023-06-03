@@ -408,6 +408,8 @@ class Shop extends Controller
         $tva = round($sum * TVA, 2);
         $priceWithoutTva = round($sum - $tva, 2);
 
+        $_SESSION['price_shopping'] = $sum;
+
         $pathToPayment = "shop/pay";
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap");
@@ -438,13 +440,20 @@ class Shop extends Controller
             $this->redirect('../shop');
         }
 
-        $products = $this->_model->getAllProductsOfCart($userCartId);
-        $sum = $this->getSumCart($userCartId);
+        $data = array(array(
+            "name" => "Achat en ligne",
+            "price_purchase" => $_SESSION['price_shopping'],
+            "id" => "online",
+            "quantity" => 1,
+            "description" => "Achat en ligne",
+            "allow_purchase" => 0
+        ));
+
 
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($products, $userEmail);
+        $payment->startPayment($data, $userEmail);
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap", "Paiement" => "shop/pay");
 
@@ -457,10 +466,21 @@ class Shop extends Controller
      */
     public function success() : void
     {
+        $this->loadModel("Shop");
 
-        
+        $idUser = $this->getUserId();
 
+        $userCartId = $this->_model->getUserCartId($idUser);
 
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $this->_model->updateCartStatus($userCartId, CART_VALIDATE);
+
+        $this->setError("Succès","Votre commande a bien été enregistré", SUCCESS_ALERT);
+        $this->redirect('../shop');
     }
         
     /**
@@ -469,14 +489,10 @@ class Shop extends Controller
      */
     public function cancel() : void
     {
-        echo "cancel";
+        $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
+        $this->redirect('../shop');
     }
         
-
-
-
-
-
 
     /**
      * NOT A PAGE

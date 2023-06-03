@@ -249,6 +249,26 @@ class Shop extends Model
     }
 
     /**
+     * update cart status
+     * @param int $idShoppingCart
+     * @param int $status
+     * @return bool
+     */
+    public function updateCartStatus(int $idShoppingCart, int $status): bool
+    {
+        $query = "UPDATE shopping_cart SET id_command_status = :id_command_status WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_command_status" => $status,
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
      *  getUserShippingAddress
      * */
     public function getUserShippingAddress(int $userId): array

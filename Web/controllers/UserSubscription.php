@@ -133,6 +133,8 @@ class UserSubscription extends Controller
         $tva = $sum * TVA;
         $priceWithoutTva = $sum - $tva;
 
+        $_SESSION['price_subscription'] = $sum;
+
         $pathToPayment = "UserSubscription/pay/". $subscriptionInfo['id_subscription']."/".$typeSubscription;
 
         $page_name = array("Abonnements" => $this->default_path, "Choix de la périodicité" => "UserSubscription/frequency", "Récapitulatif de la commande" => "UserSubscription/recap");
@@ -168,10 +170,10 @@ class UserSubscription extends Controller
 
         $data = array(array(
             "name" => "Abonnement " . $subscriptionInfo['name'],
-            "price_purchase" => $subscriptionInfo['price_' . $typeSubscription],
+            "price_purchase" => $_SESSION['price_subscription'],
             "id" => $subscriptionInfo['id_subscription'],
             "quantity" => 1,
-            "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $subscriptionInfo['price_' . $typeSubscription] . "€/mois",
+            "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $_SESSION['price_subscription'] . "€/mois",
             "allow_purchase" => 0
         ));
 
@@ -184,6 +186,10 @@ class UserSubscription extends Controller
             // yearly
             $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success", array("typeSubscription" => 2, "idSubscription" => $subscriptionInfo['id_subscription']))['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
         }
+
+        $_SESSION['price_subscription'] = null;
+        unset($_SESSION['price_subscription']);
+
     }
 
     public function success():void{
