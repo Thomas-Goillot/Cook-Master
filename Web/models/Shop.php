@@ -266,6 +266,36 @@ class Shop extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getShippingType
+     */
+    public function getShippingType(int $idShoppingCart): array
+    {
+        $query = "SELECT id_location, id_shipping_address FROM shopping_cart WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        $stmt->execute($data);
+        
+        $data =  $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($data['id_location'] != NULL){
+           return array(
+               "type" => RELAY_POINT,
+               "id" => $data['id_location']
+           );
+        }else{
+            return array(
+                "type" => HOME_DELIVERY,
+                "id" => $data['id_shipping_address']
+            );
+        }
+    }
+
     
 
 }

@@ -364,9 +364,43 @@ class Shop extends Controller
 
         $sum = $this->getSumCart($orderId);
 
+        $shippingType = $this->_model->getShippingType($orderId);
+
+        if($shippingType === false){
+            $this->setError("Erreur","Une erreur est survenue lors de la récupération du type de livraison", ERROR_ALERT);
+            $this->redirect('../shop');
+        }
+
+
+        if($this->isSubscription(FREE_SUBSCRIPTION) || $this->isSubscription(STARTER_SUBSCRIPTION)){
+            if ($shippingType['type'] == RELAY_POINT) {
+                array_push($allProduct, array('name' => 'Point relais', 'description' => 'Livraison en point relais', 'price_purchase' => RELAY_POINT_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
+                $sum += RELAY_POINT_PRICE;
+            } else {
+                array_push($allProduct, array('name' => 'Livraison à domicile', 'description' => 'Livraison à domicile', 'price_purchase' => HOME_DELIVERY_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
+                $sum += HOME_DELIVERY_PRICE;
+            }
+        }
+        else{
+            array_push($allProduct, array('name' => 'Livraison gratuite', 'description' => 'Livraison gratuite grâce à votre abonnement', 'price_purchase' => 0, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
+
+        if ($this->isSubscription(MASTER_SUBSCRIPTION)) {
+
+            $sum = $sum * 0.95;
+            $diff = $sum * 0.05;
+
+            $sum = round($sum, 2);
+            $diff = round($diff, 2);
+
+            array_push($allProduct, array('name' => 'Réduction de 5%', 'description' => 'Réduction de 5% sur votre commande grâce à votre abonnement', 'price_purchase' => -$diff, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
+
         //calculate the tva and the price without tva
-        $tva = $sum * TVA;
-        $priceWithoutTva = $sum - $tva;
+        $tva = round($sum * TVA, 2);
+        $priceWithoutTva = round($sum - $tva, 2);
 
         $pathToPayment = "shop/pay";
 
