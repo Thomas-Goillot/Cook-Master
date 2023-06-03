@@ -374,8 +374,14 @@ class Shop extends Controller
 
         if($this->isSubscription(FREE_SUBSCRIPTION) || $this->isSubscription(STARTER_SUBSCRIPTION)){
             if ($shippingType['type'] == RELAY_POINT) {
-                array_push($allProduct, array('name' => 'Point relais', 'description' => 'Livraison en point relais', 'price_purchase' => RELAY_POINT_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
-                $sum += RELAY_POINT_PRICE;
+                if($this->isSubscription(STARTER_SUBSCRIPTION)){
+                    #livraison gratuite
+                    array_push($allProduct, array('name' => 'Livraison gratuite', 'description' => 'Livraison gratuite grâce à votre abonnement', 'price_purchase' => 0, 'quantity' => 1, 'allow_purchase' => 0));
+                }
+                else{
+                    array_push($allProduct, array('name' => 'Point relais', 'description' => 'Livraison en point relais', 'price_purchase' => RELAY_POINT_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
+                    $sum += RELAY_POINT_PRICE;
+                }
             } else {
                 array_push($allProduct, array('name' => 'Livraison à domicile', 'description' => 'Livraison à domicile', 'price_purchase' => HOME_DELIVERY_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
                 $sum += HOME_DELIVERY_PRICE;
