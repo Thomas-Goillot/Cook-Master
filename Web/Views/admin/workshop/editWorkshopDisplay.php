@@ -1,13 +1,12 @@
 <?php
 include_once('views/layout/dashboard/path.php');
-
 ?>
 
 <div class="row">
     <div class="col-xl-4">
         <div class="card card-animate">
             <div class="card-body">
-                <form action="<?= $path_prefix ?>WorkshopAdmin/editWorkshop" method="POST" enctype="multipart/form-data">
+                <form action="<?= $path_prefix ?>WorkshopAdmin/editWorkshop/<?php echo $allWorkshop['id_workshop'];?>" method="POST" enctype="multipart/form-data">
                     <?php include_once("views/admin/workshop/form.php"); ?>
                     <div class="d-flex justify-content-center">
                         <div class="col-xl-4">

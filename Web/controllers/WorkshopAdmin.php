@@ -252,7 +252,7 @@ class WorkshopAdmin extends Controller
         $locations = $this->_model->getAllLocationWithOpeningHours();
 
         
-
+        
 
 
 
@@ -266,16 +266,13 @@ class WorkshopAdmin extends Controller
         $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop','stockEquipment'), DASHBOARD);
     }
 
-      /**
+    /**
      * edit workshop
      * @return void
      */
     public function editWorkshop(): void
     {
         $defaultErrorPath = '../../WorkshopAdmin/listWorkshop';
-        $this->loadModel("Products");
-
-
 
         if (!isset($_POST['submit'])) {
             $acceptable = array('image/jpeg', 'image/png');
@@ -317,22 +314,36 @@ class WorkshopAdmin extends Controller
                 exit();
             }
 
+
             $id_workshop = (int) $params[0];
 
-            $name = $_POST['name'];
-            $description = $_POST['description'];
-            $image = $filename;
-            $price = $_POST['price'];
-            $available = $_POST['available'];
-            $date = $_POST['WorkshopDate'];
-
-
-            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
-            //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
-            //     $this->redirect('../admin/products');
-            // }
-
             $defaultFallBack = '../editProductDisplay/' . $id_workshop;
+
+            $name = htmlspecialchars($_POST['name']);
+            $description = htmlspecialchars($_POST['description']);
+            $image = $filename;
+            $image2 = $filename;
+            $image3 = $filename;
+            $price = htmlspecialchars($_POST['price']);
+            $nb_place = (int)$_POST['nb_place'];
+            $nb_stock = $_POST['nb_stock'];
+            $id_equipments = array_map('intval', $_POST['id_equipment']);
+
+            $date = htmlspecialchars($_POST['WorkshopDate']);
+            $date = explode('-', $date);
+            $date['start'] = $date[0];
+            $date['end'] = $date[1];
+
+            $date['start'] = str_replace('/', '-', $date['start']);
+            $date['end'] = str_replace('/', '-', $date['end']);
+
+            
+            $date['start'] = date('Y-m-d', strtotime($date['start']));
+            $date['end'] = date('Y-m-d', strtotime($date['end']));
+
+
+            //part of location
+            $location = htmlspecialchars($_POST['location']);
 
             if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
@@ -344,8 +355,25 @@ class WorkshopAdmin extends Controller
             }
 
 
+           
 
-            $this->_model->editWorshop($name, $description, $image, $price, $available, $date, $id_workshop);
+            $this->loadModel('Workshop');
+
+
+            $this->_model->editWorkshop($name, $description, $image, $price, $nb_place, $date, $id_workshop);
+            $this->_model->deleteUseEquipmentWorkshop($id_workshop);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end'],$nb_place, $location);
+
+            for($i = 0; $i < count($id_equipments); $i++){
+               if($nb_stock[$i] > 0){
+                    for($j = 0; $j < $nb_stock[$i]; $j++){
+                        $this->_model->addWorkshopProduct($id_equipments[$i],$id_workshop);
+                    }
+               }
+            }
+
+            
+            
         }
         $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
         $this->redirect("../products");

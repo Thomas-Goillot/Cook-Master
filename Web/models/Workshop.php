@@ -139,28 +139,50 @@ class workshop extends Model
 
 
     /**
-     * Get edit workshop
+     * edit workshop
      * @return void
      */
-    public function editWorkshop(string $name, string $description, string $image, int $price, int $available, string $date_start, string $date_end, int $id_worshop): void
+    public function editWorkshop(string $description, string $name, string $image, string $image1, string $image2, string $price, string $date_start, string $date_end,  int $nb_place, int $id_location, int $id_workshop): void
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, price = :price, available = :available, date_start = :date_start, date_end = :date_end WHERE id_equipment = :id_equipment";
+        $query = "UPDATE " . $this->table . " SET  description = :description, name = :name, image = :image, image2 = :image2, image3 = :image3 ,price = :price, date_start = :date_start, date_end = :date_end, nb_place = :nb_place, id_location = :id_location WHERE id_workshop = :id_workshop";
 
         $data = array(
-            ":name" => $name,
             ":description" => $description,
+            ":name" => $name,
             ":image" => $image,
+            ":image" => $image1,
+            ":image" => $image2,
             ":price" => $price,
-            ":available" => $available,
             ":date_start" => $date_start,
             ":date_end" => $date_end,
-            ":id_worshop" => $id_worshop
+            ":nb_place" => $nb_place,
+            ":id_location" => $id_location,
+            ":id_workshop" => $id_workshop
         );
 
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute($data);
     }
+    
+    /**
+     * deleteUseEquipmentWorkshop (for edit)
+     * @return void
+     */
+
+    public function deleteUseEquipmentWorkshop(int $id_workshop): void
+    {
+        $query = "DELETE FROM use_equipment WHERE id_workshop = :id_workshop";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+    }
+
+
+
 
     /**
      * delete workshop from workshop
