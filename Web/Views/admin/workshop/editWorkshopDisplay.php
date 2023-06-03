@@ -90,6 +90,30 @@ include_once('views/layout/dashboard/path.php');
 </div>
 </form>
 
+
+<button type='button' class='btn b btn-primary btn-rounded' data-toggle='modal' data-target='#workshop'>Suprimmer </button>
+
+<div class='modal' id='workshop' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+
+
+                <div class='modal-header d-flex flex-column align-items-center text-center'>
+
+                    <h1 class='delete'>Attention, toute supression est définitive.</h1>
+                    <h4>Voulez vous vraiment supprimer l'atelier <?php echo $allWorkshop['name'] ?> ?</h4>
+                </div>
+
+                <div class='modal-footer d-flex flex-column'>
+                    <form action='<?= $path_prefix ?>WorkshopAdmin/deleteWorkshop/<?php echo $allWorkshop['id_workshop'];?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                        <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Confirmer</button>
+                        <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <script>
     var adresses = [
         <?php foreach ($locations as $location) {

@@ -137,34 +137,6 @@ class workshop extends Model
         return $this->_connexion->lastInsertId();
     }
 
-
-    /**
-     * edit workshop
-     * @return void
-     */
-    public function editWorkshop(string $description, string $name, string $image, string $image1, string $image2, string $price, string $date_start, string $date_end,  int $nb_place, int $id_location, int $id_workshop): void
-    {
-        $query = "UPDATE " . $this->table . " SET  description = :description, name = :name, image = :image, image2 = :image2, image3 = :image3 ,price = :price, date_start = :date_start, date_end = :date_end, nb_place = :nb_place, id_location = :id_location WHERE id_workshop = :id_workshop";
-
-        $data = array(
-            ":description" => $description,
-            ":name" => $name,
-            ":image" => $image,
-            ":image" => $image1,
-            ":image" => $image2,
-            ":price" => $price,
-            ":date_start" => $date_start,
-            ":date_end" => $date_end,
-            ":nb_place" => $nb_place,
-            ":id_location" => $id_location,
-            ":id_workshop" => $id_workshop
-        );
-
-        $stmt = $this->_connexion->prepare($query);
-
-        $stmt->execute($data);
-    }
-    
     /**
      * deleteUseEquipmentWorkshop (for edit)
      * @return void
@@ -172,7 +144,22 @@ class workshop extends Model
 
     public function deleteUseEquipmentWorkshop(int $id_workshop): void
     {
-        $query = "DELETE FROM use_equipment WHERE id_workshop = :id_workshop";
+        $query = "DELETE FROM use_equipment_workshop WHERE id_workshop = :id_workshop";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+    }
+
+    /**
+     * deleteworkshop (for edit)
+     * @return void
+     */
+    public function deleteWorkshop(int $id_workshop): void
+    {
+        $query = "DELETE FROM workshop WHERE id_workshop = :id_workshop";
 
         $stmt = $this->_connexion->prepare($query);
 
