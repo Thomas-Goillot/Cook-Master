@@ -478,6 +478,7 @@ class Shop extends Controller
         }
 
         $this->_model->updateCartStatus($userCartId, CART_VALIDATE);
+        $this->_model->addDatePurchase($userCartId);
 
         $this->setError("Succès","Votre commande a bien été enregistré", SUCCESS_ALERT);
         $this->redirect('../shop');
