@@ -25,10 +25,11 @@
                 <li>
                     <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer</span></a>
                 </li>
-
+                
                 <li>
                     <a href="<?= $path_prefix ?>EventsPresentation" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
+
                 <li>
                     <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='fas fa-store'></i><span>Atelier</span></a>
                 </li>
@@ -41,10 +42,15 @@
                     <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-id-card'></i><span>Nous rejoindre</span></a>
                 </li>
 
-                <li>
-                    <a href="<?= $path_prefix ?>HomeService" class="waves-effect"><i class='bx bx-buildings'></i><span>Prestation à domicile</span></a>
-                </li>
 
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'HomeService" class="waves-effect"><i class=\'bx bx-buildings\'></i><span>Prestation à domicile</span></a>
+                    </li>';
+                }
+                ?>
+                
                 <li>
                     <a href="<?= $path_prefix ?>Recipes" class="waves-effect"><i class='bx bx-food-menu'></i><span>Recettes</span></a>
                 </li>
@@ -82,9 +88,14 @@
                     <a href="<?= $path_prefix ?>personnalEvents" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
-                <li>
-                    <a href="<?= $path_prefix ?>Chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
-                </li>
+
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'Chat" class="waves-effect"><i class=\'bx bx-chat\'></i><span>Conversations</span></a>
+                    </li>';
+                }
+                ?>
 
                 <?= $sidebarProviders ?>
 

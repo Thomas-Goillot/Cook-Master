@@ -34,5 +34,9 @@ define('MIN_RENEWAL_BONUS_AMOUNT', 0);
 
 define('RENEWAL_BONUS_CURENCY', array('€', '%'));
 
+define('FREE_SUBSCRIPTION', 'free');
+define('STARTER_SUBSCRIPTION', 'starter');
+define('MASTER_SUBSCRIPTION', 'master');
+
 
 ?>

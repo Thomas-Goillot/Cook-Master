@@ -260,7 +260,6 @@ class User extends Model
      * @param int $id
      * @return bool
      */
-
     public function setMailVerified(int $id):bool{
         try {
             $query = "UPDATE " . $this->table . " SET mail_verified = :mail_verified WHERE id_users = :id";
@@ -278,6 +277,11 @@ class User extends Model
         }
     }
 
+    /**
+     * Get user subscription name
+     * @param int $id
+     * @return string
+     */
     public function getUserSubscriptionName(int $id):string{
         try {
             $query = "SELECT name FROM subscription WHERE id_subscription = (SELECT id_subscription FROM subscribe_to WHERE id_users = :id)";

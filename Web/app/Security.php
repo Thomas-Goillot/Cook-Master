@@ -88,6 +88,31 @@ abstract class Security
     
     }
 
+    /**
+     * Check if the subscription has the subscription passed in parameter
+     * @param string $nameSubscription
+     * @return bool
+     */
+    public function isSubscription(string $nameSubscription = FREE_SUBSCRIPTION): bool
+    {
+        if ($this->sessionStart === false) {
+            return false;
+        }
+
+        $controller = new Controller();
+        $idUser = $controller->getUserId();
+        $controller->loadModel('User');
+        $subscription = $controller->_model->getUserSubscriptionName($idUser);
+
+        if(strtolower($subscription) === strtolower($nameSubscription)){
+            return true;
+        }
+
+        return false;
+    }
+
+
+
 
 
     /**
