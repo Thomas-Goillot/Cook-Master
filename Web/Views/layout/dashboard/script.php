@@ -34,8 +34,6 @@
 <script src='<?= $path_prefix ?>plugins/fullcalendar/js/fullcalendar.min.js'></script>
 <script src="<?= $path_prefix ?>plugins/chart-js/chart.min.js"></script>
 
-<!-- Google Adsense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7119326631938628" crossorigin="anonymous"></script>
 
 <!-- Map -->
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>

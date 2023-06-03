@@ -59,7 +59,6 @@ class Shop extends Model
         }
     }
 
-
      /**
      * create cart
      * @return bool
@@ -316,6 +315,43 @@ class Shop extends Model
         }
     }
 
+    /**
+     * addDatePurchase
+     * @param int $idShoppingCart
+     * @return bool
+     */
+    public function addDatePurchase(int $idShoppingCart): bool
+    {
+        $query = "UPDATE shopping_cart SET date_purchase = NOW() WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     * getAllCommandsValidated
+     * @param int $userId
+     * @return array
+     */
+    public function getAllCommandsValidated(int $userId): array
+    {
+        $query = "SELECT id_shopping_cart, date_purchase, id_command_status FROM shopping_cart WHERE id_users = :id_users AND id_command_status != " . CART_PROGRESS;
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_users" => $userId
+        );
+
+        $stmt->execute($data);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 
 }
