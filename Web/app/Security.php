@@ -5,6 +5,7 @@ namespace App;
 use App\Controller;
 use App\Utils;
 use App\Model;
+use App\StripePayment;
 
 abstract class Security
 {
@@ -150,6 +151,17 @@ abstract class Security
     public function checkSecurity(): bool
     {
         try{
+            $payment = new StripePayment(STRIPE_API_KEY);
+
+            if(!isset($_GET['session_id'])){
+                return false;
+            }
+            $paymentStatus = $payment->getPaymentStatus($_GET['session_id']);
+
+            if($paymentStatus !== "paid"){
+                return false;
+            }
+
             if (isset($_SESSION['security'])) {
 
                 $params = $_GET['params'];

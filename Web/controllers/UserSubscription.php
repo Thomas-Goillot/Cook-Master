@@ -115,8 +115,19 @@ class UserSubscription extends Controller
             )
         );
 
-
         $sum = $subscriptionInfo['price_' . $typeSubscription];
+
+        if ($this->isSubscription(MASTER_SUBSCRIPTION) && $typeSubscription === 'yearly') {
+
+            $diff = $sum * 0.1;
+            $sum = $sum - $diff;
+
+            $sum = round($sum, 2);
+            $diff = round($diff, 2);
+
+            array_push($allProduct, array('name' => 'Réduction de 10%', 'description' => 'Réduction de 10% sur votre commande grâce à votre abonnement', 'price_purchase' => -$diff, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
 
 
         $tva = $sum * TVA;
@@ -196,7 +207,7 @@ class UserSubscription extends Controller
         }
         else{
             $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
-            $this->redirect('../UserSubscription/information');
+            $this->redirect('../../../UserSubscription/information');
         }
 
 
