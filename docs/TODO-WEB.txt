@@ -4,7 +4,7 @@ abonnement
 
 - Affichage des pubs si utilisateur == abonnement free
 - Création des commentaires sur les évènements
-- Faire les réductions sur les évènements si utilisateur == abonnement Master
+- Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
 - (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?)
 - Mettre en place les récompenses de parainage
 - Limiter le nombre de cours en fonction de l'abonnement
@@ -22,8 +22,10 @@ Prestataire
 ------------------------------------------
 Admin
 ------------------------------------------
-- Finaliser l'onglet utilisateurs
 - Pas de page prestations ?
-- SUpprimer l'onglet "cours" ou dev une page de visualisation de tout les cours en cours et à venir
 - Finaliser "atelier"
 - onglet "boutique" section ventes ?? ( A FAIRE)
+
+
+------------------------------------------ 
+Jeton NFC -> soit give code promo soit give cours
