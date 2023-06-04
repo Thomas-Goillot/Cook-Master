@@ -9,7 +9,7 @@ use PDOException;
 class Events extends Model
 {
     /**
-     * User constructor.
+     * event constructor.
      */
     public function __construct()
     {
