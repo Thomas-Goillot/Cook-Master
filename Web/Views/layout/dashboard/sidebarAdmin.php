@@ -8,23 +8,7 @@
 
 <li><a href="<?= $path_prefix ?>prestation/index" class=" waves-effect"><i class="fas fa-glass-cheers"></i><span>Préstations</span></a></li>
 
-<li>
-    <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="fa fa-book-reader"></i><span>Cours</span></a>
-    <ul class="sub-menu" aria-expanded="true">
-        <li><a href="javascript: void(0);" class="has-arrow"><i class="bx bx-wifi"></i>En ligne</a>
-            <ul class="sub-menu" aria-expanded="true">
-                <li><a href="javascript: void(0);"><i class="bx bx-list-ol"></i>Gestion cours</a></li>
-                <li><a href="javascript: void(0);"><i class="bx bx-bookmark-plus"></i>Création cours</a></li>
-            </ul>
-        </li>
-        <li><a href="javascript: void(0);" class="has-arrow"><i class="bx bx-home-alt"></i>Présentiel</a>
-            <ul class="sub-menu" aria-expanded="true">
-                <li><a href="javascript: void(0);"><i class="bx bx-list-ol"></i>Gestion cours</a></li>
-                <li><a href="javascript: void(0);"><i class="bx bx-bookmark-plus"></i>Création cours</a></li>
-            </ul>
-        </li>
-    </ul>
-</li>
+<li><a href="<?= $path_prefix ?>coursesAdmin" class=" waves-effect"><i class="fa fa-book-reader"></i><span>Cours</span></a></li>
 
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bxs-cake"></i><span>Atelier</span></a>

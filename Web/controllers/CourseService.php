@@ -26,6 +26,10 @@ class CourseService extends Controller
             $this->redirect('../home');
             exit();
         }
+
+        if($this->isAdmin($this->getUserId()) === true){
+            $this->setError("Attention", "Vous êtes un administrateur, merci de ne pas modifier les informations sur cette page", WARNING_ALERT);
+        }
     }
     
     /**

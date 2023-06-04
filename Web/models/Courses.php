@@ -18,6 +18,21 @@ class Courses extends Model
         $this->getConnection();
     }
 
+    /**
+     * Get all Courses
+     * @return array
+     */
+    public function getAllCourses(): array
+    {
+        $query = "SELECT * FROM " . $this->table . " ORDER BY date_of_courses DESC";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * Get all courses request of a user
@@ -359,9 +374,7 @@ class Courses extends Model
         $stmt->execute($data);
 
         return true;
-    }
-
-    
+    }    
 }
 
 ?>

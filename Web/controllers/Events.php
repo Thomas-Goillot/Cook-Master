@@ -230,7 +230,6 @@ class Events extends Controller
                 exit();
             }
 
-
             $this->loadModel('Events');
 
             $EventDate['start'] = date('Y-m-d', strtotime($EventDate['start']));
@@ -275,7 +274,6 @@ class Events extends Controller
 
             $this->loadModel('Events');
 
-
             $res = $this->_model->deleteProviderEvent($EventId);
 
             if ($res === false) {
@@ -283,7 +281,6 @@ class Events extends Controller
                 $this->redirect($defaultFallBack);
                 exit();
             }
-
 
             $res = $this->_model->deleteParticipantEvent($EventId);
 
@@ -318,8 +315,6 @@ class Events extends Controller
      */
     public function paySuccess(): void{
         
-        
-        
         if($this->checkSecurity()){
             $this->loadModel("Events");
             $id_event = $this->getSecurityParams()['id_event'];
@@ -328,15 +323,15 @@ class Events extends Controller
 
             for($i = 0; $i < $place; $i++){
                 $this->_model->reservationEvent($id_event,$id_user);
-                $this->redirect("../../../personnalEvents");
             }
+            $this->setError("Achat réussi", "Votre achat a bien été effectué", SUCCESS_ALERT);
+            $this->redirect("../../../personnalEvents");
         }
         else{
             echo "Erreur";
         }
 
     }
-
 
      /**
      * pay error
@@ -354,8 +349,6 @@ class Events extends Controller
      */
     public function pay(): void{
        
-
-
         $this->loadModel("User");
 
         $idUser = $this->getUserId();
@@ -363,10 +356,6 @@ class Events extends Controller
         $user = $this->_model->getUserInfo($idUser);
 
         $userEmail = $user['email'];
-
-
-
-
 
         $this->loadModel("Events");
 
@@ -380,8 +369,6 @@ class Events extends Controller
 
         $id_event = $params[0];
         $place = $_POST['place'];
-
-        
 
         $event = $this->_model->getEventById($id_event);
 
@@ -401,6 +388,7 @@ class Events extends Controller
 
     }
 
+    apt install  php8.2-fpm php8.2-gd php8.2-mysql php8.2-curl php8.2-imap php8.2-mbstring php8.2-xml php8.2-sqlite3
 
 }
 
