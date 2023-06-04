@@ -61,27 +61,28 @@ class WorkshopPresentation extends Controller
 
 
 
-        $this->loadModel('workshop');
+        $this->loadModel('Workshop');
 
         $workshop = $this->_model->getWorkshopById($id_workshop);
 
         $workshop['address'] = $this->_model->getWorkshopLocation($workshop['id_location']);
 
-        // $nbPlaceAvailable = $workshop['nb_place'];
+        $nbPlaceAvailable = $this->_model->getWorkshopPlaceById($id_workshop);
 
-        //     $nbPlaceBooked = $this->_model->getWorkshopBookedPlace($id_workshop);
+        $nbPlaceBooked = $this->_model->getWorkshopBookedPlace($id_workshop);
 
-        //     if($nbPlaceBooked == NULL){
-        //         $nbPlace = $nbPlaceAvailable;
-        //     }else{
-        //         $nbPlace = $nbPlaceAvailable - $nbPlaceBooked["COUNT(id_workshop)"];
-        //     }
-
+        
+        if($nbPlaceBooked == NULL){
+            $nbPlace = (int)$nbPlaceAvailable["nb_place"];
+            
+        }else{
+            $nbPlace = (int)$nbPlaceAvailable["nb_place"] - $nbPlaceBooked["COUNT(id_workshop)"];
+        }
 
 
         $page_name = array("Atelier"=> $this->default_path, $workshop['name'] => "workshopDisplay/$id_workshop");
 
-        $this->render('workshop/workshopDisplay', compact('page_name', 'id_workshop','workshop'), DASHBOARD, '../../');
+        $this->render('workshop/workshopDisplay', compact('page_name', 'id_workshop','workshop','nbPlace'), DASHBOARD, '../../');
     }
 
 
@@ -98,10 +99,10 @@ class WorkshopPresentation extends Controller
             $this->loadModel("worshop");
             $id_event = $this->getSecurityParams()['id_workshop'];
             $id_user = $this->getUserId();
-            $place = (int) $this->getSecurityParams()['place'];
+            $place = (int) $this->getSecurityParams()['nb_place'];
 
             for($i = 0; $i < $place; $i++){
-                $this->_model->reservationEvent($id_event,$id_user);
+                $this->_model->reservationWorkshop($id_event,$id_user);
                 $this->redirect("../../../personnalWorkshop");
             }
         }
@@ -166,4 +167,3 @@ class WorkshopPresentation extends Controller
     }
 
 }
-?>

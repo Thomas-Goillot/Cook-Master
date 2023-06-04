@@ -83,6 +83,42 @@ class workshop extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getWorkshopPlaceById
+     * @return array
+     */
+
+    public function getWorkshopPlaceById(int $id): array
+    {
+        $query = "SELECT nb_place FROM " . $this->table . " WHERE id_workshop = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * reservationWorkshop
+     * @param int $id_workshop
+     * @param int $id_users
+     * @return void
+     */
+    public function reservationWorkshop(int $id_workshop, int $id_users): void{
+        $query = "INSERT INTO user_join_workshop (id_users,id_workshop) VALUES (:id_users, :id_workshop)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+        $stmt->bindParam(":id_event", $id_workshop);
+
+
+        $stmt->execute();
+    }
+
 
     /**
      * Get id of workshop
@@ -113,16 +149,14 @@ class workshop extends Model
      * @param string $date_end
      * @return int
      */
-    public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
+    public function addworkshop(string $description, string $name,  string $image,float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
     {
-        $query = "INSERT INTO " . $this->table .  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :nb_place, :id_location)";
+        $query = "INSERT INTO " . $this->table .  "(description, name, image, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :price, :date_start, :date_end, :nb_place, :id_location)";
 
         $data = array(
             ":description" => $description,
             ":name" => $name,
             ":image" => $image,
-            ":image2" => $image2,
-            ":image3" => $image3,
             ":price" => $price,
             ":date_start" => $date_start,
             ":date_end" => $date_end,

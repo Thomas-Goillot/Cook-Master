@@ -28,7 +28,7 @@ echo '  <div class="col-12 margin">
       <div class="col-md-6 col-lg-4">
         <div class="event-details-item">
           <h3>Nombre de places</h3>
-          <p class="event-place">' . $nbplace . '</p>
+          <p class="event-place">' . $nbPlace . '</p>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ echo '
 <div class="col-4">
 <form action="' . $path_prefix . 'WorkshopPresentation/pay/' . $workshop['id_workshop'] . '" method="POST">
   <div class="d-flex align-items-center justify-content-center">
-    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="place" min="1"  max="' . $workshop['place'] . '" required="" class="form-control" value="1">
+    <input type="number" data-toggle="touchspin" data-step="1" data-decimals="0" name="place" min="1"  max="' . $workshop['nb_place'] . '" required="" class="form-control" value="1">
     <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal">
     Réserver
   </button>

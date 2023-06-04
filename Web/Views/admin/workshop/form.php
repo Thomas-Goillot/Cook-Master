@@ -7,18 +7,9 @@
         <textarea class="form-control" type="text" name="description" required="" placeholder="Description"><?= isset($allWorkshop['description']) ? $allWorkshop['description'] : "" ?></textarea>
     </div>
     <div class="form-group">
-        <label>première image</label>
+        <label>Image</label>
         <input type="file" name="image" class="dropify" data-height="100" accept="image/png, image/jpeg">
     </div>
-    <div class="form-group">
-        <label>seconde image</label>
-        <input type="file" name="image2" class="dropify" data-height="100" accept="image/png, image/jpeg">
-    </div>
-    <div class="form-group">
-        <label>Troisième image</label>
-        <input type="file" name="image3" class="dropify" data-height="100" accept="image/png, image/jpeg">
-    </div>
-
     <div class="form-group d-flex flex-column align-items-center">
             <label class="space">Prix</label>
             <input type="text" data-toggle="touchspin" name="price" data-step="1" value="0" data-bts-postfix="€" class="form-control" data-color="#df3554" id="price_default" value="<?= isset($allWorkshop['price']) ? $allWorkshop['price'] : "" ?>" />

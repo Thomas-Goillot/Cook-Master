@@ -96,8 +96,6 @@ class WorkshopAdmin extends Controller
             $name = htmlspecialchars($_POST['name']);
             $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $image2 = $filename;
-            $image3 = $filename;
             $price = htmlspecialchars($_POST['price']);
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
@@ -148,7 +146,7 @@ class WorkshopAdmin extends Controller
 
             
             $this->loadModel('Workshop');
-            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end']   ,$nb_place, $location);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image,$price, $date['start'],$date['end']   ,$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
@@ -314,8 +312,6 @@ class WorkshopAdmin extends Controller
             $name = htmlspecialchars($_POST['name']);
             $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $image2 = $filename;
-            $image3 = $filename;
             $price = htmlspecialchars($_POST['price']);
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
@@ -364,7 +360,7 @@ class WorkshopAdmin extends Controller
             
             $this->_model->deleteUseEquipmentWorkshop($id_workshop);
             $this->_model->deleteWorkshop($id_workshop);
-            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end'],$nb_place, $location);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image,$price, $date['start'],$date['end'],$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
