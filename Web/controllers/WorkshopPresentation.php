@@ -97,12 +97,12 @@ class WorkshopPresentation extends Controller
         
         if($this->checkSecurity()){
             $this->loadModel("worshop");
-            $id_event = $this->getSecurityParams()['id_workshop'];
+            $id_workshop = $this->getSecurityParams()['id_workshop'];
             $id_user = $this->getUserId();
             $place = (int) $this->getSecurityParams()['nb_place'];
 
             for($i = 0; $i < $place; $i++){
-                $this->_model->reservationWorkshop($id_event,$id_user);
+                $this->_model->reservationWorkshop($id_workshop,$id_user);
                 $this->redirect("../../../personnalWorkshop");
             }
         }
