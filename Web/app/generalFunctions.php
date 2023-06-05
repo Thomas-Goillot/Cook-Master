@@ -83,5 +83,18 @@ function fancyDateDiff(int $days): string
     return "";
 }
 
+/**
+ * Display user is ban or <not></not>
+ * @param int $isBan
+ * @return string
+ */
+function isBan(int $isBan): string
+{
+    if ($isBan === 1) {
+        return "<span class='text-danger'>Banni</span>";
+    }
+    return "<span class='text-success'>Actif</span>";
+}
+
 
 ?>

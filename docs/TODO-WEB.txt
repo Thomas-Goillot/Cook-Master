@@ -3,7 +3,6 @@ abonnement
 ------------------------------------------
 
 - Affichage des pubs si utilisateur == abonnement free
-- Création des commentaires sur les évènements
 - Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
 - (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?)
 - Mettre en place les récompenses de parainage
@@ -23,8 +22,8 @@ Prestataire
 Admin
 ------------------------------------------
 - Pas de page prestations ?
-- Finaliser "atelier"
-- onglet "boutique" section ventes ?? ( A FAIRE)
+- Finaliser "atelier" (manque stripe)
+- onglet "boutique" section ventes ? ( A FAIRE)
 
 
 ------------------------------------------ 

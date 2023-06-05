@@ -25,7 +25,7 @@
                 <li>
                     <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer</span></a>
                 </li>
-                
+
                 <li>
                     <a href="<?= $path_prefix ?>EventsPresentation" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
@@ -50,7 +50,7 @@
                     </li>';
                 }
                 ?>
-                
+
                 <li>
                     <a href="<?= $path_prefix ?>Recipes" class="waves-effect"><i class='bx bx-food-menu'></i><span>Recettes</span></a>
                 </li>
@@ -84,6 +84,13 @@
                     <a href="<?= $path_prefix ?>personnalEvents" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'sponsor" class="waves-effect"><i class=\'bx bx-award\'></i><span>Parainage</span></a>
+                    </li>';
+                }
+                ?>
 
                 <?php
                 if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {

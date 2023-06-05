@@ -21,6 +21,17 @@ abstract class Security
     {
         session_start();
         $this->sessionStart = true;
+
+
+        $controller = new Controller();
+        $controller->loadModel('User');
+        if($controller->_model->isBanned($_SESSION['user']['id_users'])){
+            session_destroy();
+            return false;
+        }
+
+
+
         if (isset($_SESSION['user'])) {
             return true;
         }
