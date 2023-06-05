@@ -24,7 +24,7 @@ class Comment extends Model
      */
     public function getAllCommentById(int $id_event): array
     {
-        $query = "SELECT * FROM " . $this->table ." WHERE id_event = :id_event";
+        $query = "SELECT *,name FROM " . $this->table .", users WHERE id_event = :id_event and users.id_users = comment.id_users";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -40,11 +40,11 @@ class Comment extends Model
      */
     public function addComment(string $comment, int $stars, int $id_event, int $id_users): void
     {
-        $query = "INSERT INTO " . $this->table . " (comment, stars, id_event, id_users) VALUES (:comment, :stars, :id_event, :id_users)";
+        $query = "INSERT INTO " . $this->table . " (content, stars, id_event, id_users) VALUES (:content, :stars, :id_event, :id_users)";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":comment", $comment);
+        $stmt->bindParam(":content", $comment);
         $stmt->bindParam(":stars", $stars);
         $stmt->bindParam(":id_event", $id_event);
         $stmt->bindParam(":id_users", $id_users);
