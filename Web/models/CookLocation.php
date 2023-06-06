@@ -24,7 +24,7 @@ class cookLocation extends Model
      */
     public function getAllcookLocation(): array
     {
-        $query = "SELECT * FROM " . $this->table;
+        $query = "SELECT * FROM " . $this->table . " WHERE available_to_rental = 1";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -33,4 +33,5 @@ class cookLocation extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
 }
