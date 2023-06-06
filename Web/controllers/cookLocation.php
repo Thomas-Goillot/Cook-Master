@@ -29,31 +29,20 @@ class cookLocation extends Controller
 
 
     /**
-     * Display the add cookLocation page
+     * Display the cookLocation page
      * @return void
      */
     public function cookLocation(): void
     {
         $this->loadModel('CookLocation');
-        $cookLocation = $this->_model->getAllcookLocation();
-        
-        $this->loadModel('Location');
-        
-        foreach ($cookLocation as $location) {
-            $getImageLocation = $this->_model->getLocationInfoById($location["id_location"]);
-        
-            dump($getImageLocation);
-            exit;
-        }
-        
-        
+        $cookLocations = $this->_model->getAllCookLocationsWithInfo();
 
         $page_name = array("Louer un cuisine" => $this->default_path);
-        $this->render('cookLocation/cookLocation', compact('page_name','cookLocation'), DASHBOARD);
+        $this->render('cookLocation/cookLocation', compact('page_name','cookLocations'), DASHBOARD);
     }
 
     /**
-     * Display the add cookLocationDisplay page
+     * Display the cookLocationDisplay page
      * @return void
      */
     public function cookLocationDisplay(): void
@@ -65,17 +54,24 @@ class cookLocation extends Controller
             exit();
         }
 
-        $id_workshop = (int) $params[0];
+        $id_location = (int) $params[0];
 
 
 
         $this->loadModel('cookLocation');
-        $cookLocation = $this->_model->getAllcookLocation();
+        $cookLocations = $this->_model->getLocationInfoById($id_location);
+
+        // dump($cookLocations);
+        // exit();
 
 
-        $page_name = array("Location de cuisine"=> $this->default_path, $cookLocation['name'] => "cookLocation/$id_workshop");
 
-        $this->render('cookLocation/cookLocationDisplay', compact('page_name'), DASHBOARD, '../../');
+        
+
+
+        $page_name = array("Location de cuisine"=> $this->default_path);
+
+        $this->render('cookLocation/cookLocationDisplay', compact('page_name','cookLocations'), DASHBOARD, '../../');
     }
 
 
