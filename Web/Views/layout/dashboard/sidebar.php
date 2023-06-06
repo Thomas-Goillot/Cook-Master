@@ -19,11 +19,11 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique</span></a>
+                    <a href="<?= $path_prefix ?>shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique des produits</span></a>
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer</span></a>
+                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer des produits</span></a>
                 </li>
 
                 <li>
@@ -32,6 +32,9 @@
 
                 <li>
                     <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='fas fa-store'></i><span>Atelier</span></a>
+                </li>
+                <li>
+                    <a href="<?= $path_prefix ?>cookLocation/cookLocation" class="waves-effect"><i class='fas fa-store'></i><span>Louer une cuisine</span></a>
                 </li>
 
                 <li>
