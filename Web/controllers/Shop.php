@@ -117,12 +117,16 @@ class Shop extends Controller
 
         $sum = $this->getSumCart($userCartId);
 
+        $this->loadModel("Voucher");
+
+        $vouchers = $this->_model->getVouchers($idUser);
+
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart");
 
         $this->setCssFile(array('css/shop/cart.css'));
         $this->setJsFile(array('cart.js'));
 
-        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct','sum'), DASHBOARD);
+        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct','sum','vouchers', 'userCartId'), DASHBOARD);
     }
 
     /**
@@ -531,6 +535,77 @@ class Shop extends Controller
         }
 
         return $sum;
+    }
+
+    /**
+     * Add a voucher to the cart
+     * @return void
+     */
+    public function addVaucher(): void
+    {
+        //get the value in the body of the request
+        $_POST = json_decode(file_get_contents('php://input'), true);
+
+        if(!isset($_POST['idVoucher']) && empty($_POST['idVoucher'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => 'error',
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        if(!isset($_POST['idCart']) && empty($_POST['idCart'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => 'error',
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        $idVoucher = htmlspecialchars($_POST['idVoucher']);
+        $idCart = htmlspecialchars($_POST['idCart']);
+
+        $this->loadModel("Voucher");
+
+        $voucherExist = $this->_model->getVoucherById($idVoucher);
+
+        if(!isset($voucherExist['id_voucher'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Le bon d\'achat n\'existe pas !',
+                'type' => 'error',
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        $this->loadModel("Shop");
+
+        //check if there is a voucher in the cart
+        $voucherInCart = $this->_model->getVoucherInCart($idCart);
+
+        if(isset($voucherInCart['id_voucher'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Vous ne pouvez pas ajouter plusieurs bons d\'achat !',
+                'type' => 'error',
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        //CONTINUE HERE 
+        //IL MANQUE LE FAIT QU'UN BON D4ACHAT N'A QU'UNE SEULE UTILISATION POSSIBLE ET QU'IL NE PEUT PAS DEPASSER LE MONTANT DE LA COMMANDE
+        
+
+
+
+
+
     }
 
 }

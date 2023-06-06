@@ -23,9 +23,9 @@ class Voucher extends Model
      * @param int $userId
      * @return mixed
      */
-    public function getVoucher(int $userId)
+    public function getVouchers(int $userId)
     {
-        $sql = "SELECT voucher FROM voucher WHERE id_voucher IN (SELECT id_voucher FROM can_optains WHERE id_users = :userId)";
+        $sql = "SELECT * FROM voucher WHERE id_voucher IN (SELECT id_voucher FROM can_optains WHERE id_users = :userId)";
 
         $query = $this->_connexion->prepare($sql);
 
@@ -35,7 +35,7 @@ class Voucher extends Model
 
         $query->execute($data);
 
-        return $query->fetch(PDO::FETCH_ASSOC)['voucher'];
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
