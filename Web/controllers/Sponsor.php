@@ -14,11 +14,11 @@ class Sponsor extends Controller{
 
     public function __construct()
     {
-
         if ($this->isLogged() === false) {
             $this->redirect('../home');
             exit();
         }
+
     }
 
     /**
@@ -38,11 +38,27 @@ class Sponsor extends Controller{
             $qrCode = $this->generateQrCode($sponsorLink);
         }
 
-        echo date('Y-m-d');
+        ini_set('display_errors', 1);
+
+        $this->loadModel('User');
+
+        $user = $this->_model->getUserInfo($this->getUserId());
+
+        $counter = $user['sponsor_counter'];
+
+        $subscriptionId = $this->_model->getUserSubscriptionId($this->getUserId());
+
+        $this->loadModel('Subscription');
+
+        $reward = $this->_model->getSubscriptionRewardById($subscriptionId);
+
+        $nbNewSubscribers = $reward[0]['nb_new_subscribers'];
+        $currency = $reward[0]['currency'];
+        $amount = $reward[0]['amount'];
 
         $page_name = array("Parainage" => "sponsor");
 
-        $this->render("sponsor/index", compact('page_name', 'sponsorLink', 'qrCode', 'expirationDate'), DASHBOARD);
+        $this->render("sponsor/index", compact('page_name', 'sponsorLink', 'qrCode', 'expirationDate', 'counter', 'nbNewSubscribers', 'currency', 'amount'), DASHBOARD);
     }
 
     /**
@@ -66,7 +82,6 @@ class Sponsor extends Controller{
             $this->redirect('../sponsor');
         }
     }
-
 
     /**
      * Receive the sponsor link
@@ -111,6 +126,48 @@ class Sponsor extends Controller{
         $this->redirect('../../../users/profil');
 
 
+    }
+
+    /**
+     * Claim the reward
+     * @return void
+     */
+    public function claim(){
+            
+        $this->loadModel('User');
+
+        $user = $this->_model->getUserInfo($this->getUserId());
+
+        $counter = $user['sponsor_counter'];
+
+        $subscriptionId = $this->_model->getUserSubscriptionId($this->getUserId());
+
+        $this->loadModel('Subscription');
+
+        $reward = $this->_model->getSubscriptionRewardById($subscriptionId);
+
+        $nbNewSubscribers = $reward[0]['nb_new_subscribers'];
+        $currency = $reward[0]['currency'];
+        $amount = $reward[0]['amount'];
+
+        if($counter < $nbNewSubscribers){
+            $this->setError("Oops!", "Vous n\'avez pas encore atteint le nombre de parrainage requis pour réclamer votre récompense", ERROR_ALERT);
+            $this->redirect('../sponsor');
+        }
+        
+        $this->loadModel('Voucher');
+
+        if(!$this->_model->addVoucher($this->getUserId(), "Récompense de parrainage", $amount, $currency)){
+            $this->setError("Oops!", "Une erreur est survenue lors de l\'ajout de votre récompense", ERROR_ALERT);
+            $this->redirect('../sponsor');
+        }
+
+        $this->loadModel('User');
+
+        $this->_model->resetSponsorCounter($this->getUserId());
+
+        $this->setError("C\'est Good!", "Votre récompense à été ajouté à vos bons d\'achat", SUCCESS_ALERT);
+        $this->redirect('../sponsor');
     }
 
 
