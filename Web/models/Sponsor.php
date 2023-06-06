@@ -25,7 +25,7 @@ class Sponsor extends Model
      */
     public function getSponsorLink(int $userId)
     {
-        $sql = "SELECT sponsor_link FROM users WHERE id_users = :userId AND sponsor_link_expiration > NOW()";
+        $sql = "SELECT sponsor_link FROM users WHERE id_users = :userId";
 
         $query = $this->_connexion->prepare($sql);
 
@@ -45,7 +45,7 @@ class Sponsor extends Model
      */
     public function getSponsorLinkExpirationDate(int $userId)
     {
-        $sql = "SELECT sponsor_link_expiration FROM users WHERE id_users = :userId AND sponsor_link_expiration > NOW()";
+        $sql = "SELECT sponsor_link_expiration FROM users WHERE id_users = :userId";
 
         $query = $this->_connexion->prepare($sql);
 
@@ -93,6 +93,52 @@ class Sponsor extends Model
             "link" => $link,
             "expiration_date" => $expirationDate,
             "userId" => $userId
+        ];
+
+        return $query->execute($data);
+    }
+
+    /**
+     * checkLink $sponsorLink, $pass, $idUserSponsor
+     * @param string $pass
+     * @param int $idUserSponsor
+     * @return bool 
+     */
+    public function checkLink(string $pass, int $idUserSponsor): bool
+    {
+        $sql = "SELECT COUNT(id_users) AS count FROM users WHERE sponsor_link = :pass AND id_users = :idUserSponsor";
+
+        $query = $this->_connexion->prepare($sql);
+
+        $data = [
+            "pass" => $pass,
+            "idUserSponsor" => $idUserSponsor
+        ];
+
+        $query->execute($data);
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($result['count'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Incremet the sponsor counter
+     * @param int $idUserSponsor
+     * @return bool
+     */
+    public function incrementSponsorCounter(int $idUserSponsor): bool
+    {
+        $sql = "UPDATE users SET sponsor_counter = sponsor_counter + 1 WHERE id_users = :idUserSponsor";
+
+        $query = $this->_connexion->prepare($sql);
+
+        $data = [
+            "idUserSponsor" => $idUserSponsor
         ];
 
         return $query->execute($data);
