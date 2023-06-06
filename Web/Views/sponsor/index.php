@@ -22,7 +22,7 @@ include_once('views/layout/dashboard/path.php');
     </div>
 
     <?php
-    if (isset($sponsor_link) && $sponsor_link != null) {
+    if (isset($sponsorLink) && $sponsorLink != null) {
         echo '<div class="col-xl-6">
                 <div class="card card-animate">
                     <div class="card-body ">
@@ -30,14 +30,14 @@ include_once('views/layout/dashboard/path.php');
                         <div class="d-flex justify-content-center align-items-center flex-column">
                             <div id="qrCode">' . $qrCode . '</div>
                             <p class="text-muted">Ce code est valable jusqu\'au ' . date('d/m/Y', strtotime($expirationDate)) . ' (3 jours)</p>
-                            <button class="btn btn-primary ml-3" onclick="copyToClipboard(\'' . $sponsor_link . '\')"><i class="fas fa-copy"></i> Copier le lien</button>
+                            <button class="btn btn-primary ml-3" onclick="copyToClipboard(\'' . $sponsorLink . '\')"><i class="fas fa-copy"></i> Copier le lien</button>
                             <div class="d-flex mt-3">
 
-                                <a href="https://www.snapchat.com/share?url=' . $sponsor_link . '" class="btn btn-warning mx-2"><i class="fab fa-snapchat"></i></a>
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=' . $sponsor_link . '" class="btn btn-secondary mx-2"><i class="fab fa-facebook"></i></a>
-                                <a href="https://twitter.com/intent/tweet?url='. $sponsor_link . '" class="btn btn-info mx-2"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.linkedin.com/shareArticle?mini=true&url='. $sponsor_link . '" class="btn btn-dark mx-2"><i class="fab fa-linkedin"></i></a>
-                                <a href="https://api.whatsapp.com/send?text='. $sponsor_link . '" class="btn btn-success mx-2"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://www.snapchat.com/share?url=' . $sponsorLink . '" class="btn btn-warning mx-2"><i class="fab fa-snapchat"></i></a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=' . $sponsorLink . '" class="btn btn-secondary mx-2"><i class="fab fa-facebook"></i></a>
+                                <a href="https://twitter.com/intent/tweet?url=' . $sponsorLink . '" class="btn btn-info mx-2"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=' . $sponsorLink . '" class="btn btn-dark mx-2"><i class="fab fa-linkedin"></i></a>
+                                <a href="https://api.whatsapp.com/send?text=' . $sponsorLink . '" class="btn btn-success mx-2"><i class="fab fa-whatsapp"></i></a>
                                                                
                             </div>
                         </div>
@@ -46,7 +46,23 @@ include_once('views/layout/dashboard/path.php');
             </div>';
     }
     ?>
+</div>
 
-
-
+<div class="row">
+    <?php
+    if (isset($counter) && $counter > 0) {
+        echo '<div class="col-xl-6">
+                <div class="card card-animate">
+                    <div class="card-body ">
+                        <h4 class="card-title d-inline-block mb-3">Bravo Vous avez parrainé ' . $counter . ' personne' . ($counter > 1 ? 's' : '') . '</h4>
+                        <p>Votre abonnement vous permet de gagner ' . $amount . ' ' . $currency . ' tout les '. $nbNewSubscribers .' nouveau(x) abonné(s)</p>';
+                            if ($counter >= $nbNewSubscribers) {
+                                echo '<a href="' . $path_prefix . 'sponsor/claim" class="btn btn-primary"><i class="fas fa-gift"></i> Réclamer ma récompense</a>';
+                            }
+        echo' 
+                    </div>
+                </div>
+            </div>';
+    }
+    ?>
 </div>

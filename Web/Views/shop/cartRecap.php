@@ -25,23 +25,21 @@ include_once('views/layout/dashboard/path.php');
                             if ($allProduct['allow_purchase'] == 0) {
 
                                 echo '<div class="row main align-items-center">';
-                                    echo ' <div class="col-2"><img class="cart-img img-fluid" src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '"></div>';
-                                    echo '<div class="col">';
-                                        echo '<div class="row text-muted">' . $allProduct['name'] . '</div>';
-                                    echo '</div>';
-
-                                    echo '<div class="col">';
-                                        echo '<a href="#">-</a><a href="#" class="border" data-id="' . $allProduct['id_equipment'] . '">' . $allProduct['quantity'] . '</a><a href="#">+</a>';
+                                echo ' <div class="col-2"><img class="cart-img img-fluid" src="' . $path_prefix  . 'assets/images/productShop/' . $allProduct['image'] . '"></div>';
+                                echo '<div class="col">';
+                                echo '<div class="row text-muted">' . $allProduct['name'] . '</div>';
                                 echo '</div>';
-                                echo '<div class="col">&euro; ' . $allProduct['price_purchase'] . ' <span class="close" data-id="'. $allProduct['id_equipment'].'">&#10005;</span></div>';
+
+                                echo '<div class="col">';
+                                echo '<a href="#">-</a><a href="#" class="border" data-id="' . $allProduct['id_equipment'] . '">' . $allProduct['quantity'] . '</a><a href="#">+</a>';
+                                echo '</div>';
+                                echo '<div class="col">&euro; ' . $allProduct['price_purchase'] . ' <span class="close" data-id="' . $allProduct['id_equipment'] . '">&#10005;</span></div>';
                                 echo '</div>';
                             }
                         }
 
-
                         ?>
                     </div>
-
                     <div class="back-to-shop"><a href="<?= $path_prefix ?>shop">&leftarrow;</a><span class="text-muted">Retour à la boutique</span></div>
                 </div>
                 <div class="col-md-3 summary">
@@ -51,11 +49,18 @@ include_once('views/layout/dashboard/path.php');
                     <hr>
                     <div class="row">
                         <div class="col" style="padding-left:0;"><?= $nbProduct ?> élément<?= plural($nbProduct) ?></div>
-                        <div class="col text-right">&euro; <?= $sum?></div>
+                        <div class="col text-right">&euro; <?= $sum ?></div>
                     </div>
                     <form method="POST">
-                        <p>CODE PROMOTION</p>
-                        <input id="code" placeholder="Enter your code" class="form-control">
+                        <p>VOS RECOMPENSES</p>
+                        <?php
+                        foreach ($vouchers as $voucher) {
+                            echo '<div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">';
+                            echo '<div class="col">' . $voucher['name'] . ' ' . $voucher['amount'] . ' ' . $voucher['currency'] . ' </div>';
+                            echo '<div class="col text-right"><button type="button" name="voucher" class="btn btn-primary" onclick="addVaucher(' . $voucher['id_voucher'] . ',' . $userCartId . ')">Ajouter</button></div>';
+                            echo '</div>';
+                        }
+                        ?>
                     </form>
                     <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                         <div class="col">TOTAL</div>
