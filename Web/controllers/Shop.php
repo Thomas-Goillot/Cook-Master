@@ -119,7 +119,7 @@ class Shop extends Controller
 
         $this->loadModel("Voucher");
 
-        $vouchers = $this->_model->getVouchers($idUser);
+        $vouchers = $this->_model->getVouchersByUserId($idUser);
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart");
 
@@ -160,7 +160,7 @@ class Shop extends Controller
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de la suppression du produit !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
@@ -189,7 +189,7 @@ class Shop extends Controller
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de la suppression du produit !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => $redirect,
             ));
             exit;
@@ -408,6 +408,16 @@ class Shop extends Controller
         }
 
 
+        $infoCart = $this->_model->getUserCartById($orderId);
+        
+        if($this->_model->checkVoucherInCart($orderId)){
+            $this->loadModel("Voucher");
+            $voucher = $this->_model->getVoucherById($infoCart['id_voucher']);
+            array_push($allProduct, array('name' => 'Bon d\'achat', 'description' => 'Bon d\'achat', 'price_purchase' => -$voucher['amount'], 'quantity' => 1, 'allow_purchase' => 0));
+
+            $sum -= $voucher['amount'];
+        }
+
         //calculate the tva and the price without tva
         $tva = round($sum * TVA, 2);
         $priceWithoutTva = round($sum - $tva, 2);
@@ -484,6 +494,13 @@ class Shop extends Controller
         $this->_model->updateCartStatus($userCartId, CART_VALIDATE);
         $this->_model->addDatePurchase($userCartId);
 
+        $infoCart = $this->_model->getUserCartById($userCartId);
+
+        if ($this->_model->checkVoucherInCart($userCartId)) {
+            $this->loadModel("Voucher");
+            $this->_model->updateVoucher($infoCart['id_voucher'], $idUser);
+        }
+
         $this->setError("Succès","Votre commande a bien été enregistré", SUCCESS_ALERT);
         $this->redirect('../shop');
     }
@@ -541,71 +558,71 @@ class Shop extends Controller
      * Add a voucher to the cart
      * @return void
      */
-    public function addVaucher(): void
+    public function addVoucher(): void
     {
-        //get the value in the body of the request
         $_POST = json_decode(file_get_contents('php://input'), true);
-
-        if(!isset($_POST['idVoucher']) && empty($_POST['idVoucher'])){
+        if(!isset($_POST['idVoucher']) || empty($_POST['idVoucher'])){
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
         }
 
-        if(!isset($_POST['idCart']) && empty($_POST['idCart'])){
+        if(!isset($_POST['idCart']) || empty($_POST['idCart'])){
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
-        }
+        }        
 
         $idVoucher = htmlspecialchars($_POST['idVoucher']);
         $idCart = htmlspecialchars($_POST['idCart']);
 
         $this->loadModel("Voucher");
 
-        $voucherExist = $this->_model->getVoucherById($idVoucher);
-
-        if(!isset($voucherExist['id_voucher'])){
+        if(!$this->_model->checkVoucher($idVoucher)){
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Le bon d\'achat n\'existe pas !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
         }
 
         $this->loadModel("Shop");
-
-        //check if there is a voucher in the cart
-        $voucherInCart = $this->_model->getVoucherInCart($idCart);
-
-        if(isset($voucherInCart['id_voucher'])){
+        if($this->_model->checkVoucherInCart($idCart)){
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Vous ne pouvez pas ajouter plusieurs bons d\'achat !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+        
+        if(!$this->_model->addVoucherToCart($idCart,$idVoucher)){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
         }
 
-        //CONTINUE HERE 
-        //IL MANQUE LE FAIT QU'UN BON D4ACHAT N'A QU'UNE SEULE UTILISATION POSSIBLE ET QU'IL NE PEUT PAS DEPASSER LE MONTANT DE LA COMMANDE
-        
-
-
-
-
-
+        echo json_encode(array(
+            'title' => 'Succès !',
+            'message' => 'Le bon d\'achat a bien été ajouté !',
+            'type' => SUCCESS_ALERT,
+            'redirect' => 'true',
+        ));
     }
 
 }

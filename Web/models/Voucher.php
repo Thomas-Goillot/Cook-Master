@@ -23,9 +23,9 @@ class Voucher extends Model
      * @param int $userId
      * @return mixed
      */
-    public function getVouchers(int $userId)
+    public function getVouchersByUserId(int $userId)
     {
-        $sql = "SELECT * FROM voucher WHERE id_voucher IN (SELECT id_voucher FROM can_optains WHERE id_users = :userId)";
+        $sql = "SELECT * FROM voucher WHERE id_voucher IN (SELECT id_voucher FROM can_optains WHERE id_users = :userId AND used = 0)";
 
         $query = $this->_connexion->prepare($sql);
 
@@ -36,6 +36,26 @@ class Voucher extends Model
         $query->execute($data);
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the voucher by id Voucher
+     * @param int $id
+     * @return array
+     */
+    public function getVoucherById(int $id): array
+    {
+        $sql = "SELECT * FROM voucher WHERE id_voucher = :id";
+
+        $query = $this->_connexion->prepare($sql);
+
+        $data = [
+            "id" => $id
+        ];
+
+        $query->execute($data);
+
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -69,6 +89,46 @@ class Voucher extends Model
         $data = [
             "userId" => $userId,
             "id_voucher" => $id_voucher
+        ];
+
+        return $query->execute($data);
+    }
+
+    /**
+     * Check if a voucher exist
+     * @param int $id
+     * @return bool
+     */
+    public function checkVoucher(int $id): bool
+    {
+        $sql = "SELECT * FROM voucher WHERE id_voucher = :id";
+
+        $query = $this->_connexion->prepare($sql);
+
+        $data = [
+            "id" => $id
+        ];
+
+        $query->execute($data);
+
+        return $query->rowCount() > 0;
+    }
+
+    /**
+     * Update the voucher to used
+     * @param int $idVoucher
+     * @param int $idUser
+     * @return bool
+     */
+    public function updateVoucher(int $idVoucher, int $idUser): bool
+    {
+        $sql = "UPDATE can_optains SET used = 1 WHERE id_voucher = :idVoucher AND id_users = :idUser";
+
+        $query = $this->_connexion->prepare($sql);
+
+        $data = [
+            "idVoucher" => $idVoucher,
+            "idUser" => $idUser
         ];
 
         return $query->execute($data);

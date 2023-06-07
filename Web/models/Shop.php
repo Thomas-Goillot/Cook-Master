@@ -59,6 +59,26 @@ class Shop extends Model
         }
     }
 
+    /**
+     * get user cart by id_cart
+     * @param int $idCart
+     * @return array
+     */
+    public function getUserCartById(int $idCart): array
+    {
+        $query = "SELECT * FROM shopping_cart WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idCart
+        );
+
+        $stmt->execute($data);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
      /**
      * create cart
      * @return bool
@@ -352,6 +372,52 @@ class Shop extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
+
+    /**
+     * checkVoucherInCart
+     * @param int $idShoppingCart
+     * @return bool
+     */
+    public function checkVoucherInCart(int $idShoppingCart): bool
+    {
+        $query = "SELECT id_voucher FROM shopping_cart WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        $stmt->execute($data);
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($res['id_voucher'] != NULL){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * addVoucherToCart
+     * @param int $idShoppingCart
+     * @param int $idVoucher
+     * @return bool
+     */
+    public function addVoucherToCart(int $idShoppingCart, int $idVoucher): bool
+    {
+        $query = "UPDATE shopping_cart SET id_voucher = :id_voucher WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_voucher" => $idVoucher,
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        return $stmt->execute($data);
+    }
 
 }
