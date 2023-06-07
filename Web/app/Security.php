@@ -5,6 +5,7 @@ namespace App;
 use App\Controller;
 use App\Utils;
 use App\Model;
+use App\StripePayment;
 
 abstract class Security
 {
@@ -20,7 +21,8 @@ abstract class Security
     {
         session_start();
         $this->sessionStart = true;
-        if (isset($_SESSION['user'])) {
+
+        if (isset($_SESSION['user'])) { 
             return true;
         }
         return false;
@@ -88,6 +90,31 @@ abstract class Security
     
     }
 
+    /**
+     * Check if the subscription has the subscription passed in parameter
+     * @param string $nameSubscription
+     * @return bool
+     */
+    public function isSubscription(string $nameSubscription = FREE_SUBSCRIPTION): bool
+    {
+        if ($this->sessionStart === false) {
+            return false;
+        }
+
+        $controller = new Controller();
+        $idUser = $controller->getUserId();
+        $controller->loadModel('User');
+        $subscription = $controller->_model->getUserSubscriptionName($idUser);
+
+        if(strtolower($subscription) === strtolower($nameSubscription)){
+            return true;
+        }
+
+        return false;
+    }
+
+
+
 
 
     /**
@@ -125,6 +152,17 @@ abstract class Security
     public function checkSecurity(): bool
     {
         try{
+            $payment = new StripePayment(STRIPE_API_KEY);
+
+            if(!isset($_GET['session_id'])){
+                return false;
+            }
+            $paymentStatus = $payment->getPaymentStatus($_GET['session_id']);
+
+            if($paymentStatus !== "paid"){
+                return false;
+            }
+
             if (isset($_SESSION['security'])) {
 
                 $params = $_GET['params'];

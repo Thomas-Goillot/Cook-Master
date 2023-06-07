@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Mail;
+use Da\QrCode\QrCode;
+
 
 class Utils extends Security
 {
@@ -293,4 +295,21 @@ class Utils extends Security
 
         return $link . "://" . $_SERVER['HTTP_HOST']."/";
     }
+
+
+    /**
+     * Generate a qr code and return it in a base64 format
+     * @param string $link
+     * @return string
+     */
+    public function generateQrCode($link): string
+    {
+        ini_set('display_errors', 0);
+        $qrCode = (new QrCode($link))
+        ->setSize(350)
+        ->setMargin(5);
+
+        return '<img src="' . $qrCode->writeDataUri() . '">';
+    }
+
 }

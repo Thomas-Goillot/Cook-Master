@@ -37,7 +37,7 @@ include_once('views/layout/dashboard/path.php');
                 </div>
 
                 <div class='modal-footer d-flex flex-column'>
-                    <form action='<?= $path_prefix ?>admin/deleteProduct/<?= $id_equipment ?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                    <form action='<?= $path_prefix ?>admin/deleteProduct/<?= $id_workshop ?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
                         <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Confirmer</button>
                         <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
                     </form>

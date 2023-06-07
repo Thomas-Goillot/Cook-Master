@@ -31,7 +31,5 @@
 
             api.executeCommand('displayName', '<?= ucfirst($user['name']) ?> <?= ucfirst($user['surname']) ?>');
         });
-
-
     });
 </script>

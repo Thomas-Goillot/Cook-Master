@@ -59,7 +59,6 @@ class Shop extends Model
         }
     }
 
-
      /**
      * create cart
      * @return bool
@@ -249,6 +248,26 @@ class Shop extends Model
     }
 
     /**
+     * update cart status
+     * @param int $idShoppingCart
+     * @param int $status
+     * @return bool
+     */
+    public function updateCartStatus(int $idShoppingCart, int $status): bool
+    {
+        $query = "UPDATE shopping_cart SET id_command_status = :id_command_status WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_command_status" => $status,
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
      *  getUserShippingAddress
      * */
     public function getUserShippingAddress(int $userId): array
@@ -266,6 +285,73 @@ class Shop extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getShippingType
+     */
+    public function getShippingType(int $idShoppingCart): array
+    {
+        $query = "SELECT id_location, id_shipping_address FROM shopping_cart WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        $stmt->execute($data);
+        
+        $data =  $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($data['id_location'] != NULL){
+           return array(
+               "type" => RELAY_POINT,
+               "id" => $data['id_location']
+           );
+        }else{
+            return array(
+                "type" => HOME_DELIVERY,
+                "id" => $data['id_shipping_address']
+            );
+        }
+    }
+
+    /**
+     * addDatePurchase
+     * @param int $idShoppingCart
+     * @return bool
+     */
+    public function addDatePurchase(int $idShoppingCart): bool
+    {
+        $query = "UPDATE shopping_cart SET date_purchase = NOW() WHERE id_shopping_cart = :id_shopping_cart";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_shopping_cart" => $idShoppingCart
+        );
+
+        return $stmt->execute($data);
+    }
+
+    /**
+     * getAllCommandsValidated
+     * @param int $userId
+     * @return array
+     */
+    public function getAllCommandsValidated(int $userId): array
+    {
+        $query = "SELECT id_shopping_cart, date_purchase, id_command_status FROM shopping_cart WHERE id_users = :id_users AND id_command_status != " . CART_PROGRESS;
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = array(
+            ":id_users" => $userId
+        );
+
+        $stmt->execute($data);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 
 }

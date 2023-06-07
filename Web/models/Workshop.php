@@ -83,6 +83,42 @@ class workshop extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getWorkshopPlaceById
+     * @return array
+     */
+
+    public function getWorkshopPlaceById(int $id): array
+    {
+        $query = "SELECT nb_place FROM " . $this->table . " WHERE id_workshop = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * reservationWorkshop
+     * @param int $id_workshop
+     * @param int $id_users
+     * @return void
+     */
+    public function reservationWorkshop(int $id_workshop, int $id_users): void{
+        $query = "INSERT INTO user_join_workshop (id_users,id_workshop) VALUES (:id_users, :id_workshop)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+        $stmt->bindParam(":id_event", $id_workshop);
+
+
+        $stmt->execute();
+    }
+
 
     /**
      * Get id of workshop
@@ -113,16 +149,14 @@ class workshop extends Model
      * @param string $date_end
      * @return int
      */
-    public function addworkshop(string $description, string $name,  string $image, string $image2, string $image3, float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
+    public function addworkshop(string $description, string $name,  string $image,float $price, string $date_start, string $date_end, int $nb_place, int $id_location): int
     {
-        $query = "INSERT INTO " . $this->table .  "(description, name, image, image2, image3, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :image2, :image3, :price, :date_start, :date_end, :nb_place, :id_location)";
+        $query = "INSERT INTO " . $this->table .  "(description, name, image, price, date_start, date_end, nb_place, id_location) VALUES (:description, :name, :image, :price, :date_start, :date_end, :nb_place, :id_location)";
 
         $data = array(
             ":description" => $description,
             ":name" => $name,
             ":image" => $image,
-            ":image2" => $image2,
-            ":image3" => $image3,
             ":price" => $price,
             ":date_start" => $date_start,
             ":date_end" => $date_end,
@@ -137,30 +171,39 @@ class workshop extends Model
         return $this->_connexion->lastInsertId();
     }
 
-
     /**
-     * Get edit workshop
+     * deleteUseEquipmentWorkshop (for edit)
      * @return void
      */
-    public function editWorkshop(string $name, string $description, string $image, int $price, int $available, string $date_start, string $date_end, int $id_worshop): void
-    {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description, image = :image, price = :price, available = :available, date_start = :date_start, date_end = :date_end WHERE id_equipment = :id_equipment";
 
-        $data = array(
-            ":name" => $name,
-            ":description" => $description,
-            ":image" => $image,
-            ":price" => $price,
-            ":available" => $available,
-            ":date_start" => $date_start,
-            ":date_end" => $date_end,
-            ":id_worshop" => $id_worshop
-        );
+    public function deleteUseEquipmentWorkshop(int $id_workshop): void
+    {
+        $query = "DELETE FROM use_equipment_workshop WHERE id_workshop = :id_workshop";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->execute($data);
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
     }
+
+    /**
+     * deleteworkshop (for edit)
+     * @return void
+     */
+    public function deleteWorkshop(int $id_workshop): void
+    {
+        $query = "DELETE FROM workshop WHERE id_workshop = :id_workshop";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+    }
+
+
+
 
     /**
      * delete workshop from workshop
@@ -324,4 +367,27 @@ class workshop extends Model
 
         return $location['address'];
     }
+
+
+
+    /**
+     *  get * of use_equipment_workshop
+     * @param int $id_workshop
+     * @return array
+     */
+    public function getAllUseEquipmentWorkshopById(int $id_workshop): array
+    {
+        $query = "SELECT * FROM use_equipment_workshop WHERE :id_workshop = :id_workshop";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+
+        $use_equipment_workshop = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $use_equipment_workshop;
+    }
+
 }

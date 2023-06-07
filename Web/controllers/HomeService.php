@@ -20,6 +20,12 @@ class HomeService extends Controller
             $this->redirect('../home');
             exit();
         }
+        
+        if ($this->isSubscription(FREE_SUBSCRIPTION) && !$this->isAdmin($this->getUserId())) {
+            $this->setError("Oups !","Vous n\'avez pas l\'abonnement nécessaire pour accéder à cette page", INFO_ALERT);
+            $this->redirect('UserSubscription/information');
+            exit();
+        }
 
     }
     

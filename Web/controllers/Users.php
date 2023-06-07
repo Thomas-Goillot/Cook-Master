@@ -33,13 +33,17 @@ class Users extends Controller{
 
         $this->loadModel('User');
 
-        $user = $this->_model->getUserInfo($_SESSION['user']['id_users']);
+        $user = $this->_model->getUserInfo($this->getUserId());
 
-        $subscription = $this->_model->getUserSubscriptionName($_SESSION['user']['id_users']);
+        $subscription = $this->_model->getUserSubscriptionName($this->getUserId());
+
+        $this->loadModel('Shop');
+
+        $allCommands = $this->_model->getAllCommandsValidated($this->getUserId());
 
         $page_name = array("Profil" => $this->default_path);
 
-        $this->render($this->default_path, compact('user', 'subscription', 'page_name'), DASHBOARD);
+        $this->render($this->default_path, compact('user', 'subscription', 'page_name', 'allCommands'), DASHBOARD);
     }
 
     /**

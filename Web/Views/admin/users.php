@@ -14,7 +14,7 @@ include_once('views/layout/dashboard/path.php');
                             <th>Nom</th>
                             <th>Mail</th>
                             <th>Phone</th>
-                            <th>Bannissement</th>
+                            <th>Etat</th>
                             <th>
                                 Action :
                             </th>
@@ -29,7 +29,7 @@ include_once('views/layout/dashboard/path.php');
                             echo '<td>' . ucfirst($user['name']) . ' ' . ucfirst($user['surname']) . '</td>';
                             echo '<td>' . $user['email'] . '</td>';
                             echo '<td>' . $user['phone'] . '</td>';
-                            echo '<td>' . $user['is_banned'] . '</td>';
+                            echo '<td>' . isBan($user['is_banned']) . '</td>';
                             echo '<td>
                             <div class="d-flex justify-content-between">
                                 <a href="">Voir le profil</a>

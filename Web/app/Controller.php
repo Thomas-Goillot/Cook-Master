@@ -95,7 +95,6 @@ class Controller extends Utils{
      */
     private function renderDashboard(string $file, array $data = []): void
     {
-
         $data['user'] = $this->_model->getUserInfo($_SESSION['user']['id_users']);
 
         $sidebarAdmin = "";

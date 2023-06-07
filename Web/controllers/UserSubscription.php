@@ -115,12 +115,25 @@ class UserSubscription extends Controller
             )
         );
 
-
         $sum = $subscriptionInfo['price_' . $typeSubscription];
+
+        if ($this->isSubscription(MASTER_SUBSCRIPTION) && $typeSubscription === 'yearly') {
+
+            $diff = $sum * 0.1;
+            $sum = $sum - $diff;
+
+            $sum = round($sum, 2);
+            $diff = round($diff, 2);
+
+            array_push($allProduct, array('name' => 'Réduction de 10%', 'description' => 'Réduction de 10% sur votre commande grâce à votre abonnement', 'price_purchase' => -$diff, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
 
 
         $tva = $sum * TVA;
         $priceWithoutTva = $sum - $tva;
+
+        $_SESSION['price_subscription'] = $sum;
 
         $pathToPayment = "UserSubscription/pay/". $subscriptionInfo['id_subscription']."/".$typeSubscription;
 
@@ -157,10 +170,10 @@ class UserSubscription extends Controller
 
         $data = array(array(
             "name" => "Abonnement " . $subscriptionInfo['name'],
-            "price_purchase" => $subscriptionInfo['price_' . $typeSubscription],
+            "price_purchase" => $_SESSION['price_subscription'],
             "id" => $subscriptionInfo['id_subscription'],
             "quantity" => 1,
-            "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $subscriptionInfo['price_' . $typeSubscription] . "€/mois",
+            "description" => "Abonnement " . $subscriptionInfo['name'] . " " . $typeSubscription . " " . $_SESSION['price_subscription'] . "€/mois",
             "allow_purchase" => 0
         ));
 
@@ -173,6 +186,10 @@ class UserSubscription extends Controller
             // yearly
             $payment->startPayment($data, $email, $this->activeSecurity("UserSubscription/success", array("typeSubscription" => 2, "idSubscription" => $subscriptionInfo['id_subscription']))['url'], $this->activeSecurity("UserSubscription/cancel")['url']);
         }
+
+        $_SESSION['price_subscription'] = null;
+        unset($_SESSION['price_subscription']);
+
     }
 
     public function success():void{
@@ -196,7 +213,7 @@ class UserSubscription extends Controller
         }
         else{
             $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
-            $this->redirect('../UserSubscription/information');
+            $this->redirect('../../../UserSubscription/information');
         }
 
 

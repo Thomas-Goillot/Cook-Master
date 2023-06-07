@@ -19,18 +19,22 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique</span></a>
+                    <a href="<?= $path_prefix ?>shop" class="waves-effect"><i class='bx bx-shopping-bag'></i><span>Boutique des produits</span></a>
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer</span></a>
+                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span>Louer des produits</span></a>
                 </li>
 
                 <li>
                     <a href="<?= $path_prefix ?>EventsPresentation" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
+
                 <li>
                     <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='fas fa-store'></i><span>Atelier</span></a>
+                </li>
+                <li>
+                    <a href="<?= $path_prefix ?>cookLocation/cookLocation" class="waves-effect"><i class='fas fa-store'></i><span>Louer une cuisine</span></a>
                 </li>
 
                 <li>
@@ -41,9 +45,14 @@
                     <a href="<?= $path_prefix ?>join" class="waves-effect"><i class='bx bx-id-card'></i><span>Nous rejoindre</span></a>
                 </li>
 
-                <li>
-                    <a href="<?= $path_prefix ?>HomeService" class="waves-effect"><i class='bx bx-buildings'></i><span>Prestation à domicile</span></a>
-                </li>
+
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'HomeService" class="waves-effect"><i class=\'bx bx-buildings\'></i><span>Prestation à domicile</span></a>
+                    </li>';
+                }
+                ?>
 
                 <li>
                     <a href="<?= $path_prefix ?>Recipes" class="waves-effect"><i class='bx bx-food-menu'></i><span>Recettes</span></a>
@@ -71,10 +80,6 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>users/command" class="waves-effect"><i class='bx bx-cart'></i><span>Commandes</span></a>
-                </li>
-
-                <li>
                     <a href="<?= $path_prefix ?>rent" class="waves-effect"><i class='bx bx-cart'></i><span>Locations</span></a>
                 </li>
 
@@ -82,9 +87,21 @@
                     <a href="<?= $path_prefix ?>personnalEvents" class="waves-effect"><i class='bx bx-calendar-event'></i><span>Evènements</span></a>
                 </li>
 
-                <li>
-                    <a href="<?= $path_prefix ?>Chat" class="waves-effect"><i class='bx bx-chat'></i><span>Conversations</span></a>
-                </li>
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'sponsor" class="waves-effect"><i class=\'bx bx-award\'></i><span>Parainage</span></a>
+                    </li>';
+                }
+                ?>
+
+                <?php
+                if (!$this->isSubscription(FREE_SUBSCRIPTION) || $this->isAdmin($this->getUserId())) {
+                    echo '<li>
+                        <a href="' . $path_prefix . 'Chat" class="waves-effect"><i class=\'bx bx-chat\'></i><span>Conversations</span></a>
+                    </li>';
+                }
+                ?>
 
                 <?= $sidebarProviders ?>
 
