@@ -5,8 +5,6 @@ abonnement
 - Affichage des pubs si utilisateur == abonnement free
 - Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
 - (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?) => THEO
-- Mettre en place les récompenses de parainage (EN COURS) => THOMAS
-- Limiter le nombre de cours en fonction de l'abonnement
 
 ------------------------------------------
 - Pas de possibilité de louer du matériel ( A FAIRE)

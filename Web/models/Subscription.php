@@ -385,5 +385,25 @@ class Subscription extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Get subscription info of a user by id
+     * @param int $id
+     * @return array
+     */
+    public function getSubscriptionInfoById(int $id): array
+    {
+        $query = "SELECT * FROM subscription WHERE id_subscription = (SELECT id_subscription FROM subscribe_to WHERE id_users = :id_users)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = [
+            "id_users" => $id
+        ];
+
+        $stmt->execute($data);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }

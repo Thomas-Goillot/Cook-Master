@@ -390,4 +390,22 @@ class workshop extends Model
         return $use_equipment_workshop;
     }
 
+    /**
+     * Get nb of workshop user join by id
+     * @param int $id_users
+     * @return array
+     */
+    public function getNbWorkshopUserJoinById(int $id_users): array
+    {
+        $query = "SELECT COUNT(id_users) as nb FROM user_join_workshop WHERE id_users = :id_users AND MONTH(date_of_join) = MONTH(NOW())";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
