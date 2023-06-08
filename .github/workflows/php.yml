@@ -21,8 +21,7 @@ jobs:
       - name: Copy Files
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
-<<<<<<< HEAD
-           
+
       - name: Edit composer.json
         run: |
           docker exec -it lemp-php-1 sed -i 's|../WEB/||g' composer.json
@@ -31,9 +30,6 @@ jobs:
         run: |
           docker exec -it lemp-php-1 composer update
       
-=======
-
->>>>>>> PROD
       - name: Composer Install
         run: |
           docker exec -it lemp-php-1 composer install
