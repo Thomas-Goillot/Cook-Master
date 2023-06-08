@@ -2,15 +2,19 @@
 include_once('views/layout/dashboard/path.php');
 ?>
 
-
 <?php
-
 foreach ($certificates as $certificate) : ?>
 
     <div class="card">
         <div class="card-body">
 
-            <h4 class="card-title d-inline-block mb-3"><i class="fas fa-chart-line"></i> Votre progression pour le certificat <?= $certificate['name'] ?></h4>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="card-title d-inline-block mb-3"><i class="fas fa-chart-line"></i> Votre progression pour le certificat <?= $certificate['name'] ?></h4>
+                <?php if($certificate['isComplete']){
+                    echo '<a href="'.$path_prefix.'SkillsUsers/download/'.$certificate['id_certificate'].'" class="btn btn-primary">Télécharger le certificat</a>';
+                }
+                ?>
+            </div>
 
             <ol class="ProgressBar">
                 <?php foreach ($certificate['skills'] as $skill) : ?>
@@ -34,6 +38,8 @@ foreach ($certificates as $certificate) : ?>
 
                 <?php endforeach; ?>
             </ol>
+
+
 
         </div>
     </div>

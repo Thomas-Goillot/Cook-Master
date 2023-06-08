@@ -8,7 +8,6 @@ abonnement
 
 ------------------------------------------
 - Pas de possibilité de louer du matériel ( A FAIRE)
-- Finir délivrance des diplômes lorsque tout les skills sont validés
 - Traduction des pages
 
 ------------------------------------------
@@ -20,7 +19,6 @@ Prestataire
 Admin
 ------------------------------------------
 - Pas de page prestations ?
-- Finaliser "atelier" (vérifier stripe)
 - onglet "boutique" section ventes ? (A FAIRE)
 
 

@@ -110,8 +110,6 @@ class Skillsusers extends Model
 
         return $result;
     }
-
-
 }
 
 ?>
