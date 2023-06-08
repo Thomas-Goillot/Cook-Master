@@ -1,6 +1,6 @@
 window.onload = function () {
 
-  var macarte = null;
+
 
   var xhrs = adresses.map(function (adresse) {
     return new Promise(function (resolve, reject) {
@@ -65,42 +65,6 @@ window.onload = function () {
     .catch(function (error) {
       console.error(error);
     });
-
-
-  $(".location").click(function () {
-    var idLocation = $(this).data("idlocation");
-
-    const request = new XMLHttpRequest();
-    const params = {
-      idLocation: idLocation,
-    };
-
-    request.open("POST", "../location/getlocationWithView");
-
-    request.onreadystatechange = function () {
-      if (request.readyState === 4) {
-        document.getElementById("locationCol").innerHTML = request.responseText;
-      }
-    };
-
-    request.send(JSON.stringify(params));
-
-    findLocationCoordinates(
-      document.getElementById("addr" + idLocation).innerHTML
-    )
-      .then(function (coords) {
-        macarte.setView(coords, 15);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-    var msnry = new Masonry(document.getElementById("locationCol"), {
-      itemSelector: ".col-lg-8",
-      columnWidth: ".col-lg-8",
-      gutter: 20,
-    });
-  });
 };
 
 
@@ -163,5 +127,39 @@ function findLocationCoordinates(addr) {
       }
     };
     xhr.send(null);
+  });
+}
+
+function locationClick(e, idLocation) {
+  const request = new XMLHttpRequest();
+  const params = {
+    idLocation: idLocation,
+  };
+
+  request.open("POST", "../location/getlocationWithView");
+
+  request.onreadystatechange = function () {
+    if (request.readyState === 4) {
+      document.getElementById("locationCol").innerHTML =
+        request.responseText;
+    }
+  };
+
+  request.send(JSON.stringify(params));
+
+  findLocationCoordinates(
+    document.getElementById("addr" + idLocation).innerHTML
+  )
+  .then(function (coords) {
+    macarte.setView(coords, 15);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
+  var msnry = new Masonry(document.getElementById("locationCol"), {
+    itemSelector: ".col-lg-8",
+    columnWidth: ".col-lg-8",
+    gutter: 20,
   });
 }
