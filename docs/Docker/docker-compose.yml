@@ -22,12 +22,21 @@ services:
             - 443:443
         links:
             - 'php'
+        restart: always
         volumes:
-            - './php-files:/var/www/html'
-            - './nginx-conf:/etc/nginx/conf.d'
-            - './certs:/etc/ssl/certs'  # Ajout du volume pour les certificats SSL
+            - './php-files:/var/www/html/:ro'
+            - './nginx-conf:/etc/nginx/conf.d/:ro'
+            - './certbot/www:/var/www/certbot/:ro'
+            - './certbot/conf/:/etc/nginx/ssl/:ro'
         depends_on:
             - php
+
+    # Certbot Service
+    certbot:
+        image: certbot/certbot:latest
+        volumes:
+            - ./certbot/www/:/var/www/certbot/:rw
+            - ./certbot/conf/:/etc/letsencrypt/:rw
 
     # MariaDB Service
     mariadb:
@@ -41,3 +50,6 @@ services:
 volumes:
 
     mysqldata:
+
+
+    #docker compose run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d cookmaster.ovh

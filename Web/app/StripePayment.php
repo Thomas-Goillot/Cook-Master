@@ -37,11 +37,20 @@ class StripePayment extends Controller{
                 }, $products),
             ],
             'mode' => 'payment',
-            'success_url' => $utils->getDomainName(). $succesPath,
-            'cancel_url' => $utils->getDomainName() . $cancelPath,
+            'success_url' => $utils->getDomainName() . $succesPath . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $utils->getDomainName() . $cancelPath . '?session_id={CHECKOUT_SESSION_ID}',
             'customer_email' => $email,
           ]);
 
         $this->redirect($session->url);
+    }
+
+    /**
+     * Get the payment status
+     */
+    public function getPaymentStatus(string $sessionId): string
+    {
+        $session = Session::retrieve($sessionId);
+        return $session->payment_status;
     }
 }

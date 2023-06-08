@@ -365,6 +365,45 @@ class Subscription extends Model
 
     }
 
+    /**
+     * Get subscription reward by id
+     * @param int $id
+     * @return array
+     */
+    public function getSubscriptionRewardById(int $id): array
+    {
+        $query = "SELECT * FROM rewards WHERE id_rewards IN (SELECT id_rewards FROM sponsors WHERE id_subscription = :id_subscription)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = [
+            "id_subscription" => $id
+        ];
+
+        $stmt->execute($data);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get subscription info of a user by id
+     * @param int $id
+     * @return array
+     */
+    public function getSubscriptionInfoById(int $id): array
+    {
+        $query = "SELECT * FROM subscription WHERE id_subscription = (SELECT id_subscription FROM subscribe_to WHERE id_users = :id_users)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $data = [
+            "id_users" => $id
+        ];
+
+        $stmt->execute($data);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 
 }

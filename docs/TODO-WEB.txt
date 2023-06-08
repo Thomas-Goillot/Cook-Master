@@ -1,0 +1,26 @@
+------------------------------------------
+abonnement
+------------------------------------------
+
+- Affichage des pubs si utilisateur == abonnement free
+- Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
+- (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?) => THEO
+
+------------------------------------------
+- Pas de possibilité de louer du matériel ( A FAIRE)
+- Traduction des pages
+
+------------------------------------------
+Prestataire
+------------------------------------------
+- Vérifier / Finaliser la partie préstations
+
+------------------------------------------
+Admin
+------------------------------------------
+- Pas de page prestations ?
+- onglet "boutique" section ventes ? (A FAIRE)
+
+
+------------------------------------------ 
+Jeton NFC -> soit give code promo soit give cours

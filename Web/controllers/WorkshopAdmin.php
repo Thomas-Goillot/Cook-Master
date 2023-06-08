@@ -96,8 +96,6 @@ class WorkshopAdmin extends Controller
             $name = htmlspecialchars($_POST['name']);
             $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $image2 = $filename;
-            $image3 = $filename;
             $price = htmlspecialchars($_POST['price']);
             $nb_place = (int)$_POST['nb_place'];
             $nb_stock = $_POST['nb_stock'];
@@ -146,14 +144,9 @@ class WorkshopAdmin extends Controller
             //     $this->redirect($defaultErrorPath);
             // }
 
-
-
-            
-                
-        
             
             $this->loadModel('Workshop');
-            $id_workshop = $this->_model->addWorkshop($description, $name,  $image, $image2, $image3 ,$price, $date['start'],$date['end']   ,$nb_place, $location);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image,$price, $date['start'],$date['end']   ,$nb_place, $location);
 
             for($i = 0; $i < count($id_equipments); $i++){
                if($nb_stock[$i] > 0){
@@ -216,15 +209,44 @@ class WorkshopAdmin extends Controller
 
         $id_workshop = (int) $params[0];
 
+        
+
+        
+
         $this->loadModel("Products");
         $allProduct = $this->_model->getAllProducts();
 
         $this->loadModel('workshop');
 
-        $allWorkshop = $this->_model->getAllWorkshop();
+        $allWorkshop = $this->_model->getWorkshopById($id_workshop);
+        $allIdEquipmentWorkshop = $this->_model->getAllUseEquipmentWorkshopById($id_workshop);
+
+        $stockEquipment = array();
+
+        foreach ($allIdEquipmentWorkshop as $row) {
+            $idEquipment = $row['id_equipment'];
+            
+            if (isset($stockEquipment[$idEquipment])) {
+                $stockEquipment[$idEquipment]++;
+            } else {
+                $stockEquipment[$idEquipment] = 1;
+            }
+        }
+
+        foreach ($allProduct as $row) {
+            $idEquipment = $row['id_equipment'];
+            if (!isset($stockEquipment[$idEquipment])) {
+                $stockEquipment[$idEquipment] = 0;
+            }
+        }
+        
 
         $this->loadModel('location');
         $locations = $this->_model->getAllLocationWithOpeningHours();
+
+        
+        
+
 
 
         $this->setJsFile(array('location.js','addressSelect.js'));
@@ -234,21 +256,27 @@ class WorkshopAdmin extends Controller
 
 
         $page_name = array("Admin" => $this->default_path, "Ateliers" => "workshop", "Modification d'atelier" => "admin/workshop/editWorkshopDisplay");
-        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop'), DASHBOARD);
+        $this->render('admin/workshop/editWorkshopDisplay', compact('page_name','id_workshop','allProduct','locations','allWorkshop','stockEquipment'), DASHBOARD);
     }
 
-      /**
+    /**
      * edit workshop
      * @return void
      */
     public function editWorkshop(): void
     {
-        $defaultErrorPath = '../../WorkshopAdmin/listWorkshop';
-        $this->loadModel("Products");
+        $params = $_GET['params'];
 
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
 
+        $id_workshop = (int) $params[0];
 
         if (!isset($_POST['submit'])) {
+            $defaultErrorPath = "../../WorkshopAdmin/editWorkshopDisplay/".$id_workshop."";
+            $defaultValidePath = "../../WorkshopAdmin/listWorkshop";
             $acceptable = array('image/jpeg', 'image/png');
             $image = $_FILES['image']['type'];
 
@@ -264,7 +292,7 @@ class WorkshopAdmin extends Controller
             }
 
             //Si le dossier uploads n'existe pas, le créer
-            $path = 'assets/images/productShop';
+            $path = 'assets/images/Workshop';
             if (!file_exists('assets/images/Workshop/')) {
                 mkdir('assets/images/Workshop/');
             }
@@ -281,45 +309,95 @@ class WorkshopAdmin extends Controller
             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 
 
-            $params = $_GET['params'];
-
-            if (count($params) === 0 || is_numeric($params[0]) === false) {
-                $this->redirect('../home');
-                exit();
-            }
-
-            $id_workshop = (int) $params[0];
-
-            $name = $_POST['name'];
-            $description = $_POST['description'];
+            $name = htmlspecialchars($_POST['name']);
+            $description = htmlspecialchars($_POST['description']);
             $image = $filename;
-            $price = $_POST['price'];
-            $available = $_POST['available'];
-            $date = $_POST['WorkshopDate'];
+            $price = htmlspecialchars($_POST['price']);
+            $nb_place = (int)$_POST['nb_place'];
+            $nb_stock = $_POST['nb_stock'];
+            $id_equipments = array_map('intval', $_POST['id_equipment']);
+
+            $date = htmlspecialchars($_POST['WorkshopDate']);
+            $date = explode('-', $date);
+            $date['start'] = $date[0];
+            $date['end'] = $date[1];
+
+            $date['start'] = str_replace('/', '-', $date['start']);
+            $date['end'] = str_replace('/', '-', $date['end']);
+
+            
+            $date['start'] = date('Y-m-d', strtotime($date['start']));
+            $date['end'] = date('Y-m-d', strtotime($date['end']));
 
 
-            // if (isset($name) || isset($description) || isset($image) || isset($disponibilityStock)) {
-            //     $this->setError('Champs non valide', "Veuillez remplir tout les champs.", ERROR_ALERT);
-            //     $this->redirect('../admin/products');
-            // }
+            //part of location
+            $location = htmlspecialchars($_POST['location']);
 
-            $defaultFallBack = '../editProductDisplay/' . $id_workshop;
 
+            
+
+            //all condition
             if (strlen($_POST['name']) > MAX_NAME) {
                 $this->setError('Nom du produit trop long', "Le nom du produit ne peut pas excéder 50 caractères.", ERROR_ALERT);
-                $this->redirect($defaultFallBack);
+                $this->redirect($defaultErrorPath);
             }
             if (strlen($_POST['description']) > MAX_DESCRIPTION) {
                 $this->setError('Description trop longue', "La description ne peut pas excéder 500 caractères.", ERROR_ALERT);
-                $this->redirect($defaultFallBack);
+                $this->redirect($defaultErrorPath);
+            }
+            if($_POST['price'] < MIN_PRICE){
+                $this->setError('Prix négatif', "Le prix ne peut pas être inférieur à 0.", ERROR_ALERT);
+                $this->redirect($defaultErrorPath);
             }
 
 
 
-            $this->_model->editWorshop($name, $description, $image, $price, $available, $date, $id_workshop);
+            
+                
+        
+            
+            $this->loadModel('Workshop');
+            
+            $this->_model->deleteUseEquipmentWorkshop($id_workshop);
+            $this->_model->deleteWorkshop($id_workshop);
+            $id_workshop = $this->_model->addWorkshop($description, $name,  $image,$price, $date['start'],$date['end'],$nb_place, $location);
+
+            for($i = 0; $i < count($id_equipments); $i++){
+               if($nb_stock[$i] > 0){
+                    for($j = 0; $j < $nb_stock[$i]; $j++){
+                        $this->_model->addWorkshopProduct($id_equipments[$i],$id_workshop);
+                    }
+               }
+            }
+            
+            
         }
-        $this->setError("Produit mis a jour !", "Toutes les modifications du produit on été mis a jour avec succès !", SUCCESS_ALERT);
-        $this->redirect("../products");
+
+        $this->setError("Atelier modifié", "L'atelier a été modifié avec succès", SUCCESS_ALERT);
+        $this->redirect($defaultValidePath);
     }
 
+
+    /**
+     * delete workshop
+     * @return void
+     */
+    public function deleteWorkshop(): void
+    {
+        $params = $_GET['params'];
+
+        if (count($params) === 0 || is_numeric($params[0]) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $id_workshop = (int) $params[0];
+
+        $this->loadModel('Workshop');
+        $this->_model->deleteUseEquipmentWorkshop($id_workshop);
+        $this->_model->deleteWorkshop($id_workshop);
+
+        $this->setError("Atelier supprimé", "L'atelier a été supprimé avec succès", SUCCESS_ALERT);
+        $this->redirect('../../WorkshopAdmin/listWorkshop');
+    }
 }

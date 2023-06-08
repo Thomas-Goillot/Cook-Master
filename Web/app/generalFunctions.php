@@ -83,5 +83,35 @@ function fancyDateDiff(int $days): string
     return "";
 }
 
+/**
+ * Display fancy nb of place
+ * @param int $nbPlace
+ * @return string
+ */
+function fancyNbPlace(int $nbPlace): string
+{
+    if($nbPlace <= 0){
+        return "<span class='text-danger'>Victime de son succès</span>";
+    } else if($nbPlace === 1){
+        return "<span class='text-warning'>Vite ! Dernière place disponible</span>";
+    } else if($nbPlace > 1){
+        return "<span class='text-success'>Encore $nbPlace place" . plural($nbPlace) . " disponible" . plural($nbPlace) . "</span>";
+    }
+    return "<span class='text-info'>Aucune place disponible</span>";
+}
+
+/**
+ * Display user is ban or <not></not>
+ * @param int $isBan
+ * @return string
+ */
+function isBan(int $isBan): string
+{
+    if ($isBan === 1) {
+        return "<span class='text-danger'>Banni</span>";
+    }
+    return "<span class='text-success'>Actif</span>";
+}
+
 
 ?>

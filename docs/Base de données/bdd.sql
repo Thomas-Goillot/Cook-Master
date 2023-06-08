@@ -609,6 +609,19 @@ CREATE TABLE EVENT(ID_EVENT
 	        FOREIGN KEY(id_users) REFERENCES users(id_users),
 	        FOREIGN KEY(id_workshop) REFERENCES WORKSHOP(id_workshop)
 	    );
+
+	CREATE TABLE
+    user_join_workshop(
+        id_user_join_workshop INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        id_users INT,
+        id_workshop INT,
+        date_of_join DATE NOT NULL CURRENT_TIMESTAMP,
+        FOREIGN KEY(id_users) REFERENCES users(id_users),
+        FOREIGN KEY(id_workshop) REFERENCES WORKSHOP(id_workshop)
+    );
+
+
+
 	CREATE TABLE
 	    WILL_CONTAINS_WORKSHOP(
 	        id_job_training INT,

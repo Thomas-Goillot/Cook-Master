@@ -1,4 +1,20 @@
-//add event listener on .close class
+function addVaucher(idVoucher, idCart){
+    fetch("../shop/addVoucher", {
+      method: "POST",
+      body: JSON.stringify({
+        idVoucher: idVoucher,
+        idCart: idCart,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        sendAlert(data.title, data.message, data.type);
+      });
+}
+
 
 document.querySelectorAll(".close").forEach((element) => {
     element.addEventListener("click", function () {

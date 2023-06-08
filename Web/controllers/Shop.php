@@ -117,12 +117,16 @@ class Shop extends Controller
 
         $sum = $this->getSumCart($userCartId);
 
+        $this->loadModel("Voucher");
+
+        $vouchers = $this->_model->getVouchersByUserId($idUser);
+
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart");
 
         $this->setCssFile(array('css/shop/cart.css'));
         $this->setJsFile(array('cart.js'));
 
-        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct','sum'), DASHBOARD);
+        $this->render('shop/cartRecap', compact('page_name', 'allProduct','nbProduct','sum','vouchers', 'userCartId'), DASHBOARD);
     }
 
     /**
@@ -156,7 +160,7 @@ class Shop extends Controller
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de la suppression du produit !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => 'false',
             ));
             exit;
@@ -185,7 +189,7 @@ class Shop extends Controller
             echo json_encode(array(
                 'title' => 'Erreur !',
                 'message' => 'Une erreur est survenue lors de la suppression du produit !',
-                'type' => 'error',
+                'type' => ERROR_ALERT,
                 'redirect' => $redirect,
             ));
             exit;
@@ -364,9 +368,61 @@ class Shop extends Controller
 
         $sum = $this->getSumCart($orderId);
 
+        $shippingType = $this->_model->getShippingType($orderId);
+
+        if($shippingType === false){
+            $this->setError("Erreur","Une erreur est survenue lors de la récupération du type de livraison", ERROR_ALERT);
+            $this->redirect('../shop');
+        }
+
+
+        if($this->isSubscription(FREE_SUBSCRIPTION) || $this->isSubscription(STARTER_SUBSCRIPTION)){
+            if ($shippingType['type'] == RELAY_POINT) {
+                if($this->isSubscription(STARTER_SUBSCRIPTION)){
+                    #livraison gratuite
+                    array_push($allProduct, array('name' => 'Livraison gratuite', 'description' => 'Livraison gratuite grâce à votre abonnement', 'price_purchase' => 0, 'quantity' => 1, 'allow_purchase' => 0));
+                }
+                else{
+                    array_push($allProduct, array('name' => 'Point relais', 'description' => 'Livraison en point relais', 'price_purchase' => RELAY_POINT_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
+                    $sum += RELAY_POINT_PRICE;
+                }
+            } else {
+                array_push($allProduct, array('name' => 'Livraison à domicile', 'description' => 'Livraison à domicile', 'price_purchase' => HOME_DELIVERY_PRICE, 'quantity' => 1, 'allow_purchase' => 0));
+                $sum += HOME_DELIVERY_PRICE;
+            }
+        }
+        else{
+            array_push($allProduct, array('name' => 'Livraison gratuite', 'description' => 'Livraison gratuite grâce à votre abonnement', 'price_purchase' => 0, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
+
+        if ($this->isSubscription(MASTER_SUBSCRIPTION)) {
+
+            $sum = $sum * 0.95;
+            $diff = $sum * 0.05;
+
+            $sum = round($sum, 2);
+            $diff = round($diff, 2);
+
+            array_push($allProduct, array('name' => 'Réduction de 5%', 'description' => 'Réduction de 5% sur votre commande grâce à votre abonnement', 'price_purchase' => -$diff, 'quantity' => 1, 'allow_purchase' => 0));
+        }
+
+
+        $infoCart = $this->_model->getUserCartById($orderId);
+        
+        if($this->_model->checkVoucherInCart($orderId)){
+            $this->loadModel("Voucher");
+            $voucher = $this->_model->getVoucherById($infoCart['id_voucher']);
+            array_push($allProduct, array('name' => 'Bon d\'achat', 'description' => 'Bon d\'achat', 'price_purchase' => -$voucher['amount'], 'quantity' => 1, 'allow_purchase' => 0));
+
+            $sum -= $voucher['amount'];
+        }
+
         //calculate the tva and the price without tva
-        $tva = $sum * TVA;
-        $priceWithoutTva = $sum - $tva;
+        $tva = round($sum * TVA, 2);
+        $priceWithoutTva = round($sum - $tva, 2);
+
+        $_SESSION['price_shopping'] = $sum;
 
         $pathToPayment = "shop/pay";
 
@@ -398,13 +454,20 @@ class Shop extends Controller
             $this->redirect('../shop');
         }
 
-        $products = $this->_model->getAllProductsOfCart($userCartId);
-        $sum = $this->getSumCart($userCartId);
+        $data = array(array(
+            "name" => "Achat en ligne",
+            "price_purchase" => $_SESSION['price_shopping'],
+            "id" => "online",
+            "quantity" => 1,
+            "description" => "Achat en ligne",
+            "allow_purchase" => 0
+        ));
+
 
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($products, $userEmail);
+        $payment->startPayment($data, $userEmail);
 
         $page_name = array("Boutique" => "shop", "Panier" => "shop/cart", "Type de livraison" => "shop/addressselect", "Récapitulatif" => "shop/invoicerecap", "Paiement" => "shop/pay");
 
@@ -417,10 +480,29 @@ class Shop extends Controller
      */
     public function success() : void
     {
+        $this->loadModel("Shop");
 
-        
+        $idUser = $this->getUserId();
 
+        $userCartId = $this->_model->getUserCartId($idUser);
 
+        if($userCartId === false){
+            $this->setError("Mince... Votre panier est vide !","Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $this->redirect('../shop');
+        }
+
+        $this->_model->updateCartStatus($userCartId, CART_VALIDATE);
+        $this->_model->addDatePurchase($userCartId);
+
+        $infoCart = $this->_model->getUserCartById($userCartId);
+
+        if ($this->_model->checkVoucherInCart($userCartId)) {
+            $this->loadModel("Voucher");
+            $this->_model->updateVoucher($infoCart['id_voucher'], $idUser);
+        }
+
+        $this->setError("Succès","Votre commande a bien été enregistré", SUCCESS_ALERT);
+        $this->redirect('../shop');
     }
         
     /**
@@ -429,14 +511,10 @@ class Shop extends Controller
      */
     public function cancel() : void
     {
-        echo "cancel";
+        $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
+        $this->redirect('../shop');
     }
         
-
-
-
-
-
 
     /**
      * NOT A PAGE
@@ -474,6 +552,77 @@ class Shop extends Controller
         }
 
         return $sum;
+    }
+
+    /**
+     * Add a voucher to the cart
+     * @return void
+     */
+    public function addVoucher(): void
+    {
+        $_POST = json_decode(file_get_contents('php://input'), true);
+        if(!isset($_POST['idVoucher']) || empty($_POST['idVoucher'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        if(!isset($_POST['idCart']) || empty($_POST['idCart'])){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }        
+
+        $idVoucher = htmlspecialchars($_POST['idVoucher']);
+        $idCart = htmlspecialchars($_POST['idCart']);
+
+        $this->loadModel("Voucher");
+
+        if(!$this->_model->checkVoucher($idVoucher)){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Le bon d\'achat n\'existe pas !',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        $this->loadModel("Shop");
+        if($this->_model->checkVoucherInCart($idCart)){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Vous ne pouvez pas ajouter plusieurs bons d\'achat !',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+        
+        if(!$this->_model->addVoucherToCart($idCart,$idVoucher)){
+            echo json_encode(array(
+                'title' => 'Erreur !',
+                'message' => 'Une erreur est survenue lors de l\'ajout du bon d\'achat !',
+                'type' => ERROR_ALERT,
+                'redirect' => 'false',
+            ));
+            exit;
+        }
+
+        echo json_encode(array(
+            'title' => 'Succès !',
+            'message' => 'Le bon d\'achat a bien été ajouté !',
+            'type' => SUCCESS_ALERT,
+            'redirect' => 'true',
+        ));
     }
 
 }

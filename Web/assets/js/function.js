@@ -8,3 +8,11 @@ function sendAlert(title, message, type) {
       confirmButtonClass: "btn btn-confirm mt-2",
     });
 }
+
+function copyToClipboard(string) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(string).select();
+    document.execCommand("copy");
+    $temp.remove();
+}

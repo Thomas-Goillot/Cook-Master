@@ -13,6 +13,10 @@ include_once('views/layout/dashboard/path.php');
                             <button type="submit" class="btn b btn-primary btn-block btn-rounded small">Ajouter</button>
                         </div>
                     </div>
+                    
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
             </div>
 
 
@@ -43,9 +47,7 @@ include_once('views/layout/dashboard/path.php');
                     <div id="map"></div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center align-items-center">
-                <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
-            </div>
+            
         </div>
     </div>
 </div>

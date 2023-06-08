@@ -25,7 +25,7 @@ class User extends Model
      */
     public function getUserInfo(int $id)
     {
-        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified,censure_tchat FROM " . $this->table . " WHERE id_users = :id";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -260,7 +260,6 @@ class User extends Model
      * @param int $id
      * @return bool
      */
-
     public function setMailVerified(int $id):bool{
         try {
             $query = "UPDATE " . $this->table . " SET mail_verified = :mail_verified WHERE id_users = :id";
@@ -278,6 +277,11 @@ class User extends Model
         }
     }
 
+    /**
+     * Get user subscription name
+     * @param int $id
+     * @return string
+     */
     public function getUserSubscriptionName(int $id):string{
         try {
             $query = "SELECT name FROM subscription WHERE id_subscription = (SELECT id_subscription FROM subscribe_to WHERE id_users = :id)";
@@ -295,6 +299,25 @@ class User extends Model
         } catch (PDOException $e) {
             return "No subscription";
         }
+    }
+
+    /**
+     * Get user subscription id
+     * @param int $id
+     * @return int
+     */
+    public function getUserSubscriptionId(int $id):int{
+            $query = "SELECT id_subscription FROM subscribe_to WHERE id_users = :id";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result['id_subscription'];
     }
 
     /**
@@ -503,7 +526,24 @@ class User extends Model
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->execute($data);
+    }
 
+    /**
+     * resetSponsorCounter
+     * @param int $id_users
+     * @return void
+     */
+    public function resetSponsorCounter(int $id_users):void
+    {
+        $query = "UPDATE " . $this->table . " SET sponsor_counter = 0 WHERE id_users = :id_users";
+       
+        $data = array(
+            ':id_users' => $id_users
+        );
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute($data);
     }
 
 
