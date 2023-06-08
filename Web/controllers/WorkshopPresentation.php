@@ -81,27 +81,27 @@ class WorkshopPresentation extends Controller
      */
     public function paySuccess(): void
     {
-        //PROBLEME DE PATH JE COMPRENDS PAS POURQUOI LA REDIRECTION DEPUIS "pay" RENVOIE VERS "Workshop" et pas "WorkshopPresentation"
-        echo "pay success";
-/*         if ($this->checkSecurity()) {
+        if ($this->checkSecurity()) {
 
             $data = $this->getSecurityParams();
             
-            $id_workshop = $data['id_workshop'];
-            $place = $data['nb_place'];
-            $id_user = $this->getUserId();
+            $id_workshop =(int) $data['id_workshop'];
+            $place = (int) $data['nb_place'];
+            $id_user = (int) $this->getUserId();
             
-            $this->loadModel("worshop");
+            $this->loadModel("workshop");
 
             for ($i = 0; $i < $place; $i++) {
                 $this->_model->reservationWorkshop($id_workshop, $id_user);
-                $this->redirect("../../../personnalWorkshop");
             }
+            $this->setError("Bravo !", "Votre atelier a bien été réservé.", SUCCESS_ALERT);
+            $this->redirect("../../../WorkshopPresentation");
         } else {
             $this->setError("Mince !", "Une erreur est survenue lors de la réservation de votre atelier. Veuillez réessayer.", WARNING_ALERT);
             $this->redirect("../../../WorkshopPresentation");
-        } */
+        }
     }
+    
 
     /**
      * display the pay page for workshop
@@ -139,6 +139,22 @@ class WorkshopPresentation extends Controller
 
             $workshop = $this->_model->getWorkshopById($id_workshop);
 
+            $nbPlaceAvailable = $this->_model->getWorkshopPlaceById($id_workshop);
+
+            $nbPlaceBooked = $this->_model->getWorkshopBookedPlace($id_workshop);
+
+            if ($nbPlaceBooked == NULL) {
+                $nbPlace = (int)$nbPlaceAvailable["nb_place"];
+            } else {
+                $nbPlace = (int)$nbPlaceAvailable["nb_place"] - $nbPlaceBooked["COUNT(id_workshop)"];
+            }
+
+            if($nbPlace < $place){
+                $this->setError("Mince !", "Il n\'y a plus assez de place pour cet atelier.", WARNING_ALERT);
+                $this->redirect("../../WorkshopPresentation/workshopDisplay/$id_workshop");
+
+            }
+
             $eventData = array(array(
                 "name" => $workshop['name'],
                 "price_purchase" => $workshop['price'],
@@ -147,7 +163,7 @@ class WorkshopPresentation extends Controller
 
             $payment = new StripePayment(STRIPE_API_KEY);
 
-            $payment->startPayment($eventData, $userEmail, $this->activeSecurity("WorkshopPresentation/paySuccess", array("id_event" => $id_workshop, "place" => $place))['url']);
+            $payment->startPayment($eventData, $userEmail, $this->activeSecurity("WorkshopPresentation/paySuccess", array("id_workshop" => $id_workshop, "nb_place" => $place))['url']);
         }
         else{
             $this->setError("Mince !", "Vous avez atteint le nombre maximum d\'ateliers que vous pouvez rejoindre avec votre abonnement actuel. Vous pouvez changer d\'abonnement dans votre espace personnel.", WARNING_ALERT);

@@ -107,13 +107,14 @@ class workshop extends Model
      * @param int $id_users
      * @return void
      */
-    public function reservationWorkshop(int $id_workshop, int $id_users): void{
+    public function reservationWorkshop(int $id_workshop, int $id_users): void
+    {
         $query = "INSERT INTO user_join_workshop (id_users,id_workshop) VALUES (:id_users, :id_workshop)";
 
         $stmt = $this->_connexion->prepare($query);
 
         $stmt->bindParam(":id_users", $id_users);
-        $stmt->bindParam(":id_event", $id_workshop);
+        $stmt->bindParam(":id_workshop", $id_workshop);
 
 
         $stmt->execute();
