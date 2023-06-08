@@ -3,7 +3,6 @@ abonnement
 ------------------------------------------
 
 - Affichage des pubs si utilisateur == abonnement free
-- Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
 - (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?) => THEO
 
 ------------------------------------------
