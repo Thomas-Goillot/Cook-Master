@@ -59,21 +59,35 @@ class cookLocation extends Controller
 
 
         $this->loadModel('cookLocation');
+
         $cookLocations = $this->_model->getLocationInfoById($id_location);
 
-        // dump($cookLocations);
-        // exit();
-
-
-
         
-
 
         $page_name = array("Location de cuisine"=> $this->default_path);
 
         $this->render('cookLocation/cookLocationDisplay', compact('page_name','cookLocations'), DASHBOARD, '../../');
     }
 
+
+    /**
+     * ajax request to get the location view
+     * @return void
+     */
+    public function getlocationWithView():void
+    {
+
+        $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $id_location = $data['idLocation'];
+
+        $this->loadModel('location');
+
+        $location = $this->_model->getLocationInfoById($id_location);
+
+        echo $this->generateFile('views/cookLocation/hours.php', compact('location', 'days'));
+    }
 
 
 

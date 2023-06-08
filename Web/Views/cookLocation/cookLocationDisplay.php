@@ -25,14 +25,13 @@ include_once('views/layout/dashboard/path.php');
             </div>
           </div>
           <div class="col-md-6 col-lg-4">
-            <div class="event-details-item">
-              <h3>Capacité maximum de personne dans la cuisine :</h3>
-              <p class="max_place"><?php echo $cookLocations['max_place']; ?></p>
-            </div>
+          <?php
+              include('hours.php');
+            ?>
           </div>
-        </div>
-
-        <h3>Date de la location :</h3>
+        </div> 
+        <h3>Capacité maximum de la cuisine :</h3>
+              <p class="max_place"><?php echo $cookLocations['max_place']; ?></p>
         
 
       </div>
