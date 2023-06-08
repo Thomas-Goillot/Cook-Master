@@ -128,10 +128,6 @@ if (isset($newScript) && $newScript != "") {
     })
 </script>
 
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 <?php
 // Display errors
 if (isset($errors) && $errors != "") {
