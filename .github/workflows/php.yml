@@ -24,12 +24,12 @@ jobs:
 
       - name: Edit composer.json
         run: |
-          docker exec -it lemp-php-1 sed -i 's|../WEB/||g' composer.json
+          docker exec lemp-php-1 sed -i 's|../WEB/||g' composer.json
 
       - name: Composer Update
         run: |
-          docker exec -it lemp-php-1 composer update
+          docker exec lemp-php-1 composer update
       
       - name: Composer Install
         run: |
-          docker exec -it lemp-php-1 composer install
+          docker exec lemp-php-1 composer install
