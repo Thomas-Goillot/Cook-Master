@@ -1,0 +1,37 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+  }
+
+h4,p{
+    font-size: 100%;
+}
+
+.margin{
+    margin-bottom: 2rem;
+}
+
+
+
+.row.commentPart {
+    margin-top: 50px;
+}
+
+
+
+

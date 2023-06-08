@@ -1,0 +1,36 @@
+.dropify-wrapper{
+    line-height: 10px!important;
+}
+
+.dropify-wrapper .dropify-message span.file-icon {
+    font-size: 30px!important;
+    color: #CCC;
+}
+
+
+
+.btn.b{
+    width: 130px;
+}
+
+.stretch {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.ici2 {
+    text-align: center!important;
+}
+
+span.switchery.switchery-default {
+    margin-bottom: 1rem;
+}
+
+label.space{
+    margin-bottom: 1rem;
+}
+
+h1.delete {
+    color: #9e1b21;
+}
