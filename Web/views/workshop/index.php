@@ -15,7 +15,7 @@ include_once('views/layout/dashboard/path.php');
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
                                     <a href="' . $path_prefix . 'WorkshopPresentation/WorkshopDisplay/' . $workshop['id_workshop'] . '" >
-                                        <img src="' . $path_prefix  . 'assets/images/workshop/' . $workshop['image'] . '" class="img-thumbnail sombre">
+                                        <img src="' . $path_prefix  . 'assets/images/Workshop/' . $workshop['image'] . '" class="img-thumbnail sombre">
                                         <div class="carousel-caption">
                                             <h3 class="text-white">' . $workshop['name'] . '</h3>
                                             <p>'. $workshop['address'].'</p>
