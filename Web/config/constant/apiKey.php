@@ -1,4 +1,0 @@
-<?php
-
-define("SPOONACULAR_KEY","7c54efd616d54ef88364d744339b3601");
-
