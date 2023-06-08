@@ -53,20 +53,18 @@ include_once('views/layout/dashboard/path.php');
                                     <?php
                                     $i = 1;
                                     foreach ($allProduct as $product) {
-                                        if ($product['allow_purchase'] == 0) {
-                                            echo '<tr>';
-                                            echo '<td>' . $i . '</td>';
-                                            echo '<td>';
-                                            echo '<b>' . $product['name'] . '</b>';
-                                            echo '<br>';
-                                            echo $product['description'];
-                                            echo '</td>';
-                                            echo '<td>' . $product['quantity'] . '</td>';
-                                            echo '<td>' . $product['price_purchase'] . ' €</td>';
-                                            echo '<td class="text-right">' . $product['price_purchase'] * $product['quantity'] . ' €</td>';
-                                            echo '</tr>';
-                                            $i++;
-                                        }
+                                        echo '<tr>';
+                                        echo '<td>' . $i . '</td>';
+                                        echo '<td>';
+                                        echo '<b>' . $product['name'] . '</b>';
+                                        echo '<br>';
+                                        echo $product['description'];
+                                        echo '</td>';
+                                        echo '<td>' . $product['quantity'] . '</td>';
+                                        echo '<td>' . $product['price_rental'] . ' €</td>';
+                                        echo '<td class="text-right">' . $product['price_rental'] * $product['quantity'] . ' €</td>';
+                                        echo '</tr>';
+                                        $i++;
                                     }
 
                                     ?>

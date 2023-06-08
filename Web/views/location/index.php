@@ -22,7 +22,7 @@ include_once('views/layout/dashboard/path.php');
                         <?php
 
                         foreach ($locations as $location) {
-                            echo "<tr class=\"location \" style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\" onclick=\"locationClick(this, " . $location['id_location'] . ")\">";
+                            echo "<tr class=\"location\" style=\"cursor:pointer;\" data-idLocation=\"" . $location['id_location'] . "\" onclick=\"locationClick(this, " . $location['id_location'] . ")\">";
                             echo "<td>" . $location['name'] . "</td>";
                             echo "<td id='addr" . $location['id_location'] . "'>" . $location['address'] . "</td>";
                             echo "</tr>";

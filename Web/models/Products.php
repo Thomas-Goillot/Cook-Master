@@ -130,6 +130,21 @@ class Products extends Model
     
     }
 
+    /**
+     * getAllProductsAvailableAndRentable
+     * @return array
+     */
+    public function getAllProductsAvailableAndRentable(): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE allow_rental = 0 AND stock > 0";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 
 }

@@ -50,7 +50,7 @@ include_once('views/layout/dashboard/path.php');
     
                     <!-- Footer -->
                     <div class='modal-footer d-flex flex-column align-items-center'>
-                        <form action='" . $path_prefix . "shop/addProductToCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                        <form action='" . $path_prefix . "rentalEquipment/addProductToCart' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
                             <h5 class='mb-3'>Quantité souhaitée :</h5>
                             <input type='hidden' name='idProduct' value='" . $allProduct['id_equipment'] . "'>
                             <div class='input-group'>
