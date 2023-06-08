@@ -27,18 +27,16 @@ class Sponsor extends Controller{
      */
     public function index()
     {
-        $this->loadModel('Sponsor');
+         $this->loadModel('Sponsor');
 
         $sponsorLink = $this->_model->getSponsorLink($this->getUserId());
         $expirationDate = $this->_model->getSponsorLinkExpirationDate($this->getUserId());
 
-        $sponsorLink = $this->getDomainName() . "sponsor/receive/" . $sponsorLink . "/" . $this->getUserId();
-
-        if (isset($sponsorLink) && $sponsorLink != null) {
+        $qrCode = null;
+        if (isset($sponsorLink)) {
+            $sponsorLink = $this->getDomainName() . "sponsor/receive/" . $sponsorLink . "/" . $this->getUserId();
             $qrCode = $this->generateQrCode($sponsorLink);
         }
-
-        ini_set('display_errors', 1);
 
         $this->loadModel('User');
 
