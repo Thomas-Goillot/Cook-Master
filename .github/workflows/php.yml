@@ -22,8 +22,6 @@ jobs:
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
 
-      - name: Update composer.json
+      - name: Composer Install
         run: |
-          sed -i 's/"require": {[^}]*}/"autoload": { "psr-4": {"App\\": "app/" "Controllers\\": "../Controllers/" "Models\\": "../Models/" "}}/' /home/cookmaster/lemp/php-files/composer.json
-
-
+          docker exec -it lemp-php-1 composer install
