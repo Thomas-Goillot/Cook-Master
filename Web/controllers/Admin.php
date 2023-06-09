@@ -85,6 +85,35 @@ class Admin extends Controller
     }
 
     /**
+     * Display the sales page
+     * @return void
+     */
+    public function sales(): void
+    {
+        $this->loadModel("Sales");
+
+        $allSales = $this->_model->getAllSales();
+        $allSalesThisMonth = $this->_model->getAllSalesThisMonth();
+        $allDelivered = $this->_model->getAllDelivered();
+        $allArchived = $this->_model->getAllArchived();
+        $allSalesOverAll = $this->_model->allSales();
+
+        $this->loadModel("User");
+        foreach ($allSalesOverAll as $key => $sale) {
+            $user = $this->_model->getUserInfo($sale['id_users']);
+            $allSalesOverAll[$key]['name'] = $user['name'];
+            $allSalesOverAll[$key]['surname'] = $user['surname'];
+        }
+
+
+        $page_name = array("Admin" => $this->default_path, "Ventes" => "admin/sales");
+
+        $this->render('admin/sales', compact('allSales', 'allDelivered', 'allArchived', 'allSalesThisMonth', 'allSalesOverAll', 'page_name'), DASHBOARD);
+    }
+
+
+
+    /**
      * Check before add a product in the database
      * @return void
      */
