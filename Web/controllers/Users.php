@@ -24,39 +24,31 @@ class Users extends Controller{
         }
     }
 
-    /**
-     * Display the user profil page
-     *
-     * @return void
-     */
-    public function profil():void{
+   /**
+ * Display the user profil page
+ *
+ * @return void
+ */
+public function profil(): void
+{
+    $this->loadModel('User');
+    $user = $this->_model->getUserInfo($this->getUserId());
+    $cookLocation = $this->_model->getAllCurentLocationById($user["id_users"]);
 
-        $this->loadModel('User');
+    $location = array(); // Initialiser la variable $location
 
-        $user = $this->_model->getUserInfo($this->getUserId());
-
-
-        $cookLocation = $this->_model->getAllCurentLocationById($user["id_users"]);
-
-        
-
+    if ($cookLocation) {
         $location = $this->_model->getLocationByCurentLocationById($cookLocation['id_location']);
-
-        
-
-        $subscription = $this->_model->getUserSubscriptionName($this->getUserId());
-
-        $this->loadModel('Shop');
-
-        $allCommands = $this->_model->getAllCommandsValidated($this->getUserId());
-
-
-       
-
-        $page_name = array("Profil" => $this->default_path);
-
-        $this->render($this->default_path, compact('user', 'subscription', 'page_name', 'allCommands','cookLocation','location'), DASHBOARD);
     }
+
+    $subscription = $this->_model->getUserSubscriptionName($this->getUserId());
+    $this->loadModel('Shop');
+    $allCommands = $this->_model->getAllCommandsValidated($this->getUserId());
+
+    $page_name = array("Profil" => $this->default_path);
+
+    $this->render($this->default_path, compact('user', 'subscription', 'page_name', 'allCommands', 'cookLocation', 'location'), DASHBOARD);
+}
 
     /**
      * Download information

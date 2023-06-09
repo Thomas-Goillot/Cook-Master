@@ -5,22 +5,18 @@
 
             <div data-simplebar style="max-height: 380px;">
 
-                <?php
-                    echo '
-                <div class="w-100">
-                    <div class="d-flex justify-content-between">
-                        <h5>' . $location["name"] . '</h5>
-                    </div>
-                    <h5>' . $location["address"] . '</h5>
-                    <p>Débute le</p>
-                        <p>' . $cookLocation["start_rental"] . '</p>
+                <?php if ($location && $cookLocation) { ?>
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between">
+                            <h5><?= $location["name"] ?></h5>
+                        </div>
+                        <h5><?= $location["address"] ?></h5>
+                        <p>Débute le</p>
+                        <p><?= $cookLocation["start_rental"] ?></p>
                         <p>Se termine</p>
-                        <p>' . $cookLocation["end_rental"] . '</p>
-                </div>';
-                ?>
-
-
-
+                        <p><?= $cookLocation["end_rental"] ?></p>
+                    </div>
+                <?php } ?>
 
             </div>
 
