@@ -2,12 +2,11 @@
 abonnement
 ------------------------------------------
 
-- Affichage des pubs si utilisateur == abonnement free
-- Faire les réductions sur les évènements si utilisateur == abonnement Master (CHIANT DE FOU A FAIRE)
-- (ON N'A PAS LA POSSIBILITE DE LOUER UNE CUISINE ?) => THEO
+- Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
+- Possibilité de louer une cuisine => THEO
 
 ------------------------------------------
-- Pas de possibilité de louer du matériel ( A FAIRE)
+- Pas de possibilité de louer du matériel => Thomas (En cours)
 - Traduction des pages
 
 ------------------------------------------

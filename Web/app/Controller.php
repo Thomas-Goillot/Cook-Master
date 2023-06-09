@@ -100,11 +100,13 @@ class Controller extends Utils{
         $sidebarAdmin = "";
         $sidebarRh = "";
         $sidebarProviders = "";
+        $sidebarGestionnaire = "";
         
         if ($this->isAdmin($_SESSION['user']['id_users'])) {
             $sidebarAdmin = $this->generateFile('views/layout/dashboard/sidebarAdmin.php', $data);
             $sidebarRh = $this->generateFile('views/layout/dashboard/sidebarRh.php', $data);
             $sidebarProviders = $this->generateFile('views/layout/dashboard/sidebarProviders.php', $data);
+            $sidebarGestionnaire = $this->generateFile('views/layout/dashboard/sidebarGestionnaire.php', $data);
         }
 
         if ($this->isRh($_SESSION['user']['id_users'])) {
@@ -115,10 +117,15 @@ class Controller extends Utils{
             $sidebarProviders = $this->generateFile('views/layout/dashboard/sidebarProviders.php', $data);
         }
 
+        if($this->isGestionnaire($_SESSION['user']['id_users'])){
+            $sidebarGestionnaire = $this->generateFile('views/layout/dashboard/sidebarGestionnaire.php', $data);
+        }
+
         /* SIDE BAR */
         $data = array_merge($data, array('sidebarAdmin' => $sidebarAdmin));
         $data = array_merge($data, array('sidebarRh' => $sidebarRh));
         $data = array_merge($data, array('sidebarProviders' => $sidebarProviders));
+        $data = array_merge($data, array('sidebarGestionnaire' => $sidebarGestionnaire));
         
         
         $head = $this->generateFile('views/layout/dashboard/head.php', $data);
