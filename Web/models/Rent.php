@@ -19,6 +19,25 @@ class Rent extends Model
     }
 
     /**
+     * getAllRent
+     * @param int $id
+     * @return array
+     */
+    public function getAllRent(int $id): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    /**
      * getUserCartId
      * @param int $id
      * @return mixed
