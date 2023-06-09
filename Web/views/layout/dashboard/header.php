@@ -129,7 +129,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="<?= $path_prefix ?>disconnect">
-                        <span>Log Out</span>
+                        <span>Déconnexion</span>
                     </a>
                 </div>
             </div>

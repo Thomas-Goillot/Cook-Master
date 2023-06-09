@@ -27,8 +27,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>recipes">Recettes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= $path_prefix ?>chefs">Nos Chefs</a></li>
                     <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     <?= $isLogged ? '<li class="nav-item"><a class="nav-link" href="' . $path_prefix . 'users/profil">Votre espace</a></li>' : '<li><a class="nav-link" href="' . $path_prefix . 'login"><i class="bi bi-person"></i></a></li>' ?>
                     
@@ -107,19 +105,19 @@
                 </div>
             </div>
     </section>
-    <!-- Signup-->
+    <!-- Signup -->
     <section class="signup-section" id="signup">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                    <h2 class="text-white mb-5">Inscrivez-vous pour recevoir les dernières news !</h2>
+                    <!-- <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                    <h2 class="text-white mb-5">Inscrivez-vous pour recevoir les dernières news !</h2> -->
                     <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
                         <!-- Email address input-->
-                        <div class="row input-group-newsletter">
+                        <!-- <div class="row input-group-newsletter">
                             <div class="col"><input class="form-control" id="emailAddress" type="email" placeholder="Entrez votre adresse mail..." aria-label="Entrez votre adresse mail" data-sb-validations="required,email" /></div>
                             <div class="col-auto"><button class="btn btn-primary" id="submitButton" type="submit">Notifiez moi !</button></div>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>

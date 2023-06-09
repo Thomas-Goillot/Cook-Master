@@ -120,7 +120,6 @@ echo '
 
           <h5>Votre commentaire : </h5>
           <div class="form-group">
-            <label for="exampleFormControlTextarea1">Textarea</label>
             <textarea class="form-control" name="comment" placeholder="Votre avis nous intéresse !" rows="3"></textarea>
           </div>
 

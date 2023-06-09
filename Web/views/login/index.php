@@ -19,22 +19,22 @@
                                     ?>
                                     <form action="login" method="POST" class="p-2">
                                         <div class="form-group">
-                                            <label for="email">Email address</label>
+                                            <label for="email">Addresse mail</label>
                                             <input class="form-control" type="email" id="email" name="email" required="" placeholder="john@deo.com" autocomplete="email">
                                         </div>
                                         <div class="form-group">
-                                            <a href="resetting/password" class="text-muted float-right">Forgot your password?</a>
-                                            <label for="password">Password</label>
-                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter your password" autocomplete="current-password"> </div>
+                                            <a href="resetting/password" class="text-muted float-right">Mot de passe oublié ?</a>
+                                            <label for="password">Mot de passe</label>
+                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter un mot de passe" autocomplete="current-password"> </div>
 
                                             <div class="form-group mb-4 pb-3">
                                                 <div class="custom-control custom-checkbox checkbox-primary">
                                                     <input type="checkbox" class="custom-control-input" id="checkbox-signin" name="checkbox-signin">
-                                                    <label class="custom-control-label" for="checkbox-signin">Remember me</label>
+                                                    <label class="custom-control-label" for="checkbox-signin">Se souvenir de moi</label>
                                                 </div>
                                             </div>
                                             <div class="mb-3 text-center">
-                                                <button class="btn btn-primary btn-block" type="submit"> Sign In </button>
+                                                <button class="btn btn-primary btn-block" type="submit"> Connexion </button>
                                             </div>
                                     </form>
                                 </div>
@@ -42,7 +42,7 @@
 
                             <div class="row mt-4">
                                 <div class="col-sm-12 text-center">
-                                    <p class="text-white-50 mb-0">Create an account? <a href="register" class="text-white-50 ml-1"><b>Sign Up</b></a> or<a href="../Web" class="text-white-50 ml-1"><b>Exit</b></a></p>
+                                    <p class="text-white-50 mb-0">Créer un compte ? <a href="register" class="text-white-50 ml-1"><b>S'inscrire</b></a> ou <a href="../Web" class="text-white-50 ml-1"><b>Quitter</b></a></p>
                                 </div>
                             </div>
 

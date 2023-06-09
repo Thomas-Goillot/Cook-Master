@@ -11,7 +11,7 @@ include_once('views/layout/dashboard/path.php');
                 <form action="<?= $path_prefix ?>Recipes/addRecipe" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nameRecipe">Nom</label>
-                        <input type="text" id="nameRecipe" name="nameRecipe" class="form-control" placeholder="Enter the name">
+                        <input type="text" id="nameRecipe" name="nameRecipe" class="form-control" placeholder="Entrer un nom">
                     </div>
 
                     <div class="form-group">
@@ -42,7 +42,7 @@ include_once('views/layout/dashboard/path.php');
 
                     <div class="form-floating ecarte">
                         <label for="infoRecipe">Recette</label>
-                        <textarea class="form-control" placeholder="Enter your recipe" id="infoRecipe" name="infoRecipe" style="height: 100px"></textarea>
+                        <textarea class="form-control" placeholder="Entrez une recette" id="infoRecipe" name="infoRecipe" style="height: 100px"></textarea>
                     </div>
 
                     <div class="form-group">
