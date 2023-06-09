@@ -38,8 +38,11 @@ class Users extends Controller{
 
         $cookLocation = $this->_model->getAllCurentLocationById($user["id_users"]);
 
+        
 
         $location = $this->_model->getLocationByCurentLocationById($cookLocation['id_location']);
+
+        
 
         $subscription = $this->_model->getUserSubscriptionName($this->getUserId());
 
