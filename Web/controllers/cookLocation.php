@@ -4,6 +4,7 @@ namespace Controllers;
 
 use App\Controller;
 use App\StripePayment;
+
 class cookLocation extends Controller
 {
     /**
@@ -38,7 +39,7 @@ class cookLocation extends Controller
         $cookLocations = $this->_model->getAllCookLocationsWithInfo();
 
         $page_name = array("Louer un cuisine" => $this->default_path);
-        $this->render('cookLocation/cookLocation', compact('page_name','cookLocations'), DASHBOARD);
+        $this->render('cookLocation/cookLocation', compact('page_name', 'cookLocations'), DASHBOARD);
     }
 
     /**
@@ -49,7 +50,7 @@ class cookLocation extends Controller
     {
         $params = $_GET['params'];
 
-        if (count($params) === 0 || is_numeric($params[0]) === false) {
+        if (count($params) === 0 ) {
             $this->redirect('../home');
             exit();
         }
@@ -62,11 +63,11 @@ class cookLocation extends Controller
 
         $cookLocations = $this->_model->getLocationInfoById($id_location);
 
-        
 
-        $page_name = array("Location de cuisine"=> $this->default_path);
 
-        $this->render('cookLocation/cookLocationDisplay', compact('page_name','cookLocations'), DASHBOARD, '../../');
+        $page_name = array("Location de cuisine" => $this->default_path);
+
+        $this->render('cookLocation/cookLocationDisplay', compact('page_name', 'cookLocations'), DASHBOARD, '../../');
     }
 
 
@@ -74,7 +75,7 @@ class cookLocation extends Controller
      * ajax request to get the location view
      * @return void
      */
-    public function getlocationWithView():void
+    public function getlocationWithView(): void
     {
 
         $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
@@ -99,53 +100,90 @@ class cookLocation extends Controller
     {
         $params = $_GET['params'];
 
-        if (count($params) === 0 || is_numeric($params[0]) === false) {
+
+        if (count($params) === 0 ) {
             $this->redirect('../home');
             exit();
         }
+        $id_location = (int) $params[0];
 
         $this->loadModel('User');
 
-        $datetime = date('Y-m-d H:i:s');
+        $isValid = false;
 
-        $id_users = $this->_model->getUserInfo($this->getUserId());
-        $id_location = (int) $params[0];
-        $location = $this->_model->getLocationInfoById($id_location);
-
-        $start_rental = $_POST['start_rental'];
-        $date_reservation = $_POST['date_reservation'];
-        $end_rental = $_POST['end_rental'];
+        $id_users = $this->getUserId();
 
         $user = $this->_model->getUserInfo($id_users);
 
+        $this->loadModel('CookLocation');
+
+        $location = $this->_model->getLocationInfoById($id_location);
+        $date_reservation = $_POST['date_reservation'];
+        $price = $_POST['price'];
+
         $userEmail = $user['email'];
 
+        $dateReservation = $_POST['date_reservation'];
 
-        
-        
 
-        $eventData = array(array(
+        list($start_rental, $end_rental) = explode(' - ', $dateReservation);
+
+
+        $startTimestamp = strtotime(str_replace('/', '-', $start_rental));
+        $endTimestamp = strtotime(str_replace('/', '-', $end_rental));
+        $currentTimestamp = time();
+
+       $defaultFallBack = '../../cookLocation/cookLocationDisplay/' . $id_location;
+
+        if ($startTimestamp < $currentTimestamp) {
+            $this->setError('Erreur', 'La date de début de réservation ne peut pas être antérieure à la date actuelle', ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+            exit();
+        }
+        
+        if ($endTimestamp < $currentTimestamp) {
+            $this->setError('Erreur', 'La date de fin de réservation ne peut pas être antérieure à la date actuelle', ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+            exit();
+        }
+
+
+        $startTimestamp = strtotime(str_replace('/', '-', $start_rental));
+        $endTimestamp = strtotime(str_replace('/', '-', $end_rental));
+
+
+        $startDay = date('l', $startTimestamp);
+        $endDay = date('l', $endTimestamp);
+
+
+        $openingDays = array_column($location['opening_hours'], 'opening_day');
+
+        if (!in_array($startDay, $openingDays) || !in_array($endDay, $openingDays)) {
+            $this->setError('Erreur', 'La réservation n\'est pas disponible pour le jour sélectionné : ' . $startDay, ERROR_ALERT);
+            $this->redirect($defaultFallBack);
+            exit();
+        }
+
+        $locationData = array(array(
             "name" => $location['name'],
             "start_rental" => $start_rental,
             "date_reservation" => $date_reservation,
             "end_rental" => $end_rental,
-            "price_purchase" => $location['price']
+            "price_purchase" => $price
         ));
 
-        if($start_rental < $datetime){
-            $this->redirect('cookLocation/cookLocationDisplay/' . $id_location);
-            $this->setError('Erreur','La date de début de réservation ne peux pas être inférieur à la date actuel');
-            exit();
-        }
-        if($end_rental < $datetime){
-            $this->redirect('cookLocation/cookLocationDisplay/' . $id_location);
-            $this->setError('Erreur','La date de fin de réservation ne peux pas être inférieur à la date actuel');
-            exit();
-        }
+        $data = array(array(
+            "name" => $location['name'],
+            "price_purchase" => $price,
+            "id" => "online",
+            "quantity" => 1,
+            "description" => "Location d'une cuisine",
+            "allow_purchase" => 0
+        ));
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($eventData, $userEmail, $this->activeSecurity("WorkshopPresentation/paySuccess", array("id_location" => $id_location))['url']);
+        $payment->startPayment($data, $userEmail, $this->activeSecurity("cookLocation/paySuccess", array("id_location" => $id_location, "start_rental" => $start_rental, "end_rental" => $end_rental))['url']); 
     }
 
 
@@ -156,69 +194,30 @@ class cookLocation extends Controller
      */
     public function paySuccess(): void
     {
+
         if ($this->checkSecurity()) {
 
             $data = $this->getSecurityParams();
-            
-            $id_location =(int) $data['id_workshop'];
+
+            $id_location = (int) $data['id_location'];
+            $start_rental = $data['start_rental'];
+            $end_rental = $data['end_rental'];
+
+            $start_rental = date("Y-m-d", strtotime(str_replace('/', '-', $start_rental)));
+            $end_rental = date("Y-m-d", strtotime(str_replace('/', '-', $end_rental)));
 
             $id_user = (int) $this->getUserId();
             
             $this->loadModel("cookLocation");
 
+            $this->_model->reservationCookLocation($id_user, $id_location, $start_rental,$end_rental);
+
             $this->setError("Bravo !", "Votre cuisine a bien été réservé.", SUCCESS_ALERT);
-            $this->redirect("../../../CookLocation");
+            $this->redirect("../../CookLocation/CookLocation");
         } else {
             $this->setError("Mince !", "Une erreur est survenue lors de la réservation de la cuisine. Veuillez réessayer.", WARNING_ALERT);
-            $this->redirect("../../../CookLocation");
+            $this->redirect("../../CookLocation/CookLocation");
         }
-    }
-
-
-    
-    /**
-     * add reservationCookLocation
-     * @return void
-     */
-    public function reservationCookLocation(): void
-    {
-        $params = $_GET['params'];
-
-        if (count($params) === 0 || is_numeric($params[0]) === false) {
-            $this->redirect('../home');
-            exit();
-        }
-
-        $this->loadModel('User');
-
-        $datetime = date('Y-m-d H:i:s');
-
-        $id_users = $this->_model->getUserInfo($this->getUserId());
-        $id_location = (int) $params[0];
-
-        $start_rental = $_POST['start_rental'];
-        $date_reservation = $_POST['date_reservation'];
-        $end_rental = $_POST['end_rental'];
-
-
-        if($start_rental < $datetime){
-            $this->redirect('cookLocation/cookLocationDisplay/' . $id_location);
-            $this->setError('Erreur','La date de début de réservation ne peux pas être inférieur à la date actuel');
-            exit();
-        }
-        if($end_rental < $datetime){
-            $this->redirect('cookLocation/cookLocationDisplay/' . $id_location);
-            $this->setError('Erreur','La date de fin de réservation ne peux pas être inférieur à la date actuel');
-            exit();
-        }
-        
-
-        $this->loadModel('reservationCookLocation');
-
-        $this->_model->addReservationCookLocation($id_users, $id_location,  $start_rental, $date_reservation,$end_rental);
-
-        $this->redirect('cookLocation/pay');
-
     }
 
 
