@@ -33,7 +33,7 @@ class SkillsUsers extends Controller
         //$this->setJsFile(['dotCheckProgressBar.js']);
         $this->setCssFile(['css/certificate/dotCheckProgressBar.css']);
 
-        $page_name = array("Skills & Progress" => "../SkillsUsers/increase");
+        $page_name = array("Compétences" => "../SkillsUsers/increase");
         $this->loadModel('SkillsUsers');
 
         $certificates = array();

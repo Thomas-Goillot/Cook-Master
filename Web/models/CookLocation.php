@@ -84,5 +84,28 @@ class cookLocation extends Model
         return $location;
     }
 
+
+
+     /**
+     * reservationCookLocation
+     * @param int $id_workshop
+     * @param int $id_users
+     * @return void
+     */
+    public function reservationCookLocation( int $id_users, int $id_location, string $start_rental, string $end_rental): void
+    {
+        $query = "INSERT INTO rent_location (id_users,id_location,start_rental,date_reservation,end_rental) VALUES (:id_users, :id_location,:start_rental,NOW(),:end_rental)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_users", $id_users);
+        $stmt->bindParam(":id_location", $id_location);
+        $stmt->bindParam(":start_rental", $start_rental);
+        $stmt->bindParam(":end_rental", $end_rental);
+
+
+        $stmt->execute();
+    }
+
     
 }

@@ -26,6 +26,7 @@ services:
         volumes:
             - './php-files:/var/www/html/:ro'
             - './nginx-conf:/etc/nginx/conf.d/:ro'
+            - './nginx-conf/sites-enabled:/etc/nginx/sites-enabled/:ro'
             - './certbot/www:/var/www/certbot/:ro'
             - './certbot/conf/:/etc/nginx/ssl/:ro'
         depends_on:

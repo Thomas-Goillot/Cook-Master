@@ -372,6 +372,11 @@ class Events extends Controller
 
         $event = $this->_model->getEventById($id_event);
 
+        if ($this->isSubscription(MASTER_SUBSCRIPTION)) {
+            $event['price'] = $event['price'] * 0.95;
+        }
+
+
         $eventData = array(array(
             "name"=> $event['name'],
             "price_purchase"=> $event['price'],

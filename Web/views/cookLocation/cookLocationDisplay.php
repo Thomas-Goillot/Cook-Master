@@ -23,17 +23,29 @@ include_once('views/layout/dashboard/path.php');
               <h3>Prix pour la journée</h3>
               <p class="price_day"><?php echo $cookLocations['price_day']; ?>€</p>
             </div>
+            <form action="<?php echo $path_prefix?>cookLocation/pay/<?php echo $cookLocations['id_location'] ?>" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Date de la location</label>
+                <input type="text" class="form-control date" name="date_reservation" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY'}">
+                <label for="exampleFormControlSelect1">Type de location</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="price">
+                  <option value="<?= $cookLocations['price_day'] ?>">Journée</option>
+                  <option value="<?= $cookLocations['price_half_day'] ?>">Demi-journée</option>
+                </select>
+
+
+                <div class="d-flex justify-content-center align-items-center">
+                  <button type="submit" class="btn btn-primary btn-block w-25">Réserver</button>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="col-md-6 col-lg-4">
-          <?php
-              include('hours.php');
+            <?php
+            include('hours.php');
             ?>
           </div>
-        </div> 
-        <h3>Capacité maximum de la cuisine :</h3>
-              <p class="max_place"><?php echo $cookLocations['max_place']; ?></p>
-        
-
+        </div>
       </div>
     </div>
   </div>

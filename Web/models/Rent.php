@@ -13,57 +13,161 @@ class Rent extends Model
      */
     public function __construct()
     {
-        $this->table = "rent_equipment";
+        $this->table = "rent_cart";
 
         $this->getConnection();
     }
 
-
-
-
     /**
-     * validation rent
+     * getUserCartId
+     * @param int $id
+     * @return mixed
      */
-    public function verifRent(): array
+    public function getUserCartId(int $id)
     {
-        $query = "SELECT * FROM  equipment WHERE id_equipment = ? id_equipment";
-
+        $query = "SELECT id_rent_cart FROM " . $this->table . " WHERE id_users = :id AND status =" . CART_PROGRESS;
 
         $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($res === false){
+            return false;
+        }
+
+        return $res['id_rent_cart'];
+    }
+
+    /**
+     * Get cart info
+     * @param int $id
+     * @return array
+     */
+    public function getCart(int $id): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_rent_cart = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * getAllProductInCart
+     * @param int $id
+     * @return array
+     */
+    public function getAllProductInCart(int $id): array
+    {
+        $query = "SELECT * FROM rent_contains INNER JOIN equipment ON rent_contains.id_equipment = equipment.id_equipment WHERE id_rent_cart = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
 
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * createCart
+     * @param int $id
+     * @return bool
+     */
+    public function createCart(int $id): bool
+    {
+        $query = "INSERT INTO " . $this->table . " (id_users, status) VALUES (:id, " . CART_PROGRESS . ")";
 
+        $stmt = $this->_connexion->prepare($query);
 
+        $stmt->bindParam(":id", $id);
 
+        return $stmt->execute();
+    }
 
+    /**
+     * addProductToCart
+     * @param int $idCart
+     * @param int $idProduct
+     * @param int $numberOfProduct
+     * @return bool
+     */
+    public function addProductToCart(int $idCart, int $idProduct, int $numberOfProduct): bool
+    {
+        $query = "INSERT INTO rent_contains (id_rent_cart, id_equipment, quantity) VALUES (:idCart, :idProduct, :numberOfProduct)";
 
+        $stmt = $this->_connexion->prepare($query);
 
-    // public function editRent(int $id_users, int $id_equipment): void
-    // {
-    //     $query = "INSERT INTO". $this->table ."(id_users, id_equipment, start_rental, end_rental)
-    //               SELECT :id_users, :id_equipment, NOW(), NOW() 
-    //               FROM equipment 
-    //               WHERE :id_users = 1";
+        $stmt->bindParam(":idCart", $idCart);
+        $stmt->bindParam(":idProduct", $idProduct);
+        $stmt->bindParam(":numberOfProduct", $numberOfProduct);
 
+        return $stmt->execute();
+    }
 
-    //     $stmt = $this->_connexion->prepare($query);
+    /**
+     * updateCartStatus
+     * @param int $id
+     * @param int $status
+     * @return bool
+     */
+    public function updateCartStatus(int $id, int $status): bool
+    {
+        $query = "UPDATE " . $this->table . " SET status = :status WHERE id_rent_cart = :id";
 
+        $stmt = $this->_connexion->prepare($query);
 
-    //     $data = array(
-    //         ":id_users" => $id_users,
-    //         ":id_equipment" => $id_equipment
-    //     );
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":status", $status);
 
+        return $stmt->execute();
+    }
 
-    //     $stmt = $this->_connexion->prepare($query);
+    /**
+     * get user cart by id_rent_cart
+     * @param int $idCart
+     * @return array
+     */
+    public function getUserCartById(int $idCart): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id_rent_cart = :id_rent_cart";
 
-    //     $stmt->execute($data);
-    // }
-    
+        $stmt = $this->_connexion->prepare($query);
 
+        $data = array(
+            ":id_rent_cart" => $idCart
+        );
+
+        $stmt->execute($data);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * updateCartRelayPoint
+     * @param int $id
+     * @param int $idRelayPoint
+     * @return bool
+     */
+    public function updateCartRelayPoint(int $id, int $idRelayPoint): bool
+    {
+        $query = "UPDATE " . $this->table . " SET id_location = :idRelayPoint WHERE id_rent_cart = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":idRelayPoint", $idRelayPoint);
+
+        return $stmt->execute();
+    }
 
 }

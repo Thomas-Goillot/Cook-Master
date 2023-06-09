@@ -15,9 +15,7 @@ include_once('views/layout/dashboard/path.php');
                             <th>Mail</th>
                             <th>Phone</th>
                             <th>Etat</th>
-                            <th>
-                                Action :
-                            </th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -32,22 +30,6 @@ include_once('views/layout/dashboard/path.php');
                             echo '<td>' . isBan($user['is_banned']) . '</td>';
                             echo '<td>
                             <div class="d-flex justify-content-between">
-                                <a href="">Voir le profil</a>
-
-                                <form class="form-group px-4">
-                                        <select class="form-control form-control-sm">
-                                            <option>1</option>
-                                            <option>2</option>
-                                        </select>
-                                </form>
-
-                                <form class="form-group px-4">
-                                    <select class="form-control form-control-sm">
-                                        <option>Test 1</option>
-                                        <option>Test 2</option>
-                                    </select>
-                                </form>
-
                                 <form action="'.$path_prefix. 'admin/updateIsBanUser/'.$user['id_users'].'" method="POST" class="px-4">
                                 ';
                                     if($user['is_banned'] == 1){

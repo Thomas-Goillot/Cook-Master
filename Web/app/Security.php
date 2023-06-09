@@ -74,6 +74,28 @@ abstract class Security
     }
 
     /**
+     * Check if the user is Gestionnaire
+     * @param int $idUser
+     * @return bool
+     */
+    public function isGestionnaire(int $idUser): bool
+    {
+        $controller = new Controller();
+        $controller->loadModel('User');
+        $access = $controller->_model->getUserInfo($idUser)['id_access'];
+
+        if ($this->sessionStart === false) {
+            return false;
+        }
+
+        if ($access === ACCESS_GESTIONNAIRE) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if the user is Provider
      * @param int $idUser
      * @return bool

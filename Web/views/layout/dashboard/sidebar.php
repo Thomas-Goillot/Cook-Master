@@ -107,6 +107,8 @@
 
                 <?= $sidebarRh ?>
 
+                <?= $sidebarGestionnaire ?>
+
                 <?= $sidebarAdmin ?>
 
             </ul>

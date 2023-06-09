@@ -101,6 +101,30 @@ function fancyNbPlace(int $nbPlace): string
 }
 
 /**
+ * Display fancy statut for commandStatus
+ * @param int $statut
+ * @return string
+ */
+function fancyCommandStatut(int $statut): string
+{
+    switch ($statut) {
+        case CART_PROGRESS:
+            return "<span class='text-warning'>En attente</span>";
+        case CART_VALIDATE:
+            return "<span class='text-info'>Validé</span>";
+        case CART_SHIPPING:
+            return "<span class='text-primary'>En cours</span>";
+        case CART_DELIVERED:
+            return "<span class='text-success'>Livrée</span>";
+        case CART_ARCHIVED:
+            return "<span class='text-secondary'>Archivée</span>";
+        default:
+            return "<span class='text-danger'>Erreur</span>";
+
+    }
+}
+
+/**
  * Display user is ban or <not></not>
  * @param int $isBan
  * @return string

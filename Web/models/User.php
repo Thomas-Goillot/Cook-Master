@@ -547,5 +547,26 @@ class User extends Model
     }
 
 
+    /**
+     * get all curentlocation by id
+     */
+    public function getAllCurentLocationById(int $id_users):array
+    {
+            $query = "SELECT * FROM rent_location WHERE id_users = :id_users";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id_users", $id_users);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+
+
+    }
+
+
 
 }
