@@ -39,6 +39,8 @@ class Users extends Controller{
         $cookLocation = $this->_model->getAllCurentLocationById($user["id_users"]);
 
 
+        $location = $this->_model->getLocationByCurentLocationById($cookLocation['id_location']);
+
         $subscription = $this->_model->getUserSubscriptionName($this->getUserId());
 
         $this->loadModel('Shop');
@@ -50,7 +52,7 @@ class Users extends Controller{
 
         $page_name = array("Profil" => $this->default_path);
 
-        $this->render($this->default_path, compact('user', 'subscription', 'page_name', 'allCommands','cookLocation'), DASHBOARD);
+        $this->render($this->default_path, compact('user', 'subscription', 'page_name', 'allCommands','cookLocation','location'), DASHBOARD);
     }
 
     /**

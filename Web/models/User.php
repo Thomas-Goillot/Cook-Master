@@ -552,7 +552,7 @@ class User extends Model
      */
     public function getAllCurentLocationById(int $id_users):array
     {
-            $query = "SELECT * FROM rent_location WHERE id_users = :id_users";
+            $query = "SELECT * FROM rent_location WHERE id_users = :id_users AND end_rental > NOW()";
 
             $stmt = $this->_connexion->prepare($query);
 
@@ -566,6 +566,28 @@ class User extends Model
 
 
     }
+    
+    /**
+     * getLocationByCurentLocationById
+     */
+    public function getLocationByCurentLocationById(int $id):array
+    {
+            $query = "SELECT * FROM location WHERE id_location = :id";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id", $id);
+
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+
+    }
+
+
+
 
 
 
