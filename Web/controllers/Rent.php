@@ -24,30 +24,19 @@ class Rent extends Controller
     {
         $this->loadModel("Rent");
 
-        
+        $allRent = $this->_model->getAllRent($this->getUserId()); 
+
+        $this->loadModel("User");
+
+        foreach($allRent as $key => $rent){
+            $data = $this->_model->getUserInfo($rent['id_users']);
+            $allRent[$key]['name'] = $data['name'];
+            $allRent[$key]['surname'] = $data['surname'];
+        }
         
         $page_name = array("Utilisateur" => "users/profil","Mes locations d'équipement" => "rent");
 
-        
-
-        $this->render('rent/index', compact('page_name'), DASHBOARD);
+        $this->render('rent/index', compact('page_name','allRent'), DASHBOARD);
     }
-
-
-    // public function addRent(): void
-    // {
-    //         $this->loadModel("Rent");
-
-    //         $id_equipment = ;
-
-    //         $id_users = ;
-
-
-    //         $this->_model->addRent($id_users,$id_equipment);
-        
-
-    //     // $this->redirect('../admin/products');
-    // }
-   
    
 }
