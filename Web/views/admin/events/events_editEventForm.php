@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-group">
-                <label>Textarea</label>
+                <label>Description</label>
                 <textarea id="EventDescription" name="EventDescription" class="form-control" maxlength="500" rows="4" placeholder="Ceci est une courte description de moins de 500 caractères"><?= $eventInfo['description'] ?></textarea>
             </div>
 

@@ -50,22 +50,6 @@ class workshop extends Model
     }
 
 
-     /**
-     * Get all events where place and date is ok
-     * @return array
-     */
-    // public function getAllWorkshopAvailable(): array
-    // {
-    //     $query = "SELECT * FROM " . $this->table ." WHERE date_end > NOW() AND nb_place > (SELECT COUNT(id_join_event) FROM user_join_workshop WHERE id_workshop = workshop.id_workshop)";
-
-    //     $stmt = $this->_connexion->prepare($query);
-
-    //     $stmt->execute();
-
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
-
 /**
      * Get place booked
      * @return array

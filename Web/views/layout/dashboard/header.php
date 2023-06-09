@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center">
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>rentalEquipment/cart">
-                <i class="bx bx-shopping-bag"></i>
+            <i class="mdi mdi-shopping-outline"></i>
             </a>
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>shop/cart">
@@ -129,7 +129,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item d-flex align-items-center justify-content-between" href="<?= $path_prefix ?>disconnect">
-                        <span>Log Out</span>
+                        <span>Déconnexion</span>
                     </a>
                 </div>
             </div>

@@ -10,7 +10,7 @@
             </div>
 
             <div class="form-group">
-                <label>Textarea</label>
+                <label>Description</label>
                 <textarea id="EventTemplateDescription" name="EventTemplateDescription" class="form-control" maxlength="500" rows="3" placeholder="Ceci est une courte description de moins de 500 caractères"></textarea>
             </div>
 
