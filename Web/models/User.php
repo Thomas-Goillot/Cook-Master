@@ -549,8 +549,9 @@ class User extends Model
 
     /**
      * get all curentlocation by id
+     * @return mixed
      */
-    public function getAllCurentLocationById(int $id_users):array
+    public function getAllCurentLocationById(int $id_users)
     {
             $query = "SELECT * FROM rent_location WHERE id_users = :id_users AND end_rental > NOW()";
 

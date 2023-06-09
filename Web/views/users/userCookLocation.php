@@ -6,9 +6,6 @@
             <div data-simplebar style="max-height: 380px;">
 
                 <?php
-                    if($location = NULL || $cookLocation == NULL){
-                        echo 'Aucune location de cuisine a venir';
-                    }
                     echo '
                 <div class="w-100">
                     <div class="d-flex justify-content-between">
