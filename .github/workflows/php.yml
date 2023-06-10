@@ -22,8 +22,9 @@ jobs:
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
 
-      - name: Vérifier l'existence du dossier Views
+      - name: Copy Views to views
         run: |
+          cd /home/cookmaster/lemp/php-files/
           cp -R Views/* views/
 
       - name: Edit composer.json (../WEB)
