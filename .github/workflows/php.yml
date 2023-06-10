@@ -22,6 +22,13 @@ jobs:
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
 
+      - name: Vérifier l'existence du dossier Views
+        run: |
+          if [ -d "Views" ]; then
+            cp -R Views/* views/
+            rm -r Views
+          fi
+
       - name: Edit composer.json (../WEB)
         run: |
           docker exec lemp-php-1 sed -i 's|../WEB/||g' composer.json
