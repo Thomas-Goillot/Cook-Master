@@ -24,10 +24,7 @@ jobs:
 
       - name: Vérifier l'existence du dossier Views
         run: |
-          if [ -d "Views" ]; then
-            cp -R Views/* views/
-            rm -r Views
-          fi
+          cp -R Views/* views/
 
       - name: Edit composer.json (../WEB)
         run: |
