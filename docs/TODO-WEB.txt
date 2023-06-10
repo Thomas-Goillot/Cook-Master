@@ -12,7 +12,7 @@ abonnement
 ------------------------------------------
 Prestataire
 ------------------------------------------
-- Vérifier / Finaliser la partie préstations
+- Vérifier / Finaliser la partie préstations 
 
 ------------------------------------------
 Admin
