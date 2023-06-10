@@ -1,59 +1,52 @@
-name: Setup and Deploy Blog
+name: CookMaster
 on:
   push:
     branches: [ "PROD" ]
   pull_request:
     branches: [ "PROD" ]
+
+permissions:
+  contents: read
+
 jobs:
-  deploy:
+  build:
+
     runs-on: 
-      - CookMaster-Runner
-    name: Deploy blog to hydrogen
-    if: github.ref == 'refs/heads/main'
-    env:
-      MACHINE: hydrogen
+      - CookMaster-Runner1
+
     steps:
-      - name: Setup Go 1.17
-        id: go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '^1.17'
-          
-      - name: Setup Tailscale
-        id: tailscale
-        uses: tailscale/github-action@main
+      - name: Login to Tailscale
+        uses: tailscale/github-action@v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          version: 1.7.359
-          
-      - name: Add SSH key
-        id: ssh
-        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          MACHINE_IP="$(tailscale ip -6 $MACHINE)"
-          ssh-keyscan $MACHINE_IP >> ~/.ssh/known_hosts
-          printf "%s" "$SSH_KEY" > ~/.ssh/key
-          chmod 600 ~/.ssh/key
-                    
-      - name: Fetch code
-        id: fetch
-        uses: actions/checkout@v1
+          ip: ${{ secrets.TAILSCALE_IP }}
 
-      - name: Compile blog binary
-        id: compile
-        run: go build -o prose .
-        
-      - name: Build tarball and ship it
-        id: tarball
+      - uses: actions/checkout@v2
+
+      - name: Copy Files
         run: |
-          TIME=$(date +%Y%m%d-%H%M%S)
-          FILENAME=prose-${TIME}.tar.gz
-          mkdir -p static/css
-          tar -czf $FILENAME prose static/ styles/ templates/ posts/
-          MACHINE_IP="$(tailscale ip -6 $MACHINE)"
-          echo $FILENAME "github@[$MACHINE_IP]:/home/github/"
-          scp -i ~/.ssh/key $FILENAME "github@[$MACHINE_IP]:/home/github/"
-          ssh -i ~/.ssh/key "github@$MACHINE_IP" "tar -C /var/www/blog -xzf ~/$FILENAME"
-          ssh -i ~/.ssh/key "github@$MACHINE_IP" "sudo systemctl restart prose"
+          cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
+
+      - name: Edit composer.json (../WEB)
+        run: |
+          docker exec lemp-php-1 sed -i 's|../WEB/||g' composer.json
+
+      - name: Edit composer.json (Controllers/)
+        run: |
+          docker exec lemp-php-1 sed -i 's|Controllers/|controllers/|g' composer.json
+
+      - name: Edit composer.json (Models/)
+        run: |
+          docker exec lemp-php-1 sed -i 's|Models/|models/|g' composer.json
+
+      - name: Composer Update
+        run: |
+          docker exec lemp-php-1 composer update
+      
+      - name: Composer Install
+        run: |
+          docker exec lemp-php-1 composer install
+
+      - name: Change DEV to PROD
+        run: |
+          docker exec lemp-php-1 sed -i 's|ENV = DEV|ENV = PROD|g' config/.env
