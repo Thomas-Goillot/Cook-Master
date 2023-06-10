@@ -12,14 +12,10 @@ jobs:
   build:
 
     runs-on: 
-      - CookMaster-Remake
+      - CookMaster-Runner1
 
     steps:
-      - name: Login to Tailscale
-        uses: tailscale/github-action@v1
-        with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          
+
       - uses: actions/checkout@v2
 
       - name: Copy Files
