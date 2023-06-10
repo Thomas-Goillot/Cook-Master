@@ -14,7 +14,6 @@ include_once('views/layout/dashboard/path.php');
             <h4 class="text-white"><?php echo $cookLocations['address']; ?></h4>
           </div>
         </div>
-
         <div class="row mt-3">
           <div class="col-md-6 col-lg-4">
             <div class="event-details-item">
@@ -23,30 +22,20 @@ include_once('views/layout/dashboard/path.php');
               <h3>Prix pour la journée</h3>
               <p class="price_day"><?php echo $cookLocations['price_day']; ?>€</p>
             </div>
-            <form action="<?php echo $path_prefix?>cookLocation/pay/<?php echo $cookLocations['id_location'] ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo $path_prefix ?>cookLocation/cookLocationInvoice/<?php echo $cookLocations['id_location'] ?>" method="POST" enctype="multipart/form-data">
               <div class="form-group">
                 <label>Date de la location</label>
-                <input type="text" class="form-control date" name="date_reservation" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY'}">
+                <input type="text" class="form-control date" name="date_reservation" id="date_reservation" data-toggle="daterangepicker" data-time-picker="true" data-locale="{'format': 'DD/MM/YYYY'}">
                 <label for="exampleFormControlSelect1">Type de location</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="price">
-                  <option value="<?= $cookLocations['price_day'] ?>">Journée</option>
-                  <option value="<?= $cookLocations['price_half_day'] ?>">Demi-journée</option>
+                  <option value="<?= $cookLocations['price_day'] ?>" name="day">Journée</option>
+                  <option value="<?= $cookLocations['price_half_day'] ?>" name="half_day">Demi-journée</option>
                 </select>
-
-
                 <div class="d-flex justify-content-center align-items-center">
                   <button type="submit" class="btn btn-primary btn-block w-25">Réserver</button>
                 </div>
               </div>
             </form>
           </div>
-          <div class="col-md-6 col-lg-4">
-            <?php
-            include('hours.php');
-            ?>
-          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
