@@ -90,11 +90,12 @@ class cookLocation extends Model
      * reservationCookLocation
      * @param int $id_workshop
      * @param int $id_users
+     * 
      * @return void
      */
-    public function reservationCookLocation( int $id_users, int $id_location, string $start_rental, string $end_rental): void
+    public function reservationCookLocation( int $id_users, int $id_location, string $start_rental, string $end_rental, int $type)
     {
-        $query = "INSERT INTO rent_location (id_users,id_location,start_rental,date_reservation,end_rental) VALUES (:id_users, :id_location,:start_rental,NOW(),:end_rental)";
+        $query = "INSERT INTO rent_location (id_users,id_location,start_rental,date_reservation,end_rental,type) VALUES (:id_users, :id_location,:start_rental,NOW(),:end_rental, :type)";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -102,10 +103,59 @@ class cookLocation extends Model
         $stmt->bindParam(":id_location", $id_location);
         $stmt->bindParam(":start_rental", $start_rental);
         $stmt->bindParam(":end_rental", $end_rental);
-
+        $stmt->bindParam(":type", $type);
 
         $stmt->execute();
+
+        return $this->_connexion->lastInsertId();
     }
+
+    /**
+     * getRentLocationInfo
+     * status = 0
+     * @param int $idUsers
+     * @param int @idLocation
+     * @return array
+     */
+
+    public function getRentLocationInfo(int $idUsers, int $idLocation): array
+    {
+        $query = "SELECT * FROM rent_location WHERE id_users = :id_users AND id_location = :id_location AND status = 0";
+
+        $stmt = $this->_connexion->prepare($query);
+        $stmt->bindParam(":id_users", $idUsers);
+        $stmt->bindParam(":id_location", $idLocation);
+        $stmt->execute();
+        $rentLocation = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $rentLocation;
+    }
+    
+    /**
+     * updateStatus
+     * @param int $idRentLocation
+     * @param int $idUsers
+     * @return bool
+     */
+    public function updateStatus(int $idRentLocation, int $idUsers): bool
+    {
+        $query = "UPDATE rent_location SET status = 1 WHERE id_rent_location = :id_rent_location AND id_users = :id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+        $stmt->bindParam(":id_rent_location", $idRentLocation);
+        $stmt->bindParam(":id_users", $idUsers);
+        
+
+        if($stmt->execute())
+        {
+            return true;
+        }
+        
+        return false;
+
+    }
+    
+    
 
     
 }
