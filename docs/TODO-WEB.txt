@@ -27,3 +27,4 @@ Partie gestionnaire
 
 ------------------------------------------ 
 Jeton NFC -> soit give code promo soit give cours
+//imagine ca marche
