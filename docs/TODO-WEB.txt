@@ -3,7 +3,7 @@ abonnement
 ------------------------------------------
 
 - Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
-- Possibilité de louer une cuisine => THEO
+- Possibilité de louer une cuisine => THEO (Affichage des horaires, empecher réservation si déjà réserver)
 
 ------------------------------------------
 - Pas de possibilité de louer du matériel => Thomas (En cours)
@@ -18,7 +18,11 @@ Prestataire
 Admin
 ------------------------------------------
 - Pas de page prestations ?
-- onglet "boutique" section ventes ? (A FAIRE)
+
+------------------------------------------
+Gestionnaire
+------------------------------------------
+Partie gestionnaire
 
 
 ------------------------------------------ 
