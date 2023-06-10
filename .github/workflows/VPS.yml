@@ -13,7 +13,6 @@ jobs:
 
     runs-on: 
       - CookMaster-Runner
-      - CookMaster-Runner-SRVWEB
 
     steps:
 
