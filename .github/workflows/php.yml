@@ -1,9 +1,9 @@
 name: Setup and Deploy Blog
 on:
   push:
-    branches:
-      - main
-
+    branches: [ "PROD" ]
+  pull_request:
+    branches: [ "PROD" ]
 jobs:
   deploy:
     runs-on: 
