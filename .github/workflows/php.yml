@@ -19,7 +19,6 @@ jobs:
         uses: tailscale/github-action@v1
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-          ip: ${{ secrets.TAILSCALE_IP }}
 
       - uses: actions/checkout@v2
 
