@@ -36,3 +36,10 @@
 .exit:hover{
     -fx-background-color: #f06a79;
 }
+
+.card{
+    -fx-background-color: #2c6eb5;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+

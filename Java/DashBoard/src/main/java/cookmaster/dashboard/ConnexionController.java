@@ -35,26 +35,29 @@ public class ConnexionController {
 
     private DatabaseConnexion databaseConnexion;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     public void initialize() {
         databaseConnexion = new DatabaseConnexion();
         databaseConnexion.connect();
     }
+
     @FXML
-    public void handleConnexionButtonClicked() throws IOException, NoSuchAlgorithmException {
-
-        String email = this.email.getText();
-        String password = this.password.getText();
-
-        String hashedPassword = hashPassword(password);
-
-        boolean isAuthenticated = databaseConnexion.checkUserIsAdmin(email, password);
-        System.out.println("isAuthenticated: " + isAuthenticated);
-        if (isAuthenticated) {
-            System.out.println("Connexion réussie!");
-        } else {
-            // Afficher un message d'erreur
-            showErrorAlert("Identifiants incorrects", "Veuillez vérifier votre email et votre mot de passe.");
-        }
+    public void handleConnexionButtonClicked() throws IOException, NoSuchAlgorithmException, SQLException {
+        openDashboard(1);
+        //String email = this.email.getText();
+        //String password = this.password.getText();
+//
+        //String hashedPassword = hashPassword(password);
+//
+        //int isAuthenticated = databaseConnexion.checkUserIsAdmin(email, hashedPassword);
+        //if (isAuthenticated > 0) {
+        //    databaseConnexion.setUserId(isAuthenticated);
+        //    openDashboard(isAuthenticated);
+        //} else {
+        //    showErrorAlert("Identifiants incorrects", "Veuillez vérifier votre email et votre mot de passe. Si vous n'êtes pas administrateur, veuillez contacter un administrateur.");
+        //}
     }
 
     @FXML
@@ -71,19 +74,37 @@ public class ConnexionController {
     }
 
     public void disconnectDatabase() {
-        // Fermer la connexion à la base de données lorsque vous avez terminé
         databaseConnexion.disconnect();
     }
 
-    private void openDashboard() throws IOException {
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader);
+    private void openDashboard(int idUser) throws IOException, SQLException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
+        Parent root = fxmlLoader.load();
+        DashboardController dashboardController = fxmlLoader.getController();
+        dashboardController.setIdUserAndInitialise(idUser);
+
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         Stage oldStage = (Stage) closeButton.getScene().getWindow();
         oldStage.close();
         stage.setTitle("CookMaster Dashboard");
         stage.initStyle(StageStyle.TRANSPARENT);
+
+        scene.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        scene.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+
         stage.setScene(scene);
         stage.show();
     }
+
+
+
 }

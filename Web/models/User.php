@@ -37,6 +37,21 @@ class User extends Model
     }
 
     /**
+     * Get all user with subscription name
+     * @return array
+     */
+    public function getAllUserWithSubscriptionName():array
+    {
+        $query = "SELECT users.*, subscription.name AS subscription_name FROM users INNER JOIN subscribe_to ON users.id_users = subscribe_to.id_users INNER JOIN subscription ON subscribe_to.id_subscription = subscription.id_subscription";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Get user name and surname by id
      * @param int $id
      * @return array|bool
