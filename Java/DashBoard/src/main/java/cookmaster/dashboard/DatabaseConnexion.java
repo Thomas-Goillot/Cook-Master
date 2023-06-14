@@ -23,7 +23,6 @@ public class DatabaseConnexion {
         this.userId = userId;
     }
 
-
     // Méthode pour établir la connexion
     public void connect() {
         try {
@@ -71,11 +70,6 @@ public class DatabaseConnexion {
         }
     }
 
-    /**
-     * getUserInfo
-     *
-     * @return ResultSet
-     */
     public User getUserById(int id) {
         String query = "SELECT * FROM users WHERE id_users = ?";
         try {
@@ -131,7 +125,7 @@ public class DatabaseConnexion {
     }
 
     public int getNumberOfRh() {
-        String query = "SELECT COUNT(users.id_users) as counterRh FROM users WHERE id_access = 1";
+        String query = "SELECT COUNT(users.id_users) as counterRh FROM users WHERE id_access = 3";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -143,6 +137,34 @@ public class DatabaseConnexion {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la récupération du nombre de RH : " + e.getMessage());
             return 0;
+        }
+    }
+
+    public int getNumberOfProviders() {
+        String query = "SELECT COUNT(providers.id_users) as counterProvider FROM providers WHERE verified = 1";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("counterProvider");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du nombre de fournisseurs : " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public ResultSet getAllEvent() {
+        String query = "SELECT * FROM event";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet;
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des évènements : " + e.getMessage());
+            return null;
         }
     }
 }

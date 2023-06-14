@@ -27,9 +27,15 @@ public class DashboardController {
     private Button disconnectButton;
 
     @FXML
+    private Button eventButton;
+
+    @FXML
     private Label nameLabel;
 
     private int idUser;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     private TableView<UserInfo> userTableInfo;
@@ -42,6 +48,42 @@ public class DashboardController {
 
     @FXML
     private Label counterProviders;
+
+    @FXML
+    public void handleDisconnectButtonClick() throws IOException {
+        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("connexion.fxml"));
+        Scene scene = new Scene(fxmlLoader);
+        Stage stage = new Stage();
+        Stage oldStage = (Stage) disconnectButton.getScene().getWindow();
+        oldStage.close();
+        stage.setTitle("CookMaster Login");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void handleCloseButtonClicked() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void handleEventButtonClicked() throws IOException, SQLException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboardEvent.fxml"));
+        Parent root = fxmlLoader.load();
+        DashboardEventController eventController = fxmlLoader.getController();
+        eventController.setIdUserAndInitialise(idUser);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        Stage oldStage = (Stage) eventButton.getScene().getWindow();
+        oldStage.close();
+        stage.setTitle("CookMaster Dashboard Event");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void Initialise() throws SQLException {
         DatabaseConnexion databaseConnexion = new DatabaseConnexion();
@@ -69,38 +111,9 @@ public class DashboardController {
 
     }
 
-
-    public int getIdUser() {
-        return idUser;
-    }
-
     public void setIdUserAndInitialise(int idUser) throws SQLException {
-        System.out.println("id user: " + idUser);
         this.idUser = idUser;
         Initialise();
-    }
-
-    @FXML
-    public void handleDisconnectButtonClick() throws IOException {
-        openLoginPage();
-    }
-
-    @FXML
-    public void handleCloseButtonClicked() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
-
-    private void openLoginPage() throws IOException {
-        Parent fxmlLoader = FXMLLoader.load(getClass().getResource("connexion.fxml"));
-        Scene scene = new Scene(fxmlLoader);
-        Stage stage = new Stage();
-        Stage oldStage = (Stage) disconnectButton.getScene().getWindow();
-        oldStage.close();
-        stage.setTitle("CookMaster Login");
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
     }
 
     private void createTableColumns() {
