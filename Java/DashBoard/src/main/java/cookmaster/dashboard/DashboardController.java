@@ -2,6 +2,7 @@ package cookmaster.dashboard;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,6 +29,9 @@ public class DashboardController {
 
     @FXML
     private Button eventButton;
+
+    @FXML
+    private Button presentationButton;
 
     @FXML
     private Label nameLabel;
@@ -80,6 +84,23 @@ public class DashboardController {
         Stage oldStage = (Stage) eventButton.getScene().getWindow();
         oldStage.close();
         stage.setTitle("CookMaster Dashboard Event");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void handlePresentationButtonClicked(ActionEvent actionEvent) throws SQLException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboardPresentation.fxml"));
+        Parent root = fxmlLoader.load();
+        DashboardPresentationController dashboardPresentationController = fxmlLoader.getController();
+        dashboardPresentationController.setIdUserAndInitialise(idUser);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        Stage oldStage = (Stage) presentationButton.getScene().getWindow();
+        oldStage.close();
+        stage.setTitle("CookMaster Login");
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();

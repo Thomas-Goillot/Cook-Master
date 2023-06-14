@@ -2,6 +2,7 @@ package cookmaster.dashboard;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,9 @@ public class DashboardEventController {
 
     @FXML
     private Button userButton;
+
+    @FXML
+    private Button presentationButton;
 
     @FXML
     private TableView<EventInfo> eventTableInfo;
@@ -98,6 +102,23 @@ public class DashboardEventController {
         stage.show();
     }
 
+    @FXML
+    public void handlePresentationButtonClicked(ActionEvent actionEvent) throws SQLException, IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboardPresentation.fxml"));
+        Parent root = fxmlLoader.load();
+        DashboardPresentationController dashboardPresentationController = fxmlLoader.getController();
+        dashboardPresentationController.setIdUserAndInitialise(idUser);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+
+        Stage oldStage = (Stage) presentationButton.getScene().getWindow();
+        oldStage.close();
+        stage.setTitle("CookMaster Login");
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void createTableColumns() {
         TableColumn<EventInfo, Integer> idColumn = new TableColumn<>("#");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("idEvent"));
@@ -107,7 +128,7 @@ public class DashboardEventController {
 
         TableColumn<EventInfo, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        descriptionColumn.setMaxWidth(500);
+        descriptionColumn.setMaxWidth(1000);
         descriptionColumn.setMinWidth(50);
         descriptionColumn.setPrefWidth(150);
 
@@ -145,6 +166,5 @@ public class DashboardEventController {
 
         eventTableInfo.setItems(eventInfoList);
     }
-
 
 }

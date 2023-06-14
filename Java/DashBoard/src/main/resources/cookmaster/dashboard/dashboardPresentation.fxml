@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookmaster.dashboard.DashboardEventController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cookmaster.dashboard.DashboardPresentationController">
     <children>
         <AnchorPane prefHeight="601.0" prefWidth="802.0" styleClass="login-bg" stylesheets="@design.css">
             <children>
@@ -28,8 +28,8 @@
                      </font>
                   </Label>
                   <Button fx:id="userButton" layoutX="14.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleUserButtonClicked" prefHeight="31.0" prefWidth="180.0" text="Utilisateurs" />
-                  <Button layoutX="14.0" layoutY="164.0" mnemonicParsing="false" prefWidth="180.0" text="Evènements" />
-                  <Button fx:id="presentationButton" layoutX="14.0" layoutY="212.0" mnemonicParsing="false" onAction="#handlePresentationButtonClicked" prefHeight="31.0" prefWidth="180.0" text="Préstations" />
+                   <Button fx:id="eventButton" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleEventButtonClicked" prefWidth="180.0" text="Evènements" />
+                  <Button layoutX="14.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Préstations" />
                   <Button fx:id="disconnectButton" layoutX="14.0" layoutY="556.0" mnemonicParsing="false" onAction="#handleDisconnectButtonClick" prefHeight="31.0" prefWidth="180.0" text="Déconnexion" />
                </children>
             </AnchorPane>

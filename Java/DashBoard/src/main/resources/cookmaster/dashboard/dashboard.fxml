@@ -29,7 +29,7 @@
                   </Label>
                   <Button layoutX="14.0" layoutY="118.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Utilisateurs" />
                   <Button fx:id="eventButton" layoutX="14.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleEventButtonClicked" prefWidth="180.0" text="Evènements" />
-                  <Button layoutX="14.0" layoutY="212.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="180.0" text="Préstations" />
+                   <Button fx:id="presentationButton" layoutX="14.0" layoutY="212.0" mnemonicParsing="false" onAction="#handlePresentationButtonClicked" prefHeight="31.0" prefWidth="180.0" text="Préstations" />
                   <Button fx:id="disconnectButton" layoutX="14.0" layoutY="556.0" mnemonicParsing="false" onAction="#handleDisconnectButtonClick" prefHeight="31.0" prefWidth="180.0" text="Déconnexion" />
                </children>
             </AnchorPane>
