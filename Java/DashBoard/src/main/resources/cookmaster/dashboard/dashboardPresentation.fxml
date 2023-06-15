@@ -35,7 +35,7 @@
             </AnchorPane>
             <AnchorPane layoutX="247.0" layoutY="55.0" prefHeight="556.0" prefWidth="1018.0" AnchorPane.topAnchor="70.0">
                <children>
-                  <TableView fx:id="eventTableInfo" layoutX="15.0" layoutY="14.0" prefHeight="533.0" prefWidth="989.0">
+                  <TableView fx:id="prestationTableInfo" layoutX="15.0" layoutY="14.0" prefHeight="533.0" prefWidth="989.0">
                   </TableView>
                </children></AnchorPane>
             </children>

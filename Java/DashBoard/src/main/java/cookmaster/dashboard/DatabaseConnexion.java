@@ -167,4 +167,16 @@ public class DatabaseConnexion {
             return null;
         }
     }
+
+    public ResultSet getAllAllPrestation() {
+        String query = "SELECT * FROM courses";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet;
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des prestations : " + e.getMessage());
+            return null;
+        }
+    }
 }

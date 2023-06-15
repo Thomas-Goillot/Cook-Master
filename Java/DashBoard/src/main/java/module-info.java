@@ -6,6 +6,7 @@ module cookmaster.dashboard {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires pdfbox.app;
 
     opens cookmaster.dashboard to javafx.fxml;
     exports cookmaster.dashboard;
