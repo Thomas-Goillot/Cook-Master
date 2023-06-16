@@ -5,7 +5,7 @@ namespace Controllers;
 use App\Controller;
 use App\StripePayment;
 
-class cookLocation extends Controller
+class CookLocation extends Controller
 {
     /**
      * Default path to the view
@@ -148,7 +148,7 @@ class cookLocation extends Controller
         $openingDays = array_column($location['opening_hours'], 'opening_day');
 
         if (!in_array($startDay, $openingDays) || !in_array($endDay, $openingDays)) {
-            $this->setError('Erreur', 'La réservation n\'est pas disponible pour le jour sélectionné : ' . $startDay, ERROR_ALERT);
+            $this->setError('Erreur', "La réservation n\'est pas disponible pour le jour sélectionné : " . $startDay, ERROR_ALERT);
             $this->redirect($defaultFallBack);
             exit();
         };

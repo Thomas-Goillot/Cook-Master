@@ -9,7 +9,7 @@ include_once('views/layout/dashboard/path.php');
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Cours de cuisine<?= ($course['type'] === COURSES_IS_AT_HOME ? " présentiel" : " en ligne") ?></h5>
-                <p class="card-text">Statut : <?= fancyStatut($course['statut']) ?></p>
+                <p class="card-text">Statut : <?= fancyStatutCourse($course['statut']) ?></p>
                 <p class="card-text">Date du cours : <?= $this->convertDateFrench($course['date_of_courses']) ?></p>
                 <p class="card-text">Date de création : <?= $this->convertDateFrench($course['date_of_request']) ?></p>
             </div>

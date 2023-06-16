@@ -28,7 +28,7 @@ include_once('views/layout/dashboard/path.php');
                             echo    '<tr>
                                             <td>' . $course['id_courses'] . '</td>
                                             <td>' . ($course['type'] === COURSES_IS_AT_HOME ? "présentiel" : "en ligne") . '</td>
-                                            <td>' . fancyStatut($course['statut']) . '</td>
+                                            <td>' . fancyStatutCourse($course['statut']) . '</td>
                                             <td>' . $this->convertDateFrench($course['date_of_request']) . '</td>
                                             <td>
                                             <a href="courseService/info/' . $course['id_courses'] . '" class="btn btn-primary">Voir</a>
