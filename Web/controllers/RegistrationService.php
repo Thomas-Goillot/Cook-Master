@@ -70,4 +70,25 @@ class RegistrationService extends Controller
 
         $this->redirect($defaultFallBack);
     }
+
+    /**
+     * Admin page to manage the registration of providers to home service requests
+     * @return void
+     */
+    public function admin(): void
+    {
+
+        if($this->isAdmin($this->getUserId()) === false) {
+            $this->redirect('../home');
+            exit();
+        }
+
+        $this->loadModel('RegistrationService');
+
+        $getAllHomeService = $this->_model->getAllHomeService();
+
+        $page_name = array("Gestion des Prestations" => "registrationService/admin");
+
+        $this->render("providers/registrationServiceAdmin", compact('page_name','getAllHomeService'), DASHBOARD);
+    }
 }

@@ -2,10 +2,6 @@
 
 - Traduction des pages
 
-- Vérifier / Finaliser la partie préstations
-
-- Pas de page prestations ?
-
 
 ------------------------------------------ 
 Jeton NFC -> soit give code promo soit give cours

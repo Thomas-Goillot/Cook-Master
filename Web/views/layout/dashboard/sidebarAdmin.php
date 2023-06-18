@@ -6,7 +6,7 @@
 
 <li><a href="<?= $path_prefix ?>Recipes/recipesAdmin" class=" waves-effect"><i class="bx bx-restaurant"></i><span>Recettes</span></a></li>
 
-<li><a href="<?= $path_prefix ?>prestation/index" class=" waves-effect"><i class="fas fa-glass-cheers"></i><span>Préstations</span></a></li>
+<li><a href="<?= $path_prefix ?>registrationService/admin" class=" waves-effect"><i class="fas fa-glass-cheers"></i><span>Préstations</span></a></li>
 
 <li><a href="<?= $path_prefix ?>coursesAdmin" class=" waves-effect"><i class="fa fa-book-reader"></i><span>Cours</span></a></li>
 
