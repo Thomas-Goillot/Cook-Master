@@ -1,28 +1,10 @@
-------------------------------------------
-abonnement
-------------------------------------------
-
 - Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
-- Possibilité de louer une cuisine => THEO (Affichage des horaires, empecher réservation si déjà réserver)
 
-------------------------------------------
-- Pas de possibilité de louer du matériel => Thomas (En cours)
 - Traduction des pages
 
-------------------------------------------
-Prestataire
-------------------------------------------
 - Vérifier / Finaliser la partie préstations
 
-------------------------------------------
-Admin
-------------------------------------------
 - Pas de page prestations ?
-
-------------------------------------------
-Gestionnaire
-------------------------------------------
-Partie gestionnaire
 
 
 ------------------------------------------ 

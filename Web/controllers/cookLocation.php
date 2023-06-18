@@ -64,10 +64,18 @@ class CookLocation extends Controller
         $cookLocations = $this->_model->getLocationInfoById($id_location);
 
 
+        //horaires
+        $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
+
+        $this->loadModel('location');
+
+        $location = $this->_model->getLocationInfoById($id_location);
+
+
 
         $page_name = array("Location de cuisine" => $this->default_path);
 
-        $this->render('cookLocation/cookLocationDisplay', compact('page_name', 'cookLocations'), DASHBOARD, '../../');
+        $this->render('cookLocation/cookLocationDisplay', compact('page_name', 'cookLocations', 'location', 'days'), DASHBOARD, '../../');
     }
 
     /**
