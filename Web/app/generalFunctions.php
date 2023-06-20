@@ -24,7 +24,7 @@ function plural(int $number): string
  * @param int $statut
  * @return string
  */
-function fancyStatut(int $statut): string
+function fancyStatutCourse(int $statut): string
 {
     switch ($statut) {
         case COURSES_REQUEST:
@@ -43,6 +43,30 @@ function fancyStatut(int $statut): string
             return "<span class='text-warning'>En attente</span>";
     }
 }
+
+/**
+ * Display fancy statut for rent
+ * @param int $statut
+ * @return string
+ */
+function fancyStatutRent(int $statut): string
+{
+    switch ($statut) {
+        case CART_PROGRESS:
+            return "<span class='text-secondary'>En attente</span>";
+        case TO_COLLECT:
+            return "<span class='text-warning'>A récupérer</span>";
+        case COLLECTED:
+            return "<span class='text-info'>Récupéré</span>";
+        case RETURNED:
+            return "<span class='text-success'>Rendu</span>";
+        default:
+            return "<span class='text-warning'>A récupérer</span>";
+    }
+}
+
+
+
 
 /**
  * Calculate number of days between two dates

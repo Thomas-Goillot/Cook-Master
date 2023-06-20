@@ -5,7 +5,7 @@ namespace Controllers;
 use App\Controller;
 use App\StripePayment;
 
-class cookLocation extends Controller
+class CookLocation extends Controller
 {
     /**
      * Default path to the view
@@ -64,10 +64,18 @@ class cookLocation extends Controller
         $cookLocations = $this->_model->getLocationInfoById($id_location);
 
 
+        //horaires
+        $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
+
+        $this->loadModel('location');
+
+        $location = $this->_model->getLocationInfoById($id_location);
+
+
 
         $page_name = array("Location de cuisine" => $this->default_path);
 
-        $this->render('cookLocation/cookLocationDisplay', compact('page_name', 'cookLocations'), DASHBOARD, '../../');
+        $this->render('cookLocation/cookLocationDisplay', compact('page_name', 'cookLocations', 'location', 'days'), DASHBOARD, '../../');
     }
 
     /**
@@ -148,7 +156,7 @@ class cookLocation extends Controller
         $openingDays = array_column($location['opening_hours'], 'opening_day');
 
         if (!in_array($startDay, $openingDays) || !in_array($endDay, $openingDays)) {
-            $this->setError('Erreur', 'La réservation n\'est pas disponible pour le jour sélectionné : ' . $startDay, ERROR_ALERT);
+            $this->setError('Erreur', "La réservation n\'est pas disponible pour le jour sélectionné : " . $startDay, ERROR_ALERT);
             $this->redirect($defaultFallBack);
             exit();
         };

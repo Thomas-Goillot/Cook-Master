@@ -1,29 +1,12 @@
-------------------------------------------
-abonnement
-------------------------------------------
-
 - Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
-- Possibilité de louer une cuisine => THEO (Affichage des horaires, empecher réservation si déjà réserver)
 
-------------------------------------------
-- Pas de possibilité de louer du matériel => Thomas (En cours)
-- Traduction des pages
+- Prestataires -> accepter la prestation fonctionne pas (a revoir)
 
-------------------------------------------
-Prestataire
-------------------------------------------
-- Vérifier / Finaliser la partie préstations 
+- Ajouter des prestataires à des ateliers (A DECIDER)
 
-------------------------------------------
-Admin
-------------------------------------------
-- Pas de page prestations ?
+- Formation A FAIRE 
 
-------------------------------------------
-Gestionnaire
-------------------------------------------
-Partie gestionnaire
-
+- Test
 
 ------------------------------------------ 
 Jeton NFC -> soit give code promo soit give cours

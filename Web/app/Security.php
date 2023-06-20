@@ -87,7 +87,7 @@ abstract class Security
         if ($this->sessionStart === false) {
             return false;
         }
-
+        
         if ($access === ACCESS_GESTIONNAIRE) {
             return true;
         }

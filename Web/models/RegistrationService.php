@@ -18,21 +18,18 @@ class RegistrationService extends Model
     }
 
     /**
-     * Get user info by id
-     * @param int $id
+     * Get all home_service
      * @return array|bool
      */
-    public function getUserInfo(int $id)
+    public function getAllHomeService()
     {
-        $query = "SELECT id_users, email, name, surname, address, city, country, phone, zip_code, is_banned, sponsor_counter, id_access, creation_date,mail_verified,censure_tchat FROM " . $this->table . " WHERE id_users = :id";
+        $query = "SELECT * FROM home_service, users, providers WHERE home_service.id_users = users.id_users AND providers.id_users = users.id_users";
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":id", $id);
-
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

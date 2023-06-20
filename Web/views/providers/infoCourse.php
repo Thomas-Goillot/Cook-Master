@@ -12,7 +12,7 @@ include_once('views/layout/dashboard/path.php');
                 <p>Date du cours: <?= $this->convertDateFrench(explode(" ", $course['date_of_courses'])[0]) ?></p>
                 <p>Heure du cours: <?= explode(" ", $course['date_of_courses'])[1] ?></p>
                 <p>Echéance: <?= fancyDateDiff(dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d"))) ?></p>
-                <p>Statut: <?= fancyStatut($course['statut']) ?></p>
+                <p>Statut: <?= fancyStatutCourse($course['statut']) ?></p>
 
             </div>
         </div>

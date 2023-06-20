@@ -40,7 +40,7 @@ include_once('views/layout/dashboard/path.php');
                                 <td><?= $this->convertDateFrench(explode(" ", $course['date_of_courses'])[0]) ?></td>
                                 <td><?= explode(" ", $course['date_of_courses'])[1] ?></td>
                                 <td><?= fancyDateDiff(dateDiff(explode(" ", $course['date_of_courses'])[0], date("Y-m-d"))) ?></td>
-                                <td><?= fancyStatut($course['statut']) ?></td>
+                                <td><?= fancyStatutCourse($course['statut']) ?></td>
                                 <td>
                                     <a href="../CourseService/info/<?= $course['id_courses'] ?>" class="btn btn-primary">Voir</a>
                                 </td>

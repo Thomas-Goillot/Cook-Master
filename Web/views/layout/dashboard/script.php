@@ -54,6 +54,40 @@ if (isset($newScript) && $newScript != "") {
 <!-- Raphael Js-->
 <script src="<?= $path_prefix ?>plugins/raphael/raphael.min.js"></script>
 
+<script src="//translate.google.com/translate_a/element.js?cb=matraduction"></script>
+<script>
+    function matraduction(lang) {
+        console.log(lang)
+        new google.translate.TranslateElement({
+                includedLanguages: lang,
+            }, 'traduction_site_web')
+
+    }
+
+    document.getElementById('fr').addEventListener('click', function() {
+        matraduction('fr');
+    });
+
+    document.getElementById('en').addEventListener('click', function() {
+        matraduction('en');
+    });
+
+    document.getElementById('es').addEventListener('click', function() {
+        matraduction('es');
+    });
+
+    document.getElementById('de').addEventListener('click', function() {
+        matraduction('de');
+    });
+
+    document.getElementById('it').addEventListener('click', function() {
+        matraduction('it');
+    });
+
+    document.getElementById('ru').addEventListener('click', function() {
+        matraduction('ru');
+    });
+</script>
 
 <script>
     $(document).ready(function() {

@@ -18,10 +18,10 @@
                             <th>Date</th>
                             <th>Equipement</th>
                             <th>Nourriture</th>
-                            <th>Lieu</th>
                             <th>Menu</th>
                             <th>Couverts</th>
                             <th>Actions</th>
+                            <th>Lieu</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,7 +51,6 @@
                                             }else{
                                                 echo '<td>Produits du chef</td>';
                                             }
-                                            echo'<td><a href="https://www.google.com/maps/search/?api=1&query=' . $addresse . '" target="_blank">' . $addresse . '</a></td>';
                                             echo'<td><a href="'. $path_prefix.'Recipes/RecipeDisplay/'.$info['id_recipes'].'" >Entrée</a>';
                                             echo '<br>';
                                             echo'<a href="'. $path_prefix.'Recipes/RecipeDisplay/'.$info['id_recipes_1'].'" >Plat</a>';
@@ -61,10 +60,11 @@
                                                 <td>
                                                     <form action="'. $path_prefix .'RegistrationService/registration/'.$info['id_providers'].'/'.$info['id_home_service'].'" method="POST">
                                                         <input type="hidden" name="id_providers" value="'.$info['id_providers'].'" />
-                                                        <input type="hidden" name="id_home_service" value="'.$info['id_home_service'].'" />
-                                                        <button type="submit"><i class="mdi mdi-progress-check"></i></button>
+                                                        <input type="hidden" name="id_home_service" value="'.$info['id_home_service']. '" />
+                                                        <button type="submit" class="btn btn-primary"><i class="mdi mdi-progress-check"></i> Accepter</button>
                                                     </form> 
                                                 </td>
+                                                <td><a href="https://www.google.com/maps/search/?api=1&query=' . $addresse . '" target="_blank">' . $addresse . '</a></td>
                                                 
                                         </tr>';
                             }
@@ -76,11 +76,3 @@
     </div><!-- end col-->
 </div>
 <!-- end row-->
-
-<script>
-    var adresses = [
-        <?php
-            echo "\"" . $address . "\",";
-        ?>
-    ];
-</script>

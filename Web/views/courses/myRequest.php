@@ -12,7 +12,7 @@ foreach ($courses as $course) {
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Cours de cuisine<?= ($course['type'] === COURSES_IS_AT_HOME ? " présentiel" : " en ligne") ?></h5>
-                <p class="card-text">Statut : <?= fancyStatut($course['statut']) ?></p>
+                <p class="card-text">Statut : <?= fancyStatutCourse($course['statut']) ?></p>
                 <p class="card-text">Demande spéciale : <?= isset($course['special_request']) ? $course['special_request'] : "Aucune demande spéciale" ?></p>
                 <p class="card-text">Date du cours : <?= $this->convertDateFrench($course['date_of_courses']) ?></p>
                 <?php 

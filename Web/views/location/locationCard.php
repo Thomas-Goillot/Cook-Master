@@ -11,8 +11,6 @@
     </ul>
     <div class="card-body">
 
-        <?php //dump($location); ?>
-
         <?php
         $actualDay = date('l');
 

@@ -564,8 +564,6 @@ class User extends Model
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             return $result;
-
-
     }
     
     /**
@@ -582,6 +580,27 @@ class User extends Model
             $stmt->execute();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result;
+
+    }
+
+    /**
+     * Get all location of user
+     * @param int $id_users
+     * @return array
+     */
+    public function getAllLocationById(int $id_users):array
+    {
+            $query = "SELECT * FROM rent_location WHERE id_users = :id_users AND status = 1";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":id_users", $id_users);
+
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $result;
 

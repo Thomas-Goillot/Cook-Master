@@ -36,6 +36,21 @@ class Rent extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getAllWithUserInfo
+     * @return array
+     */
+    public function getAllWithUserInfo(): array
+    {
+        $query = "SELECT * FROM " . $this->table . " INNER JOIN users ON rent_cart.id_users = users.id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * getUserCartId
@@ -68,7 +83,7 @@ class Rent extends Model
      */
     public function getCart(int $id): array
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE id_rent_cart = :id";
+        $query = "SELECT * FROM " . $this->table . " INNER JOIN users ON rent_cart.id_users = users.id_users WHERE id_rent_cart = :id ";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -185,6 +200,24 @@ class Rent extends Model
 
         $stmt->bindParam(":id", $id);
         $stmt->bindParam(":idRelayPoint", $idRelayPoint);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * Update cart status
+     * @param int $id
+     * @param int $status
+     * @return bool
+     */
+    public function updateCartStatusById(int $id, int $status): bool
+    {
+        $query = "UPDATE " . $this->table . " SET status = :status WHERE id_rent_cart = :id";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":status", $status);
 
         return $stmt->execute();
     }

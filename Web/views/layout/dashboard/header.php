@@ -10,14 +10,16 @@
         <div class="d-flex align-items-center">
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>rentalEquipment/cart">
-            <i class="mdi mdi-shopping-outline"></i>
+                <i class="mdi mdi-shopping-outline"></i>
             </a>
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>shop/cart">
                 <i class="bx bx-shopping-bag"></i>
             </a>
 
-            <div class="dropdown d-inline-block">
+            <div id="traduction_site_web"></div>
+
+            <!-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="<?= $path_prefix ?>assets/images/flags/french.jpg" alt="user-image" class="mr-1" height="12">
                     <span class="align-middle">French</span>
@@ -25,38 +27,38 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item" id="fr">
+                        <img src="<?= $path_prefix ?>assets/images/flags/french.jpg" alt="user-image" class="mr-1" height="12">
+                        <span class="align-middle">French</span>
+                    </a>
+
+                    <a href="#" class="dropdown-item notify-item" id="en">
                         <img src="<?= $path_prefix ?>assets/images/flags/us.jpg" alt="user-image" class="mr-1" height="12">
 
                         <span class="d-none d-sm-inline-block ml-1">English</span>
                     </a>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item" id="es">
                         <img src="<?= $path_prefix ?>assets/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12">
                         <span class="align-middle">Spanish</span>
                     </a>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item" id="de">
                         <img src="<?= $path_prefix ?>assets/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12">
                         <span class="align-middle">German</span>
                     </a>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item" id="it">
                         <img src="<?= $path_prefix ?>assets/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12">
                         <span class="align-middle">Italian</span>
                     </a>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="javascript:void(0);" class="dropdown-item notify-item" id="ru">
                         <img src="<?= $path_prefix ?>assets/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12">
                         <span class="align-middle">Russian</span>
                     </a>
                 </div>
-            </div>
+            </div> -->
 
             <!--  <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
