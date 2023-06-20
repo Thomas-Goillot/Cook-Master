@@ -1,4 +1,12 @@
 - Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
 
+- Prestataires -> accepter la prestation fonctionne pas (a revoir)
+
+- Ajouter des prestataires à des ateliers (A DECIDER)
+
+- Formation A FAIRE 
+
+- Test
+
 ------------------------------------------ 
 Jeton NFC -> soit give code promo soit give cours
