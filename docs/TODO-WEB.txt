@@ -1,7 +1,4 @@
 - Affichage des pubs si utilisateur == abonnement free (MARCHE PAS)
 
-- Traduction des pages
-
-
 ------------------------------------------ 
 Jeton NFC -> soit give code promo soit give cours
