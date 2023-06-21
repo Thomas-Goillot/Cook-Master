@@ -18,9 +18,13 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Copy Files
+      - name: Copy Web Files
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
+
+      - name: Copy Api Files
+        run: |
+          cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Api/* /home/cookmaster/lemp/php-files/
 
       - name: Edit composer.json (../WEB)
         run: |
