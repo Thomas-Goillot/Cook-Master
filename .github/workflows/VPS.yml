@@ -24,7 +24,7 @@ jobs:
 
       - name: Copy Api Files
         run: |
-          cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Api/* /home/cookmaster/lemp/php-files/
+          cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Api/* /home/cookmaster/lemp/php-files/Api
 
       - name: Edit composer.json (../WEB)
         run: |
