@@ -45,6 +45,13 @@ void make_request_page(GtkButton *button, gpointer content)
     gtk_widget_set_name(api_key, "api_key");
     gtk_container_add(GTK_CONTAINER(content), api_key);
 
+    // Champ d'en-têtes
+    GtkWidget *headers_entry = gtk_entry_new();
+    gtk_entry_set_placeholder_text(GTK_ENTRY(headers_entry), "Enter headers (e.g., HeaderName: HeaderValue)");
+    set_margin(headers_entry, 5);
+    gtk_widget_set_name(headers_entry, "headers_entry");
+    gtk_container_add(GTK_CONTAINER(content), headers_entry);
+
     GtkWidget *send_request_button = gtk_button_new_with_label("Envoyer la requête");
     gtk_widget_set_halign(send_request_button, GTK_ALIGN_END);
     gtk_widget_set_valign(send_request_button, GTK_ALIGN_END);
@@ -178,6 +185,7 @@ void load_api(GtkButton *button, gpointer data)
     gtk_entry_set_text(GTK_ENTRY(api_name_widget), api_name_db);
     gtk_combo_box_set_active(GTK_COMBO_BOX(select_box_widget), atoi(api_method));
     gtk_entry_set_text(GTK_ENTRY(url_widget), api_url);
+    
 
     if (api_key == NULL)
     {
@@ -193,7 +201,7 @@ void load_api(GtkButton *button, gpointer data)
 
 void handle_request(GtkButton *button, gpointer content)
 {
-    const gchar *id_api_entry, *api_name_entry, *method_entry, *url_entry, *api_key_entry;
+    const gchar *id_api_entry, *api_name_entry, *method_entry, *url_entry, *api_key_entry, *headers_entry;
 
     GtkWidget *id_api = gtk_container_get_children(GTK_CONTAINER(content))->next->data;
     GtkWidget *api_name_parent = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->data;
@@ -203,18 +211,20 @@ void handle_request(GtkButton *button, gpointer content)
 
     GtkWidget *url = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->data;
     GtkWidget *api_key = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->next->data;
+    GtkWidget *headers_entry_widget = gtk_container_get_children(GTK_CONTAINER(content))->next->next->next->next->next->next->data;
 
     id_api_entry = gtk_entry_get_text(GTK_ENTRY(id_api));
     api_name_entry = gtk_entry_get_text(GTK_ENTRY(api_name));
     method_entry = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(select_box));
     url_entry = gtk_entry_get_text(GTK_ENTRY(url));
     api_key_entry = gtk_entry_get_text(GTK_ENTRY(api_key));
+    headers_entry = gtk_entry_get_text(GTK_ENTRY(headers_entry_widget));
 
     CURL *curl;
     CURLcode res;
     json_t *root;
     json_error_t error;
-    char responseStr[4096] = {0};
+    char responseStr[1000] = {0};
 
     curl = curl_easy_init();
     if (curl)
@@ -224,6 +234,7 @@ void handle_request(GtkButton *button, gpointer content)
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, responseStr);
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 
         // change the method
         if (strcmp(method_entry, "GET") == 0)
@@ -233,14 +244,31 @@ void handle_request(GtkButton *button, gpointer content)
         else if (strcmp(method_entry, "POST") == 0)
         {
             curl_easy_setopt(curl, CURLOPT_POST, 1L);
+
+            // Ajouter les données à envoyer avec la méthode POST
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "data=example");
         }
+
+        struct curl_slist *header_list = NULL;
+
+        // Divisez les en-têtes en utilisant la virgule comme délimiteur
+        gchar **header_tokens = g_strsplit(headers_entry, ",", -1);
+        int i = 0;
+        while (header_tokens[i] != NULL)
+        {
+            // Ajoutez chaque en-tête à la liste
+            header_list = curl_slist_append(header_list, header_tokens[i]);
+            i++;
+        }
+
+        // Configurez les en-têtes de la requête cURL
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header_list);
 
         res = curl_easy_perform(curl);
         if (res != CURLE_OK)
             fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
         else
         {
-
             root = json_loads(responseStr, 0, &error);
             if (!root)
             {
@@ -248,7 +276,6 @@ void handle_request(GtkButton *button, gpointer content)
                 return;
             }
 
-            // ajouter la reponse dans le treeview
             GtkWidget *response_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
             gtk_window_set_title(GTK_WINDOW(response_window), "Résultat de la requête");
             GError *error = NULL;
@@ -283,24 +310,29 @@ void handle_request(GtkButton *button, gpointer content)
             gtk_widget_show_all(response_window);
         }
 
-        MYSQL *conn;
-        MYSQL_RES *res;
-        MYSQL_ROW row;
-
-        const char *server = "sportplus.ddns.net";
-        const char *user = "cookmaster_api_request_dev";
-        const char *password = "QGACsfzEvuel0S0b";
-        const char *database = "cookmaster_api_request_dev";
-
-        conn = mysql_init(NULL);
-
-        if (!mysql_real_connect(conn, server, user, password, database, 0, NULL, 0))
+        if (strcmp(id_api_entry, "") != 0)
         {
-            fprintf(stderr, "%s\n", mysql_error(conn));
+            MYSQL *conn;
+            MYSQL_RES *result;
+            MYSQL_ROW row;
+
+            const char *server = "sportplus.ddns.net";
+            const char *user = "cookmaster_api_request_dev";
+            const char *password = "QGACsfzEvuel0S0b";
+            const char *database = "cookmaster_api_request_dev";
+
+            conn = mysql_init(NULL);
+
+            if (!mysql_real_connect(conn, server, user, password, database, 0, NULL, 0))
+            {
+                fprintf(stderr, "%s\n", mysql_error(conn));
+            }
+
+            addLog(conn, atoi(id_api_entry), "Requete");
+
+            mysql_close(conn);
+
+            curl_easy_cleanup(curl);
         }
-
-        addLog(conn, atoi(id_api_entry), "Requete");
-
-        curl_easy_cleanup(curl);
     }
 }
