@@ -32,11 +32,11 @@ include_once('views/layout/dashboard/path.php');
                         <p><strong>Prestation recherchée : </strong></p>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="1">
-                            <label class="custom-control-label" for="customRadio1">Chef uniquement (400€/20pers)</label>
+                            <label class="custom-control-label" for="customRadio1">Chef uniquement (40€/couvert)</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="2">
-                            <label class="custom-control-label" for="customRadio2">Chef et serveur (800€/20pers)</label>
+                            <label class="custom-control-label" for="customRadio2">Chef et serveur (80€/couvert)</label>
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@ include_once('views/layout/dashboard/path.php');
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio4" name="customRadio1" class="custom-control-input" value="1">
-                            <label class="custom-control-label" for="customRadio4">Kit de cuisine (+50€/20pers)</label>
+                            <label class="custom-control-label" for="customRadio4">Kit de cuisine (+50€/couvert)</label>
                         </div>
                     </div>
 
@@ -160,12 +160,12 @@ include_once('views/layout/dashboard/path.php');
                         $typeNourriture = $service['type_nourriture'];
                         $couverts = $service['nb_places'];
                         if ($typeHomeService == 2) {
-                            $prixTotal += ceil($couverts / 20) * 800;
+                            $prixTotal += ceil($couverts / 1) * 40;
                         } else {
-                            $prixTotal += ceil($couverts / 20) * 400;
+                            $prixTotal += ceil($couverts /  1) * 80;
                         }
                         if ($typeEquipment == 1) {
-                            $prixTotal += ceil($couverts / 20) * 50;
+                            $prixTotal += ceil($couverts / 1) * 50;
                         }
                         if ($typeNourriture == 1) {
                             $prixTotal += $couverts * 100;
@@ -209,13 +209,13 @@ include_once('views/layout/dashboard/path.php');
         var nourritureCost = 0;
 
         if (prestation === "1") {
-            prestationCost = Math.ceil(couverts / 20) * 400;
+            prestationCost = Math.ceil(couverts / 1) * 40;
         } else if (prestation === "2") {
-            prestationCost = Math.ceil(couverts / 20) * 800;
+            prestationCost = Math.ceil(couverts / 1) * 80;
         }
 
         if (equipement === "1") {
-            equipementCost = Math.ceil(couverts / 20) * 50;
+            equipementCost = Math.ceil(couverts / 1) * 50;
         }
 
         if (nourriture === "1") {

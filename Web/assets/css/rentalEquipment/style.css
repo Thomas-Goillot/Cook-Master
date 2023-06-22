@@ -31,3 +31,13 @@ table#basic-datatable {
     display: flex!important;
     align-items: center!important;
 }
+
+.no-spinners::-webkit-inner-spin-button,
+    .no-spinners::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    .no-spinners {
+        -moz-appearance: textfield;
+    }

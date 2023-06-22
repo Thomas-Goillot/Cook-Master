@@ -51,8 +51,8 @@
                     <h1>Une cuisine d’excellence</h1>
                     <p class="text-white-50">
                         Une cuisine reconnue à travers le monde et appréciée de tous.
-                        Du Japon, aux Etats-Unis, en passant par la France, essayez chaque
-                        une des recettes emblématiques que nous proposons.
+                        Du Japon, aux Etats-Unis, en passant par la France, essayez chacune
+                        des recettes emblématiques que nous proposons.
                     </p>
                 </div>
         </div>
