@@ -24,8 +24,8 @@ jobs:
 
       - name: Composer Update
         run: |
-          docker exec lemp-php-1 cd api && composer update
+          docker exec lemp-php-1 bash -c "cd api && composer update"
       
       - name: Composer Install
         run: |
-          docker exec lemp-php-1 composer install
+          docker exec lemp-php-1 bash -c "cd api && composer install"
