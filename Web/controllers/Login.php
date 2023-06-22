@@ -6,7 +6,7 @@ use App\Mail;
 use App\Controller;
 use App\Utils;
 
-class login extends Controller{
+class Login extends Controller{
 
     /**
      * Default path to the view

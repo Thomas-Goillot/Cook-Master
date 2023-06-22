@@ -7,7 +7,7 @@ echo '
     <div class="card card-animate">
       <div class="card-body">
         <div class="position-relative">
-            <img src="' . $path_prefix  . 'assets/images/workshop/' . $workshop['image'] . '" class="img-thumbnail">
+            <img src="' . $path_prefix  . 'assets/images/Workshop/' . $workshop['image'] . '" class="img-thumbnail">
             <div class="overlay"></div>
               <div class="caption">
                 <h1 class="mt-3">' . $workshop['name'] . '</h1>

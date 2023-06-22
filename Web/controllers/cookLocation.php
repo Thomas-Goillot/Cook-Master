@@ -27,8 +27,6 @@ class CookLocation extends Controller
         }
     }
 
-
-
     /**
      * Display the cookLocation page
      * @return void

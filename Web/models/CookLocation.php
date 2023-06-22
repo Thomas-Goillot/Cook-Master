@@ -6,7 +6,7 @@ use PDO;
 use App\Model;
 use PDOException;
 
-class cookLocation extends Model
+class CookLocation extends Model
 {
      /**
      * cookLocation constructor.
