@@ -22,10 +22,6 @@ jobs:
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
 
-      - name: Copy Api Files
-        run: |
-          cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Api/* /home/cookmaster/lemp/php-files/Api
-
       - name: Edit composer.json (../WEB)
         run: |
           docker exec lemp-php-1 sed -i 's|../WEB/||g' composer.json
