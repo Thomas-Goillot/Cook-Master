@@ -15,11 +15,11 @@ include_once('views/layout/dashboard/path.php');
             </form>
 
             <div class="d-flex flex-column justify-content-center align-items-center">
-                
-                
-            <a href="<?= $path_prefix ?>admin/products"><button type='button' class='btn b btn-secondary mt-4 mb-2 btn-rounded' data-dismiss='modal'>Annuler</button></a>
-            <button type='button' class='btn b btn-primary btn-rounded' data-toggle='modal' data-target='#equipment'>Suprimmer </button>
-        </div>
+
+
+                <a href="<?= $path_prefix ?>admin/products"><button type='button' class='btn b btn-secondary mt-4 mb-2 btn-rounded' data-dismiss='modal'>Annuler</button></a>
+                <button type='button' class='btn b btn-primary btn-rounded' data-toggle='modal' data-target='#equipment'>Suprimmer </button>
+            </div>
 
 
         </div>
@@ -38,8 +38,8 @@ include_once('views/layout/dashboard/path.php');
 
                 <div class='modal-footer d-flex flex-column'>
                     <form action='<?= $path_prefix ?>admin/deleteProduct/<?= $id_workshop ?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                        <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Confirmer</button>
-                        <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
+                        <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-translation-key="Confirmer"></button>
+                        <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal' data-translation-key="Annuler"></button>
                     </form>
                 </div>
             </div>

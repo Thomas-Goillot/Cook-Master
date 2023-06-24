@@ -24,13 +24,13 @@ include_once('views/layout/dashboard/path.php');
                         <table id="datatables" class="table dt-responsive ici2">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
+                                    <th data-translation-key="Nom"></th>
                                     <th>Date de création</th>
                                     <th>Prix location</th>
                                     <th>Prix à l'achat</th>
                                     <th>Stock</th>
                                     <th>Disponibilité:</th>
-                                    <th>Modifier / supprimer</th>
+                                    <th data-translation-key="Modifier / supprimer"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,7 +74,7 @@ include_once('views/layout/dashboard/path.php');
                                     </td>
 
                                     <td>                  
-                                    <a href='" . $path_prefix . "admin/editProductDisplay/" . $allProduct['id_equipment'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                    <a href='" . $path_prefix . "admin/editProductDisplay/" . $allProduct['id_equipment'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-translation-key=\"Modifier\"></button></a>
                                     </td>
                                     </tr>";
                                 }

@@ -10,10 +10,10 @@ include_once('views/layout/dashboard/path.php');
                     <?php include_once("views/admin/workshop/form.php"); ?>
                     <div class="d-flex justify-content-center">
                         <div class="col-xl-4">
-                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small">Ajouter</button>
+                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small" data-translation-key="Ajouter"></button>
                         </div>
                     </div>
-                    
+
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
@@ -47,7 +47,7 @@ include_once('views/layout/dashboard/path.php');
                     <div id="map"></div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>

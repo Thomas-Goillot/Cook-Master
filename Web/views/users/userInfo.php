@@ -8,38 +8,37 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="row">
                         <div class="col">
-                            <a href="<?= $path_prefix ?>users/editProfil" class="dropdown-item">Modifier mes informations</a>
-                            <a href="#" class="dropdown-item">Changer d'abonnement</a>
-                            <a href="<?= $path_prefix ?>users/downloadInformation" class="dropdown-item">Télécharger en PDF</a>
+                            <a href="<?= $path_prefix ?>users/editProfil" class="dropdown-item" data-translation-key="Modifier mes informations"></a>
+                            <a href="<?= $path_prefix ?>users/downloadInformation" class="dropdown-item" data-translation-key="Télécharger en PDF"></a>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
 
 
-            <h4 class="card-title d-inline-block"><i class="fas fa-info-circle"></i> Vos Informations</h4>
+            <h4 class="card-title d-inline-block" data-translation-key="Vos Informations"><i class="fas fa-info-circle"></i> </h4>
 
             <p class="card-text">
-                Nom : <?= ucfirst($data['user']['name']) ?>
+                <span data-translation-key="Nom"></span> : <?= ucfirst($data['user']['name']) ?>
                 <br>
-                Prénom : <?= ucfirst($data['user']['surname']) ?>
+                <span data-translation-key="Prénom"></span> : <?= ucfirst($data['user']['surname']) ?>
                 <br>
                 Email : <?= $data['user']['email'] ?>
                 <br>
-                Mail validé : <?= $this->isVerified($data['user']['mail_verified']) ?>
+                <span data-translation-key="Mail validé"></span> : <?= $this->isVerified($data['user']['mail_verified']) ?>
                 <br>
-                Téléphone : <?= $data['user']['phone'] ?>
+                <span data-translation-key="Téléphone"></span> : <?= $data['user']['phone'] ?>
                 <br>
-                Adresse : <?= $data['user']['address'] ?>
+                <span data-translation-key="Adresse"></span> <?= $data['user']['address'] ?>
                 <br>
-                Ville : <?= $data['user']['city'] ?>
+                <span data-translation-key="Ville"></span> : <?= $data['user']['city'] ?>
                 <br>
-                Code Postal : <?= $data['user']['zip_code'] ?>
+                <span data-translation-key="Code postal"></span> : <?= $data['user']['zip_code'] ?>
                 <br>
-                Pays : <?= $data['user']['country'] ?>
+                <span data-translation-key="Pays"></span> : <?= $data['user']['country'] ?>
                 <br>
-                Abonnement : <strong><?= $data['subscription'] ?></strong>
+                <span data-translation-key="Abonnement"></span> : <strong><?= $data['subscription'] ?></strong>
 
             </p>
 

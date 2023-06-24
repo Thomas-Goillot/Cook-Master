@@ -38,7 +38,7 @@ include_once('views/layout/dashboard/path.php');
                     </div>
 
                     <div class="d-flex justify-content-center align-items-center">
-                        <button type="submit" class="btn btn-primary btn-block w-25">Modifier</button>
+                        <button type="submit" class="btn btn-primary btn-block w-25" data-translation-key="Modifier"></button>
                     </div>
                 </form>
             </div>

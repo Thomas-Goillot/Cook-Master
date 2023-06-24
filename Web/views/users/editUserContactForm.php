@@ -13,7 +13,7 @@
                     <span class="font-13 text-muted">(+xx) xx xx xx xx xx</span>
                 </div>
                 <div class="mb-3 text-center">
-                    <button class="btn btn-primary btn-block" type="submit"> Modifier mes informations </button>
+                    <button class="btn btn-primary btn-block" type="submit" data-translation-key="Modifier"></button>
                 </div>
             </form>
         </div>

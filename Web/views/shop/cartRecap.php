@@ -57,7 +57,7 @@ include_once('views/layout/dashboard/path.php');
                         foreach ($vouchers as $voucher) {
                             echo '<div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">';
                             echo '<div class="col">' . $voucher['name'] . ' ' . $voucher['amount'] . ' ' . $voucher['currency'] . ' </div>';
-                            echo '<div class="col text-right"><button type="button" name="voucher" class="btn btn-primary" onclick="addVaucher(' . $voucher['id_voucher'] . ',' . $userCartId . ')">Ajouter</button></div>';
+                            echo '<div class="col text-right"><button type="button" name="voucher" class="btn btn-primary" onclick="addVaucher(' . $voucher['id_voucher'] . ',' . $userCartId . ')" data-translation-key="Ajouter"></button></div>';
                             echo '</div>';
                         }
                         ?>

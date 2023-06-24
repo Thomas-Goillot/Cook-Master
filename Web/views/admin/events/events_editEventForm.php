@@ -36,12 +36,12 @@
 
 
             <div class="d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn btn-secondary btn-bloc">Modifier</button>
+                <button type="submit" class="btn btn-secondary btn-bloc" data-translation-key="Modifier"></button>
         </form>
         <form action="<?= $path_prefix ?>events/deleteEvent" method="POST">
             <input type="hidden" name="EventId" value="<?= $eventInfo['id_event'] ?>" />
 
-            <button type="submit" class="btn btn-primary btn-block mx-3">Supprimer</button>
+            <button type="submit" class="btn btn-primary btn-block mx-3" data-translation-key="Supprimer"></button>
         </form>
     </div>
 

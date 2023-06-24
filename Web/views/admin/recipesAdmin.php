@@ -52,7 +52,7 @@ include_once('views/layout/dashboard/path.php');
                         <input type="file" class="dropify" data-max-file-size="1M" id="imageRecipe" name="imageRecipe" />
                     </div>
 
-                    <button class=" btn btn-primary mt-4 mb-2 btn-rounded" type="submit">Ajouter<i class="mdi mdi-arrow-right ml-1"></i></button>
+                    <button class=" btn btn-primary mt-4 mb-2 btn-rounded" type="submit" data-translation-key="Ajouter"><i class="mdi mdi-arrow-right ml-1"></i></button>
                 </form>
             </div>
         </div>
