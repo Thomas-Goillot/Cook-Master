@@ -6,32 +6,32 @@ include_once('views/layout/dashboard/path.php');
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Ajoutez une recette</h4>
+                <h4 class="card-title" data-translation-key="Ajoutez une recette"></h4>
 
                 <form action="<?= $path_prefix ?>Recipes/addRecipe" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="nameRecipe">Nom</label>
+                        <label for="nameRecipe" data-translation-key="Nom"></label>
                         <input type="text" id="nameRecipe" name="nameRecipe" class="form-control" placeholder="Entrer un nom">
                     </div>
 
                     <div class="form-group">
-                        <label for="typeRecipe">Type</label>
+                        <label for="typeRecipe" data-translation-key="Type"></label>
                         <select class="form-control" name="typeRecipe" id="typeRecipe">
-                            <option value="1">Entrée</option>
-                            <option value="2">Plat</option>
-                            <option value="3">Dessert</option>
+                            <option value="1" data-translation-key="Entrée"></option>
+                            <option value="2" data-translation-key="Plat"></option>
+                            <option value="3" data-translation-key="Dessert"></option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Ingrédients</label>
+                        <label for="exampleFormControlSelect1" data-translation-key="Ingrédients"></label>
                         <div class="table-responsive">
                             <table class="table mb-0" id="recipeTable">
                                 <thead>
                                     <tr>
-                                        <th>Nom</th>
-                                        <th>Quantité</th>
-                                        <th>Action</th>
+                                        <th data-translation-key="Nom"></th>
+                                        <th data-translation-key="Quantité"></th>
+                                        <th data-translation-key="Actions"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,13 +41,13 @@ include_once('views/layout/dashboard/path.php');
                     </div>
 
                     <div class="form-floating ecarte">
-                        <label for="infoRecipe">Recette</label>
+                        <label for="infoRecipe" data-translation-key="Recette"></label>
                         <textarea class="form-control" placeholder="Entrez une recette" id="infoRecipe" name="infoRecipe" style="height: 100px"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="imageRecipe">Image</label>
-                        <p class="card-subtitle mb-4">Mettez une image afin d'illustrer votre recette.</p>
+                        <label for="imageRecipe" data-translation-key="Image"></label>
+                        <p class="card-subtitle mb-4" data-translation-key="Mettez une image afin d'illustrer votre recette."></p>
 
                         <input type="file" class="dropify" data-max-file-size="1M" id="imageRecipe" name="imageRecipe" />
                     </div>
@@ -62,11 +62,11 @@ include_once('views/layout/dashboard/path.php');
         <div class="card">
             <div class="card-body">
                 <div class="card-title d-flex justify-content-between align-items-center">
-                    <h4 class="card-title m-0 p-0">Rechercher un ingrédient</h4>
+                    <h4 class="card-title m-0 p-0" data-translation-key="Rechercher un ingrédient"></h4>
 
 
                     <div class="form-group">
-                        <label for="numberOutput">Nombre de valeurs de retour:</label>
+                        <label for="numberOutput" data-translation-key="Nombre de valeurs de retour:"></label>
                         <input type="number" id="numberOutput" class="form-control" placeholder="Valeur de retour" value="5">
                     </div>
                 </div>
@@ -78,7 +78,7 @@ include_once('views/layout/dashboard/path.php');
                     <div class="input-group">
                         <input type="text" id="ingredient" name="ingredient" class="form-control" required placeholder="Rechercher un ingrédient">
                         <div class="input-group-append">
-                            <button class="btn btn-primary waves-effect waves-light" id="searchIngredient" type="submit">Rechercher</button>
+                            <button class="btn btn-primary waves-effect waves-light" id="searchIngredient" type="submit" data-translation-key="Rechercher"></button>
                         </div>
                     </div>
 
@@ -87,8 +87,8 @@ include_once('views/layout/dashboard/path.php');
                     <table class="table mb-0" id="tableIngredients">
                         <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th>Action</th>
+                                <th data-translation-key="Nom"></th>
+                                <th data-translation-key="Action"></th>
                             </tr>
                         </thead>
                         <tbody>

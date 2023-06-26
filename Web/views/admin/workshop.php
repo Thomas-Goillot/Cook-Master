@@ -13,47 +13,41 @@ include_once('views/layout/dashboard/path.php');
                             <button type="submit" class="btn b btn-primary btn-block btn-rounded small" data-translation-key="Ajouter"></button>
                         </div>
                     </div>
-
             </div>
             <div class="d-flex justify-content-center align-items-center">
-                <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
+                <h4 data-translation-key="ReserverMateriaux"></h4>
             </div>
-
-
         </div>
-        <div class="col-xl-8">
-            <div class="card card-animate">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-clipboard-list mr-2"></i> Liste des lieux</h4>
-                    <ul class="list-group">
-                        <?php
-                        foreach ($locations as $location) {
-                            echo '<li class="list-group-item" data-addr="' . $location['address'] . '">';
-                            echo '<div class="form-check">';
-                            echo '<input class="form-check-input" type="radio" name="location" value="' . $location['id_location'] . '">';
-                            echo '<label class="form-check-label" for="point-relais-' . $location['id_location'] . '">';
-                            echo $location['name'] . " - " . $location['address'];
-                            echo '</label>';
-                            echo '</div>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-            </div>
+    </div>
 
-            <div class="card card-animate">
-                <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-map-marker-alt mr-2"></i> Carte des lieux</h4>
-                    <div id="map"></div>
-                </div>
+    <div class="col-xl-8">
+        <div class="card card-animate">
+            <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-clipboard-list mr-2"></i> <span data-translation-key="ListeLieux"></span></h4>
+                <ul class="list-group">
+                    <?php
+                    foreach ($locations as $location) {
+                        echo '<li class="list-group-item" data-addr="' . $location['address'] . '">';
+                        echo '<div class="form-check">';
+                        echo '<input class="form-check-input" type="radio" name="location" value="' . $location['id_location'] . '">';
+                        echo '<label class="form-check-label" for="point-relais-' . $location['id_location'] . '">';
+                        echo $location['name'] . " - " . $location['address'];
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                    ?>
+                </ul>
             </div>
+        </div>
 
+        <div class="card card-animate">
+            <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-map-marker-alt mr-2"></i> <span data-translation-key="CarteLieux"></span></h4>
+                <div id="map"></div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
 
 <div class="col-12">
     <div class="card">
@@ -61,11 +55,11 @@ include_once('views/layout/dashboard/path.php');
             <table id="datatables" class="table dt-responsive ici2">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prix</th>
-                        <th>Disponibilité:</th>
-                        <th>Description</th>
-                        <th>Quantité souhaitée</th>
+                        <th data-translation-key="Nom"></th>
+                        <th data-translation-key="Prix"></th>
+                        <th data-translation-key="Disponibilite"></th>
+                        <th data-translation-key="Description"></th>
+                        <th data-translation-key="QuantiteSouhaitee"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +83,7 @@ include_once('views/layout/dashboard/path.php');
     </div>
 </div>
 </form>
+
 
 <script>
     var adresses = [

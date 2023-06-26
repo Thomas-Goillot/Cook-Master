@@ -44,7 +44,7 @@ function updateTranslations(language) {
     var title = button.querySelector(".align-middle");
 
     var translatedTitle = translateText("title", translations);
-    var translatedImageSrc = translateText("image", translations);
+    var translatedImageSrc = translateText("png", translations);
 
     title.innerHTML = translatedTitle;
     image.src = image.src.replace(/[^/]*$/, translatedImageSrc);

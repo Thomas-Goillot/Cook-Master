@@ -6,15 +6,14 @@
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#" class="dropdown-item">Créer une nouvelle récompense </a></li>
+                    <li><a href="#" class="dropdown-item" data-translation-key="create_new_reward"></a></li>
                     <li class="dropdown-divider"></li>
-                    <li><a href="#" class="dropdown-item">Edition</a></li>
+                    <li><a href="#" class="dropdown-item" data-translation-key="edit"></a></li>
                 </ul>
             </div>
-            <h4 class="card-title d-inline-block mb-3"><i class="fas fa-gifts"></i> Récompenses d'abonnement</h4>
+            <h4 class="card-title d-inline-block mb-3"><i class="fas fa-gifts"></i> <span data-translation-key="subscription_rewards"></span></h4>
 
             <div data-simplebar style="max-height: 380px;">
-
                 <?php
                 foreach ($rewards as $reward) {
                     echo "
@@ -31,12 +30,9 @@
                             <p class=\"text-muted font-size-13 mb-0\">" . $reward['description'] . "</p>
                         </div>
 
-                    </a>
-                
-                    ";
+                    </a>";
                 }
                 ?>
-
             </div>
 
         </div>
@@ -56,8 +52,8 @@
                 " . $reward['description'] . "
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect waves-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                <button type="button" class="btn btn-secondary waves-effect waves-light" data-dismiss="modal" data-translation-key="close"></button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" data-translation-key="save_changes"></button>
             </div>
         </div>
     </div>

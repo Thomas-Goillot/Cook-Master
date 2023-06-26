@@ -1,6 +1,4 @@
-<?php
-include_once('views/layout/dashboard/path.php');
-?>
+<?php include_once('views/layout/dashboard/path.php'); ?>
 <div class="col-12">
     <div class="card">
         <div class="card-body">
@@ -9,37 +7,35 @@ include_once('views/layout/dashboard/path.php');
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="../subscription/create" class="dropdown-item">Créer un nouvel abonnement</a></li>
+                    <li><a href="../subscription/create" class="dropdown-item" data-translation-key="Créer un nouvel abonnement"></a></li>
                 </ul>
             </div>
-            <h4 class="card-title">Table des Abonnements</h4>
+            <h4 class="card-title" data-translation-key="Table des Abonnements"></h4>
 
             <table id="datatable" class="table dt-responsive nowrap">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>€/Mois</th>
-                        <th>€/an</th>
-                        <th>Disponible</th>
+                        <th data-translation-key="Nom"></th>
+                        <th data-translation-key="€/Mois"></th>
+                        <th data-translation-key="€/an"></th>
+                        <th data-translation-key="Disponible"></th>
                         <th>
-                            Action :
+                            <span data-translation-key="Action :"></span>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($subscriptionAllInfo as $subscription) {
-                        echo "<tr>
-                            <td>" . $subscription['name'] . "</td>
-                            <td>" . $subscription['price_monthly'] . "</td>
-                            <td>" . $subscription['price_yearly'] . "</td>
-                            <td>" . $this->isActive($subscription['is_active']) . "</td>
+                    <?php foreach ($subscriptionAllInfo as $subscription) { ?>
+                        <tr>
+                            <td><?php echo $subscription['name']; ?></td>
+                            <td><?php echo $subscription['price_monthly']; ?></td>
+                            <td><?php echo $subscription['price_yearly']; ?></td>
+                            <td><?php echo $this->isActive($subscription['is_active']); ?></td>
                             <td>
-                                <a href=\"../subscription/edit/" . $subscription['id_subscription'] . "\" class=\"btn btn-primary btn-sm\">Modifier</a>
-                            </td>";
-                    }
-                    ?>
-
+                                <a href="../subscription/edit/<?php echo $subscription['id_subscription']; ?>" class="btn btn-primary btn-sm" data-translation-key="Modifier"></a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
 

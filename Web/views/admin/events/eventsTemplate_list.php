@@ -1,6 +1,6 @@
 <div class="card card-animate">
     <div class="card-body">
-        <h4 class="card-title">Modèles d'évènements</h4>
+        <h4 class="card-title" data-translation-key="Modèles d'évènements"></h4>
 
         <div id="accordion" class="custom-accordion mb-4">
 
