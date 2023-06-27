@@ -1,5 +1,4 @@
 name: CookMaster
-
 on:
   push:
     branches: [ "PROD" ]
@@ -13,9 +12,10 @@ jobs:
   build:
 
     runs-on: 
-      - CookMaster-Runner1
+      - CookMaster-Runner
 
     steps:
+
       - uses: actions/checkout@v2
 
       - name: Copy Files

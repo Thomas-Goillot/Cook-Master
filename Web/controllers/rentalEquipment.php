@@ -5,7 +5,7 @@ namespace Controllers;
 use App\Controller;
 use App\StripePayment;
 
-class rentalEquipment extends Controller
+class RentalEquipment extends Controller
 {
    
     public function __construct()
