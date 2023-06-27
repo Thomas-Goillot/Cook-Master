@@ -1,193 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/titleInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Vos Informations"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleInformation"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Nom : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textSurname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textName"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Prénom : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSurname"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Adresse : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textAddress"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Ville : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textZipCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCity"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Code Postal : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textZipCode"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Pays : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textSubscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCountry"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Abonnement : "
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
+
+
+
+
+        <TextView
+            android:id="@+id/titleCourses"
+            android:layout_below="@id/textSubscription"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Vos Cours à venir"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_below="@id/titleCourses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/black">
-
-
-                <ImageView
-                    android:id="@+id/imageViewBackground1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@drawable/bg"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg"
-                    />
-
-
-                <TextView
-                    android:id="@+id/titleInformation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Vos Informations"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-
-
-
-
-
-                <TextView
-                    android:id="@+id/textName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/titleInformation"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Nom : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    />
-
-                <TextView
-                    android:id="@+id/textSurname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textName"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Prénom : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textSurname"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Email : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textMailVerified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textEmail"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Mail validé : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textMailVerified"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Téléphone : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textPhone"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Adresse : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textAddress"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Ville : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textZipCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textCity"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Code Postal : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textCountry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textZipCode"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Pays : "
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textSubscription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textCountry"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Abonnement : "
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-            </RelativeLayout>
-
-
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <ImageView
-                    android:id="@+id/imageViewBackground2"
-                    android:layout_width="match_parent"
-                    android:layout_height=""
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bgStrawberry" />
-                <TextView
-                    android:id="@+id/titleCourses"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:text="Vos Cours à venir"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>
