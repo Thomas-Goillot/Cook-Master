@@ -24,13 +24,13 @@ include_once('views/layout/dashboard/path.php');
                         <table id="datatables" class="table dt-responsive ici2">
                             <thead>
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Date de création</th>
-                                    <th>Prix location</th>
-                                    <th>Prix à l'achat</th>
-                                    <th>Stock</th>
-                                    <th>Disponibilité:</th>
-                                    <th>Modifier / supprimer</th>
+                                    <th data-translation-key="Nom"></th>
+                                    <th data-translation-key="Date de création"></th>
+                                    <th data-translation-key="Prix location"></th>
+                                    <th data-translation-key="Prix l'achat"></th>
+                                    <th data-translation-key="Stock"></th>
+                                    <th data-translation-key="Disponibilité">:</th>
+                                    <th data-translation-key="Modifier / supprimer"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,12 +41,12 @@ include_once('views/layout/dashboard/path.php');
                                             <td>" . $allProduct['creation_date'] . "</td>";
 
                                     if ($allProduct['price_rental'] == 0) {
-                                        echo "<td> Non disponible à la location</td>";
+                                        echo "<td data-translation-key=\"Non disponible à la location\"></td>";
                                     } else {
                                         echo "<td>" . $allProduct['price_rental'] . "€</td>";
                                     }
                                     if ($allProduct['price_purchase'] == 0) {
-                                        echo "<td> Non disponible à la vente</td>";
+                                        echo "<td data-translation-key=\"Non disponible à la vente\"></td>";
                                     } else {
                                         echo "<td>" . $allProduct['price_purchase'] . "€</td>";
                                     }
@@ -56,25 +56,25 @@ include_once('views/layout/dashboard/path.php');
                                             
                                             <td>";
                                     if ($allProduct['allow_rental'] == 0) {
-                                        echo '<div class="stretch"><span class="mx">Location: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                        echo '<div class="stretch"><span class="mx" data-translation-key="Location">: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                     } else {
-                                        echo '<div class="stretch"><span class="mx">Location: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        echo '<div class="stretch"><span class="mx" data-translation-key="Location">: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                     }
                                     if ($allProduct['allow_purchase'] == 0) {
-                                        echo '<span class="mx">Vente: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
+                                        echo '<span class="mx" data-translation-key="Ventes">: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span>';
                                     } else {
-                                        echo '<span class="mx">Vente: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        echo '<span class="mx" data-translation-key="Ventes"><i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                     }
                                     if ($allProduct['allow_event'] == 0) {
-                                        echo '<span class="mx">Évenement: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span></div>';
+                                        echo '<span class="mx" data-translation-key="Évenement">: <i class="text-success fas fa-check" id="subscriptionOption_pricing2"></i></span></div>';
                                     } else {
-                                        echo '<span class="mx">Évenement: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
+                                        echo '<span class="mx" data-translation-key="Évenement">: <i class="text-danger fas fa-times" id="subscriptionOption_pricing4"></i></span>';
                                     }
                                     echo "
                                     </td>
 
                                     <td>                  
-                                    <a href='" . $path_prefix . "admin/editProductDisplay/" . $allProduct['id_equipment'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Modifier</button></a>
+                                    <a href='" . $path_prefix . "admin/editProductDisplay/" . $allProduct['id_equipment'] . "'><button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-translation-key=\"Modifier\"></button></a>
                                     </td>
                                     </tr>";
                                 }

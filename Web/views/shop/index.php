@@ -6,6 +6,8 @@ include_once('views/layout/dashboard/path.php');
 ?>
 
 
+
+
 <div class="row">
     <?php
 
@@ -57,11 +59,11 @@ include_once('views/layout/dashboard/path.php');
                         <h5 class='mb-3'>Quantité souhaitée :</h5>
                         <input type='hidden' name='idProduct' value='" . $allProduct['id_equipment'] . "'>
                         <div class='input-group'>
-                            <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='numberOfProduct' min='0' required='' class='form-control'>
+                            <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='numberOfProduct' min='0' required='' class='form-control no-spinners'>
                         </div>
                         <div class='mt-3'>
-                            <button type='button' class='btn btn-secondary mr-2' data-dismiss='modal'>Annuler</button>
-                            <button type='submit' class='btn btn-primary'>Ajouter</button>
+                            <button type='button' class='btn btn-secondary mr-2' data-dismiss='modal' data-translation-key=\"Annuler\"></button>
+                            <button type='submit' class='btn btn-primary' data-translation-key=\"Ajouter\"></button>
                         </div>
                     </form>
                 </div>

@@ -20,7 +20,7 @@
                     <input type="text" class="form-control" name="zip_code" data-toggle="input-mask" required="" value="<?= isset($user['zip_code']) ? $user['zip_code'] : "" ?>">
                 </div>
                 <div class="mb-3 text-center">
-                    <button class="btn btn-primary btn-block" type="submit"> Modifier mes informations </button>
+                    <button class="btn btn-primary btn-block" type="submit" data-translation-key="Modifier"></button>
                 </div>
             </form>
         </div>

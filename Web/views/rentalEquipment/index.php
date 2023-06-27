@@ -57,8 +57,8 @@ include_once('views/layout/dashboard/path.php');
                                 <input type='number' data-toggle='touchspin' data-step='1' data-decimals='0' name='numberOfProduct' min='0' required='' class='form-control'>
                             </div>
                             <div class='mt-3'>
-                                <button type='button' class='btn btn-secondary mr-2' data-dismiss='modal'>Annuler</button>
-                                <button type='submit' class='btn btn-primary'>Ajouter</button>
+                                <button type='button' class='btn btn-secondary mr-2' data-dismiss='modal' data-translation-key=\"Annuler\"></button>
+                                <button type='submit' class='btn btn-primary' data-translation-key=\"Ajouter\"></button>
                             </div>
                         </form>
                     </div>

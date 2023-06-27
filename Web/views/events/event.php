@@ -124,9 +124,7 @@ echo '
           </div>
 
           <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal">
-              Ajouter mon avis
-            </button>
+            <button type="submit" class="btn btn-primary btn-rounded small" data-toggle="modal" data-translation-key="Ajouter"></button>
           </div>
 
         </form>

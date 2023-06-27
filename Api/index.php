@@ -16,15 +16,18 @@ $validAccessToken = 'test';
 
 $authMiddleware = function () use ($validAccessToken) {
     $headers = getallheaders();
-    if (isset($headers['Authorization']) && $headers['Authorization'] === 'Bearer ' . $validAccessToken) {
+    return true;
+/*     if (isset($headers['Authorization']) && $headers['Authorization'] === 'Bearer ' . $validAccessToken) {
         return true;
     } else {
         JsonResponse::error('Unauthorized', 401);
         return false;
-    }
+    } */
 };
 
 // Ajoutez des routes en utilisant les méthodes du contrôleur d'utilisateurs
+$router->addRoute('GET', '/login/{email}/{password}', [$userController, 'login'], $authMiddleware);
+
 $router->addRoute('GET', '/users/{id}', [$userController, 'getUser'], $authMiddleware);
 $router->addRoute('GET', '/users', [$userController, 'getUsers'], $authMiddleware);
 $router->addRoute('POST', '/users', [$userController, 'createUser'], $authMiddleware);

@@ -16,7 +16,7 @@
                     <input class="form-control" type="password" required="" id="password" name="password_confirm" placeholder="Mot de passe" autocomplete="new-password">
                 </div>
                 <div class="mb-3 text-center">
-                    <button class="btn btn-primary btn-block" type="submit"> Modifier mes informations </button>
+                    <button class="btn btn-primary btn-block" type="submit" data-translation-key="Modifier"></button>
                 </div>
             </form>
         </div>

@@ -6,11 +6,11 @@ include_once('views/layout/dashboard/path.php');
     <div class="col-xl-4">
         <div class="card card-animate">
             <div class="card-body">
-                <form action="<?= $path_prefix ?>WorkshopAdmin/editWorkshop/<?php echo $allWorkshop['id_workshop'];?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= $path_prefix ?>WorkshopAdmin/editWorkshop/<?php echo $allWorkshop['id_workshop']; ?>" method="POST" enctype="multipart/form-data">
                     <?php include_once("views/admin/workshop/form.php"); ?>
                     <div class="d-flex justify-content-center">
                         <div class="col-xl-4">
-                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small">Ajouter</button>
+                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small" data-translation-key="Ajouter"></button>
                         </div>
                     </div>
             </div>
@@ -29,7 +29,7 @@ include_once('views/layout/dashboard/path.php');
                             $checked = $location['id_location'] == $allWorkshop['id_location'] ? 'checked' : '';
                             echo '<li class="list-group-item" data-addr="' . $location['address'] . '" >';
                             echo '<div class="form-check">';
-                            echo '<input class="form-check-input" type="radio" name="location" value="' . $location['id_location'] . ' " '.$checked.'>'; 
+                            echo '<input class="form-check-input" type="radio" name="location" value="' . $location['id_location'] . ' " ' . $checked . '>';
                             echo '<label class="form-check-label" for="point-relais-' . $location['id_location'] . '"  >';
                             echo $location['name'] . " - " . $location['address'];
                             echo '</label>';
@@ -46,7 +46,7 @@ include_once('views/layout/dashboard/path.php');
                     <div id="map"></div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -69,7 +69,7 @@ include_once('views/layout/dashboard/path.php');
                 </thead>
                 <tbody>
                     <?php
-                        
+
                     foreach ($allProduct as $allProduct) {
                         if ($allProduct['allow_rental'] == 0) {
                             echo "<tr>";
@@ -77,7 +77,7 @@ include_once('views/layout/dashboard/path.php');
                             echo "<td>" . $allProduct['price_rental'] . "€</td>";
                             echo "<td>" . $allProduct['stock'] . "</td>";
                             echo "<td><span class='description'>" . substr($allProduct['description'], 0, 40) . "... </span><a href='#' class='read-more'>[...] </a><span class='full-description' style='display: none;'>" . $allProduct['description'] . "</span></td>";
-                            echo "<td><input type='number' name='nb_stock[]' max='" . $allProduct['stock'] . "' value='".$stockEquipment[$allProduct['id_equipment']]."' data-step='1' min='0' class='form-control' data-color='#df3554'></td>";
+                            echo "<td><input type='number' name='nb_stock[]' max='" . $allProduct['stock'] . "' value='" . $stockEquipment[$allProduct['id_equipment']] . "' data-step='1' min='0' class='form-control' data-color='#df3554'></td>";
                             echo "<td><input type='hidden' name='id_equipment[]' value='" . $allProduct['id_equipment'] . "'></td>";
                             echo "</tr>";
                         }
@@ -91,28 +91,28 @@ include_once('views/layout/dashboard/path.php');
 </form>
 
 
-<button type='button' class='btn b btn-primary btn-rounded' data-toggle='modal' data-target='#workshop'>Suprimmer </button>
+<button type='button' class='btn b btn-primary btn-rounded' data-toggle='modal' data-target='#workshop' data-translation-key="Suprimmer"></button>
 
 <div class='modal' id='workshop' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-        <div class='modal-dialog' role='document'>
-            <div class='modal-content'>
+    <div class='modal-dialog' role='document'>
+        <div class='modal-content'>
 
 
-                <div class='modal-header d-flex flex-column align-items-center text-center'>
+            <div class='modal-header d-flex flex-column align-items-center text-center'>
 
-                    <h1 class='delete'>Attention, toute supression est définitive.</h1>
-                    <h4>Voulez vous vraiment supprimer l'atelier <?php echo $allWorkshop['name'] ?> ?</h4>
-                </div>
+                <h1 class='delete'>Attention, toute supression est définitive.</h1>
+                <h4>Voulez vous vraiment supprimer l'atelier <?php echo $allWorkshop['name'] ?> ?</h4>
+            </div>
 
-                <div class='modal-footer d-flex flex-column'>
-                    <form action='<?= $path_prefix ?>WorkshopAdmin/deleteWorkshop/<?php echo $allWorkshop['id_workshop'];?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
-                        <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small'>Confirmer</button>
-                        <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal'>Annuler</button>
-                    </form>
-                </div>
+            <div class='modal-footer d-flex flex-column'>
+                <form action='<?= $path_prefix ?>WorkshopAdmin/deleteWorkshop/<?php echo $allWorkshop['id_workshop']; ?>' command method='POST' enctype='multipart/form-data' class='d-flex flex-column align-items-center'>
+                    <button type='submit' class='btn btn-primary mt-4 mb-2 btn-rounded small' data-translation-key="Confirmer"></button>
+                    <button type='button' class='btn btn-secondary mt-4 mb-2 btn-rounded small' data-dismiss='modal' data-translation-key="Annuler"></button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 <script>
     var adresses = [

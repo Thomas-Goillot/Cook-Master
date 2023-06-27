@@ -328,7 +328,8 @@ class Events extends Controller
             $this->redirect("../../../personnalEvents");
         }
         else{
-            echo "Erreur";
+            $this->setError("Erreur de sécurité lors du paiement", "Pour des raisons de sécurité, nous avons annulé votre achat", ERROR_ALERT);
+            $this->redirect("../shop/index.php");
         }
 
     }
