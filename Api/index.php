@@ -16,12 +16,13 @@ $validAccessToken = 'test';
 
 $authMiddleware = function () use ($validAccessToken) {
     $headers = getallheaders();
-    if (isset($headers['Authorization']) && $headers['Authorization'] === 'Bearer ' . $validAccessToken) {
+    return true;
+/*     if (isset($headers['Authorization']) && $headers['Authorization'] === 'Bearer ' . $validAccessToken) {
         return true;
     } else {
         JsonResponse::error('Unauthorized', 401);
         return false;
-    }
+    } */
 };
 
 // Ajoutez des routes en utilisant les méthodes du contrôleur d'utilisateurs
