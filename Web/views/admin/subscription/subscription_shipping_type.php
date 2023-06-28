@@ -6,12 +6,12 @@
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="#" class="dropdown-item">Créer un nouveau mode de livraison </a></li>
+                    <li><a href="#" class="dropdown-item" data-translation-key="Créer un nouveau mode de livraison"> </a></li>
                     <li class="dropdown-divider"></li>
-                    <li><a href="#" class="dropdown-item">Edition</a></li>
+                    <li><a href="#" class="dropdown-item" data-translation-key="Edition"></a></li>
                 </ul>
             </div>
-            <h4 class="card-title d-inline-block mb-3"><i class="fas fa-gifts"></i> Mode de livraison</h4>
+            <h4 class="card-title d-inline-block mb-3" data-translation-key="Mode de livraison"><i class="fas fa-gifts"></i> </h4>
 
             <div data-simplebar style="max-height: 380px;">
 

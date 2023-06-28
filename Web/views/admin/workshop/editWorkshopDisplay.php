@@ -15,14 +15,14 @@ include_once('views/layout/dashboard/path.php');
                     </div>
             </div>
             <div class="d-flex justify-content-center align-items-center">
-                <h4>N'oublie pas de réserver les matériaux nécessaires</h4>
+                <h4 data-translation-key="N'oublie pas de réserver les matériaux nécessaires"></h4>
             </div>
 
         </div>
         <div class="col-xl-8">
             <div class="card card-animate">
                 <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-clipboard-list mr-2"></i> Liste des lieux</h4>
+                    <h4 class="card-title" data-translation-key="Liste des lieux"><i class="fas fa-clipboard-list mr-2"></i> </h4>
                     <ul class="list-group">
                         <?php
                         foreach ($locations as $location) {
@@ -42,7 +42,7 @@ include_once('views/layout/dashboard/path.php');
 
             <div class="card card-animate">
                 <div class="card-body">
-                    <h4 class="card-title"><i class="fas fa-map-marker-alt mr-2"></i> Carte des lieux</h4>
+                    <h4 class="card-title" data-translation-key="Carte des lieux"><i class="fas fa-map-marker-alt mr-2"></i> </h4>
                     <div id="map"></div>
                 </div>
             </div>
@@ -60,11 +60,11 @@ include_once('views/layout/dashboard/path.php');
             <table id="datatables" class="table dt-responsive ici2">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prix</th>
-                        <th>Disponibilité:</th>
-                        <th>Description</th>
-                        <th>Quantité souhaitée</th>
+                        <th data-translation-key="Nom"></th>
+                        <th data-translation-key="Prix"></th>
+                        <th data-translation-key="Disponibilité">:</th>
+                        <th data-translation-key="Description"></th>
+                        <th data-translation-key="Quantité souhaitée"></th>
                     </tr>
                 </thead>
                 <tbody>
