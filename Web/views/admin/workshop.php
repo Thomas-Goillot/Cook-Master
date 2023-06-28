@@ -8,11 +8,6 @@ include_once('views/layout/dashboard/path.php');
             <div class="card-body">
                 <form action="<?= $path_prefix ?>WorkshopAdmin/addWorkshop" method="POST" enctype="multipart/form-data">
                     <?php include_once("views/admin/workshop/form.php"); ?>
-                    <div class="d-flex justify-content-center">
-                        <div class="col-xl-4">
-                            <button type="submit" class="btn b btn-primary btn-block btn-rounded small" data-translation-key="Ajouter"></button>
-                        </div>
-                    </div>
             </div>
             <div class="d-flex justify-content-center align-items-center">
                 <h4 data-translation-key="ReserverMateriaux"></h4>
@@ -48,42 +43,49 @@ include_once('views/layout/dashboard/path.php');
         </div>
     </div>
 </div>
+<div class="row">
 
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <table id="datatables" class="table dt-responsive ici2">
-                <thead>
-                    <tr>
-                        <th data-translation-key="Nom"></th>
-                        <th data-translation-key="Prix"></th>
-                        <th data-translation-key="Disponibilite"></th>
-                        <th data-translation-key="Description"></th>
-                        <th data-translation-key="QuantiteSouhaitee"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($allProduct as $allProduct) {
-                        if ($allProduct['allow_rental'] == 0) {
-                            echo "<tr>";
-                            echo "<td>" . $allProduct['name'] . "</td>";
-                            echo "<td>" . $allProduct['price_rental'] . "€</td>";
-                            echo "<td>" . $allProduct['stock'] . "</td>";
-                            echo "<td><span class='description'>" . substr($allProduct['description'], 0, 40) . "... </span><a href='#' class='read-more'>[...] </a><span class='full-description' style='display: none;'>" . $allProduct['description'] . "</span></td>";
-                            echo "<td><input type='number' name='nb_stock[]' max='" . $allProduct['stock'] . "' data-step='1' value='0' min='0' class='form-control' data-color='#df3554'></td>";
-                            echo "<td><input type='hidden' name='id_equipment[]' value='" . $allProduct['id_equipment'] . "'></td>";
-                            echo "</tr>";
-                        }
-                    };
-                    ?>
-                </tbody>
-            </table>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="datatables" class="table dt-responsive ici2">
+                    <thead>
+                        <tr>
+                            <th data-translation-key="Nom"></th>
+                            <th data-translation-key="Prix"></th>
+                            <th data-translation-key="Disponibilite"></th>
+                            <th data-translation-key="Description"></th>
+                            <th data-translation-key="QuantiteSouhaitee"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($allProduct as $allProduct) {
+                            if ($allProduct['allow_rental'] == 0) {
+                                echo "<tr>";
+                                echo "<td>" . $allProduct['name'] . "</td>";
+                                echo "<td>" . $allProduct['price_rental'] . "€</td>";
+                                echo "<td>" . $allProduct['stock'] . "</td>";
+                                echo "<td><span class='description'>" . substr($allProduct['description'], 0, 40) . "... </span><a href='#' class='read-more'>[...] </a><span class='full-description' style='display: none;'>" . $allProduct['description'] . "</span></td>";
+                                echo "<td><input type='number' name='nb_stock[]' max='" . $allProduct['stock'] . "' data-step='1' value='0' min='0' class='form-control' data-color='#df3554'></td>";
+                                echo "<td><input type='hidden' name='id_equipment[]' value='" . $allProduct['id_equipment'] . "'></td>";
+                                echo "</tr>";
+                            }
+                        };
+                        ?>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                    <div class="col-xl-4">
+                        <button type="submit" class="btn b btn-primary btn-block btn-rounded small" data-translation-key="Ajouter"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</form>
+    </form>
 
+</div>
 
 <script>
     var adresses = [

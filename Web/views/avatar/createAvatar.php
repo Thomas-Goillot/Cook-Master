@@ -7,7 +7,7 @@ include_once('views/layout/dashboard/path.php');
         <div class="card">
             <div class="card-body">
                 <div class="card-title d-flex justify-content-between align-items-center">
-                    <h4 class="card-title m-0 p-0">Aperçu de votre avatar</h4>
+                    <h4 class="card-title m-0 p-0" data-translation-key="Aperçu de votre avatar"></h4>
                 </div>
 
                 <div id="avatar_preview" class="w-100" style="min-height: 60vh;">
@@ -21,26 +21,26 @@ include_once('views/layout/dashboard/path.php');
             <div class="card-body">
 
                 <div class="card-title d-flex justify-content-between align-items-center">
-                    <h4 class="card-title m-0 p-0">Création d'un avatar</h4>
-                    <button type="button" class="btn btn-warning" onclick="random_avatar()">Aléatoire</button>
-                    <button type="button" class="btn btn-primary" onclick="save_avatar()">Enregistrer</button>
+                    <h4 class="card-title m-0 p-0" data-translation-key="Création d'un avatar"></h4>
+                    <button type="button" class="btn btn-warning" onclick="random_avatar()" data-translation-key="Aléatoire"></button>
+                    <button type="button" class="btn btn-primary" onclick="save_avatar()" data-translation-key="Enregistrer"></button>
                 </div>
 
                 <ul class="nav nav-tabs justify-content-center align-content-center">
                     <li class="nav-item">
-                        <a class="nav-link nav-list active text-dark" onclick="avatar_items_list(this,'head_list')">Cheveux</a>
+                        <a class="nav-link nav-list active text-dark" onclick="avatar_items_list(this,'head_list')" data-translation-key="Cheveux"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'eyes_list')">Yeux</a>
+                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'eyes_list')" data-translation-key="Yeux"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'nose_list')">Nez</a>
+                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'nose_list')" data-translation-key="Nez"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'mouth_list')">Bouche</a>
+                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'mouth_list')" data-translation-key="Bouche"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'brows_list')">Sourcils</a>
+                        <a class="nav-link nav-list text-dark" onclick="avatar_items_list(this,'brows_list')" data-translation-key="Sourcils"></a>
                     </li>
                 </ul>
                 <div class="row container-fluid pt-5 items show" id="head_list">

@@ -61,13 +61,13 @@ include_once('views/layout/dashboard/path.php');
                             </div>
                             <div class="w-100">
                                 <div class="d-flex justify-content-between">
-                                    <h6 class="mb-1">Commencer une nouvelle conversation</h6>
+                                    <h6 class="mb-1" data-translation-key="Commencer une nouvelle conversation"></h6>
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex flex-column justify-content-center align-items-center h-100 ">
-                            <p class="text-muted">Vous n'êtes pas encore dans une conversation</p>
+                            <p class="text-muted" data-translation-key="Vous n'êtes pas encore dans une conversation"></p>
                             <!-- <button class="btn btn-primary"><i class="bx bx-plus"></i> Conversation</button> -->
                         </div>
 

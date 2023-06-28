@@ -19,7 +19,7 @@
     <div class="w-100">
         <div class="d-flex justify-content-between">
             <input type="text" class="form-control" id="message" placeholder="Votre message">
-            <button type="button" class="btn btn-primary" id="sendMessage">Envoyer</button>
+            <button type="button" class="btn btn-primary" id="sendMessage" data-translation-key="Envoyer"></button>
         </div>
     </div>
 </div>
