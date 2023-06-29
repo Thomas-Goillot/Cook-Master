@@ -20,6 +20,9 @@ import org.json.JSONObject;
 
 public class user extends AppCompatActivity {
 
+    private static final String EMAIL = "votre_emai";
+    private static final String MOT_DE_PASSE = "votre_mot_de_passe";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +40,23 @@ public class user extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         try {
                             if (response.length() > 0) {
-                                JSONObject user = response.getJSONObject(0);
-                                String username = user.getString("username");
+                                // Parcourir les utilisateurs de la réponse
+                                for (int i = 0; i < response.length(); i++) {
+                                    JSONObject user = response.getJSONObject(i);
+                                    String username = user.getString("username");
+                                    String email = user.getString("email");
+                                    String password = user.getString("password");
 
+                                    // Comparer l'email et le mot de passe avec les valeurs prédéfinies
+                                    if (email.equals(EMAIL) && password.equals(MOT_DE_PASSE)) {
+                                        // Les identifiants sont valides
+                                        textViewResult.setText("Bienvenue, " + username);
+                                        return;
+                                    }
+                                }
 
+                                // Aucun utilisateur correspondant n'a été trouvé
+                                Toast.makeText(user.this, "Identifiants invalides", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(user.this, "Erreur", Toast.LENGTH_SHORT).show();
                             }
