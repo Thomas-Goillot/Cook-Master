@@ -12,7 +12,7 @@ class UserRoutes
     private function hashPassword(string $password): string
     {
 
-        for ($i = 0; $i < PASSWORD_COST; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $password = hash('sha256', $password . PASSWORD_SALT);
         }
 
@@ -32,8 +32,8 @@ class UserRoutes
         }
 
         //check that the password is valid
-        if (strlen($password) < MIN_PASSWORD) {
-            JsonResponse::error('Le mot de passe doit contenir au moins '. MIN_PASSWORD .' caractères', 400);
+        if (strlen($password) < 8) {
+            JsonResponse::error('Le mot de passe doit contenir au moins '. 8 .' caractères', 400);
         }
 
         $password = $this->hashPassword($password);
