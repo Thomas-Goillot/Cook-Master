@@ -8,6 +8,49 @@ use Model\UserRepository;
 
 class UserRoutes
 {
+
+    private function hashPassword(string $password): string
+    {
+
+        for ($i = 0; $i < PASSWORD_COST; $i++) {
+            $password = hash('sha256', $password . PASSWORD_SALT);
+        }
+
+        return $password;
+    }
+
+    public function login($email, $password){
+
+        //check if email and password are not empty and set
+        if (!isset($email) || empty($email) || !isset($password) || empty($password)) {
+            JsonResponse::error('L\'email et le mot de passe sont requis', 400);
+        }
+
+        //check that the email is valid
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            JsonResponse::error('L\'email n\'est pas valide', 400);
+        }
+
+        //check that the password is valid
+        if (strlen($password) < MIN_PASSWORD) {
+            JsonResponse::error('Le mot de passe doit contenir au moins '. MIN_PASSWORD .' caractères', 400);
+        }
+
+        $password = $this->hashPassword($password);
+
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserByEmailAndPassword($email, $password);
+
+        if (!$user) {
+            JsonResponse::error('Identifiant incorect', 404);
+        }
+
+        JsonResponse::success($user['id_users']);
+        
+    }
+
+
     public function getUsers()
     {
         $userRepository = new UserRepository();

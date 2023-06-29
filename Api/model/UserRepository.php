@@ -32,5 +32,11 @@ class UserRepository extends Database
         $this->executeQuery($query, [$name, $email]);
     }
 
-    // Autres méthodes pour mettre à jour, supprimer, etc.
+    public function getUserByEmailAndPassword($email, $password)
+    {
+        $query = "SELECT * FROM users WHERE email = ? AND password = ?";
+        $stmt = $this->executeQuery($query, [$email, $password]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
