@@ -27,7 +27,7 @@ $authMiddleware = function () use ($validAccessToken) {
 };
 
 // Ajoutez des routes en utilisant les méthodes du contrôleur d'utilisateurs
-$router->addRoute('GET', '/login/{email}/{password}', [$userController, 'login'], $authMiddleware);
+$router->addRoute('POST', '/login', [$userController, 'login'], $authMiddleware);
 
 $router->addRoute('GET', '/users/{id}', [$userController, 'getUser'], $authMiddleware);
 $router->addRoute('GET', '/users', [$userController, 'getUsers'], $authMiddleware);

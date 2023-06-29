@@ -13,13 +13,18 @@ class UserRoutes
     {
 
         for ($i = 0; $i < 12; $i++) {
-            $password = hash('sha256', $password . PASSWORD_SALT);
+            $password = hash('sha256', $password . 12);
         }
 
         return $password;
     }
 
-    public function login($email, $password){
+    public function login(){
+
+        $requestData = JsonRequest::getRequestBody();
+
+        $email = $requestData['email'];
+        $password = $requestData['password'];
 
         //check if email and password are not empty and set
         if (!isset($email) || empty($email) || !isset($password) || empty($password)) {
