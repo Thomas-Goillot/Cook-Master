@@ -26,10 +26,28 @@ class UserRepository extends Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function createUser($name, $email)
+    public function getUserByEmail($email)
     {
-        $query = "INSERT INTO users (name, email) VALUES (?, ?)";
-        $this->executeQuery($query, [$name, $email]);
+        $query = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->executeQuery($query, [$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    public function createUser($name, $surname, $email, $phone, $password)
+    {
+        $query = "INSERT INTO users (name, surname, email, phone, password) VALUES (?, ?, ?, ?, ?)";
+        $val = $this->executeQuery($query, [$name, $surname, $email, $phone, $password]);
+
+        $query = "INSERT INTO subscribe_to (id_users,id_subscription) VALUES (LAST_INSERT_ID(),1)";
+
+        $val2 = $this->executeQuery($query);
+
+        if ($val && $val2) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getUserByEmailAndPassword($email, $password)

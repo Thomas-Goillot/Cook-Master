@@ -123,7 +123,7 @@ class User extends Model
 
         $stmt = $this->_connexion->prepare($query);
 
-        $stmt->bindParam(":name", $name);
+        $stmt ->bindParam(":name", $name);
         $stmt->bindParam(":surname", $surname);
         $stmt->bindParam(":email", $email);
         $stmt->bindParam(":phone", $phone);
