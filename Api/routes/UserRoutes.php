@@ -12,8 +12,8 @@ class UserRoutes
     private function hashPassword(string $password): string
     {
 
-        for ($i = 0; $i < PASSWORD_COST; $i++) {
-            $password = hash('sha256', $password . PASSWORD_SALT);
+        for ($i = 0; $i < 12; $i++) {
+            $password = hash('sha256', $password . 'cookmaster');
         }
 
         return $password;
@@ -21,24 +21,27 @@ class UserRoutes
 
     public function login($email, $password){
 
-        //check if email and password are not empty and set
+        $requestData = JsonRequest::getRequestBody();
+
+        $email = $requestData['email'] ?? null;
+        $password = $requestData['password'] ?? null;
+
         if (!isset($email) || empty($email) || !isset($password) || empty($password)) {
             JsonResponse::error('L\'email et le mot de passe sont requis', 400);
         }
 
-        //check that the email is valid
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             JsonResponse::error('L\'email n\'est pas valide', 400);
         }
 
-        //check that the password is valid
-        if (strlen($password) < MIN_PASSWORD) {
-            JsonResponse::error('Le mot de passe doit contenir au moins '. MIN_PASSWORD .' caractères', 400);
+        if (strlen($password) < 8) {
+            JsonResponse::error('Le mot de passe doit contenir au moins '. 8 .' caractères', 400);
         }
 
         $password = $this->hashPassword($password);
 
         $userRepository = new UserRepository();
+
 
         $user = $userRepository->getUserByEmailAndPassword($email, $password);
 
@@ -49,7 +52,6 @@ class UserRoutes
         JsonResponse::success($user['id_users']);
         
     }
-
 
     public function getUsers()
     {

@@ -37,8 +37,7 @@ class Router
             $handler = $matchedRoute['handler'];
             $handler(...$routeParams);
         } else {
-            http_response_code(404);
-            echo "Route non trouvée";
+            JsonResponse::error('Not found', 404);
         }
     }
 
