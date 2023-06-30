@@ -27,6 +27,8 @@ public class inscription extends AppCompatActivity {
 
     private Button inscriptionButton;
 
+    private Button buttonConnexion;
+
     private EditText name, surname, email, password, phone;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class inscription extends AppCompatActivity {
 
 
         inscriptionButton = findViewById(R.id.inscriptionButton);
+        buttonConnexion = findViewById(R.id.buttonConnexion);
         name = findViewById(R.id.editTextName);
         surname = findViewById(R.id.editTextSurname);
         email = findViewById(R.id.editTextMail);
@@ -52,6 +55,15 @@ public class inscription extends AppCompatActivity {
                 String enteredPhone = phone.getText().toString();
 
                 register(enteredName, enteredSurname, enteredEmail, enteredPassword, enteredPhone);
+            }
+        });
+
+        buttonConnexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(inscription.this, MainActivity.class);
+                startActivity(intent);
             }
         });
             }
