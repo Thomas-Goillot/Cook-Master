@@ -23,22 +23,39 @@ import org.json.JSONObject;
 public class user extends AppCompatActivity {
 
     private TextView userIdTextView;
+    private TextView textName;
+    private TextView textSurname;
+    private TextView textAddress;
+    private TextView textCity;
+    private TextView textZip;
+    private TextView textCountry;
+    private TextView textPhone;
+    private TextView textSubscription;
+    private TextView textCreateAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user);
 
-        userIdTextView = findViewById(R.id.id);
-
         // Récupérer l'ID de l'utilisateur passé en extra
         int userId = getIntent().getIntExtra("userId", 0);
 
-        // Afficher l'ID de l'utilisateur dans le TextView
-        userIdTextView.setText("ID utilisateur : " + userId);
-
-        // Appeler la méthode pour récupérer les informations de l'utilisateur
+        // Appel de la fonction pour récupérer les informations de l'utilisateur
         userinfo(userId);
+
+        userIdTextView = findViewById(R.id.id);
+        textName = findViewById(R.id.textName);
+        textSurname = findViewById(R.id.textSurname);
+        textAddress = findViewById(R.id.textAddress);
+        textCity = findViewById(R.id.textCity);
+        textZip = findViewById(R.id.textZip);
+        textCountry = findViewById(R.id.textCountry);
+        textPhone = findViewById(R.id.textPhone);
+        textSubscription = findViewById(R.id.textSubscription);
+        textCreateAccount = findViewById(R.id.textCreateAccount);
+
+
     }
 
     private void userinfo(int userId) {
@@ -52,18 +69,30 @@ public class user extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             // Extraire les informations de l'utilisateur de la réponse JSON
-                            String name = response.getString("name");
-                            String surname = response.getString("surname");
-                            String address = response.getString("address");
-                            String city = response.getString("city");
-                            String country = response.getString("country");
-                            String phone = response.getString("phone");
-                            String zip_code = response.getString("zip_code");
-                            String creation_date = response.getString("creation_date");
+                            String name = response.optString("name");
+                            String surname = response.optString("surname");
+                            String address = response.optString("address");
+                            String city = response.optString("city");
+                            String zip_code = response.optString("zip_code");
+                            String country = response.optString("country");
+                            String phone = response.optString("phone");
+                            String sub = response.optString("id_access");
+                            String creation_date = response.optString("creation_date");
 
 
 
-                        } catch (JSONException e) {
+                            // Afficher les informations de l'utilisateur dans les TextView correspondants
+                            textName.setText("Nom : " + name);
+                            textSurname.setText("Prénom : " + surname);
+                            textAddress.setText("Adresse : " + address);
+                            textCity.setText("Ville : " + city);
+                            textZip.setText("Code postal : " + zip_code);
+                            textCountry.setText("Pays : " + country);
+                            textPhone.setText("Téléphone : " + phone);
+                            textSubscription.setText("Abonnement : " + sub);
+                            textCreateAccount.setText("Date de création : " + creation_date);
+
+                        } catch (Throwable  e) {
                             e.printStackTrace();
                             Toast.makeText(user.this, "Erreur inattendue", Toast.LENGTH_SHORT).show();
                         }

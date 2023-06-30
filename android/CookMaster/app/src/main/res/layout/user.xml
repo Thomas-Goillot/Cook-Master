@@ -22,7 +22,6 @@
         android:layout_below="@id/titleInformation"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:text="Nom : "
         android:textSize="14sp"
         android:textColor="@color/white" />
 
@@ -33,7 +32,6 @@
         android:layout_below="@id/textName"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Prénom : "
         android:textSize="14sp"
         android:textColor="@color/white" />
 
@@ -44,7 +42,6 @@
         android:layout_below="@id/textSurname"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Adresse : "
         android:textSize="14sp"
         android:textColor="@color/white" />
 
@@ -55,18 +52,16 @@
         android:layout_below="@id/textAddress"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Ville : "
         android:textSize="14sp"
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/textZipCode"
+        android:id="@+id/textZip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textCity"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Code Postal : "
         android:textSize="14sp"
         android:textColor="@color/white" />
 
@@ -74,10 +69,19 @@
         android:id="@+id/textCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textZipCode"
+        android:layout_below="@id/textZip"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Pays : "
+        android:textSize="14sp"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/textPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCountry"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:textSize="14sp"
         android:textColor="@color/white" />
 
@@ -85,37 +89,44 @@
         android:id="@+id/textSubscription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textCountry"
+        android:layout_below="@id/textPhone"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:text="Abonnement : "
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/white" />
 
+    <TextView
+        android:id="@+id/textCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSubscription"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
 
+    <TextView
+        android:id="@+id/titleCourses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCreateAccount"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Vos Cours à venir"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white" />
 
-
-        <TextView
-            android:id="@+id/titleCourses"
-            android:layout_below="@id/textSubscription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Vos Cours à venir"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-
-
-        <TextView
-            android:id="@+id/id"
-            android:layout_below="@id/titleCourses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleCourses"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
