@@ -69,17 +69,17 @@ public class user extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             // Extraire les informations de l'utilisateur de la réponse JSON
-                            String name = response.optString("name");
-                            String surname = response.optString("surname");
-                            String address = response.optString("address");
-                            String city = response.optString("city");
-                            String zip_code = response.optString("zip_code");
-                            String country = response.optString("country");
-                            String phone = response.optString("phone");
-                            String sub = response.optString("id_access");
-                            String creation_date = response.optString("creation_date");
-
-
+                            JSONObject data = response.getJSONObject("data");
+                            int userId = data.getInt("id_users");
+                            String name = data.getString("name");
+                            String surname = data.getString("surname");
+                            String address = data.getString("address");
+                            String city = data.getString("city");
+                            String zip_code = data.getString("zip_code");
+                            String country = data.getString("country");
+                            String phone = data.getString("phone");
+                            String sub = data.getString("id_access");
+                            String creation_date = data.getString("creation_date");
 
                             // Afficher les informations de l'utilisateur dans les TextView correspondants
                             textName.setText("Nom : " + name);
@@ -94,7 +94,7 @@ public class user extends AppCompatActivity {
 
                         } catch (Throwable  e) {
                             e.printStackTrace();
-                            Toast.makeText(user.this, "Erreur inattendue", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(user.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
