@@ -53,7 +53,7 @@ class UserRoutes
         
     }
 
-
+    //Register function
     public function register(){
 
         $requestData = JsonRequest::getRequestBody();
