@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button connectButton;
+    private Button inscriptionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         connectButton = findViewById(R.id.login);
+        inscriptionButton = findViewById(R.id.inscriptionButton);
+
 
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 String enteredPassword = passwordEditText.getText().toString();
 
                 performLogin(enteredEmail, enteredPassword);
+            }
+        });
+
+        inscriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, inscription.class);
+                startActivity(intent);
             }
         });
     }

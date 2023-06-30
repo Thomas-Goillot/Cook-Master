@@ -43,7 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewConnexion"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
             android:hint="Prénom" />
 
@@ -58,7 +61,7 @@
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
             android:hint="Nom"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
 
         <EditText
@@ -72,7 +75,7 @@
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
             android:hint="Email"
-            android:inputType="textPassword" />
+            android:inputType="textEmailAddress" />
         <EditText
             android:id="@+id/editTextPhone"
             android:layout_width="match_parent"
@@ -95,7 +98,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
-            android:hint="Mot de passe"/>
+            android:hint="Mot de passe"
+            android:inputType="textPassword"/>
 
 
         <LinearLayout
@@ -116,7 +120,7 @@
                 android:textColor="#FFFFFF" />
 
             <Button
-                android:id="@+id/buttonInscription"
+                android:id="@+id/inscriptionButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

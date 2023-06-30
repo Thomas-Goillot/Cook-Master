@@ -82,7 +82,7 @@
                     android:textColor="#FFFFFF" />
 
                 <Button
-                    android:id="@+id/buttonInscription"
+                    android:id="@+id/inscriptionButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
