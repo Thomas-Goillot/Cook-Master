@@ -110,10 +110,11 @@
 
 
         <TextView
-            android:id="@+id/textViewResult"
+            android:id="@+id/id"
             android:layout_below="@id/titleCourses"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
 
 

@@ -2,6 +2,9 @@ package com.example.cookmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -11,64 +14,66 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class user extends AppCompatActivity {
 
-    private static final String EMAIL = "votre_emai";
-    private static final String MOT_DE_PASSE = "votre_mot_de_passe";
+    private TextView userIdTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user);
 
-        TextView textViewResult = findViewById(R.id.textViewResult);
+        userIdTextView = findViewById(R.id.id);
 
-        String url = "https://api.cookmaster.ovh/users";
+        // Récupérer l'ID de l'utilisateur passé en extra
+        int userId = getIntent().getIntExtra("userId", 0);
+
+        // Afficher l'ID de l'utilisateur dans le TextView
+        userIdTextView.setText("ID utilisateur : " + userId);
+
+        // Appeler la méthode pour récupérer les informations de l'utilisateur
+        userinfo(userId);
+    }
+
+    private void userinfo(int userId) {
+        String url = "https://api.cookmaster.ovh/users/" + userId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         try {
-                            if (response.length() > 0) {
-                                // Parcourir les utilisateurs de la réponse
-                                for (int i = 0; i < response.length(); i++) {
-                                    JSONObject user = response.getJSONObject(i);
-                                    String username = user.getString("username");
-                                    String email = user.getString("email");
-                                    String password = user.getString("password");
+                            // Extraire les informations de l'utilisateur de la réponse JSON
+                            String name = response.getString("name");
+                            String surname = response.getString("surname");
+                            String address = response.getString("address");
+                            String city = response.getString("city");
+                            String country = response.getString("country");
+                            String phone = response.getString("phone");
+                            String zip_code = response.getString("zip_code");
+                            String creation_date = response.getString("creation_date");
 
-                                    // Comparer l'email et le mot de passe avec les valeurs prédéfinies
-                                    if (email.equals(EMAIL) && password.equals(MOT_DE_PASSE)) {
-                                        // Les identifiants sont valides
-                                        textViewResult.setText("Bienvenue, " + username);
-                                        return;
-                                    }
-                                }
 
-                                // Aucun utilisateur correspondant n'a été trouvé
-                                Toast.makeText(user.this, "Identifiants invalides", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(user.this, "Erreur", Toast.LENGTH_SHORT).show();
-                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(user.this, "Erreur inattendue", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(user.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        error.printStackTrace();
+                        Toast.makeText(user.this, "Erreur de réseau", Toast.LENGTH_SHORT).show();
                     }
                 });
 

@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".inscription"/>
+        <activity android:name=".user"/>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
