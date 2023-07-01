@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Quitter l'application")
                 .setMessage("Êtes-vous sûr de vouloir quitter l'application ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
