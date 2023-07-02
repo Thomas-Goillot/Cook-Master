@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ public class user extends AppCompatActivity {
     private TextView textSubscription;
     private TextView textCreateAccount;
 
+    private ListView ll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,6 @@ public class user extends AppCompatActivity {
         // Appel de la fonction pour récupérer les informations de l'utilisateur
         userinfo(userId);
 
-        userIdTextView = findViewById(R.id.id);
         textName = findViewById(R.id.textName);
         textSurname = findViewById(R.id.textSurname);
         textAddress = findViewById(R.id.textAddress);
@@ -55,6 +59,19 @@ public class user extends AppCompatActivity {
         textSubscription = findViewById(R.id.textSubscription);
         textCreateAccount = findViewById(R.id.textCreateAccount);
 
+        ll = findViewById(R.id.lv);
+
+        CoursesAdapter eadap = new CoursesAdapter(getCourses(), MainActivity.this);
+        ll.setAdapter(eadap);
+
+        ll.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Afficher dans un Toast l'age de l'étudiant selectionné
+                Courses e = (Courses)adapterView.getItemAtPosition(i);
+                Toast.makeText(MainActivity.this, Integer.toString(e.getAge()), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

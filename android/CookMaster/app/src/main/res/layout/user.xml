@@ -119,14 +119,12 @@
         android:textStyle="bold"
         android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lv"
         android:layout_below="@id/titleCourses"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        />
 
 </RelativeLayout>
