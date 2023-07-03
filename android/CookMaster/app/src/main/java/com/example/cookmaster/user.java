@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class user extends AppCompatActivity {
 
@@ -33,6 +39,8 @@ public class user extends AppCompatActivity {
     private TextView textSubscription;
     private TextView textCreateAccount;
 
+    private ListView ll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +52,6 @@ public class user extends AppCompatActivity {
         // Appel de la fonction pour récupérer les informations de l'utilisateur
         userinfo(userId);
 
-        userIdTextView = findViewById(R.id.id);
         textName = findViewById(R.id.textName);
         textSurname = findViewById(R.id.textSurname);
         textAddress = findViewById(R.id.textAddress);
@@ -55,6 +62,17 @@ public class user extends AppCompatActivity {
         textSubscription = findViewById(R.id.textSubscription);
         textCreateAccount = findViewById(R.id.textCreateAccount);
 
+        ll = findViewById(R.id.lv);
+        CoursesAdapter eadap = new CoursesAdapter(getCourses(), user.this);
+        ll.setAdapter(eadap);
+
+        ll.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Afficher l'adresse dans un toast
+                Toast.makeText(user.this, "Adresse : " + getCourses().get(i).getAddress(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -107,5 +125,12 @@ public class user extends AppCompatActivity {
                 });
 
         requestQueue.add(request);
+    }
+
+    //Créer une liste de cours
+    public List<Courses> getCourses(){
+        List<Courses> resultat = new ArrayList<>();
+        resultat.add(new Courses(1, "Cours pas très long", "10/07/23", "10/06/23", 3, "https://www.google.com/maps/search/?api=1&query=45.403588,4.387178", 0, 5, "15 rue de la croix l'évêque", "Trilport", "77470", "France", 112));
+        return resultat;
     }
 }
