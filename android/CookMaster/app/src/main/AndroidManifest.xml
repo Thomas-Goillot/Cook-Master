@@ -25,6 +25,10 @@
         <activity android:name=".inscription"/>
         <activity android:name=".user"/>
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6002752639641973~6722888387"/>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
