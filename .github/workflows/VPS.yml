@@ -1,4 +1,5 @@
 name: CookMaster
+
 on:
   push:
     branches: [ "PROD" ]
@@ -10,29 +11,53 @@ permissions:
 
 jobs:
   build:
-
-    runs-on: 
-      - CookMaster-Runner1
+    runs-on: CookMaster-Runner1
 
     steps:
-
       - uses: actions/checkout@v2
 
       - name: Copy Web Files
         run: |
           cp -r /home/cookmaster/lemp/actions-runner/_work/Cook-Master/Cook-Master/Web/* /home/cookmaster/lemp/php-files/
 
+      - name: Capitalize Controller File Names
+        run: |
+          # Récupérer la liste des fichiers dans le dossier "controllers"
+          files=$(find controllers -type f)
+
+          # Parcourir chaque fichier
+          for file in $files
+          do
+              # Extraire le nom du fichier sans le chemin
+              filename=$(basename "$file")
+              
+              # Extraire la première lettre du nom de fichier
+              first_letter=$(echo "$filename" | cut -c1 | tr '[:lower:]' '[:upper:]')
+              
+              # Extraire le reste du nom de fichier (à partir du deuxième caractère)
+              rest_of_name=$(echo "$filename" | cut -c2-)
+              
+              # Construire le nouveau nom de fichier avec la première lettre en majuscule et le reste du nom intact
+              new_filename="$first_letter$rest_of_name"
+              
+              # Vérifier si le nouveau nom de fichier est différent du nom de fichier actuel
+              if [[ "$filename" != "$new_filename" ]]; then
+                  # Renommer le fichier avec le nouveau nom
+                  mv "$file" "${file%/*}/$new_filename"
+              fi
+          done
+
       - name: Edit composer.json (../WEB)
         run: |
           docker exec lemp-php-1 sed -i 's|../WEB/||g' composer.json
 
-      - name: Edit composer.json (Controllers/)
+      - name: Edit composer.json (controllers/)
         run: |
-          docker exec lemp-php-1 sed -i 's|Controllers/|controllers/|g' composer.json
+          docker exec lemp-php-1 sed -i 's|controllers/|controllers/|g' composer.json
 
-      - name: Edit composer.json (Models/)
+      - name: Edit composer.json (models/)
         run: |
-          docker exec lemp-php-1 sed -i 's|Models/|models/|g' composer.json
+          docker exec lemp-php-1 sed -i 's|models/|models/|g' composer.json
 
       - name: Composer Update
         run: |
