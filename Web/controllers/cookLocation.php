@@ -55,12 +55,9 @@ class CookLocation extends Controller
 
         $id_location = (int) $params[0];
 
-
-
         $this->loadModel('cookLocation');
 
         $cookLocations = $this->_model->getLocationInfoById($id_location);
-
 
         //horaires
         $days = array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY);
@@ -68,8 +65,6 @@ class CookLocation extends Controller
         $this->loadModel('location');
 
         $location = $this->_model->getLocationInfoById($id_location);
-
-
 
         $page_name = array("Location de cuisine" => $this->default_path);
 

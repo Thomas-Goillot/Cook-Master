@@ -44,8 +44,13 @@ services:
         image: mariadb:10.9
         environment:
             MYSQL_ROOT_PASSWORD: SecureBD24!
+            MYSQL_USER: cookmaster
+            MYSQL_PASSWORD: mypassword
         volumes:
             - mysqldata:/var/lib/mysql
+        restart: always
+        ports:
+            - 3306:3306
 
 # Volumes
 volumes:
