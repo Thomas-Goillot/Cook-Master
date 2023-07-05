@@ -19,7 +19,7 @@ class UserRoutes
         return $password;
     }
 
-    public function login($email, $password){
+    public function login(){
 
         $requestData = JsonRequest::getRequestBody();
 
@@ -53,7 +53,7 @@ class UserRoutes
         
     }
 
-
+    //Register function
     public function register(){
 
         $requestData = JsonRequest::getRequestBody();

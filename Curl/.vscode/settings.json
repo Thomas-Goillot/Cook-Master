@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "gtk.h": "c",
+        "ui.h": "c",
+        "sql.h": "c",
+        "apilistepage.h": "c",
+        "requestpage.h": "c",
+        "requesthistorypage.h": "c",
+        "settingspage.h": "c",
+        "json.h": "c",
+        "jansson.h": "c"
+    }
+}
