@@ -86,7 +86,7 @@ abstract class Model extends Utils{
     {
         $this->host = $this->env['DB_HOST'];
         $this->db_name = $this->env['DB_NAME'];
-        $this->username = $this->env['DB_NAME'];
+        $this->username = $this->env['DB_USER'];
         $this->password = $this->env['DB_PASS'];
     }
 
