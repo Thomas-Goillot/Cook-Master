@@ -25,7 +25,7 @@ class Avatar extends Model
      */
     public function CheckIfUserGetAvatar(int $id): bool
     {
-        $query = "SELECT id_users FROM AVATAR WHERE id_users = :id";
+        $query = "SELECT id_users FROM ". $this->table ." WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -49,7 +49,7 @@ class Avatar extends Model
      */
     public function getAvatar(int $id): array
     {
-        $query = "SELECT * FROM AVATAR WHERE id_users = :id";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -72,7 +72,7 @@ class Avatar extends Model
      */
     public function createAvatar(int $id, string $head, string $eyes, string $nose, string $mouth, string $brows): bool
     {
-        $query = "INSERT INTO AVATAR (id_users, head, eyes, nose, mouth, brows) VALUES (:id, :head, :eyes, :nose, :mouth, :brows)";
+        $query = "INSERT INTO " . $this->table . " (id_users, head, eyes, nose, mouth, brows) VALUES (:id, :head, :eyes, :nose, :mouth, :brows)";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -98,7 +98,7 @@ class Avatar extends Model
      */
     public function updateAvatar(int $id, string $head, string $eyes, string $nose, string $mouth, string $brows): bool
     {
-        $query = "UPDATE AVATAR SET head = :head, eyes = :eyes, nose = :nose, mouth = :mouth, brows = :brows WHERE id_users = :id";
+        $query = "UPDATE " . $this->table . " SET head = :head, eyes = :eyes, nose = :nose, mouth = :mouth, brows = :brows WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
