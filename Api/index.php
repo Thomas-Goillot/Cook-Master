@@ -34,6 +34,8 @@ $router->addRoute('GET', '/users/{id}', [$userController, 'getUser'], $authMiddl
 $router->addRoute('GET', '/users', [$userController, 'getUsers'], $authMiddleware);
 $router->addRoute('POST', '/users', [$userController, 'createUser'], $authMiddleware);
 
+$router->addRoute('GET', '/course/{id}', [$userController, 'getUserCourses'], $authMiddleware);
+
 // Récupérez la méthode HTTP et l'URI de la requête entrante (supposons qu'ils soient dans des variables $method et $uri)
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];

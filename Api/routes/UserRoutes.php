@@ -136,4 +136,17 @@ class UserRoutes
 
         JsonResponse::success($user);
     }
+
+    public function getUserCourses($id)
+    {
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserCourses($id);
+
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        JsonResponse::success($user);
+    }
 }

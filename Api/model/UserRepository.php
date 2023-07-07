@@ -57,4 +57,11 @@ class UserRepository extends Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUserCourses($id)
+    {
+        $query = "SELECT * FROM courses WHERE id_courses IN (SELECT id_courses FROM subscribe_to WHERE id_users = ?)";
+        $stmt = $this->executeQuery($query, [$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
