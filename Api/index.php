@@ -32,7 +32,7 @@ $router->addRoute('POST', '/register', [$userController, 'register'], $authMiddl
 $router->addRoute('GET', '/users/{id}', [$userController, 'getUser'], $authMiddleware);
 $router->addRoute('GET', '/users', [$userController, 'getUsers'], $authMiddleware);
 $router->addRoute('POST', '/users', [$userController, 'createUser'], $authMiddleware);
-$router->addRoute('UPDATE', '/users/{id}/{name}/{surname}/{email}/{phone}', [$userController, 'updateUser'], $authMiddleware);
+$router->addRoute('PATCH', '/users/{id}/{name}/{surname}/{email}/{phone}', [$userController, 'updateUser'], $authMiddleware);
 
 $router->addRoute('GET', '/course/{id}', [$userController, 'getUserCourses'], $authMiddleware);
 
