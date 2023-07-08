@@ -245,7 +245,7 @@ class RentalEquipment extends Controller
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($data, $userEmail);
+        $payment->startPayment($data, $userEmail,  $this->activeSecurity("rentalEquipment/success", array())['url'], $this->activeSecurity("rentalEquipment/cancel")['url']);
     }
 
     /**
@@ -254,23 +254,29 @@ class RentalEquipment extends Controller
      */
     public function success(): void
     {
-        $this->loadModel("Rent");
+        if ($this->checkSecurity()) {
+            $this->loadModel("Rent");
 
-        $idUser = $this->getUserId();
+            $idUser = $this->getUserId();
 
-        $userCartId = $this->_model->getUserCartId($idUser);
-        
-        if ($userCartId === false) {
-            $this->setError("Mince... Votre panier est vide !", "Il est temps d\'aller faire du shopping", INFO_ALERT);
+            $userCartId = $this->_model->getUserCartId($idUser);
+            
+            if ($userCartId === false) {
+                $this->setError("Mince... Votre panier est vide !", "Il est temps d\'aller faire du shopping", INFO_ALERT);
+                $this->redirect('../rentalEquipment');
+            }
+
+            $this->_model->updateCartStatus($userCartId, TO_COLLECT);
+
+            $_SESSION['price_rental'] = NULL;
+
+            $this->setError("Succès", "Votre commande a bien été enregistré", SUCCESS_ALERT);
+            $this->redirect('../rent');
+        }
+        else{
+            $this->setError("Erreur", "Une erreur est survenue lors du payment", ERROR_ALERT);
             $this->redirect('../rentalEquipment');
         }
-
-        $this->_model->updateCartStatus($userCartId, TO_COLLECT);
-
-        $_SESSION['price_rental'] = NULL;
-
-        $this->setError("Succès", "Votre commande a bien été enregistré", SUCCESS_ALERT);
-        $this->redirect('../rent');
     }
 
     /**

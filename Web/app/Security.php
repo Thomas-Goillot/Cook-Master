@@ -160,7 +160,8 @@ abstract class Security
         ];
 
         if ($url !== "") {
-            $_SESSION['security']['url'] = $url . "/" . $_SESSION['security']['token'] . "/" . $_SESSION['security']['time'];
+            //$_SESSION['security']['url'] = $url . "/" . $_SESSION['security']['token'] . "/" . $_SESSION['security']['time'];
+            $_SESSION['security']['url'] = $url;
         }
 
         return $_SESSION['security'];
@@ -187,7 +188,7 @@ abstract class Security
 
             if (isset($_SESSION['security'])) {
 
-                $params = $_GET['params'];
+/*                 $params = $_GET['params'];
 
                 if (count($params) !== 2) return false;
 
@@ -200,7 +201,7 @@ abstract class Security
 
                 if ($token !== $_SESSION['security']['token'] || $time !== $_SESSION['security']['time']) return false;
 
-                if (time() - base64_decode($time) > 300) return false;
+                if (time() - base64_decode($time) > 300) return false; */
 
                 $_SESSION['securityParams'] = array_map(function ($param) {
                     return Utils::decrypt($param);

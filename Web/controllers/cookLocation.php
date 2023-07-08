@@ -196,7 +196,7 @@ class CookLocation extends Controller
     {
         $params = $_GET['params'];
 
-        if (count($params) === 0 ) {
+        if (count($params) === 0) {
             $this->redirect('../home');
             exit();
         }
