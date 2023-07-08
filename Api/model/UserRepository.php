@@ -59,9 +59,26 @@ class UserRepository extends Database
 
     public function getUserCourses($id)
     {
-        $query = "SELECT * FROM courses WHERE date_of_courses > NOW() AND id_users = ?";
+        $query = "SELECT * FROM courses WHERE date_of_courses > OR = NOW() AND id_users = ?";
         $stmt = $this->executeQuery($query, [$id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function updateUser($id, $name, $surname, $email, $phone)
+    {
+        $query = "UPDATE users SET name = ?, surname = ?, email = ?, phone = ? WHERE id_users = ?";
+        $val = $this->executeQuery($query, [$name, $surname, $email, $phone, $id]);
+
+        if ($val) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getShop(){
+        $query = "SELECT * FROM equipment WHERE allow_purchase = 0";
+        $stmt = $this->executeQuery($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

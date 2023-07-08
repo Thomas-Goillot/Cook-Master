@@ -153,4 +153,59 @@ class UserRoutes
 
         JsonResponse::success($courses);
     }
+
+    public function updateUser($id, $name, $surname, $email, $phone){
+        
+
+        if (!isset($name) || empty($name) || !isset($surname) || empty($surname) || !isset($email) || empty($email) || !isset($phone) || empty($phone)) {
+            JsonResponse::error('Le nom, le prénom, l\'email, le téléphone et le mot de passe sont requis', 400);
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            JsonResponse::error('L\'email n\'est pas valide', 400);
+        }
+
+
+        if(strlen($name) > 100){
+            JsonResponse::error('Le nom ne doit pas dépasser 100 caractères', 400);
+        }
+
+        if(strlen($surname) > 100){
+            JsonResponse::error('Le prénom ne doit pas dépasser 100 caractères', 400);
+        }
+
+        if(strlen($phone) > 25 && strlen($phone) < 10){
+            JsonResponse::error('Le numéro de téléphone ne doit pas dépasser 10 caractères', 400);
+        }
+
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserById($id);
+
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $userRepository->updateUser($id, $name, $surname, $email, $phone);
+
+        JsonResponse::success("L'utilisateur a bien été modifié");
+    }
+
+    public function getShop()
+    {
+        $userRepository = new UserRepository();
+
+
+
+
+        $shop = $userRepository->getShop();
+        if (!$shop) {
+            JsonResponse::error('La boutique est vide', 404);
+        }
+
+        JsonResponse::success($shop);
+    }
+
+
+
 }
