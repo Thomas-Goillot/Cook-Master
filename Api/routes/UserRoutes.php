@@ -141,12 +141,16 @@ class UserRoutes
     {
         $userRepository = new UserRepository();
 
-        $user = $userRepository->getUserCourses($id);
-
+        $user = $userRepository->getUserById($id);
         if (!$user) {
             JsonResponse::error('Utilisateur non trouvé', 404);
         }
 
-        JsonResponse::success($user);
+        $courses = $userRepository->getUserCourses($id);
+        if (!$courses) {
+            JsonResponse::error('Vous n\'avez pas de cours à venir', 404);
+        }
+
+        JsonResponse::success($courses);
     }
 }
