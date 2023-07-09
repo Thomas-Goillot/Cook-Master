@@ -90,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             requestData.put("email", enteredEmail);
             requestData.put("password", enteredPassword);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Erreur lors de la création des données de la requête.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        }  catch (JSONException e) {
+        e.printStackTrace();
+        Log.e("TAG", "Erreur lors de la création des données de la requête.", e);
+        return;
+    }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestData,
                 new Response.Listener<JSONObject>() {

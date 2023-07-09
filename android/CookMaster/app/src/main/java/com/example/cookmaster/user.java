@@ -62,7 +62,7 @@ public class user extends AppCompatActivity {
         textSubscription = findViewById(R.id.textSubscription);
         textCreateAccount = findViewById(R.id.textCreateAccount);
 
-        ll = findViewById(R.id.lv);
+        /*ll = findViewById(R.id.lv);
         CoursesAdapter eadap = new CoursesAdapter(getCourses(), user.this);
         ll.setAdapter(eadap);
 
@@ -72,7 +72,7 @@ public class user extends AppCompatActivity {
                 //Afficher l'adresse dans un toast
                 Toast.makeText(user.this, "Adresse : " + getCourses().get(i).getAddress(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
     }
 
