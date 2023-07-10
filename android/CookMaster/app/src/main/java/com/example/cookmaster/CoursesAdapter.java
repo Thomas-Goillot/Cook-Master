@@ -55,15 +55,40 @@ public class CoursesAdapter extends BaseAdapter {
 
         Courses current = (Courses) getItem(position);
 
-        tv_date.setText(current.getDateOfCourses());
-        tv_type.setText(String.valueOf(current.getType()));
-        tv_address.setText(current.getAddress());
-        tv_city.setText(current.getCity());
-        tv_zip.setText(current.getZipCode());
-        tv_country.setText(current.getCountry());
-        tv_commentary.setText(current.getCommentary());
-        tv_price.setText(String.valueOf(current.getTotalPrice()));
-        tv_statut.setText(String.valueOf(current.getStatut()));
+        tv_date.setText("Date et heure du cours: " +current.getDateOfCourses());
+        tv_type.setText("Type : " +String.valueOf(current.getType()));
+
+        if(current.getCommentary().equals("null")) {
+            tv_commentary.setText("Aucune demande spéciale");
+        }else{
+            tv_commentary.setText("Demande spécial : " +current.getCommentary());
+        }
+
+        if (current.getType() == 0) {
+            tv_type.setText("Type : Cours à domicile");
+            tv_address.setText("Adresse : Cours en présentiel. ");
+            tv_city.setText("Ville : Cours en présentiel.");
+            tv_zip.setText("Code postal : Cours en présentiel.");
+            tv_country.setText("Pays : Cours en présentiel.");
+
+        } else if (current.getType() == 1) {
+            tv_type.setText("Type : Cours à distance");
+            tv_address.setText("Adresse : " + current.getAddress());
+            tv_city.setText("Ville : " +current.getCity());
+            tv_zip.setText("Code postal : " +current.getZipCode());
+            tv_country.setText("Pays : " +current.getCountry());
+        }
+
+        if (current.getStatut() == 1) {
+            tv_statut.setText("Statut : En cours de paiement...");
+            tv_price.setText("Prix nécéssaire à payer pour le cour : " + String.valueOf(current.getTotalPrice()) + "€");
+        } else if (current.getStatut() == 2) {
+            tv_statut.setText("Statut : Payé");
+            tv_price.setText("Prix payé pour le cour : " + String.valueOf(current.getTotalPrice()) + "€");
+        }
+
+
+
 
         return convertView;
     }

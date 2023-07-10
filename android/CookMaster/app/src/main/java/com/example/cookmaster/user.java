@@ -52,7 +52,6 @@ public class user extends AppCompatActivity {
         // Récupérer l'ID de l'utilisateur passé en extra
         int userId = getIntent().getIntExtra("userId", 0);
 
-        // Appel de la fonction pour récupérer les informations de l'utilisateur
         userinfo(userId);
 
         textName = findViewById(R.id.textName);
@@ -124,7 +123,7 @@ public class user extends AppCompatActivity {
 
 
     private void getcourses(int userId) {
-        String url = "https://api.cookmaster.ovh/courses/" + userId;
+        String url = "https://api.cookmaster.ovh/course/" + userId;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
