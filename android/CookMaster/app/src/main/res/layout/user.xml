@@ -117,7 +117,7 @@
         android:text="Vos Cours à venir"
         android:textSize="20sp"
         android:textStyle="bold|italic"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"/>
 
 
     <TextView
@@ -141,6 +141,7 @@
         android:id="@+id/listView"
         android:layout_below="@id/titleCourses"
         android:textColor="@color/white"
+        android:dividerHeight="20dp"
         />
 
 

@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="14sp"
-        android:id="@+id/tv_commentary"
+        android:id="@+id/tv_specialRequest"
         android:textColor="@color/white"/>
 
     <TextView

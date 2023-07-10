@@ -43,13 +43,13 @@ public class CoursesAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.row, null);
         }
 
+        TextView tv_specialRequest = convertView.findViewById(R.id.tv_specialRequest);
         TextView tv_date = convertView.findViewById(R.id.tv_date);
         TextView tv_type = convertView.findViewById(R.id.tv_type);
         TextView tv_address = convertView.findViewById(R.id.tv_address);
         TextView tv_city = convertView.findViewById(R.id.tv_city);
         TextView tv_zip = convertView.findViewById(R.id.tv_zip);
         TextView tv_country = convertView.findViewById(R.id.tv_country);
-        TextView tv_commentary = convertView.findViewById(R.id.tv_commentary);
         TextView tv_price = convertView.findViewById(R.id.tv_price);
         TextView tv_statut = convertView.findViewById(R.id.tv_statut);
 
@@ -58,10 +58,10 @@ public class CoursesAdapter extends BaseAdapter {
         tv_date.setText("Date et heure du cours: " +current.getDateOfCourses());
         tv_type.setText("Type : " +String.valueOf(current.getType()));
 
-        if(current.getCommentary().equals("null")) {
-            tv_commentary.setText("Aucune demande spéciale");
+        if(current.getSpecialRequest().equals("null")) {
+            tv_specialRequest.setText("Aucune demande spéciale");
         }else{
-            tv_commentary.setText("Demande spécial : " +current.getCommentary());
+            tv_specialRequest.setText("Demande spécial : " +current.getSpecialRequest());
         }
 
         if (current.getType() == 0) {
