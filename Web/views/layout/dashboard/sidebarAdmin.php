@@ -18,8 +18,8 @@
 
         <li><a href="javascript: void(0);" class="has-arrow" data-translation-key="Formation"><i class="bx bx-sitemap"></i></a>
             <ul class="sub-menu" aria-expanded="false">
-                <li><a href="javascript: void(0);" data-translation-key="Liste formations"><i class="bx bx-list-ol"></i></a></li>
-                <li><a href="javascript: void(0);" data-translation-key="Créer Formation"><i class="bx bx-bookmark-plus"></i></a></li>
+                <li><a href="<?= $path_prefix ?>training" data-translation-key="Liste formations"><i class="bx bx-list-ol"></i></a></li>
+                <li><a href="<?= $path_prefix ?>training/create" data-translation-key="Créer Formation"><i class="bx bx-bookmark-plus"></i></a></li>
             </ul>
         </li>
     </ul>

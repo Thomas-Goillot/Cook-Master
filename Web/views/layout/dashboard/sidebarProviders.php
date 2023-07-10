@@ -5,3 +5,5 @@
 <li><a href="<?= $path_prefix ?>courseService" class="waves-effect"><i class="bx bx-list-ol"></i><span data-translation-key="Demande Cours"></span></a></li>
 
 <li><a href="<?= $path_prefix ?>courseService/providersCourses" class="waves-effect"><i class="bx bxs-book-open"></i><span data-translation-key="Vos Cours"></span></a></li>
+
+<li><a href="<?= $path_prefix ?>trainingService" class="waves-effect"><i class="mdi mdi-notebook-multiple"></i><span data-translation-key="Formations"></span></a></li>

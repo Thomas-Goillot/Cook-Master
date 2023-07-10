@@ -23,7 +23,7 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='fas fa-truck-loading'></i><span data-translation-key="Louer des produits"></span></a>
+                    <a href="<?= $path_prefix ?>rentalEquipment" class="waves-effect"><i class='mdi mdi-earth-arrow-right'></i><span data-translation-key="Louer des produits"></span></a>
                 </li>
 
                 <li>
@@ -31,14 +31,18 @@
                 </li>
 
                 <li>
-                    <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='fas fa-store'></i><span data-translation-key="Atelier"></span></a>
+                    <a href="<?= $path_prefix ?>WorkshopPresentation" class="waves-effect"><i class='mdi mdi-silverware'></i><span data-translation-key="Atelier"></span></a>
                 </li>
                 <li>
-                    <a href="<?= $path_prefix ?>cookLocation/cookLocation" class="waves-effect"><i class='fas fa-store'></i><span data-translation-key="Louer une cuisine"></span></a>
+                    <a href="<?= $path_prefix ?>cookLocation/cookLocation" class="waves-effect"><i class='bx bx-home-circle'></i><span data-translation-key="Louer une cuisine"></span></a>
                 </li>
 
                 <li>
                     <a href="<?= $path_prefix ?>UserSubscription/information" class="waves-effect"><i class='mdi mdi-trophy-award'></i><span data-translation-key="Nos abonnements"></span></a>
+                </li>
+
+                <li>
+                    <a href="<?= $path_prefix ?>jobTraining" class="waves-effect"><i class="bx bxs-analyse"></i><span data-translation-key="Formations"></span></a>
                 </li>
 
                 <li>

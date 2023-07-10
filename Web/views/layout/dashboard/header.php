@@ -10,7 +10,7 @@
         <div class="d-flex align-items-center">
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>rentalEquipment/cart">
-                <i class="mdi mdi-shopping-outline"></i>
+                <i class="fas fa-truck-loading"></i>
             </a>
 
             <a class="btn header-item noti-icon waves-effect d-flex justify-content-center align-items-center" href="<?= $path_prefix ?>shop/cart">

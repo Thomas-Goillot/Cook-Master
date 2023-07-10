@@ -13,9 +13,24 @@ class Providers extends Model
      */
     public function __construct()
     {
-        $this->table = "is_providers";
+        $this->table = "providers";
 
         $this->getConnection();
+    }
+
+    /**
+     * Get all providers with users info 
+     * @return array
+     */
+    public function getProviders(): array
+    {
+        $query = "SELECT * FROM " . $this->table . ", users WHERE users.id_users = providers.id_users";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -25,7 +40,7 @@ class Providers extends Model
      */
     public function userIsProvider($idUser): bool
     {
-        $query = "SELECT COUNT(id_providers) FROM providers WHERE id_users = :id_users AND verified = 1";
+        $query = "SELECT COUNT(id_providers) FROM " . $this->table . " WHERE id_users = :id_users AND verified = 1";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -47,7 +62,7 @@ class Providers extends Model
      */
     public function getProviderInfo(int $id): array
     {
-        $query = "SELECT * FROM providers WHERE id_providers = :id";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_providers = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -63,7 +78,7 @@ class Providers extends Model
      */
     public function getProviderInfoByUserId(int $id): array
     {
-        $query = "SELECT * FROM providers WHERE id_users = :id";
+        $query = "SELECT * FROM " . $this->table . " WHERE id_users = :id";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -72,22 +87,6 @@ class Providers extends Model
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
-     * Get chefs image from is_providers and name from users
-     *
-     * @return array
-     */
-    public function getAllChefsImages(): array
-    {
-        $query = "SELECT is_providers.image, is_providers.description, users.name, users.surname FROM " . $this->table . " INNER JOIN users ON is_providers.id_users = users.id_users WHERE is_providers.id_providers = 1";
-
-        $stmt = $this->_connexion->prepare($query);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -130,7 +129,7 @@ class Providers extends Model
      */
     public function supp(int $id_users): array
     {
-        $query = "UPDATE providers SET verified = 2 WHERE id_users = :id_users";
+        $query = "UPDATE " . $this->table . " SET verified = 2 WHERE id_users = :id_users";
 
         $stmt = $this->_connexion->prepare($query);
 

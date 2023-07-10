@@ -353,8 +353,6 @@ class workshop extends Model
         return $location['address'];
     }
 
-
-
     /**
      *  get * of use_equipment_workshop
      * @param int $id_workshop
@@ -362,7 +360,7 @@ class workshop extends Model
      */
     public function getAllUseEquipmentWorkshopById(int $id_workshop): array
     {
-        $query = "SELECT * FROM use_equipment_workshop WHERE :id_workshop = :id_workshop";
+        $query = "SELECT use_equipment_workshop.*,equipment.* FROM use_equipment_workshop,equipment WHERE :id_workshop = :id_workshop AND equipment.id_equipment = use_equipment_workshop.id_equipment";
 
         $stmt = $this->_connexion->prepare($query);
 
@@ -393,4 +391,21 @@ class workshop extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * getRecipesByWorkshop
+     * @param int $id_workshop
+     * @return array
+     */
+    public function getRecipesByWorkshop(int $id_workshop): array
+    {
+        $query = "SELECT * FROM recipes WHERE id_recipes IN (SELECT id_recipes FROM composed WHERE id_workshop = :id_workshop)";
+
+        $stmt = $this->_connexion->prepare($query);
+
+        $stmt->bindParam(":id_workshop", $id_workshop);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
