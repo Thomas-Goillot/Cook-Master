@@ -239,4 +239,33 @@ public function profil(): void
 
     }
 
+    /**
+     * Update the words censured
+     * @return void
+     */
+    public function editUserCensureTchat():void{
+
+        $this->loadModel('User');
+        $id_users = $this->getUserId();
+
+        if(!isset($_POST['censure_tchat']) || empty($_POST['censure_tchat'])){
+            $censure_tchat = 0;
+        }
+        else{
+            $censure_tchat = htmlspecialchars($_POST['censure_tchat']);
+
+            if ($censure_tchat == "on") {
+                $censure_tchat = 1;
+            }
+            else{
+                $censure_tchat = 0;
+            }
+        }
+
+        $this->_model->editUserCensureTchat($censure_tchat,$id_users);
+
+        $this->setError("Modification réussi", "Vos informations on bien été modifié.", SUCCESS_ALERT);
+        $this->redirect("../Users/profil");
+    }
+
 }

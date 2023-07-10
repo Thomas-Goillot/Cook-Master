@@ -606,6 +606,28 @@ class User extends Model
 
     }
 
+    /**
+     * editUserCensureTchat
+     * @param int $censure_tchat
+     * @param int $id_users
+     * @return bool
+     */
+    public function editUserCensureTchat(int $censure_tchat, int $id_users):bool
+    {
+        try {
+            $query = "UPDATE " . $this->table . " SET censure_tchat = :censure_tchat WHERE id_users = :id_users";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":censure_tchat", $censure_tchat);
+            $stmt->bindParam(":id_users", $id_users);
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 
 
 
