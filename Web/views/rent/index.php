@@ -23,7 +23,7 @@ include_once('views/layout/dashboard/path.php');
                                 <td><?= $rent['id_rent_cart'] ?></td>
                                 <td><?= $rent['name'] . " " . $rent['surname'] ?></td>
                                 <td><?= $rent['state'] ?></td>
-                                <td><?= $rent['status'] ?></td>
+                                <td><?= fancyStatutRent($rent['status']) ?></td>
                                 <td><?= $rent['date'] ?></td>
                             </tr>
                         <?php endforeach; ?>

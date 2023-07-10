@@ -132,7 +132,7 @@ class Courses extends Controller
             exit();
         }
 
-        if($course['status'] === COURSES_PAYED){
+        if($course['statut'] === COURSES_PAYED){
             $this->setError("Erreur", "Vous ne pouvez pas annuler une demande de cours déjà payée", ERROR_ALERT);
             $this->redirect('../myRequest/');
             exit();
