@@ -197,42 +197,38 @@ public function profil(): void
 
         $this->loadModel('User');
         $id_users = $this->getUserId();
-        $password = htmlspecialchars($_POST['password']);
+        $password_new = htmlspecialchars($_POST['password_new']);
         $password_confirm = htmlspecialchars($_POST['password_confirm']);
         $password_actual = htmlspecialchars($_POST['password_actual']);
 
     
-        if(empty($password) || empty($password_confirm) || empty($password_actual)){
+        if(empty($password_new) || empty($password_confirm) || empty($password_actual)){
             $this->setError("Erreur", "Veuillez remplir tous les champs.", ERROR_ALERT);
             $this->redirect("../users/editProfil");
         }
 
-        if(strlen($password) < MIN_PASSWORD || strlen($password_confirm) < MIN_PASSWORD) {
+        if(strlen($password_new) < MIN_PASSWORD || strlen($password_confirm) < MIN_PASSWORD) {
             $this->setError("Erreur", "Le mot de passe doit contenir au moin".MAX_PASSWORD." caractère.", ERROR_ALERT);
             $this->redirect("../users/editProfil");
         }
 
-        
-        if($password != $password_confirm){
+        if($password_new != $password_confirm){
             $this->setError("Erreur", "Les mots de passe ne sont pas identique.", ERROR_ALERT);
             $this->redirect("../users/editProfil");
         }
-
 
         $password_actual = $this->hashPassword($password_actual);
 
         $password = $this->_model->getUserPasswords($id_users);
 
-
-        if($password_actual != $password){
+        if($password_actual !== $password['password']){
             $this->setError("Erreur", "Le mot de passe actuel n\'est pas correct.", ERROR_ALERT);
             $this->redirect("../users/editProfil");
         }
-        exit;
 
-        $password = $this->hashPassword($password);
+        $password_new = $this->hashPassword($password_new);
 
-        $this->_model->getUserPasswords($password,$id_users);
+        $this->_model->setUserPassword($password_new,$id_users);
 
         $this->setError("Modification réussi", "Vos informations on bien été modifié.", SUCCESS_ALERT);
         $this->redirect("../Users/profil");

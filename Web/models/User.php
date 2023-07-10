@@ -629,6 +629,28 @@ class User extends Model
         }
     }
 
+    /**
+     * setUserPassword
+     * @param string $password
+     * @param int $id_users
+     * @return bool
+     */
+    public function setUserPassword(string $password, int $id_users):bool
+    {
+        try {
+            $query = "UPDATE " . $this->table . " SET password = :password WHERE id_users = :id_users";
+
+            $stmt = $this->_connexion->prepare($query);
+
+            $stmt->bindParam(":password", $password);
+            $stmt->bindParam(":id_users", $id_users);
+
+            return $stmt->execute();
+
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 
 
 
