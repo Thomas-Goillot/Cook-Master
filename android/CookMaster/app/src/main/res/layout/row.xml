@@ -8,12 +8,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22dp"
-        android:id="@+id/tv_date"/>
+        android:id="@+id/tv_date"
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22dp"
-        android:id="@+id/tv_type"/>
+        android:id="@+id/tv_address"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_city"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_zip"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_country"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_commentary"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_price"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_statut"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:id="@+id/tv_type"
+        android:textColor="@color/white"/>
+
+
+
 
 </LinearLayout>

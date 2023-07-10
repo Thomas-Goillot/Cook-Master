@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +42,7 @@ public class user extends AppCompatActivity {
     private TextView textSubscription;
     private TextView textCreateAccount;
 
-    private ListView ll;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +65,10 @@ public class user extends AppCompatActivity {
         textSubscription = findViewById(R.id.textSubscription);
         textCreateAccount = findViewById(R.id.textCreateAccount);
 
-        /*ll = findViewById(R.id.lv);
-        CoursesAdapter eadap = new CoursesAdapter(getCourses(), user.this);
-        ll.setAdapter(eadap);
 
-        ll.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Afficher l'adresse dans un toast
-                Toast.makeText(user.this, "Adresse : " + getCourses().get(i).getAddress(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        listView = findViewById(R.id.listView);
 
+        getcourses(userId);
     }
 
     private void userinfo(int userId) {
@@ -127,10 +122,59 @@ public class user extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    //Créer une liste de cours
-    public List<Courses> getCourses(){
-        List<Courses> resultat = new ArrayList<>();
-        resultat.add(new Courses(1, "Cours pas très long", "10/07/23", "10/06/23", 3, "https://www.google.com/maps/search/?api=1&query=45.403588,4.387178", 0, 5, "15 rue de la croix l'évêque", "Trilport", "77470", "France", 112));
-        return resultat;
+
+    private void getcourses(int userId) {
+        String url = "https://api.cookmaster.ovh/courses/" + userId;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest  request = new JsonObjectRequest (Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray coursesArray = response.getJSONArray("data");
+
+                            List<Courses> coursesList = new ArrayList<>();
+                            for (int i = 0; i < coursesArray.length(); i++) {
+                                JSONObject course = coursesArray.getJSONObject(i);
+
+                                String specialRequest = course.getString("special_request");
+                                String dateOfCourses = course.getString("date_of_courses");
+                                String dateOfRequest = course.getString("date_of_request");
+                                int statut = course.getInt("statut");
+                                String link = course.getString("link");
+                                int type = course.getInt("type");
+                                String address = course.getString("address");
+                                String city = course.getString("city");
+                                String zipCode = course.getString("zip_code");
+                                String country = course.getString("country");
+                                int totalPrice = course.getInt("total_price");
+                                String commentary = course.getString("commentary");
+
+                                Courses currentCourse = new Courses(specialRequest, dateOfCourses, dateOfRequest, statut, link, type, address, city, zipCode, country, totalPrice, commentary);
+                                coursesList.add(currentCourse);
+                            }
+
+                            CoursesAdapter adapter = new CoursesAdapter(coursesList, user.this);
+                            listView.setAdapter(adapter);
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(user.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("Network Error", error.toString());
+                    }
+
+                });
+
+        requestQueue.add(request);
     }
+
+
 }
