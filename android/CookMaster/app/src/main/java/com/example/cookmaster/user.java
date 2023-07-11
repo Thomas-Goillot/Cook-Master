@@ -22,6 +22,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +77,7 @@ public class user extends AppCompatActivity {
 
         getcourses(userId);
 
-
+        getsub(userId);
 
         buttonModify = findViewById(R.id.buttonModify);
 
@@ -86,6 +91,56 @@ public class user extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void getsub (int userId){
+        String url = "https://api.cookmaster.ovh/sub/" + userId;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+
+                            JSONObject data = response.getJSONObject("data");
+                            String sub = data.getString("id_subscription");
+
+                            if (sub.equals("1")) {
+                                MobileAds.initialize(user.this, new OnInitializationCompleteListener() {
+                                    @Override
+                                    public void onInitializationComplete(InitializationStatus initializationStatus) {
+                                    }
+                                });
+                                AdView mAdView = findViewById(R.id.adView);
+                                AdRequest adRequest = new AdRequest.Builder().build();
+                                mAdView.loadAd(adRequest);
+
+                                textSubscription.setText("Abonnement : Free");
+                            } else if (sub.equals("2")) {
+                                textSubscription.setText("Abonnement : Starter");
+                            } else if (sub.equals("3")) {
+                                textSubscription.setText("Abonnement : Master");
+                            } else if (sub.equals("-1")) {
+                                textSubscription.setText("Abonnement : Sannane");
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(user.this, "Erreur lors de la récupération des données", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(user.this, "Erreur lors de la récupération des données", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(request);
     }
 
     private void userinfo(int userId) {
@@ -108,7 +163,6 @@ public class user extends AppCompatActivity {
                             String zip_code = data.getString("zip_code");
                             String country = data.getString("country");
                             String phone = data.getString("phone");
-                            String sub = data.getString("id_access");
                             String creation_date = data.getString("creation_date");
 
                             // Afficher les informations de l'utilisateur dans les TextView correspondants
@@ -119,7 +173,6 @@ public class user extends AppCompatActivity {
                             textZip.setText("Code postal : " + zip_code);
                             textCountry.setText("Pays : " + country);
                             textPhone.setText("Téléphone : " + phone);
-                            textSubscription.setText("Abonnement : " + sub);
                             textCreateAccount.setText("Date de création : " + creation_date);
 
                         } catch (Throwable  e) {
