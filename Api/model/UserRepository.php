@@ -99,4 +99,10 @@ class UserRepository extends Database
         $stmt = $this->executeQuery($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getSubscription($id){
+        $query = "SELECT id_subscription FROM subscribe_to WHERE id_users = ?";
+        $stmt = $this->executeQuery($query, [$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

@@ -254,5 +254,15 @@ class UserRoutes
         JsonResponse::success($events);
     }
 
+    public function getSubscription ($id){
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserById($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        JsonResponse::success($subscription);
+    }
 
 }
