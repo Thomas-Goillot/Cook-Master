@@ -194,6 +194,7 @@ class CookLocation extends Controller
      */
     public function pay(): void
     {
+        ini_set('display_errors', 0);
         $params = $_GET['params'];
 
         if (count($params) === 0) {
@@ -203,7 +204,7 @@ class CookLocation extends Controller
 
         $this->loadModel('User');
 
-        $idLocation = (int) htmlspecialchars($params[0]);
+        $idLocation = (int) $params[0];
         $idUsers = $this->getUserId();
         $defaultFallBack = '../../cookLocation/cookLocationDisplay/' . $idLocation;
         $userEmail = $this->_model->getUserInfo($idUsers)['email'];
@@ -219,9 +220,7 @@ class CookLocation extends Controller
 
         $rentLocationInfo = $this->_model->getRentLocationInfo($idUsers, $idLocation);
 
-        
         list($start_rental, $end_rental) = explode(' - ', $rentLocationInfo['date_reservation']);
-
 
         $startTimestamp = strtotime(str_replace('/', '-', $rentLocationInfo['start_rental']));
         $endTimestamp = strtotime(str_replace('/', '-', $rentLocationInfo['end_rental']));
@@ -249,7 +248,7 @@ class CookLocation extends Controller
 
         $payment = new StripePayment(STRIPE_API_KEY);
 
-        $payment->startPayment($data, $userEmail, $this->activeSecurity("cookLocation/paySuccess", array("idRentLocation" => $rentLocationInfo['id_rent_location']))['url']); 
+        $payment->startPayment($data, $userEmail, $this->activeSecurity("cookLocation/paySuccess", array("idRentLocation" => $rentLocationInfo['id_rent_location']))['url'], $this->activeSecurity("cookLocation/cancel")['url']);
     }
 
 
