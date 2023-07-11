@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,8 @@ public class user extends AppCompatActivity {
 
     private ListView listView;
 
+    private Button buttonModify;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,12 @@ public class user extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         getcourses(userId);
+
+
+
+        buttonModify = findViewById(R.id.buttonModify);
+
+
     }
 
     private void userinfo(int userId) {

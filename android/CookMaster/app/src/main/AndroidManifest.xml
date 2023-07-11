@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".inscription"/>
         <activity android:name=".user"/>
+        <activity android:name=".edituser"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
