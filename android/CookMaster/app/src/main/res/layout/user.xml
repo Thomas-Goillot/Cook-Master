@@ -106,6 +106,20 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@color/white" />
+    
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCreateAccount"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Modifier"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:id="@+id/buttonModify"
+        android:onClick="onClickModify"/>
+
 
     <TextView
         android:id="@+id/titleCourses"
