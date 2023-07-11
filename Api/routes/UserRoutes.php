@@ -158,7 +158,7 @@ class UserRoutes
         
         $requestData = JsonRequest::getRequestBody();
 
-        $id = $requestData['id_users'] ?? null;
+        $id = $requestData['id'] ?? null;
 
         $name = $requestData['name'] ?? null;
 
