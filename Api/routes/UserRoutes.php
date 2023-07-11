@@ -19,7 +19,7 @@ class UserRoutes
         return $password;
     }
 
-    public function login($email, $password){
+    public function login(){
 
         $requestData = JsonRequest::getRequestBody();
 
@@ -154,8 +154,19 @@ class UserRoutes
         JsonResponse::success($courses);
     }
 
-    public function updateUser($id, $name, $surname, $email, $phone){
+    public function updateUser(){
         
+        $requestData = JsonRequest::getRequestBody();
+
+        $id = $requestData['id_users'] ?? null;
+
+        $name = $requestData['name'] ?? null;
+
+        $surname = $requestData['surname'] ?? null;
+
+        $email = $requestData['email'] ?? null;
+
+        $phone = $requestData['phone'] ?? null;
 
         if (!isset($name) || empty($name) || !isset($surname) || empty($surname) || !isset($email) || empty($email) || !isset($phone) || empty($phone)) {
             JsonResponse::error('Le nom, le prénom, l\'email, le téléphone et le mot de passe sont requis', 400);
@@ -195,9 +206,6 @@ class UserRoutes
     {
         $userRepository = new UserRepository();
 
-
-
-
         $shop = $userRepository->getShop();
         if (!$shop) {
             JsonResponse::error('La boutique est vide', 404);
@@ -223,6 +231,33 @@ class UserRoutes
         JsonResponse::success($events);
     }
 
+    public function getPastUserEvents($id)
+    {
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getPastUserEvents($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $events = $userRepository->getPastUserEvents($id);
+        if (!$events) {
+            JsonResponse::error('Vous n\'avez pas d\'évènements passés', 404);
+        }
+
+        JsonResponse::success($events);
+    }
+
+    public function getAllEvents(){
+        $userRepository = new UserRepository();
+
+        $events = $userRepository->getAllEvents();
+        if (!$events) {
+            JsonResponse::error('Il n\'y a pas d\'évènements', 404);
+        }
+
+        JsonResponse::success($events);
+    }
 
 
 }
