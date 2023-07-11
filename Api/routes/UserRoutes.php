@@ -172,11 +172,6 @@ class UserRoutes
             JsonResponse::error('Le nom, le prénom, l\'email, le téléphone et le mot de passe sont requis', 400);
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            JsonResponse::error('L\'email n\'est pas valide', 400);
-        }
-
-
         if(strlen($name) > 100){
             JsonResponse::error('Le nom ne doit pas dépasser 100 caractères', 400);
         }
