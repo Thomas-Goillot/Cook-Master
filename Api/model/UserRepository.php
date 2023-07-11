@@ -79,7 +79,7 @@ class UserRepository extends Database
     public function getShop(){
         $query = "SELECT * FROM equipment WHERE allow_purchase = 0";
         $stmt = $this->executeQuery($query);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getUserEvents($id){
