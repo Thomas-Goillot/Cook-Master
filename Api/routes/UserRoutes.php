@@ -206,6 +206,23 @@ class UserRoutes
         JsonResponse::success($shop);
     }
 
+    public function getUserEvents($id)
+    {
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserById($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $events = $userRepository->getUserEvents($id);
+        if (!$events) {
+            JsonResponse::error('Vous n\'avez pas d\'évènements à venir', 404);
+        }
+
+        JsonResponse::success($events);
+    }
+
 
 
 }

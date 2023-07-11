@@ -38,6 +38,7 @@ $router->addRoute('GET', '/course/{id}', [$userController, 'getUserCourses'], $a
 
 
 $router->addRoute('GET', '/shop', [$userController, 'getShop'], $authMiddleware);
+$router->addRoute('GET', '/events/{id}', [$userController, 'getUserEvents'], $authMiddleware);
 
 
 // Récupérez la méthode HTTP et l'URI de la requête entrante (supposons qu'ils soient dans des variables $method et $uri)

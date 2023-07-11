@@ -81,4 +81,10 @@ class UserRepository extends Database
         $stmt = $this->executeQuery($query);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getUserEvents($id){
+        $query = "SELECT * FROM event WHERE id_users = ?";
+        $stmt = $this->executeQuery($query, [$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
