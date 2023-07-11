@@ -83,7 +83,7 @@ class UserRepository extends Database
     }
 
     public function getUserEvents($id){
-        $query = "SELECT * FROM event WHERE id_users = ?";
+        $query = "SELECT * FROM event WHERE id_users = ? AND date_start > NOW()";
         $stmt = $this->executeQuery($query, [$id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
