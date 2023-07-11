@@ -76,6 +76,15 @@ public class user extends AppCompatActivity {
 
         buttonModify = findViewById(R.id.buttonModify);
 
+        buttonModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(user.this, edituser.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

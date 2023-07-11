@@ -117,8 +117,7 @@
         android:textSize="14sp"
         android:textColor="@color/white"
         android:id="@+id/buttonModify"
-        android:background="@color/red"
-        android:onClick="onClickModify"/>
+        android:background="@color/red" />
 
 
     <TextView

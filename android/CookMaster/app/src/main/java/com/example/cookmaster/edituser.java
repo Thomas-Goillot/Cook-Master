@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 public class edituser extends AppCompatActivity {
 
-    private EditText name, surname, email, password, phone;
+    private EditText name, surname, email, phone;
 
     private Button buttonEdit;
 
@@ -34,15 +34,17 @@ public class edituser extends AppCompatActivity {
         name = findViewById(R.id.editTextName);
         surname = findViewById(R.id.editTextSurname);
         email = findViewById(R.id.editTextMail);
-        password = findViewById(R.id.editTextPassword);
         phone = findViewById(R.id.editTextPhone);
 
         buttonEdit = findViewById(R.id.buttonEdit);
 
+        int userId = getIntent().getIntExtra("userId", 0);
+
         buttonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edituser(name, surname, email, password, phone);
+
+                edituser(userId,name, surname, email, phone);
             }
         });
 
@@ -51,25 +53,25 @@ public class edituser extends AppCompatActivity {
     }
 
 
-    private void edituser(EditText name, EditText surname, EditText email, EditText password, EditText phone) {
+    private void edituser(Integer userId, EditText name, EditText surname, EditText email, EditText phone) {
         String url = "https://api.cookmaster.ovh/users/";
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JSONObject requestData = new JSONObject();
         try {
-            requestData.put("name", name);
-            requestData.put("surname", surname);
-            requestData.put("email", email);
-            requestData.put("password", password);
-            requestData.put("phone", phone);
+            requestData.put("id", userId);
+            requestData.put("name", name.getText().toString());
+            requestData.put("surname", surname.getText().toString());
+            requestData.put("email", email.getText().toString());
+            requestData.put("phone", phone.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(edituser.this, "Erreur lors de l'inscription", Toast.LENGTH_SHORT).show();
+            Toast.makeText(edituser.this, "Erreur lors de la modification", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, requestData,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, url, requestData,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -79,6 +81,7 @@ public class edituser extends AppCompatActivity {
                             if (success) {
                                 Intent intent = new Intent(edituser.this, MainActivity.class);
                                 startActivity(intent);
+                                Toast.makeText(edituser.this, "Utilisateur modifié avec succès", Toast.LENGTH_SHORT).show();
 
                             } else {
                                 JSONObject errorObject = response.getJSONObject("error");
