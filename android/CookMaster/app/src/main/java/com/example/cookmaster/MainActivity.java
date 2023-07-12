@@ -3,10 +3,14 @@ package com.example.cookmaster;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,10 +40,19 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String Error_Detected = "No NFC Tag Detected";
+    public static final String Write_Success = "Text Written Successfully";
+    public static final String Write_Error = "Error during writing, is the NFC tag close enough to your device?";
+    NfcAdapter nfcAdapter;
+    PendingIntent pendingIntent;
+    IntentFilter writingTagFilters;
+    boolean writeMode;
+    Tag myTag;
+    Context context;
+
     private EditText emailEditText, passwordEditText;
     private Button connectButton;
     private Button inscriptionButton;
-    private ListView ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password);
         connectButton = findViewById(R.id.login);
         inscriptionButton = findViewById(R.id.inscriptionButton);
-
-
 
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +82,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void performLogin(String enteredEmail, String enteredPassword) {
         String url = "https://api.cookmaster.ovh/login";

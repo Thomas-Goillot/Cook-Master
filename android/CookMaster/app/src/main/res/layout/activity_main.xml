@@ -98,6 +98,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +128,20 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/activateButton"
                 android:textColor="@color/white"
-                android:id="@+id/nfc_content"></TextView>
+                android:id="@+id/nfc_contents"></TextView>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             <com.google.android.gms.ads.AdView
