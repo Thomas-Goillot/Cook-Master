@@ -17,7 +17,7 @@
                                                 <div class="carousel-inner" role="listbox">
                                                     <div class="carousel-item active">
                                                         <a href="'. $path_prefix.'EventsPresentation/EventDisplay/'.$info['id_event'].'" >
-                                                            <img src="' . $path_prefix  . 'assets/images/events/' . $info['image'] . '" class="img-thumbnail sombre">
+                                                            <img src="' . $path_prefix  . 'assets/images/event/' . $info['image'] . '" class="img-thumbnail sombre">
                                                             <div class="carousel-caption">
                                                                 <h3 class="text-white">' . $info['name'] . '</h3>
                                                                 <p>' . $info['slug'] . '</p>

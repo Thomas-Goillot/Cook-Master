@@ -9,7 +9,7 @@ echo '
     <div class="card card-animate">
       <div class="card-body">
         <div class="position-relative">
-            <img src="' . $path_prefix  . 'assets/images/events/' . $event['image'] . '" class="img-thumbnail">
+            <img src="' . $path_prefix  . 'assets/images/event/' . $event['image'] . '" class="img-thumbnail">
             <div class="overlay"></div>
             <div class="caption">
             <h1 class="text-white">' . $event['name'] . '</h1>

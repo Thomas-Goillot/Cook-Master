@@ -103,6 +103,12 @@ class Events extends Controller
                 exit();
             }
 
+            if(strlen($EventSlug) >= 50){
+                $this->setError("Echéc de l\'ajout","Le slug de l\'évènement ne doit pas dépasser 50 caractères", ERROR_ALERT);
+                $this->redirect($defaultFallBack);
+                exit();
+            }
+
             $EventDate = explode('-', $EventDate);
             $EventDate['start'] = $EventDate[0];
             $EventDate['end'] = $EventDate[1];

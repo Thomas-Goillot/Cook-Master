@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <label data-translation-key="Label"></label>
-                <textarea id="EventDescription" name="EventSlug" class="form-control" maxlength="500" rows="4" placeholder="Courte description de présentation"></textarea>
+                <textarea id="EventSlug" name="EventSlug" class="form-control" maxlength="500" rows="4" placeholder="Courte description de présentation"></textarea>
             </div>
 
             <div class="form-group">
