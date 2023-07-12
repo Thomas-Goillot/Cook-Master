@@ -3,6 +3,12 @@ include_once('views/layout/dashboard/path.php');
 ?>
 
 <?php
+if(empty($certificates)){
+    echo '<div class="alert alert-info" role="alert">
+            Vous n\'avez pas encore de certificat
+        </div>';
+}
+
 foreach ($certificates as $certificate) : ?>
 
     <div class="card">

@@ -56,8 +56,10 @@ class UserSubscription extends Controller
 
         $subscriptionInfo = $this->_model->getAllSubscriptionInfoById($idSubscription)[0];
 
-
-            
+        if(!$subscriptionInfo['price_monthly'] && !$subscriptionInfo['price_yearly']){
+            $this->setError("Trop bien !", "Cet abonnement est gratuit par conséquent vous n\'avez pas besoin de vous abonner", INFO_ALERT);
+            $this->redirect('../UserSubscription/information');
+        }
 
         $page_name = array("Abonnements" => $this->default_path, "Fréquence d'abonnement" => "UserSubscription/frequency");
 

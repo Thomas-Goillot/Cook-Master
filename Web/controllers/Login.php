@@ -131,7 +131,7 @@ class Login extends Controller{
 
             $body = str_replace('___ip___', $userIp, $body);
 
-            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . Utils::crypt($idUserIp), $body);
+            $body = str_replace('___validationLink___', $this->getDomainName() . 'login/validate/' . $idUserIp, $body);
 
             $images = [
                 'assets/images/logo.png' => 'logo',
@@ -197,7 +197,7 @@ class Login extends Controller{
             return;
         }
 
-        $idIp = Utils::decrypt($params[0]);
+        $idIp = $params[0];
 
         if(!is_numeric($idIp)){
             $this->redirect('../Home');

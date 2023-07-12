@@ -358,3 +358,5 @@ vendor/
 Web/config/.env
 
 .vscode/extensions.json
+
+android/CookMaster/.idea/

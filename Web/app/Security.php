@@ -235,8 +235,8 @@ abstract class Security
             return true; // == first connection
         }
 
-        for($i = 0; $i < count($user); $i++){
-            if($user[$i]['ip'] === $ip){
+        foreach($user as $u){
+            if($u['ip'] === $ip){
                 return true;
             }
         }

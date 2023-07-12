@@ -80,8 +80,6 @@ class Moderation extends Controller
 
         $id = $_POST['WordId'];
 
-        var_dump($id);
-
         $res = $this->_model->deleteSwearWord($id);
 
         if ($res === false) {

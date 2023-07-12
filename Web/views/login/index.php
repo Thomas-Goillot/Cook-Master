@@ -17,7 +17,7 @@
                                         echo '<div class="alert alert-danger" role="alert">' . $error . '</div>';
                                     }
                                     ?>
-                                    <form action="login" method="POST" class="p-2">
+                                    <form action="login" method="POST" class="p-2" id="demo-form">
                                         <div class="form-group">
                                             <label for="email">Addresse mail</label>
                                             <input class="form-control" type="email" id="email" name="email" required="" placeholder="john@deo.com" autocomplete="email">
@@ -25,17 +25,18 @@
                                         <div class="form-group">
                                             <a href="resetting/password" class="text-muted float-right">Mot de passe oublié ?</a>
                                             <label for="password">Mot de passe</label>
-                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter un mot de passe" autocomplete="current-password"> </div>
+                                            <input class="form-control" type="password" required="" id="password" name="password" placeholder="Enter un mot de passe" autocomplete="current-password">
+                                        </div>
 
-                                            <div class="form-group mb-4 pb-3">
-                                                <div class="custom-control custom-checkbox checkbox-primary">
-                                                    <input type="checkbox" class="custom-control-input" id="checkbox-signin" name="checkbox-signin">
-                                                    <label class="custom-control-label" for="checkbox-signin">Se souvenir de moi</label>
-                                                </div>
+                                        <div class="form-group mb-4 pb-3">
+                                            <div class="custom-control custom-checkbox checkbox-primary">
+                                                <input type="checkbox" class="custom-control-input" id="checkbox-signin" name="checkbox-signin">
+                                                <label class="custom-control-label" for="checkbox-signin">Se souvenir de moi</label>
                                             </div>
-                                            <div class="mb-3 text-center">
-                                                <button class="btn btn-primary btn-block" type="submit"> Connexion </button>
-                                            </div>
+                                        </div>
+                                        <div class="mb-3 text-center">
+                                            <button class="btn btn-primary btn-block g-recaptcha" data-sitekey="6LcM3RonAAAAAAuLGFjIrSMzp-bxUDT7st2wulDc" data-callback='onSubmit' data-action='submit' type="submit"> Connexion </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -53,3 +54,9 @@
         </div>
     </div>
 </div>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("demo-form").submit();
+    }
+</script>

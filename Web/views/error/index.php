@@ -23,7 +23,7 @@
                                     </div>
 
                                     <div class="mb-3 mt-4 text-center">
-                                        <a href="home" class="btn btn-primary btn-block">Back to Home</a>
+                                        <a href="<?=$path_prefix?>home" class="btn btn-primary btn-block">Back to Home</a>
                                     </div>
                                 </div>
                             </div>
