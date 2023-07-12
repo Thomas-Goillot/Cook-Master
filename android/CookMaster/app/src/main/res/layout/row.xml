@@ -80,9 +80,4 @@
         android:id="@+id/tv_statut"
         android:textColor="@color/white"/>
 
-
-
-
-
-
 </LinearLayout>

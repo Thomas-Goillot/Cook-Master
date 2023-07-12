@@ -110,15 +110,28 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textCreateAccount"
+        android:layout_above="@id/shop"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Modifier"
         android:textSize="14sp"
         android:textColor="@color/white"
         android:id="@+id/buttonModify"
-        android:background="@color/red" />
+        android:background="@color/red"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCreateAccount"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Boutique "
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:id="@+id/shop"
+        android:background="@color/red"/>
 
     <TextView
         android:id="@+id/titleCourses"
