@@ -1,13 +1,15 @@
 package com.example.cookmaster;
 
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,31 +20,61 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shop extends AppCompatActivity {
-
+public class Events extends AppCompatActivity {
     private ListView listViewShop;
-    private Button panier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop);
+        setContentView(R.layout.activity_events);
 
         listViewShop = findViewById(R.id.listViewShop);
-        panier = findViewById(R.id.panier);
 
         getShop();
+
+        listViewShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EventItem currentItem = (EventItem) parent.getItemAtPosition(position);
+                String name = currentItem.getName();
+                String price = currentItem.getPrice();
+                String date = currentItem.getDate();
+
+                String message = name + "sélectionné";
+
+                new AlertDialog.Builder(Events.this)
+                        .setTitle(message)
+                        .setMessage("Prix : " + price + " euros \nDate : " + date)
+                        .setPositiveButton("Acheter", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("Events", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                editor.putString("name", name);
+                                editor.putString("price", price);
+                                editor.putString("date", date);
+                                editor.apply();
+
+                                //METTRE LA REDIRECTION ICI
+                            }
+                        })
+                        .setNegativeButton("Annuler", null)
+                        .show();
+
+
+            }
+        });
     }
 
     private void getShop() {
-        String url = "https://api.cookmaster.ovh/shop";
+        String url = "https://api.cookmaster.ovh/events";
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -55,16 +87,14 @@ public class Shop extends AppCompatActivity {
 
                             List<ShopItem> shopList = new ArrayList<>();
 
-                            // Récupérer les informations du shopObject et créer un objet ShopItem
                             String name = shopObject.getString("name");
                             String price = shopObject.getString("price_purchase");
-                            String image = shopObject.getString("image");
-                            ShopItem currentShop = new ShopItem(name, price, image);
+                            String date = shopObject.getString("date");
+                            ShopItem currentShop = new ShopItem(name, price, date);
 
                             shopList.add(currentShop);
 
-                            // Créer l'adaptateur et l'associer à la ListView
-                            ShopAdapter adapter = new ShopAdapter(shopList, Shop.this);
+                            ShopAdapter adapter = new ShopAdapter(shopList, Events.this);
                             listViewShop.setAdapter(adapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

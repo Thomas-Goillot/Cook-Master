@@ -50,6 +50,7 @@ public class user extends AppCompatActivity {
     private ListView listView;
     private Button buttonModify;
     private Button shop;
+    private Button events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class user extends AppCompatActivity {
         textSubscription = findViewById(R.id.textSubscription);
         textCreateAccount = findViewById(R.id.textCreateAccount);
         shop = findViewById(R.id.shop);
+        events = findViewById(R.id.events);
 
 
         listView = findViewById(R.id.listView);
@@ -94,6 +96,15 @@ public class user extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(user.this, Shop.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
+        events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(user.this, Events.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
             }
