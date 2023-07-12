@@ -105,4 +105,42 @@ class UserRepository extends Database
         $stmt = $this->executeQuery($query, [$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getCartUser($id){
+        $query = "SELECT id_shopping_cart FROM shopping_cart WHERE id_users = ? AND id_command_status =  1";
+        $stmt = $this->executeQuery($query, [$id]);
+        
+        if($stmt->rowCount() == 0){
+            $query = "INSERT INTO shopping_cart (id_users, id_command_status) VALUES (?, 1)";
+            $stmt = $this->executeQuery($query, [$id]);
+            $query = "SELECT id_shopping_cart FROM shopping_cart WHERE id_users = ? AND id_command_status =  1";
+            $stmt = $this->executeQuery($query, [$id]);
+        }
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function addProductToCart($id, $id_product, $quantity){
+        $query = "SELECT * FROM contains WHERE id_equipment = ? AND id_shopping_cart = ?";
+        $stmt = $this->executeQuery($query, [$id, $id_product]);
+        
+        if($stmt->rowCount() == 1){
+            $query = "UPDATE contains SET quantity = quantity + ? WHERE id_equipment = ? AND id_shopping_cart = ?";
+            $stmt = $this->executeQuery($query, [$quantity, $id_product, $id]); 
+        }else{
+            $query = "INSERT INTO contains (id_equipment, id_shopping_cart, quantity) VALUES (?, ?, ?)";
+            $stmt = $this->executeQuery($query, [$id_product, $id, $quantity]);
+        }
+    }
+
+    public function getAllProductsOfCart($id){
+        $query = "SELECT * FROM contains WHERE id_shopping_cart = ?";
+        $stmt = $this->executeQuery($query, [$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteProductOfCart($id, $id_product){
+        $query = "DELETE FROM contains WHERE id_equipment = ? AND id_shopping_cart = ?";
+        $stmt = $this->executeQuery($query, [$id_product, $id]);
+    }
 }

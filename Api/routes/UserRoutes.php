@@ -268,4 +268,71 @@ class UserRoutes
         JsonResponse::success($sub);
     }
 
+    public function getCartUser($id){
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserById($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $cart = $userRepository->getCartUser($id);
+
+        JsonResponse::success($cart);
+    }
+
+    public function addProductToCart(){
+        $requestData = JsonRequest::getRequestBody();
+
+        $id = $requestData['id'] ?? null;
+
+        $id_product = $requestData['id_product'] ?? null;
+
+        $quantity = $requestData['quantity'] ?? null;
+
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getCartUser($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $cart = $userRepository->addProductToCart($user, $id_product, $quantity);
+
+        JsonResponse::success("Le produit a bien été ajouté au panier");
+    }
+
+    public function getAllProductsOfCart($id){
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getUserById($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $id_cart = $userRepository->getCartUser($id);
+
+        $cart = $userRepository->getAllProductsOfCart($id_cart);
+
+        JsonResponse::success($cart);
+    }
+
+    public function deleteProductOfCart(){
+        $requestData = JsonRequest::getRequestBody();
+
+        $id = $requestData['id'] ?? null;
+
+        $id_product = $requestData['id_product'] ?? null;
+
+        $userRepository = new UserRepository();
+
+        $user = $userRepository->getCartUser($id);
+        if (!$user) {
+            JsonResponse::error('Utilisateur non trouvé', 404);
+        }
+
+        $cart = $userRepository->deleteProductOfCart($user, $id_product);
+
+        JsonResponse::success("Le produit a bien été supprimé du panier");
+    }
 }

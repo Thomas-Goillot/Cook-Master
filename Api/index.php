@@ -43,6 +43,11 @@ $router->addRoute('GET', '/pastevents/{id}', [$userController, 'getPastUserEvent
 $router->addRoute('GET', '/events', [$userController, 'getAllEvents'], $authMiddleware);
 $router->addRoute('GET', '/sub/{id}', [$userController, 'getSubscription'], $authMiddleware);
 
+$router->addRoute('GET', '/cart/{id}', [$userController, 'getCartUser'], $authMiddleware);
+$router->addRoute('POST', '/cart/add', [$userController, 'addProductToCart'], $authMiddleware);
+$router->addRoute('GET', '/cart/product/{id}', [$userController, 'getAllProductsOfCart'], $authMiddleware);
+$router->addRoute('POST', '/cart/delete', [$userController, 'deleteProductOfCart'], $authMiddleware);
+
 
 // Récupérez la méthode HTTP et l'URI de la requête entrante (supposons qu'ils soient dans des variables $method et $uri)
 $method = $_SERVER['REQUEST_METHOD'];
