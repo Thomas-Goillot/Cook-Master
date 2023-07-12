@@ -5,11 +5,6 @@ public class ShopItem {
     private String price;
     private String image;
 
-    public ShopItem(String name, String price, String image) {
-        this.name = name;
-        this.price = price;
-        this.image = image;
-    }
 
     public String getName() {
         return this.name;
@@ -21,5 +16,11 @@ public class ShopItem {
 
     public String getImage() {
         return this.image;
+    }
+
+    public ShopItem(String name, String price, String image) {
+        this.name = name;
+        this.price = price;
+        this.image = image;
     }
 }

@@ -4,16 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg">
 
-    <TextView
-        android:id="@+id/titleInformation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text="La Boutique"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        android:textColor="@color/white"/>
+
 
     <Button
         android:layout_width="match_parent"
@@ -27,6 +18,17 @@
         android:textColor="@color/white"
         android:id="@+id/panier"
         android:background="@color/red"/>
+
+    <TextView
+        android:id="@+id/titleInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:text="La Boutique"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        android:textColor="@color/white"/>
 
 
     <ListView
