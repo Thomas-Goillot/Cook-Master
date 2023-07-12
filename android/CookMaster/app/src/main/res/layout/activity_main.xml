@@ -92,7 +92,36 @@
                     android:textColor="#FFFFFF" />
 
 
+
+
             </LinearLayout>
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:id="@+id/edit_message"></EditText>
+
+
+            <Button
+                android:id="@+id/activateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_message"
+                android:backgroundTint="@color/red"
+                android:text="Update NFC"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activateButton"
+                android:textColor="@color/white"
+                android:id="@+id/nfc_content"></TextView>
+
+
             <com.google.android.gms.ads.AdView
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
@@ -105,6 +134,7 @@
             </com.google.android.gms.ads.AdView>
 
     </RelativeLayout>
+
 
 
     <TextView
