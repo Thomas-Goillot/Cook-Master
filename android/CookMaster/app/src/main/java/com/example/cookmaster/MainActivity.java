@@ -52,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
         inscriptionButton = findViewById(R.id.inscriptionButton);
 
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
 
         connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
